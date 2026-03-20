@@ -15,7 +15,22 @@ Baseline Next.js App Router project for the Living Brand Book implementation.
 ## Baseline Route Behavior
 
 - `/` redirects to `/het-merk`
-- `/het-merk` currently serves as a baseline placeholder page for upcoming tasks
+- `/het-merk` bevat nu route- en sectie-structuur voor de app-shell
+- `/design-system` is toegevoegd als placeholder route met sectie-ankers
+
+## App Shell Navigation And Toggles (Task 03)
+
+- Globale layout bevat:
+	- sticky hoofdnavigatie met links naar `/het-merk` en `/design-system`
+	- route-specifieke subnavigatie met anchorlinks naar secties op de actieve pagina
+	- twee aparte toggles:
+		- dark mode (`Schakel dark mode`)
+		- pixel-modus (`Schakel pixel modus`)
+- Dark mode en pixel-modus functioneren onafhankelijk van elkaar.
+- Beide toggle-states worden client-side bijgehouden via `UiModeProvider` en bewaard in `localStorage`.
+- De provider zet globale HTML-datasets:
+	- `data-theme="light|dark"`
+	- `data-pixel-mode="off|on"`
 
 ## Installed Baseline Dependencies
 

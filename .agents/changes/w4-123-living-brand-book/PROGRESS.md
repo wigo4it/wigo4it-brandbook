@@ -24,9 +24,9 @@
 |------|-------|--------|-----------------|
 | 01 | Bootstrap nieuwe Next.js app en baseline | ✅ Completed | Baseline app bootstrapped, redirect implemented, preflight passed |
 | 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Re-review passed: previous font-loading blocker fixed (`next/font/local` in layout), preflight passed |
-| 03 | Layout, navigatie, subnavigatie en toggles | ⬜ Not Started | Reset after failed run |
+| 03 | Layout, navigatie, subnavigatie en toggles | ✅ Completed | App shell met hoofdnav/subnav + onafhankelijke toggles, tests en preflight geslaagd |
 
-**Phase Status**: 🔄 In Progress
+**Phase Status**: ✅ Completed
 
 ### Phase 2: Brand Experience Pages
 
@@ -61,10 +61,10 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 2
+- **Completed**: 3
 - **Incomplete**: 0
 - **In Progress**: 0
-- **Remaining**: 5
+- **Remaining**: 4
 
 ---
 
@@ -72,7 +72,7 @@
 
 | Phase | Completed | Phase Inspector Report | Validated By | Validation Date | Status |
 |-------|-----------|------------------------|--------------|-----------------|--------|
-| Phase 1 | ⬜ | (pending) | (pending) | (pending) | Not Started |
+| Phase 1 | ✅ | Task 03 afgerond; layout/nav/toggles + tests + preflight geslaagd | GitHub Copilot | 2026-03-20 | Completed |
 | Phase 2 | ⬜ | (pending) | (pending) | (pending) | Not Started |
 | Phase 3 | ⬜ | (pending) | (pending) | (pending) | Not Started |
 
@@ -91,3 +91,5 @@
 | 2026-03-20 | 02 | Task rework started | GitHub Copilot | Set Task 02 to In Progress for inspector feedback fix cycle |
 | 2026-03-20 | 02 | Task rework completed | GitHub Copilot | Replaced Geist with local brand fonts via `next/font/local`, removed legacy `@font-face`, reran preflight successfully |
 | 2026-03-20 | 02 | Task re-review completed | GitHub Copilot (Inspector) | Verified blocker fix in layout font pipeline, reran preflight, and approved Task 02 as completed |
+| 2026-03-20 | 03 | Task started | GitHub Copilot | Set Task 03 to In Progress and started app shell/navigation/toggles implementation |
+| 2026-03-20 | 03 | Task completed | GitHub Copilot | Implemented modern app shell with main/sub navigation and independent dark/pixel toggles, added layout navigation tests, and passed preflight |
