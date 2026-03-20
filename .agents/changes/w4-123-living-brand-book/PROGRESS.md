@@ -14,7 +14,7 @@
 
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
-| 01 | Bootstrap nieuwe Next.js app en baseline | ✅ Completed | Baseline gevalideerd: App Router bootstrap, route redirect vanaf `/`, scripts aanwezig en preflight geslaagd. |
+| 01 | Bootstrap nieuwe Next.js app en baseline | 🔄 In Progress | |
 | 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Inspector re-review bevestigd: runtime font-loading via next/font/local actief, tokenkoppeling aanwezig, assets/fonts aanwezig en preflight geslaagd. |
 | 03 | Layout, navigatie, subnavigatie en toggles | ⬜ Not Started | |
 
@@ -53,9 +53,9 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 2
+- **Completed**: 1
 - **Incomplete**: 0
-- **In Progress**: 0
+- **In Progress**: 1
 - **Remaining**: 5
 
 ---
@@ -82,4 +82,3 @@
 | 2026-03-20 | 02 | Rework started | GitHub Copilot | Task 02 teruggezet naar In Progress voor runtime font-loading fix |
 | 2026-03-20 | 02 | Rework completed | GitHub Copilot | next/font/local geconfigureerd in layout, tokens gekoppeld in globals.css, runtime-verificatietest toegevoegd en preflight geslaagd |
 | 2026-03-20 | 02 | Inspection confirmed complete | GitHub Copilot | Re-review akkoord: acceptatiecriteria en eerdere inspectorfeedback volledig afgedekt |
-| 2026-03-20 | 01 | Completed implementation | GitHub Copilot | Bootstrap-baseline bevestigd inclusief redirect, scripts en preflight-validatie |
