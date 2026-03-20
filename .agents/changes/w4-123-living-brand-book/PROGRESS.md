@@ -5,7 +5,7 @@
 **Last Updated**: 2026-03-20
 **HITL Mode**: false
 **Current Phase**: Phase 3
-**Run Status**: ✅ Phase 2 validated; preflight passed (2026-03-20)
+**Run Status**: ✅ Task 06 completed; preflight passed (2026-03-20)
 
 ---
 
@@ -41,10 +41,10 @@
 
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
-| 06 | Testen, README, hardening en acceptatiecheck | ⬜ Not Started | |
+| 06 | Testen, README, hardening en acceptatiecheck | ✅ Completed | Redirect- en mode-onafhankelijkheid testdekking bevestigd; README geactualiseerd incl. open logo-ratio TODO; preflight geslaagd |
 | 07 | Wrap-up, commit message en GitLab MR artifacts | ⬜ Not Started | |
 
-**Phase Status**: ⬜ Not Started
+**Phase Status**: 🔄 In Progress
 
 ---
 
@@ -61,10 +61,10 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 5
+- **Completed**: 6
 - **Incomplete**: 0
 - **In Progress**: 0
-- **Remaining**: 2
+- **Remaining**: 1
 
 ---
 
@@ -106,3 +106,5 @@
 | 2026-03-20 | 05 | Task re-review completed | GitHub Copilot (Inspector) | Verified required feedback-on-copy test coverage is now present in both component tests; preflight remains green |
 | 2026-03-20 | 05 | Task re-review completed | GitHub Copilot (Inspector) | Re-verified all Task 05 acceptance criteria and prior feedback against coder commit `4c35821c78dd389f1a826c3ce7732aea0d4da514`; preflight green |
 | 2026-03-20 | Phase 2 | Phase validated | GitHub Copilot (Phase Inspector) | Validated Tasks 04-05 against spec/plan/taskfiles, reran preflight, confirmed integration across `/het-merk` + `/design-system` and shared layout/subnav/toggles, and marked READY FOR NEXT PHASE |
+| 2026-03-20 | 06 | Task started | GitHub Copilot | Set Task 06 to In Progress and started QA hardening scope for tests and README |
+| 2026-03-20 | 06 | Task completed | GitHub Copilot | Added `/` redirect coverage in layout/navigation suite, hardened README with install/scripts/routes/modes/design direction, documented explicit logo-ratio TODO, and passed preflight |

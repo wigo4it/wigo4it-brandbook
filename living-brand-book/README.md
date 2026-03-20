@@ -1,84 +1,74 @@
 # Living Brand Book (Wigo4it)
 
-Baseline Next.js App Router project for the Living Brand Book implementation.
+Interactieve Living Brand Book app gebouwd met Next.js App Router, Tailwind CSS v4 (CSS-first `@theme`) en Framer Motion.
 
-## Scripts
+## Installatie
 
-- `npm run dev`: start local development server
-- `npm run build`: production build
-- `npm run start`: run production server
-- `npm run lint`: run ESLint
-- `npm run typecheck`: run TypeScript checks
-- `npm run test`: run Vitest test runner (pass when no tests exist yet)
-- `npm run preflight`: lint + typecheck + test
+1. Installeer dependencies:
 
-## Baseline Route Behavior
+```bash
+npm install
+```
 
-- `/` redirects to `/het-merk`
-- `/het-merk` bevat nu route- en sectie-structuur voor de app-shell
-- `/design-system` is toegevoegd als placeholder route met sectie-ankers
+2. Start de ontwikkelserver:
 
-## App Shell Navigation And Toggles (Task 03)
+```bash
+npm run dev
+```
 
-- Globale layout bevat:
-	- sticky hoofdnavigatie met links naar `/het-merk` en `/design-system`
-	- route-specifieke subnavigatie met anchorlinks naar secties op de actieve pagina
-	- twee aparte toggles:
-		- dark mode (`Schakel dark mode`)
-		- pixel-modus (`Schakel pixel modus`)
-- Dark mode en pixel-modus functioneren onafhankelijk van elkaar.
-- Beide toggle-states worden client-side bijgehouden via `UiModeProvider` en bewaard in `localStorage`.
-- De provider zet globale HTML-datasets:
-	- `data-theme="light|dark"`
-	- `data-pixel-mode="off|on"`
+3. Open de app op de lokale URL die Next.js toont in de terminal.
 
-## Installed Baseline Dependencies
+## Beschikbare scripts
 
-- Next.js App Router + TypeScript
-- Tailwind CSS v4 packages (setup in following task)
-- Framer Motion
-- Vitest + Testing Library + jsdom
+- `npm run dev`: start lokale development server
+- `npm run build`: maak production build
+- `npm run start`: start production server
+- `npm run lint`: draai ESLint
+- `npm run typecheck`: draai TypeScript typecheck
+- `npm run test`: draai Vitest componenttests
+- `npm run preflight`: volledige kwaliteitsgate (`lint + typecheck + test`)
 
-## Theme And Tokens (Task 02)
+## Route-overzicht
 
-- Tailwind v4 CSS-first theme tokens are defined in `app/globals.css` using `@theme`.
-- Included color tokens:
-	- `dark-blue` (`#434d8e`)
-	- `aubergine` (`#362c46`)
-	- `dark-green` (`#005351`)
-	- `light-green` (`#63cf92`)
-	- `soft-yellow` (`#e9eb86`)
-	- `bright-red` (`#f56e6d`)
-	- `bright-pink` (`#bb55a9`)
-	- `light-grey` (`#cfd6cc`)
-- Utility classes added for:
-	- blueprint grid overlay: `.w4-blueprint-overlay`
-	- heavy borders: `.w4-heavy-border`, `.w4-heavy-border-strong`
-	- bento layout grid: `.w4-bento-grid` (+ span helpers)
+- `/`: redirect naar `/het-merk`
+- `/het-merk`: merkidentiteit, missie/visie, merkwaarden, tone-of-voice en gallery placeholder
+- `/design-system`: kleurtokens, typografie en component snippets
 
-## Fonts Source And Placement
+## Navigatie en modi
 
-Fonts are physically copied into this app under `public/fonts` and loaded via `next/font/local` in `app/layout.tsx`.
+- Hoofdnavigatie bevat links naar `/het-merk` en `/design-system`.
+- Subnavigatie toont sectie-ankers per actieve route.
+- Twee onafhankelijke UI-toggles:
+  - dark mode (`Schakel dark mode`)
+  - pixel-modus (`Schakel pixel modus`)
+- State-opslag gebeurt client-side via `UiModeProvider` in `localStorage`.
+- De app zet globale datasets op `html`:
+  - `data-theme="light|dark"`
+  - `data-pixel-mode="off|on"`
 
-- Source folder: `../Fonts/PP Neue Machina`
-	- copied to: `public/fonts/neue-machina/`
-	- files:
-		- `PPNeueMachina-PlainLight.ttf`
-		- `PPNeueMachina-PlainRegular.ttf`
-		- `PPNeueMachina-PlainMedium.ttf`
-		- `PPNeueMachina-PlainSemibold.ttf`
-		- `PPNeueMachina-PlainBold.ttf`
-- Source folder: `../Fonts/Raleway`
-	- copied to: `public/fonts/raleway/`
-	- files:
-		- `Raleway-Light.ttf`
-		- `Raleway-Regular.ttf`
-		- `Raleway-Bold.ttf`
+## Designrichting samenvatting
 
-## Brand Assets Source And Placement
+De visuele richting volgt "Modern, Geeky, Bold":
 
-The required logo, icon and shape assets are copied from the repository root into this app:
+- blueprint grid overlay als subtiele technische laag
+- zware borders en duidelijke bento-layouts
+- grote typografische hiërarchie met merkfonts
+- pixel-art invloeden als aparte interne branding-modus
+- professioneel en toegankelijk karakter in copy en interacties
 
-- source: `../img/logo` -> target: `public/img/logo`
-- source: `../img/icons` -> target: `public/img/icons`
-- source: `../img/shapes` -> target: `public/img/shapes`
+## Fonts en assets
+
+- Fonts zijn lokaal opgenomen in `public/fonts` en geladen via `next/font/local` in `app/layout.tsx`.
+- Merkassets zijn beschikbaar in `public/img/logo`, `public/img/icons` en `public/img/shapes`.
+
+## Kwaliteit en testscope
+
+Deze app gebruikt testscope optie 1:
+
+- lint
+- typecheck
+- beperkte componenttests voor kerninteracties (navigatie/modi/copyflows)
+
+## Open TODO
+
+- TODO: Bevestig exacte ratio voor logo-veiligheidsmarge op basis van de letter "T" uit de merkgids-PDF en vervang daarna de tijdelijke beschrijving in documentatie/componentcopy door de definitieve ratio.

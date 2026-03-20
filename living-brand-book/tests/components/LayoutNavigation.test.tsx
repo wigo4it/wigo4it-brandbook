@@ -9,9 +9,11 @@ import { PixelModeToggle } from "../../components/ui/PixelModeToggle";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
 
 const mockedUsePathname = vi.fn(() => "/het-merk");
+const mockedRedirect = vi.fn();
 
 vi.mock("next/navigation", () => ({
   usePathname: () => mockedUsePathname(),
+  redirect: (...args: unknown[]) => mockedRedirect(...args),
 }));
 
 vi.mock("next/link", () => ({
@@ -25,7 +27,16 @@ vi.mock("next/link", () => ({
 describe("Layout navigation", () => {
   beforeEach(() => {
     mockedUsePathname.mockReset();
+    mockedRedirect.mockReset();
     window.localStorage.clear();
+  });
+
+  it("redirects root route naar /het-merk", async () => {
+    const { default: Home } = await import("../../app/page");
+
+    Home();
+
+    expect(mockedRedirect).toHaveBeenCalledWith("/het-merk");
   });
 
   it("renders hoofdroute-links", () => {
