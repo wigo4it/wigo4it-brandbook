@@ -32,7 +32,7 @@
 
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
-| 04 | Bouw pagina Het Merk (`/het-merk`) | ✅ Completed | Missie/visie, interactieve merkwaarden-cards, tone voorbeelden en gallery placeholder geïmplementeerd; preflight passed |
+| 04 | Bouw pagina Het Merk (`/het-merk`) | ✅ Completed | Inspector pass: preflight + tests groen; runtime `/het-merk` (HTTP 200) gevalideerd met missie/visie, 3 uitklapbare waarden, slogans en gallery placeholder |
 | 05 | Bouw pagina Design System + CodeSnippet component | ⬜ Not Started | |
 
 **Phase Status**: 🔄 In Progress
@@ -97,3 +97,4 @@
 | 2026-03-20 | Phase 1 | Phase validated | GitHub Copilot (Phase Inspector) | Validated Tasks 01-03 against spec/plan/taskfiles, reran preflight, confirmed integration across bootstrap+theme+layout/nav/toggles, and marked READY FOR NEXT PHASE |
 | 2026-03-20 | 04 | Task started | GitHub Copilot | Marked Task 04 as In Progress and started implementation for `/het-merk` sections and interactions |
 | 2026-03-20 | 04 | Task completed | GitHub Copilot | Added MerkIdentiteit page composition with Framer Motion reveals, expandable merkwaarden cards, tone-of-voice examples, gallery placeholder, and passing preflight |
+| 2026-03-20 | 04 | Task inspected | GitHub Copilot (Inspector) | Verified acceptance criteria and test quality, reran preflight, and validated runtime `/het-merk` response and key content |
