@@ -1,15 +1,59 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const neueMachina = localFont({
+  src: [
+    {
+      path: "../public/fonts/neue-machina/PPNeueMachina-PlainLight.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/neue-machina/PPNeueMachina-PlainRegular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/neue-machina/PPNeueMachina-PlainMedium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/neue-machina/PPNeueMachina-PlainSemibold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/neue-machina/PPNeueMachina-PlainBold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--w4-font-heading",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const raleway = localFont({
+  src: [
+    {
+      path: "../public/fonts/raleway/Raleway-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/raleway/Raleway-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/raleway/Raleway-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--w4-font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="nl" className={`${neueMachina.variable} ${raleway.variable}`}>
       <body>{children}</body>
     </html>
   );

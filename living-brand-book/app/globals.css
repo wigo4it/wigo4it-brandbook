@@ -12,8 +12,8 @@
   --color-white: #ffffff;
   --color-night: #0f142a;
 
-  --font-heading: "PP Neue Machina", "Segoe UI", sans-serif;
-  --font-body: "Raleway", "Segoe UI", sans-serif;
+  --font-heading: var(--w4-font-heading), "Segoe UI", sans-serif;
+  --font-body: var(--w4-font-body), "Segoe UI", sans-serif;
 
   --radius-card: 1rem;
   --radius-pill: 999px;
@@ -22,70 +22,6 @@
 
   --shadow-card: 0 12px 30px rgb(15 20 42 / 0.12);
   --shadow-card-strong: 0 16px 40px rgb(15 20 42 / 0.2);
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("/fonts/neue-machina/PPNeueMachina-PlainLight.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("/fonts/neue-machina/PPNeueMachina-PlainRegular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("/fonts/neue-machina/PPNeueMachina-PlainMedium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("/fonts/neue-machina/PPNeueMachina-PlainSemibold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("/fonts/neue-machina/PPNeueMachina-PlainBold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Raleway";
-  src: url("/fonts/raleway/Raleway-Light.ttf") format("truetype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Raleway";
-  src: url("/fonts/raleway/Raleway-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Raleway";
-  src: url("/fonts/raleway/Raleway-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
 }
 
 :root {

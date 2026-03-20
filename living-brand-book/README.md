@@ -43,7 +43,7 @@ Baseline Next.js App Router project for the Living Brand Book implementation.
 
 ## Fonts Source And Placement
 
-Fonts are physically copied into this app under `public/fonts` and loaded via `@font-face` in `app/globals.css`.
+Fonts are physically copied into this app under `public/fonts` and loaded via `next/font/local` in `app/layout.tsx`.
 
 - Source folder: `../Fonts/PP Neue Machina`
 	- copied to: `public/fonts/neue-machina/`
