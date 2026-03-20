@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ColorPalette } from "../../components/docs/ColorPalette";
 
@@ -22,7 +22,7 @@ describe("ColorPalette", () => {
     expect(screen.getByText("light-grey")).toBeTruthy();
   });
 
-  it("copies hex values and class names", () => {
+  it("copies hex values and class names", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", {
       value: { writeText },
@@ -36,5 +36,11 @@ describe("ColorPalette", () => {
 
     expect(writeText).toHaveBeenCalledWith("#434d8e");
     expect(writeText).toHaveBeenCalledWith("bg-dark-blue text-white");
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "HEX gekopieerd" })).toBeTruthy();
+      expect(screen.getByRole("button", { name: "Class gekopieerd" })).toBeTruthy();
+      expect(screen.getAllByText("Gekopieerd")[0]).toBeTruthy();
+    });
   });
 });

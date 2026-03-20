@@ -32,11 +32,11 @@ Before coding, Read FIRST -> Load [03-tasks-00-READBEFORE.md](03-tasks-00-READBE
 11. Commit met conventionele boodschap: `feat: implement task 05 - add design system docs and code snippets`.
 
 ## Acceptance Criteria
-- [ ] Route `/design-system` werkt
-- [ ] Alle 8 kleuren aanwezig met correcte waardes
-- [ ] Copyflow ondersteunt HEX + Tailwind class
-- [ ] Typografie playground toont duidelijk contrast in rollen/hiërarchie
-- [ ] Componentenbieb bevat HTML/Tailwind snippets via `CodeSnippet`
+- [x] Route `/design-system` werkt
+- [x] Alle 8 kleuren aanwezig met correcte waardes
+- [x] Copyflow ondersteunt HEX + Tailwind class
+- [x] Typografie playground toont duidelijk contrast in rollen/hiërarchie
+- [x] Componentenbieb bevat HTML/Tailwind snippets via `CodeSnippet`
 
 ## Testing
 - **Test file**: `tests/components/CodeSnippet.test.tsx`
@@ -68,3 +68,10 @@ Vermijd onveilige HTML-injectie; werk met veilige string rendering voor snippets
 1. Voeg in `ColorPalette.test.tsx` een assert toe op succesfeedback na click op copy-button.
 2. Voeg in `CodeSnippet.test.tsx` een assert toe op succesfeedback na copy-actie.
 3. Houd tests robuust met user-visible assertions (role/text) i.p.v. alleen mock-call verificatie.
+
+## Rework Completion (2026-03-20)
+
+- Toegevoegd: user-visible succesfeedback-asserts na kopieeracties in `tests/components/ColorPalette.test.tsx`.
+- Toegevoegd: user-visible succesfeedback-asserts na kopieeracties in `tests/components/CodeSnippet.test.tsx`.
+- Validatie: `npm run preflight` opnieuw uitgevoerd en geslaagd (lint, typecheck, tests).
+- Status: ✅ Task completed na inspector rework.

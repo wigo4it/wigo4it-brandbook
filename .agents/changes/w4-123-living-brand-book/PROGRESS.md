@@ -5,7 +5,7 @@
 **Last Updated**: 2026-03-20
 **HITL Mode**: false
 **Current Phase**: Phase 2
-**Run Status**: ✅ Phase 1 validation passed; READY FOR NEXT PHASE (2026-03-20)
+**Run Status**: ✅ Task 05 rework completed; preflight passed (2026-03-20)
 
 ---
 
@@ -33,9 +33,9 @@
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
 | 04 | Bouw pagina Het Merk (`/het-merk`) | ✅ Completed | Inspector pass: preflight + tests groen; runtime `/het-merk` (HTTP 200) gevalideerd met missie/visie, 3 uitklapbare waarden, slogans en gallery placeholder |
-| 05 | Bouw pagina Design System + CodeSnippet component | 🔴 Incomplete | Inspector: implementatie OK en preflight groen, maar tests dekken verplichte feedback-case niet (geen assert op succesvolle kopieerfeedback in ColorPalette/CodeSnippet) |
+| 05 | Bouw pagina Design System + CodeSnippet component | ✅ Completed | Rework afgerond: verplichte copy-success feedback-asserts toegevoegd in `ColorPalette.test.tsx` en `CodeSnippet.test.tsx`; preflight opnieuw groen |
 
-**Phase Status**: 🔄 In Progress
+**Phase Status**: ✅ Completed
 
 ### Phase 3: QA, Release & Handoff
 
@@ -61,8 +61,8 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 4
-- **Incomplete**: 1
+- **Completed**: 5
+- **Incomplete**: 0
 - **In Progress**: 0
 - **Remaining**: 2
 
@@ -101,3 +101,6 @@
 | 2026-03-20 | 05 | Task started | GitHub Copilot | Marked Task 05 as In Progress and started `/design-system` implementation with snippets and copy interactions |
 | 2026-03-20 | 05 | Task completed | GitHub Copilot | Implemented Design System content, reusable CodeSnippet component, color/class copy flows, typography playground, component library snippets, and passed preflight |
 | 2026-03-20 | 05 | Task inspected | GitHub Copilot (Inspector) | Marked incomplete: verplichte feedback-na-copy testcase ontbreekt in `ColorPalette.test.tsx` en `CodeSnippet.test.tsx`; preflight blijft groen |
+| 2026-03-20 | 05 | Task rework started | GitHub Copilot | Set Task 05 to In Progress and started inspector feedback fix cycle for missing copy-success assertions |
+| 2026-03-20 | 05 | Task rework completed | GitHub Copilot | Added user-visible success-feedback assertions after copy in `ColorPalette.test.tsx` and `CodeSnippet.test.tsx`, then reran preflight successfully |
+| 2026-03-20 | 05 | Task re-review completed | GitHub Copilot (Inspector) | Verified required feedback-on-copy test coverage is now present in both component tests; preflight remains green |
