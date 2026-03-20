@@ -5,7 +5,7 @@
 **Last Updated**: 2026-03-20
 **HITL Mode**: false
 **Current Phase**: Phase 3
-**Run Status**: ✅ Task 06 completed; preflight passed (2026-03-20)
+**Run Status**: ✅ Task 06 inspected and approved on commit d5c74623db4ec3a9125c69ddc7737058c5ca0cb5; preflight passed (2026-03-20)
 
 ---
 
@@ -41,7 +41,7 @@
 
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
-| 06 | Testen, README, hardening en acceptatiecheck | ✅ Completed | Redirect- en mode-onafhankelijkheid testdekking bevestigd; README geactualiseerd incl. open logo-ratio TODO; preflight geslaagd |
+| 06 | Testen, README, hardening en acceptatiecheck | ✅ Completed | Inspector approval op commit d5c74623db4ec3a9125c69ddc7737058c5ca0cb5: redirect- en mode-onafhankelijkheid testdekking bevestigd; README geactualiseerd incl. open logo-ratio TODO; preflight geslaagd |
 | 07 | Wrap-up, commit message en GitLab MR artifacts | ⬜ Not Started | |
 
 **Phase Status**: 🔄 In Progress
@@ -108,3 +108,4 @@
 | 2026-03-20 | Phase 2 | Phase validated | GitHub Copilot (Phase Inspector) | Validated Tasks 04-05 against spec/plan/taskfiles, reran preflight, confirmed integration across `/het-merk` + `/design-system` and shared layout/subnav/toggles, and marked READY FOR NEXT PHASE |
 | 2026-03-20 | 06 | Task started | GitHub Copilot | Set Task 06 to In Progress and started QA hardening scope for tests and README |
 | 2026-03-20 | 06 | Task completed | GitHub Copilot | Added `/` redirect coverage in layout/navigation suite, hardened README with install/scripts/routes/modes/design direction, documented explicit logo-ratio TODO, and passed preflight |
+| 2026-03-20 | 06 | Task inspected | GitHub Copilot (Task Inspector) | Inspected commit `d5c74623db4ec3a9125c69ddc7737058c5ca0cb5`; verified preflight, acceptance criteria, tests/readme scope, and explicit logo-ratio TODO; approved |
