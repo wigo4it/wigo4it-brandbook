@@ -23,3 +23,47 @@ Baseline Next.js App Router project for the Living Brand Book implementation.
 - Tailwind CSS v4 packages (setup in following task)
 - Framer Motion
 - Vitest + Testing Library + jsdom
+
+## Theme And Tokens (Task 02)
+
+- Tailwind v4 CSS-first theme tokens are defined in `app/globals.css` using `@theme`.
+- Included color tokens:
+	- `dark-blue` (`#434d8e`)
+	- `aubergine` (`#362c46`)
+	- `dark-green` (`#005351`)
+	- `light-green` (`#63cf92`)
+	- `soft-yellow` (`#e9eb86`)
+	- `bright-red` (`#f56e6d`)
+	- `bright-pink` (`#bb55a9`)
+	- `light-grey` (`#cfd6cc`)
+- Utility classes added for:
+	- blueprint grid overlay: `.w4-blueprint-overlay`
+	- heavy borders: `.w4-heavy-border`, `.w4-heavy-border-strong`
+	- bento layout grid: `.w4-bento-grid` (+ span helpers)
+
+## Fonts Source And Placement
+
+Fonts are physically copied into this app under `public/fonts` and loaded via `@font-face` in `app/globals.css`.
+
+- Source folder: `../Fonts/PP Neue Machina`
+	- copied to: `public/fonts/neue-machina/`
+	- files:
+		- `PPNeueMachina-PlainLight.ttf`
+		- `PPNeueMachina-PlainRegular.ttf`
+		- `PPNeueMachina-PlainMedium.ttf`
+		- `PPNeueMachina-PlainSemibold.ttf`
+		- `PPNeueMachina-PlainBold.ttf`
+- Source folder: `../Fonts/Raleway`
+	- copied to: `public/fonts/raleway/`
+	- files:
+		- `Raleway-Light.ttf`
+		- `Raleway-Regular.ttf`
+		- `Raleway-Bold.ttf`
+
+## Brand Assets Source And Placement
+
+The required logo, icon and shape assets are copied from the repository root into this app:
+
+- source: `../img/logo` -> target: `public/img/logo`
+- source: `../img/icons` -> target: `public/img/icons`
+- source: `../img/shapes` -> target: `public/img/shapes`

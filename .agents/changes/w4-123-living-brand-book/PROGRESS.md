@@ -23,7 +23,7 @@
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
 | 01 | Bootstrap nieuwe Next.js app en baseline | ✅ Completed | Baseline app bootstrapped, redirect implemented, preflight passed |
-| 02 | Theme, tokens, fonts en assets migratie | ⬜ Not Started | Reset after failed run |
+| 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Tailwind v4 @theme tokens added, fonts/assets migrated, preflight passed |
 | 03 | Layout, navigatie, subnavigatie en toggles | ⬜ Not Started | Reset after failed run |
 
 **Phase Status**: ⬜ Not Started
@@ -61,10 +61,10 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 1
+- **Completed**: 2
 - **Incomplete**: 0
 - **In Progress**: 0
-- **Remaining**: 6
+- **Remaining**: 5
 
 ---
 
@@ -85,3 +85,5 @@
 | 2026-03-20 | - | Progress file recreated | Ralph Orchestrator | Marked run as failed, reset task states, prepared clean restart |
 | 2026-03-20 | 01 | Task started | GitHub Copilot | Set Task 01 to In Progress after reset and began baseline implementation |
 | 2026-03-20 | 01 | Task completed | GitHub Copilot | Completed bootstrap baseline, added root redirect to /het-merk, and passed preflight |
+| 2026-03-20 | 02 | Task started | GitHub Copilot | Marked Task 02 in progress and started theme/token/font/asset migration |
+| 2026-03-20 | 02 | Task completed | GitHub Copilot | Added Tailwind theme tokens/utilities, copied brand fonts/assets, and passed preflight |

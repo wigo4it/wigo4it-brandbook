@@ -1,13 +1,96 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import "tailwindcss";
+
+@theme {
+  --color-dark-blue: #434d8e;
+  --color-aubergine: #362c46;
+  --color-dark-green: #005351;
+  --color-light-green: #63cf92;
+  --color-soft-yellow: #e9eb86;
+  --color-bright-red: #f56e6d;
+  --color-bright-pink: #bb55a9;
+  --color-light-grey: #cfd6cc;
+  --color-white: #ffffff;
+  --color-night: #0f142a;
+
+  --font-heading: "PP Neue Machina", "Segoe UI", sans-serif;
+  --font-body: "Raleway", "Segoe UI", sans-serif;
+
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+  --border-heavy: 2px;
+  --border-strong: 3px;
+
+  --shadow-card: 0 12px 30px rgb(15 20 42 / 0.12);
+  --shadow-card-strong: 0 16px 40px rgb(15 20 42 / 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "PP Neue Machina";
+  src: url("/fonts/neue-machina/PPNeueMachina-PlainLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Neue Machina";
+  src: url("/fonts/neue-machina/PPNeueMachina-PlainRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Neue Machina";
+  src: url("/fonts/neue-machina/PPNeueMachina-PlainMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Neue Machina";
+  src: url("/fonts/neue-machina/PPNeueMachina-PlainSemibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Neue Machina";
+  src: url("/fonts/neue-machina/PPNeueMachina-PlainBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/raleway/Raleway-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/raleway/Raleway-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/raleway/Raleway-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: var(--color-white);
+  --foreground: var(--color-night);
 }
 
 html {
@@ -26,7 +109,7 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,8 +125,51 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.w4-heavy-border {
+  border: var(--border-heavy) solid currentColor;
+}
+
+.w4-heavy-border-strong {
+  border: var(--border-strong) solid currentColor;
+}
+
+.w4-bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.w4-bento-grid > * {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .w4-bento-grid > * {
+    grid-column: span 6;
   }
+
+  .w4-bento-grid > *.w4-bento-span-8 {
+    grid-column: span 8;
+  }
+
+  .w4-bento-grid > *.w4-bento-span-4 {
+    grid-column: span 4;
+  }
+}
+
+.w4-blueprint-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.w4-blueprint-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(67 77 142 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(67 77 142 / 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
