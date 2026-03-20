@@ -447,10 +447,237 @@ a {
   text-transform: uppercase;
 }
 
+.w4-docs-page {
+  padding-bottom: 1.5rem;
+}
+
+.w4-docs-kicker {
+  margin-top: 0;
+  font: 700 0.74rem/1 var(--font-heading);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-dark-green);
+}
+
+.w4-color-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.w4-color-card {
+  border: var(--border-heavy) solid var(--border-color);
+  border-radius: calc(var(--radius-card) - 0.3rem);
+  background: var(--background);
+  padding: 0.85rem;
+}
+
+.w4-color-swatch {
+  height: 4rem;
+  border: var(--border-heavy) solid rgb(15 20 42 / 0.18);
+  border-radius: 0.6rem;
+}
+
+.w4-color-swatch--dark-blue {
+  background: var(--color-dark-blue);
+}
+
+.w4-color-swatch--aubergine {
+  background: var(--color-aubergine);
+}
+
+.w4-color-swatch--dark-green {
+  background: var(--color-dark-green);
+}
+
+.w4-color-swatch--light-green {
+  background: var(--color-light-green);
+}
+
+.w4-color-swatch--soft-yellow {
+  background: var(--color-soft-yellow);
+}
+
+.w4-color-swatch--bright-red {
+  background: var(--color-bright-red);
+}
+
+.w4-color-swatch--bright-pink {
+  background: var(--color-bright-pink);
+}
+
+.w4-color-swatch--light-grey {
+  background: var(--color-light-grey);
+}
+
+.w4-color-name {
+  margin-top: 0.75rem;
+  font: 700 1.02rem/1.2 var(--font-heading);
+}
+
+.w4-color-token {
+  margin-top: 0.35rem;
+  font: 700 0.72rem/1 var(--font-heading);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-dark-blue);
+}
+
+.w4-color-value {
+  margin-top: 0.3rem;
+  font: 600 0.88rem/1.2 var(--font-heading);
+}
+
+.w4-color-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.w4-copy-button {
+  border: var(--border-heavy) solid var(--border-color);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.65rem;
+  font: 700 0.67rem/1 var(--font-heading);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.w4-copy-button:hover {
+  transform: translateY(-1px);
+}
+
+.w4-copy-button:focus-visible {
+  outline: var(--border-heavy) solid var(--color-dark-blue);
+  outline-offset: 2px;
+}
+
+.w4-copy-button--alt {
+  background: var(--surface-strong);
+}
+
+.w4-copy-status {
+  margin-top: 0.5rem;
+  min-height: 1rem;
+  font: 700 0.7rem/1 var(--font-heading);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-dark-green);
+}
+
+.w4-typo-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.w4-typo-card {
+  border: var(--border-heavy) solid var(--border-color);
+  border-radius: calc(var(--radius-card) - 0.3rem);
+  background: var(--background);
+  padding: 0.9rem;
+}
+
+.w4-typo-eyebrow {
+  margin-top: 0;
+  font: 700 0.7rem/1 var(--font-heading);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-dark-green);
+}
+
+.w4-typo-display {
+  margin-top: 0.55rem;
+  font: 700 clamp(1.35rem, 3vw, 1.95rem) / 1.15 var(--font-heading);
+  letter-spacing: -0.02em;
+  color: var(--color-aubergine);
+}
+
+.w4-typo-body {
+  margin-top: 0.55rem;
+  font: 400 1rem/1.6 var(--font-body);
+}
+
+.w4-typo-note {
+  margin-top: 0.55rem;
+  font: 600 0.84rem/1.4 var(--font-heading);
+  color: var(--color-dark-blue);
+}
+
+.w4-typo-h4 {
+  margin-top: 0.55rem;
+  font: 700 clamp(1.15rem, 2vw, 1.45rem) / 1.2 var(--font-heading);
+}
+
+.w4-library-stack {
+  margin-top: 1rem;
+}
+
+.w4-library-intro {
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+
+.w4-library-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.w4-snippet {
+  border: var(--border-heavy) solid var(--border-color);
+  border-radius: calc(var(--radius-card) - 0.25rem);
+  background: var(--background);
+  padding: 0.85rem;
+}
+
+.w4-snippet__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.w4-snippet__title {
+  font: 700 0.98rem/1.2 var(--font-heading);
+}
+
+.w4-snippet__meta {
+  margin-top: 0.25rem;
+  font: 700 0.65rem/1 var(--font-heading);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-dark-green);
+}
+
+.w4-snippet__pre {
+  margin-top: 0.75rem;
+  border: var(--border-heavy) solid var(--border-color);
+  border-radius: 0.7rem;
+  background: var(--surface-strong);
+  color: var(--foreground);
+  overflow-x: auto;
+  padding: 0.7rem;
+  font: 400 0.84rem/1.55 Consolas, "Courier New", monospace;
+}
+
 @media (min-width: 768px) {
   .w4-merk-hero {
     grid-template-columns: 1fr auto;
     align-items: center;
+  }
+
+  .w4-color-grid,
+  .w4-typo-grid,
+  .w4-library-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .w4-typo-card--full {
+    grid-column: span 2;
   }
 
   .w4-values-grid,
