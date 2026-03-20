@@ -70,3 +70,22 @@ Houd de assetset pragmatisch: alleen wat nodig is voor routes en toggles in scop
 1. Vervang Google fonts in `living-brand-book/app/layout.tsx` door `next/font/local` met de gekopieerde bestanden uit `public/fonts`.
 2. Koppel deze lokale fonts aan de globale font-variabelen/klassen zodat heading/body fonts daadwerkelijk via Next font pipeline worden toegepast.
 3. Draai opnieuw `npm run preflight` en bevestig runtime rendering met de lokale fonts.
+
+## INSPECTOR RE-REVIEW (2026-03-20)
+
+**Verdict**: ✅ Completed
+
+### Verificatie
+- `npm run preflight` slaagt in `living-brand-book/` (lint + typecheck + test).
+- Eerdere blocker is opgelost:
+  - `living-brand-book/app/layout.tsx` gebruikt nu `next/font/local`.
+  - Lokale brandfonts zijn gemapt op variabelen `--w4-font-heading` en `--w4-font-body`.
+  - `next/font/google`/`Geist` komt niet meer voor in de layout.
+- Koppeling naar globale theming staat correct in `living-brand-book/app/globals.css` via:
+  - `--font-heading: var(--w4-font-heading), ...`
+  - `--font-body: var(--w4-font-body), ...`
+- Taakacceptatiecriteria blijven behaald:
+  - volledige kleurset in `@theme`
+  - blueprint/heavy-border/bento utilities aanwezig
+  - fonts en brand-assets aanwezig in `public/fonts` en `public/img`
+  - README bevat assets/fonts bron- en plaatsingsdocumentatie
