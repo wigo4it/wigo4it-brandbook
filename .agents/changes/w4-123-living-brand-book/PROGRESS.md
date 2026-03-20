@@ -5,7 +5,7 @@
 **Last Updated**: 2026-03-20
 **HITL Mode**: false
 **Current Phase**: Phase 1
-**Run Status**: ✅ Task 02 re-review passed (2026-03-20)
+**Run Status**: ✅ Task 03 inspection passed (2026-03-20)
 
 ---
 
@@ -24,7 +24,7 @@
 |------|-------|--------|-----------------|
 | 01 | Bootstrap nieuwe Next.js app en baseline | ✅ Completed | Baseline app bootstrapped, redirect implemented, preflight passed |
 | 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Re-review passed: previous font-loading blocker fixed (`next/font/local` in layout), preflight passed |
-| 03 | Layout, navigatie, subnavigatie en toggles | ✅ Completed | App shell met hoofdnav/subnav + onafhankelijke toggles, tests en preflight geslaagd |
+| 03 | Layout, navigatie, subnavigatie en toggles | ✅ Completed | Inspector pass: preflight + tests groen; subnav-anchors gevalideerd tegen pagina-sectie-ID's |
 
 **Phase Status**: ✅ Completed
 
@@ -93,3 +93,4 @@
 | 2026-03-20 | 02 | Task re-review completed | GitHub Copilot (Inspector) | Verified blocker fix in layout font pipeline, reran preflight, and approved Task 02 as completed |
 | 2026-03-20 | 03 | Task started | GitHub Copilot | Set Task 03 to In Progress and started app shell/navigation/toggles implementation |
 | 2026-03-20 | 03 | Task completed | GitHub Copilot | Implemented modern app shell with main/sub navigation and independent dark/pixel toggles, added layout navigation tests, and passed preflight |
+| 2026-03-20 | 03 | Task inspected | GitHub Copilot (Inspector) | Verified acceptance criteria incl. subnav anchor/section ID match on `/het-merk` and `/design-system`; preflight passed |
