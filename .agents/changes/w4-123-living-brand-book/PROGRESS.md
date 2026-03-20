@@ -16,7 +16,7 @@
 |------|-------|--------|-----------------|
 | 01 | Bootstrap nieuwe Next.js app en baseline | ✅ Completed | Baseline gevalideerd: App Router bootstrap, route redirect vanaf `/`, scripts aanwezig en preflight geslaagd. |
 | 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Inspector re-review bevestigd: runtime font-loading via next/font/local actief, tokenkoppeling aanwezig, assets/fonts aanwezig en preflight geslaagd. |
-| 03 | Layout, navigatie, subnavigatie en toggles | ✅ Completed | Re-review bevestigd: route-specifieke subnav anchors matchen bestaande sectie-ID's op beide routes, anchor-validatietests dekken dit af en preflight is volledig groen. |
+| 03 | Layout, navigatie, subnavigatie en toggles | ✅ Completed | Rework afgerond: alle route-specifieke subnav anchors hebben bestaande sectie-ID's op beide pagina's, anchor-validatietests toegevoegd en preflight opnieuw volledig geslaagd. |
 
 **Phase Status**: 🔄 In Progress
 
@@ -88,4 +88,3 @@
 | 2026-03-20 | 03 | Inspection marked incomplete | GitHub Copilot | Subnavigatie bevat route-specifieke anchors naar niet-bestaande sectie-ID's (`/het-merk` en `/design-system`), waardoor navigatie functioneel onvolledig is |
 | 2026-03-20 | 03 | Rework started | GitHub Copilot | Task 03 teruggezet naar In Progress; ontbrekende sectie-IDs en bijbehorende anchor-validatietests worden hersteld |
 | 2026-03-20 | 03 | Rework completed | GitHub Copilot | Ontbrekende sectie-anchors toegevoegd op beide routes, tests uitgebreid met anchor-target validatie en preflight opnieuw groen |
-| 2026-03-20 | 03 | Inspection confirmed complete | GitHub Copilot | Skeptische re-review bevestigd: acceptance criteria volledig afgedekt inclusief eerdere subnav anchor mismatch issue |
