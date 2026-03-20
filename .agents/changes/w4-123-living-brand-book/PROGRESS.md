@@ -4,8 +4,8 @@
 **Started**: 2026-03-20
 **Last Updated**: 2026-03-20
 **HITL Mode**: false
-**Current Phase**: Phase 2
-**Run Status**: ✅ Task 05 re-review passed; preflight passed (2026-03-20)
+**Current Phase**: Phase 3
+**Run Status**: ✅ Phase 2 validated; preflight passed (2026-03-20)
 
 ---
 
@@ -73,7 +73,7 @@
 | Phase | Completed | Phase Inspector Report | Validated By | Validation Date | Status |
 |-------|-----------|------------------------|--------------|-----------------|--------|
 | Phase 1 | ✅ | Tasks 01-03 gevalideerd tegen spec/plan/taskfiles; integratie bootstrap+theme+layout/nav/toggles bevestigd; preflight geslaagd; READY FOR NEXT PHASE | GitHub Copilot | 2026-03-20 | Completed |
-| Phase 2 | ⬜ | (pending) | (pending) | (pending) | Not Started |
+| Phase 2 | ✅ | Tasks 04-05 gevalideerd tegen spec/plan/taskfiles; integratie `/het-merk` en `/design-system` bevestigd incl. gedeelde layout, subnav en onafhankelijke dark/pixel toggles; preflight geslaagd; READY FOR NEXT PHASE | GitHub Copilot | 2026-03-20 | Completed |
 | Phase 3 | ⬜ | (pending) | (pending) | (pending) | Not Started |
 
 ---
@@ -105,3 +105,4 @@
 | 2026-03-20 | 05 | Task rework completed | GitHub Copilot | Added user-visible success-feedback assertions after copy in `ColorPalette.test.tsx` and `CodeSnippet.test.tsx`, then reran preflight successfully |
 | 2026-03-20 | 05 | Task re-review completed | GitHub Copilot (Inspector) | Verified required feedback-on-copy test coverage is now present in both component tests; preflight remains green |
 | 2026-03-20 | 05 | Task re-review completed | GitHub Copilot (Inspector) | Re-verified all Task 05 acceptance criteria and prior feedback against coder commit `4c35821c78dd389f1a826c3ce7732aea0d4da514`; preflight green |
+| 2026-03-20 | Phase 2 | Phase validated | GitHub Copilot (Phase Inspector) | Validated Tasks 04-05 against spec/plan/taskfiles, reran preflight, confirmed integration across `/het-merk` + `/design-system` and shared layout/subnav/toggles, and marked READY FOR NEXT PHASE |
