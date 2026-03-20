@@ -15,7 +15,7 @@
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
 | 01 | Bootstrap nieuwe Next.js app en baseline | 🔄 In Progress | |
-| 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | Rework uitgevoerd: lokale fonts worden nu runtime geladen via next/font/local en gekoppeld aan font tokens; preflight opnieuw geslaagd. |
+| 02 | Theme, tokens, fonts en assets migratie | ✅ Completed | |
 | 03 | Layout, navigatie, subnavigatie en toggles | ⬜ Not Started | |
 
 **Phase Status**: 🔄 In Progress
@@ -56,7 +56,7 @@
 - **Completed**: 1
 - **Incomplete**: 0
 - **In Progress**: 1
-- **Remaining**: 5
+- **Remaining**: 6
 
 ---
 
@@ -78,6 +78,3 @@
 | 2026-03-20 | 01 | Started implementation | GitHub Copilot | Task 01 set to In Progress |
 | 2026-03-20 | 02 | Started implementation | GitHub Copilot | Task 02 set to In Progress |
 | 2026-03-20 | 02 | Completed implementation | GitHub Copilot | Theme tokens, fonts, assets en preflight afgerond |
-| 2026-03-20 | 02 | Inspection marked incomplete | GitHub Copilot | Preflight slaagt, maar fonts zijn niet runtime geconfigureerd en daardoor nog niet bruikbaar in de app |
-| 2026-03-20 | 02 | Rework started | GitHub Copilot | Task 02 teruggezet naar In Progress voor runtime font-loading fix |
-| 2026-03-20 | 02 | Rework completed | GitHub Copilot | next/font/local geconfigureerd in layout, tokens gekoppeld in globals.css, runtime-verificatietest toegevoegd en preflight geslaagd |

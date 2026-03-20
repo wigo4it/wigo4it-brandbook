@@ -59,5 +59,3 @@ De app gebruikt lokale brand-assets die fysiek zijn gekopieerd naar public.
 	- ../img/shapes/* naar public/img/shapes/
 
 Deze assets worden in volgende taken actief gebruikt in layout, navigatie, pixel-modus en pagina-componenten.
-
-Runtime font-loading is geconfigureerd via `next/font/local` in `app/layout.tsx`, waarbij de geladen variabelen worden gekoppeld aan de themetokens `--font-heading` en `--font-body` in `app/globals.css`.

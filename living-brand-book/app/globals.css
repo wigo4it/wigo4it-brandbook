@@ -21,8 +21,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-heading: var(--font-heading-local), "PP Neue Machina", "Segoe UI", sans-serif;
-  --font-body: var(--font-body-local), "Raleway", "Segoe UI", sans-serif;
+  --font-heading: "PP Neue Machina", "Segoe UI", sans-serif;
+  --font-body: "Raleway", "Segoe UI", sans-serif;
   --font-sans: var(--font-body);
   --font-mono: "Courier New", monospace;
 }
