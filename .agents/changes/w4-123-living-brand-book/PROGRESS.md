@@ -33,7 +33,7 @@
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
 | 04 | Bouw pagina Het Merk (`/het-merk`) | ✅ Completed | Inspector pass: preflight + tests groen; runtime `/het-merk` (HTTP 200) gevalideerd met missie/visie, 3 uitklapbare waarden, slogans en gallery placeholder |
-| 05 | Bouw pagina Design System + CodeSnippet component | ✅ Completed | Geimplementeerd: route `/design-system`, Documentatie + ColorPalette + TypographyPlayground + ComponentLibrary + CodeSnippet, en nieuwe componenttests; preflight geslaagd |
+| 05 | Bouw pagina Design System + CodeSnippet component | 🔴 Incomplete | Inspector: implementatie OK en preflight groen, maar tests dekken verplichte feedback-case niet (geen assert op succesvolle kopieerfeedback in ColorPalette/CodeSnippet) |
 
 **Phase Status**: 🔄 In Progress
 
@@ -61,8 +61,8 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 5
-- **Incomplete**: 0
+- **Completed**: 4
+- **Incomplete**: 1
 - **In Progress**: 0
 - **Remaining**: 2
 
@@ -100,3 +100,4 @@
 | 2026-03-20 | 04 | Task inspected | GitHub Copilot (Inspector) | Verified acceptance criteria and test quality, reran preflight, and validated runtime `/het-merk` response and key content |
 | 2026-03-20 | 05 | Task started | GitHub Copilot | Marked Task 05 as In Progress and started `/design-system` implementation with snippets and copy interactions |
 | 2026-03-20 | 05 | Task completed | GitHub Copilot | Implemented Design System content, reusable CodeSnippet component, color/class copy flows, typography playground, component library snippets, and passed preflight |
+| 2026-03-20 | 05 | Task inspected | GitHub Copilot (Inspector) | Marked incomplete: verplichte feedback-na-copy testcase ontbreekt in `ColorPalette.test.tsx` en `CodeSnippet.test.tsx`; preflight blijft groen |
