@@ -32,10 +32,10 @@
 
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
-| 04 | Bouw pagina Het Merk (`/het-merk`) | ⬜ Not Started | |
+| 04 | Bouw pagina Het Merk (`/het-merk`) | ✅ Completed | Missie/visie, interactieve merkwaarden-cards, tone voorbeelden en gallery placeholder geïmplementeerd; preflight passed |
 | 05 | Bouw pagina Design System + CodeSnippet component | ⬜ Not Started | |
 
-**Phase Status**: ⬜ Not Started
+**Phase Status**: 🔄 In Progress
 
 ### Phase 3: QA, Release & Handoff
 
@@ -61,10 +61,10 @@
 ## Completion Summary
 
 - **Total Tasks**: 7
-- **Completed**: 3
+- **Completed**: 4
 - **Incomplete**: 0
 - **In Progress**: 0
-- **Remaining**: 4
+- **Remaining**: 3
 
 ---
 
@@ -95,3 +95,5 @@
 | 2026-03-20 | 03 | Task completed | GitHub Copilot | Implemented modern app shell with main/sub navigation and independent dark/pixel toggles, added layout navigation tests, and passed preflight |
 | 2026-03-20 | 03 | Task inspected | GitHub Copilot (Inspector) | Verified acceptance criteria incl. subnav anchor/section ID match on `/het-merk` and `/design-system`; preflight passed |
 | 2026-03-20 | Phase 1 | Phase validated | GitHub Copilot (Phase Inspector) | Validated Tasks 01-03 against spec/plan/taskfiles, reran preflight, confirmed integration across bootstrap+theme+layout/nav/toggles, and marked READY FOR NEXT PHASE |
+| 2026-03-20 | 04 | Task started | GitHub Copilot | Marked Task 04 as In Progress and started implementation for `/het-merk` sections and interactions |
+| 2026-03-20 | 04 | Task completed | GitHub Copilot | Added MerkIdentiteit page composition with Framer Motion reveals, expandable merkwaarden cards, tone-of-voice examples, gallery placeholder, and passing preflight |
