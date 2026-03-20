@@ -42,7 +42,7 @@
 | Task | Title | Status | Inspector Notes |
 |------|-------|--------|-----------------|
 | 06 | Testen, README, hardening en acceptatiecheck | ✅ Completed | Inspector approval op commit d5c74623db4ec3a9125c69ddc7737058c5ca0cb5: redirect- en mode-onafhankelijkheid testdekking bevestigd; README geactualiseerd incl. open logo-ratio TODO; preflight geslaagd |
-| 07 | Wrap-up, commit message en GitLab MR artifacts | ✅ Completed | `04-commit-msg.md` en `05-gitlab-mr.md` gegenereerd op basis van gerealiseerde impact; preflight opnieuw groen |
+| 07 | Wrap-up, commit message en GitLab MR artifacts | ✅ Completed | Inspector pass op commit `c732babddccddbeec8a30e01901ee1b5b935d484`: artifacts voldoen aan format, bevatten user-impact focus + `Closes W4-123`; preflight groen |
 
 **Phase Status**: ✅ Completed
 
@@ -111,3 +111,4 @@
 | 2026-03-20 | 06 | Task inspected | GitHub Copilot (Task Inspector) | Inspected commit `d5c74623db4ec3a9125c69ddc7737058c5ca0cb5`; verified preflight, acceptance criteria, tests/readme scope, and explicit logo-ratio TODO; approved |
 | 2026-03-20 | 07 | Task started | GitHub Copilot | Marked Task 07 as In Progress and started wrap-up for release artifacts and final validation |
 | 2026-03-20 | 07 | Task completed | GitHub Copilot | Created `04-commit-msg.md` and `05-gitlab-mr.md` with user-impact summary and `Closes W4-123`; reran preflight successfully |
+| 2026-03-20 | 07 | Task inspected | GitHub Copilot (Task Inspector) | Inspected commit `c732babddccddbeec8a30e01901ee1b5b935d484`; verified PRD-only commit scope, required `04-commit-msg.md` + `05-gitlab-mr.md` formats, `Closes W4-123`, and green preflight; approved |
