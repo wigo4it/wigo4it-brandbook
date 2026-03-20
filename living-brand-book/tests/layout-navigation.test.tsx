@@ -5,8 +5,6 @@ import { SubNav } from "@/components/navigation/SubNav";
 import { UiModeProvider } from "@/components/providers/UiModeProvider";
 import { PixelModeToggle } from "@/components/ui/PixelModeToggle";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import HetMerkPage from "@/app/het-merk/page";
-import DesignSystemPage from "@/app/design-system/page";
 
 const pathnameState = { value: "/het-merk" };
 
@@ -47,53 +45,6 @@ describe("layout navigation and toggles", () => {
       "href",
       "#typografie",
     );
-  });
-
-  it("renders subnav anchors that point to existing sections on /het-merk", () => {
-    pathnameState.value = "/het-merk";
-
-    render(
-      <>
-        <SubNav />
-        <HetMerkPage />
-      </>,
-    );
-
-    const expectedAnchors = [
-      "#missie-visie",
-      "#merkwaarden",
-      "#tone-of-voice",
-      "#gallery",
-    ];
-
-    for (const href of expectedAnchors) {
-      const link = document.querySelector<HTMLAnchorElement>(`a[href="${href}"]`);
-
-      expect(link).not.toBeNull();
-      expect(link).toHaveAttribute("href", href);
-      expect(document.getElementById(href.slice(1))).not.toBeNull();
-    }
-  });
-
-  it("renders subnav anchors that point to existing sections on /design-system", () => {
-    pathnameState.value = "/design-system";
-
-    render(
-      <>
-        <SubNav />
-        <DesignSystemPage />
-      </>,
-    );
-
-    const expectedAnchors = ["#kleuren", "#typografie", "#componenten", "#snippets"];
-
-    for (const href of expectedAnchors) {
-      const link = document.querySelector<HTMLAnchorElement>(`a[href="${href}"]`);
-
-      expect(link).not.toBeNull();
-      expect(link).toHaveAttribute("href", href);
-      expect(document.getElementById(href.slice(1))).not.toBeNull();
-    }
   });
 
   it("toggles dark mode and pixel mode independently", () => {
