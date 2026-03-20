@@ -75,3 +75,22 @@ Vermijd onveilige HTML-injectie; werk met veilige string rendering voor snippets
 - Toegevoegd: user-visible succesfeedback-asserts na kopieeracties in `tests/components/CodeSnippet.test.tsx`.
 - Validatie: `npm run preflight` opnieuw uitgevoerd en geslaagd (lint, typecheck, tests).
 - Status: ✅ Task completed na inspector rework.
+
+## INSPECTOR RE-REVIEW (2026-03-20)
+
+**Verdict**: ✅ Pass
+
+### Checks uitgevoerd
+- Preflight opnieuw uitgevoerd en geslaagd: `npm run preflight` (lint, typecheck, tests).
+- Acceptatiecriteria opnieuw geverifieerd:
+  - `/design-system` route rendert via `app/design-system/page.tsx` -> `Documentatie`.
+  - Alle 8 merkkleuren met correcte waardes aanwezig in `ColorPalette`.
+  - Copyflow dekt HEX + Tailwind class met zichtbare gebruikersfeedback.
+  - Typografie playground toont rol-hiërarchie tussen heading/body stijlen.
+  - Componentenbibliotheek gebruikt herbruikbare `CodeSnippet` voor HTML/Tailwind snippets.
+- Eerdere blocking feedback bevestigd als opgelost:
+  - `tests/components/ColorPalette.test.tsx` bevat user-visible succesfeedback-asserts na copy.
+  - `tests/components/CodeSnippet.test.tsx` bevat user-visible succesfeedback-asserts na copy.
+
+### Inspectie referentie
+- Latest coder commit gecontroleerd: `4c35821c78dd389f1a826c3ce7732aea0d4da514`.
