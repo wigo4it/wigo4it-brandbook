@@ -27,6 +27,18 @@ npm run preflight
 - `/het-merk` tijdelijke baseline pagina
 - `/design-system` tijdelijke baseline pagina
 
+## App Shell (Task 03)
+
+- Globale layout bevat een moderne app-shell met:
+	- sticky header
+	- hoofdnavigatie naar beide routes
+	- route-specifieke subnavigatie met anchorlinks
+- Twee handmatige toggles zijn globaal beschikbaar:
+	- dark mode
+	- pixel-modus
+- Beide toggles functioneren onafhankelijk en combineren probleemloos.
+- Toegankelijkheid: skip link naar hoofdinhoud, semantische landmarks en duidelijke aria-labels op navigatie en toggles.
+
 ## Structuur
 
 ```text
@@ -38,6 +50,7 @@ app/
 	page.tsx
 tests/
 	app-page.test.tsx
+	layout-navigation.test.tsx
 ```
 
 ## Opmerking
