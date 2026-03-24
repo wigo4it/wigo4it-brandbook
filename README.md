@@ -2,42 +2,64 @@
 
 ## Over dit project
 
-Dit is het onofficiële brandbook van Wigo4it. Het bevat alle richtlijnen voor de visuele identiteit, inclusief logo's, kleuren, typografie en andere merkelementen.
+Dit repository bevat de Living Brand Book omgeving van Wigo4it: een statische HTML/CSS/JS set met merkrichtlijnen, design-system documentatie en voorbeeldpagina's.
 
-## Inhoud
+## Belangrijkste pagina's
 
-- **Brand Guidelines**: Volledige merkrichtlijnen in HTML-formaat
-- **Kleuren**: Overzicht van de officiële merkkleurenpaletten
-- **Typografie**: Merktypefaces (PP Neue Machina en Raleway)
-- **Logo's**: Verschillende logo-varianten en gebruik
-- **Iconen en vormen**: Visuele elementen voor merktoepassing
+- `index.html`: hoofd-merkgids
+- `design-system.html`: design-system documentatie en utility-overzicht
+- `examples.html`: overzicht met voorbeeldtoepassingen
+- `examples/dashboard.html`: dashboard voorbeeld
+- `examples/slide-deck.html`: slide deck voorbeeld
+- `icons.html`: iconenoverzicht
+- `shapes.html`: vormenoverzicht
 
-## Structuur
+## Mappenstructuur
 
-```
+```text
 wigo4it-brandbook/
-├── brand-guidelines.html  # Hoofdpagina met alle merkrichtlijnen
-├── brandColors.md         # Kleurenpaletten en specificaties
-├── style.css              # Styling voor de brandbook pagina
-├── Fonts/                 # Merktypefaces
-│   ├── PP Neue Machina/
-│   └── Raleway/
-└── img/                   # Visuele assets
+├── index.html
+├── design-system.html
+├── examples.html
+├── icons.html
+├── shapes.html
+├── css/
+│   ├── w4.css
+│   ├── w4-dashboard.css
+│   └── w4-slide-deck.css
+├── js/
+│   └── w4.js
+├── docs/
+│   └── brandColors.md
+├── examples/
+│   ├── dashboard.html
+│   └── slide-deck.html
+├── fonts/
+│   ├── neue-machina/
+│   └── raleway/
+└── img/
     ├── icons/
     ├── logo/
+    ├── photos/
     └── shapes/
 ```
 
-## Gebruik
+## Ontwikkelworkflow
 
-Open `index.html` in een webbrowser om het volledige brandbook te bekijken.
+1. Open de gewenste HTML-pagina direct in de browser of via een lokale static server.
+2. Pas styles aan in `css/w4.css` (algemene stijlen en utilities) of in een van de pagina-specifieke CSS-bestanden.
+3. Houd utility classes en voorbeelden in `design-system.html` synchroon met definities in `css/w4.css`.
 
-## Lettertypes
+## Typografie
 
-Dit brandbook gebruikt de volgende lettertypes:
-- **PP Neue Machina**: Primair lettertype voor koppen en display-tekst
-- **Raleway**: Secundair lettertype voor body-tekst
+- PP Neue Machina: heading/display
+- Raleway: body/UI-tekst
+
+## Notities
+
+- Design tokens staan in `:root` van `css/w4.css`.
+- Donkere modus gebruikt `html[data-theme="dark"]`.
 
 ---
 
-**Laatst bijgewerkt**: Maart 2026
+Laatst bijgewerkt: maart 2026
