@@ -2,7 +2,9 @@
 
 ## Over dit project
 
-Dit repository bevat de Living Brand Book omgeving van Wigo4it: een statische HTML/CSS/JS set met merkrichtlijnen, design-system documentatie en voorbeeldpagina's.
+Dit is het onofficiële brandbook van Wigo4it. Het bevat alle richtlijnen voor de visuele identiteit, inclusief logo's, kleuren, typografie en andere merkelementen.
+
+Dit repository bevat het Brand Book van Wigo4it: een statische HTML/CSS/JS set met merkrichtlijnen, design-system documentatie en voorbeeldpagina's.
 
 ## Belangrijkste pagina's
 
