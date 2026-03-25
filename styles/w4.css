@@ -66,9 +66,93 @@ h1, h2, h3, h4  { font-family: 'PP Neue Machina', sans-serif; }
   display: block;
   width: var(--w, 120px);
   height: var(--h, 120px);
+  z-index: var(--z, 1);
   background: var(--color, var(--dark-blue));
   -webkit-mask: var(--shape) center / contain no-repeat;
   mask: var(--shape) center / contain no-repeat;
+}
+
+.w4-shape-quarter-ring-top-left {
+  -webkit-mask: url('../img/shapes/quarter-ring-top-left.svg') center / contain no-repeat;
+  mask: url('../img/shapes/quarter-ring-top-left.svg') center / contain no-repeat;
+}
+
+.w4-cover-footer {
+  position: absolute;
+  left: 7.3%;
+  bottom: 7%;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4.2vw, 84px);
+}
+
+.w4-cover-meta-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: clamp(20px, 3vw, 76px);
+}
+
+.w4-cover-quote-marks {
+  position: relative;
+  width: clamp(150px, 18vw, 280px);
+  height: clamp(52px, 8vw, 112px);
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.w4-cover-quote-left,
+.w4-cover-quote-right {
+  position: absolute;
+  bottom: 0;
+  width: 46%;
+  height: 100%;
+}
+
+.w4-cover-quote-left {
+  left: 0;
+}
+
+.w4-cover-quote-right {
+  left: 52%;
+}
+
+.w4-ring-shape {
+  -webkit-mask: url('../img/shapes/ring.svg') center / contain no-repeat;
+  mask: url('../img/shapes/ring.svg') center / contain no-repeat;
+}
+
+.w4-cover-top-motif {
+  position: absolute;
+  right: 0;
+  top: 13.6%;
+  width: 50.5%;
+  height: 72%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.w4-cover-yellow-area {
+  position: absolute;
+  inset: 0;
+  background: var(--soft-yellow);
+  -webkit-mask: url('../img/shapes/rectangle-round-right-wide.svg') center / 100% 100% no-repeat;
+  mask: url('../img/shapes/rectangle-round-right-wide.svg') center / 100% 100% no-repeat;
+  transform: scaleX(-1);
+  transform-origin: center;
+}
+
+.w4-cover-ring-area {
+  position: absolute;
+  left: -2.2%;
+  top: -10.6%;
+  width: 41.2%;
+  aspect-ratio: 1 / 1;
+  background: var(--dark-green);
+}
+
+.w4-cover-logo-mark {
+  z-index: 3;
 }
 
 .w4-cover-title {
@@ -88,8 +172,27 @@ h1, h2, h3, h4  { font-family: 'PP Neue Machina', sans-serif; }
 }
 
 @media (max-width: 900px) {
+  .w4-cover-top-motif {
+    right: 0;
+    width: 58%;
+    height: 70%;
+  }
+
   .w4-cover-title {
     font-size: clamp(2rem, 9vw, 4rem);
+  }
+
+  .w4-cover-footer {
+    gap: clamp(12px, 2.8vw, 26px);
+  }
+
+  .w4-cover-meta-grid {
+    gap: clamp(12px, 2.4vw, 28px);
+  }
+
+  .w4-cover-quote-marks {
+    width: clamp(120px, 16vw, 170px);
+    height: clamp(44px, 7vw, 74px);
   }
 
   .w4-cover-meta {

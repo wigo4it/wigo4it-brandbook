@@ -23,6 +23,7 @@
     const accentText = section.querySelectorAll('.w4-cover-meta, p.font-semibold, p.italic');
     const logosAndPhotos = section.querySelectorAll("img[src*='logo'], img[src*='photos']");
     const shapes = section.querySelectorAll(".w4-shape, img[src*='shapes']");
+    const floatingShapes = Array.from(shapes).filter((shape) => !shape.classList.contains('w4-shape-static'));
     const icons = section.querySelectorAll("img[src*='icons']");
 
     // Explicit initial states prevent visible content from jumping back
@@ -120,28 +121,30 @@
         '-=0.14'
       );
 
-      // Start ambient motion only when section enters viewport.
-      ScrollTrigger.create({
-        trigger: section,
-        start: triggerStart,
-        once: true,
-        onEnter: () => {
-          gsap.delayedCall(0.9, () => {
-            gsap.to(shapes, {
-              y: 'random(-6, 6)',
-              rotate: 'random(-2, 2)',
-              duration: 'random(3.4, 5.6)',
-              repeat: -1,
-              yoyo: true,
-              ease: 'sine.inOut',
-              stagger: {
-                each: 0.12,
-                from: 'random'
-              }
+      if (floatingShapes.length) {
+        // Start ambient motion only when section enters viewport.
+        ScrollTrigger.create({
+          trigger: section,
+          start: triggerStart,
+          once: true,
+          onEnter: () => {
+            gsap.delayedCall(0.9, () => {
+              gsap.to(floatingShapes, {
+                y: 'random(-6, 6)',
+                rotate: 'random(-2, 2)',
+                duration: 'random(3.4, 5.6)',
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+                stagger: {
+                  each: 0.12,
+                  from: 'random'
+                }
+              });
             });
-          });
-        }
-      });
+          }
+        });
+      }
     }
 
     if (icons.length) {
