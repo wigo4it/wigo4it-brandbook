@@ -108,7 +108,7 @@
           <li><a data-nav="design-system" href="design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
           <li><a data-nav="icons" href="icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
           <li><a data-nav="shapes" href="shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
-          <li><a data-nav="voorbeelden" href="index.html#voorbeelden" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+          <li><a data-nav="voorbeelden" href="examples.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
         </ul>
       </nav>
     </div>
@@ -478,9 +478,7 @@
         if (path.endsWith('/design-system.html')) return 'design-system';
         if (path.endsWith('/icons.html')) return 'icons';
         if (path.endsWith('/shapes.html')) return 'shapes';
-
-        const hash = (window.location.hash || '#merkboek').toLowerCase();
-        if (hash === '#voorbeelden') return 'voorbeelden';
+        if (path.endsWith('/examples.html')) return 'voorbeelden';
         return 'merkboek';
       }
 
