@@ -1,0 +1,404 @@
+/* Slide deck specific styles as an addition on top of styles/w4.css and Tailwind utilities. */
+
+:root {
+  --deck-bg: #f2f6f2;
+  --deck-shadow: 0 24px 60px rgba(54, 44, 70, 0.2);
+  --deck-radius: 22px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(233, 235, 134, 0.4), transparent 34%),
+    radial-gradient(circle at 10% 90%, rgba(99, 207, 146, 0.24), transparent 38%),
+    var(--deck-bg);
+}
+
+.deck-page {
+  width: min(1400px, calc(100% - 2.5rem));
+  margin: 5.5rem auto 2rem;
+}
+
+.deck-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--deck-radius);
+  overflow: hidden;
+  box-shadow: var(--deck-shadow);
+  background: #0f172a;
+}
+
+.deck-slide {
+  position: absolute;
+  inset: 0;
+  padding: clamp(1.2rem, 2vw, 2.2rem);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  transform: translateX(100%);
+  transition: transform 520ms cubic-bezier(0.77, 0, 0.175, 1);
+  overflow: hidden;
+}
+
+.deck-slide.active {
+  transform: translateX(0);
+}
+
+.deck-slide.prev {
+  transform: translateX(-100%);
+}
+
+.deck-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.09), transparent 34%);
+}
+
+.deck-slide--green {
+  background: #005351;
+  color: #ffffff;
+}
+
+.deck-slide--aubergine {
+  background: #362c46;
+  color: #ffffff;
+}
+
+.deck-slide--blue {
+  background: #434d8e;
+  color: #ffffff;
+}
+
+.deck-slide--light {
+  background: #f7f8f6;
+  color: #362c46;
+}
+
+.deck-slide--yellow {
+  background: #e9eb86;
+  color: #005351;
+}
+
+.deck-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.deck-logo {
+  height: 1.8rem;
+  width: auto;
+  opacity: 0.95;
+}
+
+.deck-logo--diap {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
+}
+
+.deck-eyebrow {
+  font-family: 'PP Neue Machina', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
+.deck-accent-yellow {
+  color: #e9eb86;
+}
+
+.deck-accent-green {
+  color: #63cf92;
+}
+
+.deck-accent-pink {
+  color: #bb55a9;
+}
+
+.deck-accent-blue {
+  color: #434d8e;
+}
+
+.deck-body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  gap: 1.1rem;
+}
+
+.deck-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.deck-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.deck-card {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.95rem;
+}
+
+.deck-timeline {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.deck-timeline-card {
+  min-height: 370px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.8rem 0.7rem;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 0.4rem;
+}
+
+.deck-timeline-card img {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  opacity: 0.7;
+  filter: brightness(0) invert(1);
+}
+
+.deck-timeline-card p {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  opacity: 0.84;
+}
+
+.deck-timeline-year {
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.deck-timeline-title {
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 1.03rem;
+  line-height: 1.12;
+  font-weight: 700;
+}
+
+.deck-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.deck-content-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.deck-content-card {
+  border-radius: 6px;
+  border: 1px solid rgba(54, 44, 70, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  padding: 1rem;
+}
+
+.deck-content-card strong {
+  font-family: 'PP Neue Machina', sans-serif;
+}
+
+.deck-content-highlight {
+  border-radius: 6px;
+  border: 1px solid rgba(54, 44, 70, 0.14);
+  background: #d3dc88;
+  padding: 1rem;
+  color: #005351;
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+}
+
+.deck-content-steps {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.deck-content-step {
+  border-radius: 4px;
+  background: rgba(0, 83, 81, 0.09);
+  padding: 0.45rem 0.55rem;
+  font-size: 0.85rem;
+}
+
+.deck-content-step strong {
+  font-family: 'PP Neue Machina', sans-serif;
+  margin-right: 0.45rem;
+}
+
+.deck-closing-body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1.05rem;
+  text-align: center;
+}
+
+.deck-closing-title {
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: clamp(3rem, 6.6vw, 5.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: #362c46;
+  margin: 0;
+}
+
+.deck-closing-copy {
+  max-width: 52ch;
+  font-size: 1rem;
+  color: rgba(54, 44, 70, 0.62);
+}
+
+.deck-closing-cta {
+  width: min(96%, 1120px);
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 999px;
+  background: #005351;
+  color: #ffffff;
+  padding: 0.46rem 1.15rem;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.deck-slide--light .deck-card,
+.deck-slide--yellow .deck-card {
+  border-color: rgba(54, 44, 70, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.deck-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.82rem;
+  opacity: 0.85;
+}
+
+.deck-progress {
+  width: 180px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.deck-slide--light .deck-progress,
+.deck-slide--yellow .deck-progress {
+  background: rgba(54, 44, 70, 0.2);
+}
+
+.deck-progress-fill {
+  width: 0;
+  height: 100%;
+  background: #63cf92;
+  transition: width 220ms ease;
+}
+
+.deck-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.8rem;
+  gap: 1rem;
+}
+
+.deck-btn {
+  border: 1px solid rgba(54, 44, 70, 0.18);
+  background: rgba(255, 255, 255, 0.78);
+  color: #362c46;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.deck-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.deck-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.deck-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(54, 44, 70, 0.22);
+  cursor: pointer;
+}
+
+.deck-dot.active {
+  background: #005351;
+  transform: scale(1.1);
+}
+
+.shape-float {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.14;
+  z-index: 1;
+}
+
+@media (max-width: 1100px) {
+  .deck-page {
+    width: min(1400px, calc(100% - 1.2rem));
+  }
+}
+
+@media (max-width: 900px) {
+  .deck-frame {
+    aspect-ratio: auto;
+    min-height: 74vh;
+  }
+
+  .deck-grid-2,
+  .deck-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .deck-timeline {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .deck-content-layout {
+    grid-template-columns: 1fr;
+  }
+}
