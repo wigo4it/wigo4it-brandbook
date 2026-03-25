@@ -34,7 +34,7 @@
   </script>
 </head>
 
-<body class="bg-white text-aubergine min-h-screen overflow-x-hidden">
+<body class="m-0 bg-white text-aubergine min-h-screen overflow-x-hidden">
 
   <!-- Navbar -->
   <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
@@ -62,35 +62,38 @@
   <!-- Main -->
   <main class="w-full p-0 m-0">
 
-    <!-- Cover (matched to page1 screenshot) -->
     <section id="merkboek" class="w-full h-screen">
       <div class="w4-cover">
-        <div class="absolute right-[-2.8%] top-[13.6%] h-[72%] w-[50.5%] bg-soft-yellow rounded-l-[40%]"></div>
-        <div class="absolute left-[51.2%] top-[6%] w-[20.8%] h-[37%] rounded-full border-[clamp(14px,2.2vw,42px)] border-dark-green bg-transparent"></div>
-
-        <img src="img/logo/Logo.svg" alt="Wigo4it" class="absolute left-[7.1%] top-[13.9%] w-[16.3%] min-w-[120px]" />
+        <div class="w4-cover-top-motif" aria-hidden="true">
+          <div class="w4-cover-yellow-area"></div>
+          <div class="w4-cover-ring-area w4-ring-shape"></div>
+        </div>
 
         <div class="absolute left-[6.9%] top-[57.8%] -translate-y-1/2 z-10">
           <h1 class="w4-cover-title">Merkgids</h1>
         </div>
 
-        <div class="absolute left-[7.3%] bottom-[7%] w4-cover-meta">
-          versie 1.0<br />
-          mei 2024
-        </div>
-        <div class="absolute left-[19.8%] bottom-[7%] w4-cover-meta">
-          copyright Wigo4it<br />
-          contact: communicatie@wigo4it.nl
+        <div class="w4-cover-footer">
+          <div class="w4-cover-meta-grid">
+            <div class="w4-cover-meta">
+              versie 1.0<br />
+              mei 2024
+            </div>
+            <div class="w4-cover-meta">
+              copyright Wigo4it<br />
+              contact: communicatie@wigo4it.nl
+            </div>
+          </div>
+          <div class="w4-cover-quote-marks" aria-hidden="true">
+            <div class="w4-shape w4-shape-quarter-ring-top-left w4-cover-quote-left w4-shape-static" style="--color:var(--dark-blue);"></div>
+            <div class="w4-shape w4-shape-quarter-ring-top-left w4-cover-quote-right w4-shape-static" style="--color:var(--dark-blue);"></div>
+          </div>
         </div>
 
-        <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:12.8%; --h:22%; --color:var(--dark-blue); left:41.6%; bottom:5.8%;"></div>
-        <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:12.8%; --h:22%; --color:var(--dark-blue); left:50.2%; bottom:5.8%;"></div>
-
-        <img src="img/logo/4.svg" alt="W4 symbool" class="absolute right-[4.2%] bottom-[5.6%] w-[9.1%] min-w-[72px]" />
+        <img src="img/logo/4.svg" alt="W4 symbool" class="absolute right-[4.2%] bottom-[5.6%] w-[9.1%] min-w-[72px] w4-cover-logo-mark" />
       </div>
     </section>
 
-    <!-- Het merk Wigo4it (page 2) -->
     <section class="w-full min-h-screen relative bg-light-grey overflow-hidden">
       <div class="relative w-full h-screen flex">
 
