@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Voorbeeld Dashboard</title>
+  <link rel="stylesheet" href="../styles/w4.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'light-grey': '#cfd6cc',
+            'dark-green': '#005351',
+            'dark-blue': '#434d8e',
+            'soft-yellow': '#e9eb86',
+            'light-green': '#63cf92',
+            aubergine: '#362c46',
+            'bright-red': '#f56e6d',
+            'bright-pink': '#bb55a9'
+          },
+          fontFamily: {
+            heading: ['"PP Neue Machina"', 'sans-serif'],
+            body: ['Raleway', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body class="font-body text-aubergine overflow-x-hidden">
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
+    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
+      <a href="../index.html#merkboek" class="flex items-center gap-2 shrink-0">
+        <img src="../img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
+      </a>
+
+      <nav aria-label="Hoofdnavigatie">
+        <ul class="flex items-center gap-1">
+          <li><a data-nav="merkboek" href="../index.html#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a data-nav="design-system" href="../design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a data-nav="icons" href="../icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a data-nav="shapes" href="../shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a data-nav="voorbeelden" href="../examples.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="dashboard-card p-5 sm:p-6">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p class="font-heading text-xs uppercase tracking-[0.14em] text-aubergine/60">Voorbeeld in /examples</p>
+          <h1 class="mt-2 font-heading text-4xl leading-[0.94]">Dashboard voorbeeld</h1>
+          <p class="mt-2 text-aubergine/75">Voorbeeld van KPI's, grafieken, tabellen en datavisualisatie-richtlijnen binnen de Wigo4it stijl.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-semibold">
+          <span class="rounded-full bg-dark-green/10 text-dark-green px-3 py-1">Realtime</span>
+          <span class="rounded-full bg-dark-blue/10 text-dark-blue px-3 py-1">Chart.js</span>
+          <span class="rounded-full bg-light-green/25 text-aubergine px-3 py-1">Data-driven</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <article class="dashboard-card p-4">
+        <p class="text-xs uppercase tracking-wide text-aubergine/60">Actieve cases</p>
+        <p class="kpi-value mt-2 text-dark-green">128</p>
+        <p class="text-sm text-aubergine/70 mt-1">+9% t.o.v. vorige periode</p>
+      </article>
+      <article class="dashboard-card p-4">
+        <p class="text-xs uppercase tracking-wide text-aubergine/60">Gem. doorlooptijd</p>
+        <p class="kpi-value mt-2 text-dark-blue">14,2 d</p>
+        <p class="text-sm text-aubergine/70 mt-1">-1,3 dag verbetering</p>
+      </article>
+      <article class="dashboard-card p-4">
+        <p class="text-xs uppercase tracking-wide text-aubergine/60">Klanttevredenheid</p>
+        <p class="kpi-value mt-2 text-bright-pink">8,6</p>
+        <p class="text-sm text-aubergine/70 mt-1">Stabiele trend</p>
+      </article>
+      <article class="dashboard-card p-4">
+        <p class="text-xs uppercase tracking-wide text-aubergine/60">Risico signalen</p>
+        <p class="kpi-value mt-2 text-bright-red">6</p>
+        <p class="text-sm text-aubergine/70 mt-1">2 nieuw in deze week</p>
+      </article>
+    </section>
+
+    <section class="grid gap-3 xl:grid-cols-[1.65fr_1fr]">
+      <article class="dashboard-card p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <h2 class="font-heading text-2xl">Trend over tijd</h2>
+          <p class="text-xs text-aubergine/60">Lijngrafiek · tijdreeks</p>
+        </div>
+        <div class="chart-wrap tall"><canvas id="trendChart"></canvas></div>
+      </article>
+      <article class="dashboard-card p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <h2 class="font-heading text-2xl">Verdeling per domein</h2>
+          <p class="text-xs text-aubergine/60">Donut · aandeel</p>
+        </div>
+        <div class="chart-wrap"><canvas id="shareChart"></canvas></div>
+      </article>
+    </section>
+
+    <section class="grid gap-3 xl:grid-cols-[1.2fr_1fr]">
+      <article class="dashboard-card p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <h2 class="font-heading text-2xl">Workload per team</h2>
+          <p class="text-xs text-aubergine/60">Gestapelde staaf · vergelijking</p>
+        </div>
+        <div class="chart-wrap"><canvas id="workloadChart"></canvas></div>
+      </article>
+      <article class="dashboard-card p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <h2 class="font-heading text-2xl">Kwaliteit vs snelheid</h2>
+          <p class="text-xs text-aubergine/60">Scatter · relatie</p>
+        </div>
+        <div class="chart-wrap"><canvas id="scatterChart"></canvas></div>
+      </article>
+    </section>
+
+    <section class="grid gap-3 xl:grid-cols-[1.2fr_1fr]">
+      <article class="dashboard-card p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <h2 class="font-heading text-2xl">Operationele tabel</h2>
+          <p class="text-xs text-aubergine/60">Tabel · detailniveau</p>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th>Open</th>
+                <th>Afgerond</th>
+                <th>SLA</th>
+                <th>Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Team Noord</td><td>34</td><td>82</td><td>95%</td><td>Stijgend</td></tr>
+              <tr><td>Team Zuid</td><td>28</td><td>76</td><td>93%</td><td>Stabiel</td></tr>
+              <tr><td>Team Oost</td><td>40</td><td>69</td><td>89%</td><td>Dalend</td></tr>
+              <tr><td>Team West</td><td>26</td><td>80</td><td>96%</td><td>Stijgend</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="dashboard-card p-4 sm:p-5">
+        <h2 class="font-heading text-2xl">Wanneer welke visualisatie?</h2>
+        <ul class="insight-list mt-3 text-sm text-aubergine/80">
+          <li><strong>Lijngrafiek:</strong> gebruik voor trends over tijd met minimaal 4 meetpunten.</li>
+          <li><strong>Staafgrafiek:</strong> gebruik voor vergelijking tussen categorieen; sorteer op relevantie.</li>
+          <li><strong>Donut/Pie:</strong> alleen voor duidelijke delen van een geheel, max 5 segmenten.</li>
+          <li><strong>Scatter:</strong> gebruik om relatie/correlatie zichtbaar te maken, niet voor exacte totalen.</li>
+          <li><strong>Tabel:</strong> kies tabellen bij detailvragen, filtering en exacte waarden.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="dashboard-card p-4 sm:p-5">
+      <h2 class="font-heading text-2xl">Regels en aandachtspunten voor datavisualisatie</h2>
+      <div class="viz-guidance-grid mt-3">
+        <article class="viz-rule">
+          <h4>1. Start met de vraag</h4>
+          <p>Kies de visualisatie op basis van beslisvraag: trend, vergelijking, samenstelling, relatie of detail.</p>
+        </article>
+        <article class="viz-rule">
+          <h4>2. Beperk kleurcodering</h4>
+          <p>Gebruik maximaal 1 hoofdkleur en 1 accentkleur per grafiek; reserveer rood voor risico's/alerts.</p>
+        </article>
+        <article class="viz-rule">
+          <h4>3. Maak schaal eerlijk</h4>
+          <p>Voorkom misleiding: begin assen waar logisch op 0 en toon eenheden consequent.</p>
+        </article>
+        <article class="viz-rule">
+          <h4>4. Label direct</h4>
+          <p>Plaats waarden en korte context dichtbij de data; beperk afhankelijkheid van complexe legendes.</p>
+        </article>
+        <article class="viz-rule">
+          <h4>5. Voeg benchmark toe</h4>
+          <p>Context maakt data bruikbaar: vergelijk met doelwaarde, vorige periode of gemiddelde.</p>
+        </article>
+        <article class="viz-rule">
+          <h4>6. Test op leesbaarheid</h4>
+          <p>Controleer contrast, mobiele schaal en begrijpelijkheid in minder dan 5 seconden.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('[data-nav]');
+      if (!navLinks.length) return;
+
+      function getActiveKey() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.endsWith('/design-system.html')) return 'design-system';
+        if (path.endsWith('/icons.html')) return 'icons';
+        if (path.endsWith('/shapes.html')) return 'shapes';
+        if (path.endsWith('/examples.html') || path.includes('/examples/')) return 'voorbeelden';
+        return 'merkboek';
+      }
+
+      function updateActiveNav() {
+        const activeKey = getActiveKey();
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('data-nav') === activeKey;
+          link.classList.toggle('bg-light-grey/60', isActive);
+          link.classList.toggle('text-dark-green', isActive);
+          link.classList.toggle('font-semibold', isActive);
+          if (isActive) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      updateActiveNav();
+      window.addEventListener('hashchange', updateActiveNav);
+    })();
+
+    (function () {
+      Chart.defaults.font.family = 'Raleway, sans-serif';
+      Chart.defaults.color = 'rgba(54, 44, 70, 0.75)';
+
+      new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug'],
+          datasets: [
+            {
+              label: 'Doorstroom',
+              data: [62, 66, 64, 71, 74, 79, 83, 88],
+              borderColor: '#005351',
+              backgroundColor: 'rgba(0, 83, 81, 0.12)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 3
+            },
+            {
+              label: 'Doelwaarde',
+              data: [65, 65, 65, 70, 70, 75, 80, 85],
+              borderColor: '#434d8e',
+              borderDash: [6, 5],
+              tension: 0.2,
+              fill: false,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' }
+          },
+          scales: {
+            y: { beginAtZero: false, min: 50, max: 95, grid: { color: 'rgba(54, 44, 70, 0.08)' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('shareChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Intake', 'Beoordeling', 'Nazorg', 'Overig'],
+          datasets: [{
+            data: [34, 28, 22, 16],
+            backgroundColor: ['#005351', '#434d8e', '#63cf92', '#bb55a9'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '68%',
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('workloadChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Noord', 'Zuid', 'Oost', 'West'],
+          datasets: [
+            {
+              label: 'Open',
+              data: [34, 28, 40, 26],
+              backgroundColor: '#005351'
+            },
+            {
+              label: 'In uitvoering',
+              data: [16, 14, 18, 12],
+              backgroundColor: '#63cf92'
+            },
+            {
+              label: 'Afgerond',
+              data: [82, 76, 69, 80],
+              backgroundColor: '#434d8e'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } },
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(54, 44, 70, 0.08)' } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('scatterChart'), {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Teams',
+              data: [
+                { x: 6.4, y: 78 },
+                { x: 7.1, y: 82 },
+                { x: 8.0, y: 86 },
+                { x: 8.4, y: 91 },
+                { x: 7.6, y: 88 },
+                { x: 6.9, y: 80 }
+              ],
+              backgroundColor: '#bb55a9'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } },
+          scales: {
+            x: { title: { display: true, text: 'Snelheid (score)' }, min: 6, max: 9, grid: { color: 'rgba(54, 44, 70, 0.08)' } },
+            y: { title: { display: true, text: 'Kwaliteit (score)' }, min: 70, max: 95, grid: { color: 'rgba(54, 44, 70, 0.08)' } }
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

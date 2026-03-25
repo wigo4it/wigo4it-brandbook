@@ -1,0 +1,127 @@
+/* Dashboard-specific styles on top of styles/w4.css and Tailwind utilities. */
+
+:root {
+  --dash-bg: #f3f7f2;
+  --dash-shadow: 0 20px 50px rgba(54, 44, 70, 0.14);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(233, 235, 134, 0.36), transparent 34%),
+    radial-gradient(circle at 8% 88%, rgba(99, 207, 146, 0.18), transparent 40%),
+    var(--dash-bg);
+}
+
+.dashboard-shell {
+  width: min(1450px, calc(100% - 2rem));
+  margin: 5.5rem auto 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-card {
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--dash-shadow);
+}
+
+.chart-wrap {
+  position: relative;
+  min-height: 280px;
+}
+
+.chart-wrap.tall {
+  min-height: 340px;
+}
+
+.insight-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.insight-list li {
+  list-style: none;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.insight-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65rem;
+  width: 6px;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+.viz-guidance-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.viz-rule {
+  border: 1px solid rgba(54, 44, 70, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.9rem;
+}
+
+.viz-rule h4 {
+  margin: 0;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 1rem;
+}
+
+.viz-rule p {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgba(54, 44, 70, 0.78);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 0.65rem 0.7rem;
+  border-bottom: 1px solid rgba(54, 44, 70, 0.1);
+}
+
+.data-table th {
+  font-family: 'PP Neue Machina', sans-serif;
+  color: rgba(54, 44, 70, 0.8);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.kpi-value {
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+  line-height: 1;
+}
+
+@media (max-width: 1000px) {
+  .viz-guidance-grid {
+    grid-template-columns: 1fr;
+  }
+}
