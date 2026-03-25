@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it Designsysteem</title>
+
+  <style>
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainRegular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainSemibold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'PP Neue Machina';
+      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainBold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Raleway';
+      src: url('fonts/raleway/Raleway-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Raleway';
+      src: url('fonts/raleway/Raleway-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'light-grey': '#cfd6cc',
+            'dark-green': '#005351',
+            'dark-blue': '#434d8e',
+            'soft-yellow': '#e9eb86',
+            'light-green': '#63cf92',
+            aubergine: '#362c46',
+            'bright-red': '#f56e6d',
+            'bright-pink': '#bb55a9',
+            brand: {
+              lightGrey: '#cfd6cc',
+              darkGreen: '#005351',
+              darkBlue: '#434d8e',
+              softYellow: '#e9eb86',
+              lightGreen: '#63cf92',
+              aubergine: '#362c46',
+              brightRed: '#f56e6d',
+              brightPink: '#bb55a9'
+            }
+          },
+          fontFamily: {
+            heading: ['"PP Neue Machina"', 'sans-serif'],
+            body: ['Raleway', 'sans-serif']
+          },
+          borderRadius: {
+            '4xl': '2rem'
+          },
+          boxShadow: {
+            panel: '0 10px 30px rgba(54, 44, 70, 0.10)',
+            float: '0 14px 42px rgba(0, 83, 81, 0.18)'
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="font-body bg-slate-100 text-brand-aubergine antialiased overflow-x-hidden">
+  <div class="fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-32 -left-20 h-96 w-96 rounded-full bg-brand-softYellow/60 blur-3xl"></div>
+    <div class="absolute top-28 right-0 h-[28rem] w-[28rem] rounded-full bg-brand-lightGreen/40 blur-3xl"></div>
+    <div class="absolute -bottom-20 left-1/3 h-80 w-80 rounded-full bg-brand-darkBlue/25 blur-3xl"></div>
+  </div>
+
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
+    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
+      <a href="index.html#merkboek" class="flex items-center gap-2 shrink-0">
+        <img src="img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
+      </a>
+
+      <nav aria-label="Hoofdnavigatie">
+        <ul class="flex items-center gap-1">
+          <li><a data-nav="merkboek" href="index.html#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a data-nav="design-system" href="design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a data-nav="icons" href="icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a data-nav="shapes" href="shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a data-nav="voorbeelden" href="index.html#voorbeelden" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="mx-auto grid w-full max-w-[1500px] grid-cols-1 gap-8 px-4 pb-16 pt-24 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
+    <aside class="top-24 self-start lg:sticky">
+      <div class="overflow-hidden rounded-3xl border border-brand-aubergine/10 bg-white/90 shadow-panel backdrop-blur">
+        <div class="border-b border-brand-aubergine/10 bg-brand-aubergine px-5 py-4 text-white">
+          <p class="font-heading text-lg">Documentatie</p>
+          <p class="mt-1 text-xs text-white/75">Tailwind + Wigo4it tokens</p>
+        </div>
+        <nav class="grid gap-1 p-3 text-sm" aria-label="Designsysteem secties">
+          <a href="#overview" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Overzicht</a>
+          <a href="#foundations" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Fundamenten</a>
+          <a href="#colors" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Kleurtokens</a>
+          <a href="#typography" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Typografie</a>
+          <a href="#spacing" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Spacing en Radius</a>
+          <a href="#components" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Componenten</a>
+          <a href="#patterns" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Patronen</a>
+          <a href="#utilities" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Tailwind Utilities</a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="grid gap-8">
+      <section id="overview" class="overflow-hidden rounded-4xl border border-brand-aubergine/10 bg-white/90 shadow-panel backdrop-blur">
+        <div class="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <p class="inline-flex items-center rounded-full border border-brand-darkGreen/25 bg-brand-darkGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-brand-darkGreen">v1.0 - Maart 2026</p>
+            <h1 class="mt-4 font-heading text-4xl leading-[0.95] text-brand-aubergine sm:text-6xl">Wigo4it Designsysteem</h1>
+            <p class="mt-4 max-w-2xl text-base text-brand-aubergine/75 sm:text-lg">
+              Dit systeem vertaalt jullie bestaande pagina's naar herbruikbare designtokens en componenten op basis van TailwindCSS.
+              Het behoudt de energieke persoonlijkheid van het merk met sociale impact, terwijl de implementatie sneller en consistenter wordt.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
+              <span class="rounded-full bg-brand-lightGrey px-3 py-1 text-brand-aubergine">Merk-eerst</span>
+              <span class="rounded-full bg-brand-softYellow px-3 py-1 text-brand-aubergine">Toegankelijk contrast</span>
+              <span class="rounded-full bg-brand-lightGreen/45 px-3 py-1 text-brand-aubergine">Herbruikbare componenten</span>
+              <span class="rounded-full bg-brand-darkBlue/15 px-3 py-1 text-brand-darkBlue">Tailwind-vriendelijk</span>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-brand-aubergine/10 bg-slate-950 p-4 text-xs text-slate-200 sm:p-5">
+            <p class="mb-2 font-semibold text-slate-100">Tailwind config voorbeeld</p>
+            <pre class="overflow-x-auto text-[11px] leading-relaxed text-slate-300"><code>tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          darkGreen: '#005351',
+          darkBlue: '#434d8e',
+          aubergine: '#362c46',
+          softYellow: '#e9eb86'
+        }
+      },
+      fontFamily: {
+        heading: ['PP Neue Machina'],
+        body: ['Raleway']
+      }
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="foundations" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Fundamenten</h2>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">
+          Fundamenten bepalen het visuele DNA: kleur, typografie, spacing en elevatie. Componenten worden alleen opgebouwd vanuit deze bouwstenen.
+        </p>
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-lightGrey/35 p-4">
+            <h3 class="font-heading text-xl">Stem</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Zelfverzekerd, praktisch en optimistisch. De interface voelt slim en benaderbaar.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-softYellow/55 p-4">
+            <h3 class="font-heading text-xl">Contrast</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Gebruik diepe achtergronden met warme accenten. Primaire tekst blijft op donkergroen of aubergine.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-lightGreen/40 p-4">
+            <h3 class="font-heading text-xl">Beweging</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Kies voor reveals op sectieniveau en subtiele zwevende accenten in plaats van drukke micro-interacties.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="colors" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+          <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Kleurtokens</h2>
+          <p class="text-sm text-brand-aubergine/60">Klik op een tokenkaart om de hex-waarde te kopieren.</p>
+        </div>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <button data-copy="#cfd6cc" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-lightGrey"></div>
+            <p class="mt-3 font-heading text-lg">lightGrey</p>
+            <p class="text-xs text-brand-aubergine/65">#cfd6cc • bg-brand-lightGrey</p>
+          </button>
+          <button data-copy="#005351" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-darkGreen"></div>
+            <p class="mt-3 font-heading text-lg">darkGreen</p>
+            <p class="text-xs text-brand-aubergine/65">#005351 • bg-brand-darkGreen</p>
+          </button>
+          <button data-copy="#434d8e" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-darkBlue"></div>
+            <p class="mt-3 font-heading text-lg">darkBlue</p>
+            <p class="text-xs text-brand-aubergine/65">#434d8e • bg-brand-darkBlue</p>
+          </button>
+          <button data-copy="#e9eb86" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-softYellow"></div>
+            <p class="mt-3 font-heading text-lg">softYellow</p>
+            <p class="text-xs text-brand-aubergine/65">#e9eb86 • bg-brand-softYellow</p>
+          </button>
+          <button data-copy="#63cf92" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-lightGreen"></div>
+            <p class="mt-3 font-heading text-lg">lightGreen</p>
+            <p class="text-xs text-brand-aubergine/65">#63cf92 • bg-brand-lightGreen</p>
+          </button>
+          <button data-copy="#362c46" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-aubergine"></div>
+            <p class="mt-3 font-heading text-lg">aubergine</p>
+            <p class="text-xs text-brand-aubergine/65">#362c46 • bg-brand-aubergine</p>
+          </button>
+          <button data-copy="#f56e6d" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-brightRed"></div>
+            <p class="mt-3 font-heading text-lg">brightRed</p>
+            <p class="text-xs text-brand-aubergine/65">#f56e6d • bg-brand-brightRed</p>
+          </button>
+          <button data-copy="#bb55a9" class="token-card group rounded-2xl border border-brand-aubergine/10 p-3 text-left transition hover:-translate-y-1 hover:shadow-float">
+            <div class="h-24 rounded-xl bg-brand-brightPink"></div>
+            <p class="mt-3 font-heading text-lg">brightPink</p>
+            <p class="text-xs text-brand-aubergine/65">#bb55a9 • bg-brand-brightPink</p>
+          </button>
+        </div>
+      </section>
+
+      <section id="typography" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Typografie</h2>
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <p class="text-xs uppercase tracking-widest text-brand-aubergine/60">Koppenfont</p>
+            <h3 class="mt-3 font-heading text-5xl leading-[0.95]">PP Neue Machina</h3>
+            <p class="mt-4 text-sm text-brand-aubergine/75">Gebruik voor headlines, sectielabels en merkaccenten.</p>
+            <div class="mt-4 rounded-xl bg-slate-950 p-3 text-xs text-slate-200">
+              <code>class="font-heading text-4xl leading-tight"</code>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <p class="text-xs uppercase tracking-widest text-brand-aubergine/60">Bodyfont</p>
+            <h3 class="mt-3 text-3xl font-bold">Raleway</h3>
+            <p class="mt-2 text-base text-brand-aubergine/80">Leesbare, moderne bodytekst voor alle content en interface labels.</p>
+            <div class="mt-4 rounded-xl bg-slate-950 p-3 text-xs text-slate-200">
+              <code>class="font-body text-base leading-relaxed"</code>
+            </div>
+          </article>
+        </div>
+        <div class="mt-6 overflow-hidden rounded-2xl border border-brand-aubergine/10">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-brand-lightGrey/45 text-left text-brand-aubergine">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Stijl</th>
+                <th class="px-4 py-3 font-semibold">Tailwind classes</th>
+                <th class="px-4 py-3 font-semibold">Gebruik</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white text-brand-aubergine/85">
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-heading text-2xl">Display</td><td class="px-4 py-3">font-heading text-6xl leading-none</td><td class="px-4 py-3">Herotitels</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-heading text-xl">Sectietitel</td><td class="px-4 py-3">font-heading text-4xl</td><td class="px-4 py-3">Paginasecties</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 text-base font-bold">Body</td><td class="px-4 py-3">font-body text-base leading-relaxed</td><td class="px-4 py-3">Lange tekst</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 text-xs font-bold uppercase">Meta</td><td class="px-4 py-3">text-xs tracking-wide uppercase</td><td class="px-4 py-3">Labels en status</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="spacing" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Spacing en Radius</h2>
+        <div class="mt-6 grid gap-4 lg:grid-cols-2">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-xl">Aanbevolen spacing schaal</h3>
+            <div class="mt-4 grid gap-3 text-sm">
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-4 bg-brand-darkGreen"></span><span>4px -> p-1 / gap-1</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-8 bg-brand-darkGreen"></span><span>8px -> p-2 / gap-2</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-12 bg-brand-darkGreen"></span><span>12px -> p-3 / gap-3</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-16 bg-brand-darkGreen"></span><span>16px -> p-4 / gap-4</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-24 bg-brand-darkGreen"></span><span>24px -> p-6 / gap-6</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-3 w-32 bg-brand-darkGreen"></span><span>32px -> p-8 / gap-8</span></div>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-xl">Vormtaal voor hoeken</h3>
+            <div class="mt-4 grid gap-3 text-sm">
+              <div class="flex items-center gap-3"><span class="inline-block h-10 w-16 rounded-md border border-brand-aubergine/20 bg-brand-lightGrey/40"></span><span>rounded-md voor invoervelden</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-10 w-16 rounded-xl border border-brand-aubergine/20 bg-brand-lightGrey/40"></span><span>rounded-xl voor kaarten</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-10 w-16 rounded-2xl border border-brand-aubergine/20 bg-brand-lightGrey/40"></span><span>rounded-2xl voor kernvlakken</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-10 w-16 rounded-3xl border border-brand-aubergine/20 bg-brand-lightGrey/40"></span><span>rounded-3xl voor heromodules</span></div>
+              <div class="flex items-center gap-3"><span class="inline-block h-10 w-16 rounded-full border border-brand-aubergine/20 bg-brand-lightGrey/40"></span><span>rounded-full voor pills</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="components" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Componenten</h2>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">Herbruikbare UI-bouwblokken, gebaseerd op jullie huidige pagina's en uitgewerkt als Tailwind utility aanpak.</p>
+
+        <div class="mt-6 grid gap-6">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Knoppen</h3>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <button class="rounded-full bg-brand-darkGreen px-5 py-2 text-sm font-bold text-white transition hover:bg-brand-aubergine">Primair</button>
+              <button class="rounded-full bg-brand-darkBlue px-5 py-2 text-sm font-bold text-white transition hover:bg-brand-aubergine">Secundair</button>
+              <button class="rounded-full border border-brand-aubergine/25 bg-white px-5 py-2 text-sm font-bold text-brand-aubergine transition hover:bg-brand-lightGrey/55">Ghost</button>
+              <button class="rounded-full bg-brand-softYellow px-5 py-2 text-sm font-bold text-brand-aubergine transition hover:bg-brand-lightGreen">Accent</button>
+            </div>
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-950 p-3 text-xs text-slate-300"><code>&lt;button class="rounded-full bg-brand-darkGreen px-5 py-2 text-sm font-bold text-white"&gt;
+  Primair
+&lt;/button&gt;</code></pre>
+          </article>
+
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Kaarten</h3>
+            <div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div class="rounded-2xl border border-brand-aubergine/10 bg-brand-lightGrey/35 p-4">
+                <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Dienst</p>
+                <h4 class="mt-2 font-heading text-xl">Productteam met burger als startpunt</h4>
+                <p class="mt-2 text-sm text-brand-aubergine/75">Design- en deliveryteam gericht op software met maatschappelijke impact.</p>
+              </div>
+              <div class="rounded-2xl border border-brand-darkGreen/20 bg-brand-darkGreen p-4 text-white">
+                <p class="text-xs uppercase tracking-wide text-white/70">Data</p>
+                <h4 class="mt-2 font-heading text-xl">Platformbetrouwbaarheid</h4>
+                <p class="mt-2 text-sm text-white/80">Meetbare uptime en een robuuste releaseflow met ingebouwde observability.</p>
+              </div>
+              <div class="rounded-2xl border border-brand-darkBlue/20 bg-brand-darkBlue p-4 text-white">
+                <p class="text-xs uppercase tracking-wide text-white/70">Proces</p>
+                <h4 class="mt-2 font-heading text-xl">Van beleid naar product</h4>
+                <p class="mt-2 text-sm text-white/80">Vertaal wetswijzigingen snel naar praktische, hoogwaardige implementatie.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Formulieren</h3>
+            <form class="mt-4 grid gap-4 md:grid-cols-2">
+              <label class="grid gap-2 text-sm font-semibold text-brand-aubergine">
+                Naam
+                <input type="text" placeholder="Jane Doe" class="rounded-xl border border-brand-aubergine/20 bg-white px-3 py-2.5 text-sm font-normal outline-none ring-brand-darkGreen/40 transition focus:ring-2" />
+              </label>
+              <label class="grid gap-2 text-sm font-semibold text-brand-aubergine">
+                Team
+                <select class="rounded-xl border border-brand-aubergine/20 bg-white px-3 py-2.5 text-sm font-normal outline-none ring-brand-darkGreen/40 transition focus:ring-2">
+                  <option>Techniek</option>
+                  <option>Ontwerp</option>
+                  <option>Communicatie</option>
+                </select>
+              </label>
+              <label class="md:col-span-2 grid gap-2 text-sm font-semibold text-brand-aubergine">
+                Bericht
+                <textarea rows="3" placeholder="Typ hier je bericht..." class="rounded-xl border border-brand-aubergine/20 bg-white px-3 py-2.5 text-sm font-normal outline-none ring-brand-darkGreen/40 transition focus:ring-2"></textarea>
+              </label>
+            </form>
+          </article>
+
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Status en Meldingen</h3>
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-xl border border-brand-lightGreen/70 bg-brand-lightGreen/30 px-4 py-3 text-sm">Succes: Designtoken pakket is gegenereerd.</div>
+              <div class="rounded-xl border border-brand-softYellow/80 bg-brand-softYellow/55 px-4 py-3 text-sm">Waarschuwing: Controleer contrast op tekst over softYellow achtergronden.</div>
+              <div class="rounded-xl border border-brand-brightRed/60 bg-brand-brightRed/20 px-4 py-3 text-sm">Fout: Ontbrekend icoonbestand in een sectie.</div>
+              <div class="rounded-xl border border-brand-darkBlue/60 bg-brand-darkBlue/15 px-4 py-3 text-sm">Info: Gebruik darkBlue voor betrouwbare systeemberichten.</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="patterns" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Paginapatronen</h2>
+        <div class="mt-6 grid gap-4 lg:grid-cols-2">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Gesplitste Hero</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Groot titelvlak + contentpaneel, geinspireerd op de huidige merkboeksecties.</p>
+            <div class="mt-4 overflow-hidden rounded-xl border border-brand-aubergine/10">
+              <div class="grid min-h-40 grid-cols-2">
+                <div class="flex items-center justify-center bg-brand-brightPink p-4 text-center text-2xl font-heading text-white">Kop</div>
+                <div class="flex items-center bg-white p-4 text-sm text-brand-aubergine/75">Ondersteunende tekst met call to action.</div>
+              </div>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Kenmerkgrid</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Gebruik 3-koloms kaarten voor productcapaciteiten en service-overzichten.</p>
+            <div class="mt-4 grid gap-2 sm:grid-cols-3">
+              <div class="rounded-xl bg-brand-lightGrey/55 p-3 text-sm">Getokeniseerd</div>
+              <div class="rounded-xl bg-brand-lightGreen/35 p-3 text-sm">Responsief</div>
+              <div class="rounded-xl bg-brand-softYellow/60 p-3 text-sm">Merkveilig</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="utilities" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Tailwind Utility Overzicht</h2>
+        <div class="mt-6 overflow-hidden rounded-2xl border border-brand-aubergine/10">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-brand-aubergine text-left text-white">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Categorie</th>
+                <th class="px-4 py-3 font-semibold">Utilities</th>
+                <th class="px-4 py-3 font-semibold">Aanbeveling</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white text-brand-aubergine/85">
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-semibold">Kleur</td><td class="px-4 py-3">bg-brand-darkGreen text-white</td><td class="px-4 py-3">Primaire CTA en kernvlakken</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-semibold">Typografie</td><td class="px-4 py-3">font-heading tracking-tight</td><td class="px-4 py-3">Voor alle sectiekoppen</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-semibold">Kaarten</td><td class="px-4 py-3">rounded-2xl border shadow-panel</td><td class="px-4 py-3">Standaard paneelopbouw</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-semibold">Layout</td><td class="px-4 py-3">max-w-[1500px] mx-auto px-6</td><td class="px-4 py-3">Consistente documentatiebreedte</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3 font-semibold">Beweging</td><td class="px-4 py-3">transition hover:-translate-y-1</td><td class="px-4 py-3">Alleen subtiele hover feedback</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="copy-toast" class="pointer-events-none fixed bottom-5 right-5 rounded-full bg-slate-950 px-4 py-2 text-xs font-semibold text-white opacity-0 transition">Gekopieerd</div>
+
+  <script>
+    (function () {
+      const cards = document.querySelectorAll('[data-copy]');
+      const toast = document.getElementById('copy-toast');
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.remove('opacity-0');
+        toast.classList.add('opacity-100');
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(function () {
+          toast.classList.remove('opacity-100');
+          toast.classList.add('opacity-0');
+        }, 1300);
+      }
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          const value = card.getAttribute('data-copy');
+          if (!value) return;
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(value)
+              .then(function () { showToast(value + ' gekopieerd'); })
+              .catch(function () { showToast(value); });
+            return;
+          }
+
+          showToast(value);
+        });
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('[data-nav]');
+      if (!navLinks.length) return;
+
+      function getActiveKey() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.endsWith('/design-system.html')) return 'design-system';
+        if (path.endsWith('/icons.html')) return 'icons';
+        if (path.endsWith('/shapes.html')) return 'shapes';
+
+        const hash = (window.location.hash || '#merkboek').toLowerCase();
+        if (hash === '#voorbeelden') return 'voorbeelden';
+        return 'merkboek';
+      }
+
+      function updateActiveNav() {
+        const activeKey = getActiveKey();
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('data-nav') === activeKey;
+          link.classList.toggle('bg-light-grey/60', isActive);
+          link.classList.toggle('text-dark-green', isActive);
+          link.classList.toggle('font-semibold', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      updateActiveNav();
+      window.addEventListener('hashchange', updateActiveNav);
+    })();
+  </script>
+</body>
+</html>
