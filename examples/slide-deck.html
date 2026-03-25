@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Voorbeeld Slide-deck</title>
+  <link rel="stylesheet" href="../styles/w4.css" />
+  <link rel="stylesheet" href="slide-deck.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'light-grey': '#cfd6cc',
+            'dark-green': '#005351',
+            'dark-blue': '#434d8e',
+            'soft-yellow': '#e9eb86',
+            'light-green': '#63cf92',
+            aubergine: '#362c46',
+            'bright-red': '#f56e6d',
+            'bright-pink': '#bb55a9'
+          },
+          fontFamily: {
+            heading: ['"PP Neue Machina"', 'sans-serif'],
+            body: ['Raleway', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="font-body text-aubergine overflow-x-hidden">
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
+    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
+      <a href="../index.html#merkboek" class="flex items-center gap-2 shrink-0">
+        <img src="../img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
+      </a>
+
+      <nav aria-label="Hoofdnavigatie">
+        <ul class="flex items-center gap-1">
+          <li><a data-nav="merkboek" href="../index.html#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a data-nav="design-system" href="../design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a data-nav="icons" href="../icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a data-nav="shapes" href="../shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a data-nav="voorbeelden" href="../examples.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="deck-page">
+    <section class="mb-4 rounded-2xl border border-aubergine/15 bg-white/80 p-4 backdrop-blur-sm sm:p-5">
+      <p class="text-xs uppercase tracking-[0.14em] text-aubergine/65 font-heading">Voorbeeld in /examples</p>
+      <h1 class="mt-2 font-heading text-3xl sm:text-4xl leading-[0.95]">Slide-deck: Wigo4it Merkpresentatie</h1>
+      <p class="mt-2 text-sm text-aubergine/70">Gebruik pijltjestoetsen of de knoppen onderin om door de slides te navigeren.</p>
+    </section>
+
+    <div id="deck" class="deck-frame" aria-label="Voorbeeld slide-deck">
+      <section class="deck-slide deck-slide--green active" id="slide-1">
+        <img src="../img/shapes/ring.svg" alt="" class="shape-float" style="right:-110px;top:-90px;width:360px;" />
+        <img src="../img/shapes/quarter-ring-top-left.svg" alt="" class="shape-float" style="left:42%;bottom:-55px;width:180px;transform:rotate(180deg);" />
+        <img src="../img/icons/Rocket.svg" alt="" class="shape-float" style="left:68%;top:34%;width:110px;opacity:0.18;filter:brightness(0) invert(1);" />
+
+        <div class="deck-head">
+          <p class="deck-eyebrow">Wigo4it · voorbeeld presentatie</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <h2 class="font-heading text-5xl sm:text-6xl leading-[0.9] max-w-4xl">Good code,<br /><span class="deck-accent-yellow">Good cause</span></h2>
+          <p class="text-lg max-w-2xl text-white/85">Een voorbeeld deck op basis van onze merkgids en design system richtlijnen.</p>
+          <div class="flex flex-wrap gap-2 text-xs font-heading uppercase tracking-[0.12em]">
+            <span class="rounded-full bg-soft-yellow text-dark-green px-3 py-1">Merkidentiteit</span>
+            <span class="rounded-full bg-light-green text-dark-green px-3 py-1">Vormtaal</span>
+            <span class="rounded-full bg-white/15 px-3 py-1">Tone of Voice</span>
+          </div>
+        </div>
+        <div class="deck-footer"><span>01 · Cover</span><span>Wigo4it 2026</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--aubergine" id="slide-2">
+        <img src="../img/shapes/diamond.svg" alt="" class="shape-float" style="left:-70px;bottom:-90px;width:250px;opacity:0.13;" />
+        <img src="../img/icons/Zandloper.svg" alt="" class="shape-float" style="right:14%;top:22%;width:90px;opacity:0.16;filter:brightness(0) invert(1);" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Agenda</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <h2 class="font-heading text-4xl">Wat laten we zien <span class="deck-accent-yellow">in dit deck?</span></h2>
+          <div class="deck-grid-3">
+            <article class="deck-card">
+              <p class="font-heading text-xl">01 Merk</p>
+              <p class="text-sm mt-2 text-white/80">Waar we voor staan, merkverhaal en merkwaarden.</p>
+            </article>
+            <article class="deck-card">
+              <p class="font-heading text-xl">02 Visueel</p>
+              <p class="text-sm mt-2 text-white/80">Kleur, typografie, iconen, fotografie en vormen.</p>
+            </article>
+            <article class="deck-card">
+              <p class="font-heading text-xl">03 Toepassing</p>
+              <p class="text-sm mt-2 text-white/80">Voorbeelden van slide-composities in verschillende stijlen.</p>
+            </article>
+          </div>
+          <p class="text-white/70 text-sm">Afwisseling tussen statement-slides, split-layout, data-slide en moodboard-slide.</p>
+        </div>
+        <div class="deck-footer"><span>02 · Agenda</span><span>Verschillende slidevormen</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--light" id="slide-3">
+        <img src="../img/shapes/pill-wide.svg" alt="" class="shape-float" style="right:-80px;top:18%;width:220px;opacity:0.22;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Split verhaal</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-body deck-grid-2">
+          <div class="rounded-2xl bg-bright-pink p-6 text-white flex items-end">
+            <h2 class="font-heading text-5xl leading-[0.9]">Het merk<br /><span class="deck-accent-yellow">Wigo4it</span></h2>
+          </div>
+          <div class="rounded-2xl border border-aubergine/15 bg-white p-6">
+            <p class="text-base leading-relaxed">Wij ontwikkelen oplossingen voor echte mensen. Met diepgaande kennis van inkomensvoorzieningen en technologie bouwen we software met maatschappelijke impact.</p>
+            <p class="text-base leading-relaxed mt-3">Onze kracht: betrouwbare uitvoering, innovatie in de praktijk en een cultuur van vrijheid, verantwoordelijkheid en plezier.</p>
+          </div>
+        </div>
+        <div class="deck-footer"><span>03 · Split-layout</span><span>Verhaal + visueel contrast</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--green" id="slide-4">
+        <img src="../img/icons/Hi5.svg" alt="" class="shape-float" style="right:8%;top:26%;width:130px;opacity:0.2;filter:brightness(0) invert(1);" />
+        <img src="../img/shapes/quarter-ring-bottom-right.svg" alt="" class="shape-float" style="left:-80px;top:52%;width:220px;opacity:0.16;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Statement</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <p class="font-heading uppercase tracking-[0.16em] text-sm text-soft-yellow">Merkwaarden</p>
+          <h2 class="font-heading text-6xl leading-[0.88]">Kwaliteit<br /><span class="deck-accent-yellow">Innovatie</span><br /><span class="deck-accent-green">Fun</span></h2>
+          <p class="max-w-2xl text-white/80">Betrouwbaar, trots, toegewijd, vooruitstrevend. Een slide waarin typografie en ritme centraal staan.</p>
+        </div>
+        <div class="deck-footer"><span>04 · Typografische slide</span><span>Groot statement</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--blue" id="slide-5">
+        <img src="../img/shapes/triangle-diagonal.svg" alt="" class="shape-float" style="right:-120px;bottom:-120px;width:300px;opacity:0.14;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Guidelines</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <h2 class="font-heading text-4xl">Tone of Voice in <span class="deck-accent-yellow">4 punten</span></h2>
+          <div class="deck-grid-2">
+            <article class="deck-card">
+              <img src="../img/icons/Rocket.svg" alt="" class="h-6 w-6 opacity-75" />
+              <p class="font-heading text-xl text-soft-yellow">Energiek</p>
+              <p class="text-sm mt-2 text-white/85">Schrijf met daadkracht en beweging. Vermijd passieve formuleringen.</p>
+            </article>
+            <article class="deck-card">
+              <img src="../img/icons/Laptop.svg" alt="" class="h-6 w-6 opacity-75" />
+              <p class="font-heading text-xl text-light-green">Zelfverzekerd</p>
+              <p class="text-sm mt-2 text-white/85">Laat expertise zien op IT en maatschappelijke vraagstukken.</p>
+            </article>
+            <article class="deck-card">
+              <img src="../img/icons/Hi5.svg" alt="" class="h-6 w-6 opacity-75" />
+              <p class="font-heading text-xl text-bright-pink">Samenwerkend</p>
+              <p class="text-sm mt-2 text-white/85">Gebruik taal die verantwoordelijkheid en partnership benadrukt.</p>
+            </article>
+            <article class="deck-card">
+              <img src="../img/icons/Hart.svg" alt="" class="h-6 w-6 opacity-75" />
+              <p class="font-heading text-xl text-soft-yellow">Toegankelijk</p>
+              <p class="text-sm mt-2 text-white/85">Professioneel met een subtiele glimlach. Altijd in je-vorm.</p>
+            </article>
+          </div>
+        </div>
+        <div class="deck-footer"><span>05 · Richtlijnslide</span><span>Kaders en bullet cards</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--aubergine" id="slide-6">
+        <img src="../img/shapes/quarter-ring-top-right.svg" alt="" class="shape-float" style="right:-90px;top:-70px;width:260px;opacity:0.12;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Evolutie timeline</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <div class="flex items-center gap-4">
+            <span class="rounded px-3 py-1 text-[0.65rem] font-heading tracking-[0.12em] uppercase bg-soft-yellow text-dark-green">Blok A</span>
+            <h2 class="font-heading text-4xl leading-[0.98]">Van concept naar impact: <span class="text-white/65">de projectevolutie</span></h2>
+          </div>
+          <div class="deck-timeline">
+            <article class="deck-timeline-card" style="border-top:2px solid #e9eb86;">
+              <p class="deck-timeline-year" style="color:#e9eb86;">2023-2024</p>
+              <p class="deck-timeline-title">1. Verkennen</p>
+              <img src="../img/icons/Potlood.svg" alt="Verkennen" />
+              <p>Probleem scherpstellen, doel bepalen en eerste oplossingsrichtingen uitwerken.</p>
+            </article>
+            <article class="deck-timeline-card" style="border-top:2px solid #63cf92;">
+              <p class="deck-timeline-year" style="color:#63cf92;">2024-2025</p>
+              <p class="deck-timeline-title">2. Ontwerpen</p>
+              <img src="../img/icons/Zon.svg" alt="Ontwerpen" />
+              <p>Concepten visualiseren, keuzes vergelijken en ontwerpprincipes vastleggen.</p>
+            </article>
+            <article class="deck-timeline-card" style="border-top:2px solid #7f8fd7; background:rgba(67,77,142,0.18);">
+              <p class="deck-timeline-year" style="color:#8f9ee5;">2025-2026</p>
+              <p class="deck-timeline-title">3. Bouwen</p>
+              <img src="../img/icons/Aarde.svg" alt="Bouwen" />
+              <p>Werkende oplossingen realiseren met focus op kwaliteit en onderhoudbaarheid.</p>
+            </article>
+            <article class="deck-timeline-card" style="border-top:2px solid #bb55a9; background:rgba(187,85,169,0.14);">
+              <p class="deck-timeline-year" style="color:#d77fc8;">2025-2026</p>
+              <p class="deck-timeline-title">4. Testen</p>
+              <img src="../img/icons/Elixir.svg" alt="Testen" />
+              <p>Resultaten valideren met gebruikersfeedback en iteratief verbeteren.</p>
+            </article>
+            <article class="deck-timeline-card" style="border-top:2px solid #e9eb86; background:rgba(233,235,134,0.08);">
+              <p class="deck-timeline-year" style="color:#e9eb86;">2026</p>
+              <p class="deck-timeline-title">5. Uitrollen</p>
+              <img src="../img/icons/Laptop.svg" alt="Uitrollen" />
+              <p>Gefaseerd live zetten met duidelijke communicatie en begeleiding.</p>
+            </article>
+            <article class="deck-timeline-card" style="border-top:2px solid #f56e6d; background:rgba(245,110,109,0.12);">
+              <p class="deck-timeline-year" style="color:#f58a88;">2026+</p>
+              <p class="deck-timeline-title">6. Opschalen</p>
+              <img src="../img/icons/Rex 2.svg" alt="Opschalen" />
+              <p>Standaardiseren, kennis delen en verbreden naar meerdere teams.</p>
+            </article>
+          </div>
+        </div>
+        <div class="deck-footer"><span>06 · Timeline slide</span><span>Zes kolommen met iconen en accenten</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--yellow" id="slide-7">
+        <img src="../img/shapes/circle.svg" alt="" class="shape-float" style="left:-100px;bottom:-100px;width:270px;opacity:0.16;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Datavisual</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-body">
+          <h2 class="font-heading text-4xl">Kleurpalet als <span class="deck-accent-blue">systeem</span></h2>
+          <div class="deck-grid-3">
+            <div class="deck-card"><div class="h-10 rounded bg-dark-green"></div><p class="mt-2 font-heading text-sm">dark-green</p><p class="text-xs">#005351</p></div>
+            <div class="deck-card"><div class="h-10 rounded bg-dark-blue"></div><p class="mt-2 font-heading text-sm">dark-blue</p><p class="text-xs">#434d8e</p></div>
+            <div class="deck-card"><div class="h-10 rounded bg-aubergine"></div><p class="mt-2 font-heading text-sm">aubergine</p><p class="text-xs">#362c46</p></div>
+            <div class="deck-card"><div class="h-10 rounded bg-soft-yellow"></div><p class="mt-2 font-heading text-sm">soft-yellow</p><p class="text-xs">#e9eb86</p></div>
+            <div class="deck-card"><div class="h-10 rounded bg-light-green"></div><p class="mt-2 font-heading text-sm">light-green</p><p class="text-xs">#63cf92</p></div>
+            <div class="deck-card"><div class="h-10 rounded bg-bright-pink"></div><p class="mt-2 font-heading text-sm">bright-pink</p><p class="text-xs">#bb55a9</p></div>
+          </div>
+        </div>
+        <div class="deck-footer"><span>07 · Tokenslide</span><span>Kleur als navigatie en hiërarchie</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--light" id="slide-8">
+        <img src="../img/shapes/arch-open-bottom.svg" alt="" class="shape-float" style="right:-100px;top:15%;width:280px;opacity:0.17;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Beeldtaal</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-body deck-grid-2">
+          <div class="rounded-2xl border border-aubergine/15 bg-white p-4">
+            <p class="font-heading text-2xl">Vormtaal</p>
+            <div class="mt-3 grid grid-cols-4 gap-3 place-items-center">
+              <img src="../img/shapes/square.svg" alt="Vierkant" class="h-12" />
+              <img src="../img/shapes/ring.svg" alt="Ring" class="h-12" />
+              <img src="../img/shapes/triangle-right.svg" alt="Driehoek" class="h-12" />
+              <img src="../img/shapes/pill-wide.svg" alt="Pil" class="h-12" />
+            </div>
+            <p class="mt-3 text-sm text-aubergine/70">Decoratief en ritmisch, nooit als inhoudelijke placeholder.</p>
+          </div>
+          <div class="rounded-2xl border border-aubergine/15 bg-white p-4">
+            <p class="font-heading text-2xl">Iconen</p>
+            <div class="mt-3 grid grid-cols-4 gap-3 place-items-center">
+              <img src="../img/icons/Laptop.svg" alt="Laptop" class="h-8" />
+              <img src="../img/icons/Rocket.svg" alt="Rocket" class="h-8" />
+              <img src="../img/icons/Hart.svg" alt="Hart" class="h-8" />
+              <img src="../img/icons/Potlood.svg" alt="Potlood" class="h-8" />
+            </div>
+            <p class="mt-3 text-sm text-aubergine/70">Lijndikte en afgeronde hoeken zorgen voor consistente herkenbaarheid.</p>
+          </div>
+        </div>
+        <div class="deck-footer"><span>08 · Visuele bibliotheek</span><span>Vormen + iconen</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--aubergine" id="slide-9">
+        <img src="../img/shapes/rectangle-round-right-wide.svg" alt="" class="shape-float" style="left:-70px;top:24%;width:250px;opacity:0.14;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Fotografie</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body deck-grid-2">
+          <div class="rounded-2xl overflow-hidden">
+            <img src="../img/photos/group-looking-at-laptop.jpg" alt="Team bij laptop" class="w-full h-full object-cover min-h-[220px]" />
+          </div>
+          <div class="rounded-2xl border border-white/20 bg-white/10 p-5">
+            <h2 class="font-heading text-3xl">Echte situaties, <span class="deck-accent-yellow">echte mensen</span></h2>
+            <ul class="mt-3 space-y-2 text-sm text-white/85">
+              <li>Fotografie toont mensen op de werkvloer en in actie.</li>
+              <li>Focus op IT-context, samenwerking en maatschappelijke impact.</li>
+              <li>Geen gekunstelde stock-sfeer; wel authentieke momenten.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="deck-footer"><span>09 · Fotografie-richtlijn</span><span>Mensgericht en geloofwaardig</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--green" id="slide-10">
+        <img src="../img/shapes/quarter-circle-bottom-right.svg" alt="" class="shape-float" style="right:-80px;bottom:-120px;width:300px;opacity:0.18;" />
+        <img src="../img/icons/Formidabel.svg" alt="" class="shape-float" style="left:6%;top:28%;width:120px;opacity:0.2;filter:brightness(0) invert(1);" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Mockup</p>
+          <img src="../img/logo/Logo Diap.svg" alt="Wigo4it" class="deck-logo deck-logo--diap" />
+        </div>
+        <div class="deck-body">
+          <h2 class="font-heading text-4xl">Componenten <span class="deck-accent-yellow">in context</span></h2>
+          <div class="deck-grid-3">
+            <article class="deck-card">
+              <p class="text-xs uppercase tracking-wide text-white/70">Kop</p>
+              <p class="font-heading text-xl mt-1">Projectstatus</p>
+              <p class="text-sm mt-2 text-white/80">Conceptfase afgerond en klaar voor review.</p>
+              <button class="mt-3 rounded-full bg-soft-yellow px-3 py-1 text-xs font-bold text-dark-green">Openen</button>
+            </article>
+            <article class="deck-card">
+              <p class="text-xs uppercase tracking-wide text-white/70">Melding</p>
+              <p class="font-heading text-xl mt-1">Oplevering bevestigd</p>
+              <p class="text-sm mt-2 text-white/80">Nieuwe versie is gecontroleerd en geaccepteerd.</p>
+              <span class="mt-3 inline-block rounded-full bg-light-green/40 px-3 py-1 text-xs">Succes</span>
+            </article>
+            <article class="deck-card">
+              <p class="text-xs uppercase tracking-wide text-white/70">Actie</p>
+              <p class="font-heading text-xl mt-1">Feedbackronde</p>
+              <p class="text-sm mt-2 text-white/80">Plan met stakeholders en verwerk in roadmap.</p>
+              <button class="mt-3 rounded-full border border-white/35 px-3 py-1 text-xs">Inplannen</button>
+            </article>
+          </div>
+        </div>
+        <div class="deck-footer"><span>10 · UI showcase</span><span>Kaarten, status en CTA's</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--light" id="slide-11">
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Content deep dive</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-body">
+          <span class="rounded px-3 py-1 text-[0.65rem] font-heading tracking-[0.12em] uppercase bg-dark-green text-soft-yellow w-fit">Fase 1 + 2</span>
+          <h2 class="font-heading text-5xl leading-[0.95]">Strategie <span class="deck-accent-blue">&amp; Uitvoering</span></h2>
+          <div class="deck-content-layout">
+            <div class="deck-content-stack">
+              <article class="deck-content-card" style="background:#005351; color:#ffffff; border-color:#005351;">
+                <p class="text-xs uppercase tracking-[0.12em] opacity-70">Fase 1 · Positionering</p>
+                <h3 class="font-heading text-4xl mt-1">Strategische keuzes</h3>
+                <p class="mt-2 text-base leading-relaxed">Bepaal focus, doelgroepen en succescriteria. Maak scherpe keuzes in boodschap en prioriteiten.</p>
+              </article>
+              <article class="deck-content-card" style="border-left:3px solid #005351;">
+                <p class="text-xs uppercase tracking-[0.12em] text-aubergine/55">Fase 2 · Realisatie</p>
+                <h3 class="font-heading text-4xl mt-1">Uitvoering in iteraties</h3>
+                <p class="mt-2 text-base leading-relaxed">Werk in korte cycli met duidelijke deliverables. Valideer elke stap en stuur bij op basis van feedback.</p>
+              </article>
+            </div>
+            <aside class="deck-content-highlight">
+              <p class="text-xs uppercase tracking-[0.12em] text-dark-green/70">Waarom deze aanpak werkt</p>
+              <h3 class="font-heading text-4xl leading-[0.95]">Kort leren, snel verbeteren</h3>
+              <p class="text-base leading-relaxed">Door klein te starten en vaak te toetsen ontstaat focus, kwaliteit en voorspelbaarheid in de oplevering.</p>
+              <div class="deck-content-steps">
+                <div class="deck-content-step"><strong>1x</strong>Ontwerp en plan</div>
+                <div class="deck-content-step"><strong>2x</strong>Lever en toets</div>
+                <div class="deck-content-step"><strong>3x</strong>Verbeter en herhaal</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <div class="deck-footer"><span>11 · Content slide</span><span>Split uitleg + proces</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--light" id="slide-12">
+        <img src="../img/shapes/rectangle-round-right-narrow.svg" alt="" class="shape-float" style="left:-60px;top:18%;width:200px;opacity:0.14;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Content deep dive</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-body">
+          <span class="rounded px-3 py-1 text-[0.65rem] font-heading tracking-[0.12em] uppercase bg-aubergine text-soft-yellow w-fit">Fase 3 + 4</span>
+          <h2 class="font-heading text-5xl leading-[0.95]">Adoptie <span class="deck-accent-pink">&amp; Opschaling</span></h2>
+          <div class="deck-content-layout">
+            <div class="deck-content-stack">
+              <article class="deck-content-card" style="border-left:3px solid #434d8e;">
+                <p class="text-xs uppercase tracking-[0.12em] text-aubergine/55">Fase 3 · Teamadoptie</p>
+                <h3 class="font-heading text-4xl mt-1">Nieuwe werkwijze borgen</h3>
+                <p class="mt-2 text-base leading-relaxed">Maak afspraken over rollen, ritme en samenwerking zodat de aanpak echt onderdeel wordt van het team.</p>
+              </article>
+              <article class="deck-content-card" style="border-left:3px solid #bb55a9;">
+                <p class="text-xs uppercase tracking-[0.12em] text-aubergine/55">Fase 4 · Opschalen</p>
+                <h3 class="font-heading text-4xl mt-1">Van pilot naar standaard</h3>
+                <p class="mt-2 text-base leading-relaxed">Vergroot stap voor stap het bereik. Schaal wat aantoonbaar werkt en houd kwaliteit meetbaar.</p>
+              </article>
+            </div>
+            <aside class="deck-content-highlight" style="background:#cfd6cc;">
+              <p class="text-xs uppercase tracking-[0.12em] text-dark-green/70">Wat dit betekent voor teams</p>
+              <h3 class="font-heading text-4xl leading-[0.95]">Sneller van idee naar resultaat</h3>
+              <p class="text-base leading-relaxed">Met een vaste werkwijze ontstaat rust in delivery: betere keuzes, kortere doorlooptijd en meer eigenaarschap.</p>
+              <div class="deck-content-steps">
+                <div class="deck-content-step"><strong>A</strong>Verken behoeften</div>
+                <div class="deck-content-step"><strong>B</strong>Valideer met gebruikers</div>
+                <div class="deck-content-step"><strong>C</strong>Schaal op wat impact heeft</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <div class="deck-footer"><span>12 · Content slide</span><span>Inhoudelijk met duidelijke highlight</span></div>
+      </section>
+
+      <section class="deck-slide deck-slide--light" id="slide-13">
+        <img src="../img/shapes/diamond.svg" alt="" class="shape-float" style="right:5%;top:25%;width:116px;opacity:0.16;" />
+        <img src="../img/icons/Zon.svg" alt="" class="shape-float" style="left:6%;bottom:13%;width:86px;opacity:0.18;" />
+        <div class="deck-head">
+          <p class="deck-eyebrow">Slide type · Afsluiting</p>
+          <img src="../img/logo/Logo.svg" alt="Wigo4it" class="deck-logo" />
+        </div>
+        <div class="deck-closing-body">
+          <h2 class="deck-closing-title">En nu jij...<br /><span class="deck-accent-pink">go4it!</span></h2>
+          <p class="deck-closing-copy">Gebruik dit deck als startpunt voor toekomstige presentaties met dezelfde merktaal en componenten.</p>
+        </div>
+        <div class="deck-footer"><span>13 · Closing slide</span><span>Template klaar voor hergebruik</span></div>
+      </section>
+    </div>
+
+    <div class="deck-controls" aria-label="Presentatiebediening">
+      <button id="deck-prev" class="deck-btn" type="button">Vorige</button>
+      <div id="deck-dots" class="deck-dots" aria-hidden="false"></div>
+      <button id="deck-next" class="deck-btn" type="button">Volgende</button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('[data-nav]');
+      if (!navLinks.length) return;
+
+      function getActiveKey() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.endsWith('/design-system.html')) return 'design-system';
+        if (path.endsWith('/icons.html')) return 'icons';
+        if (path.endsWith('/shapes.html')) return 'shapes';
+        if (path.endsWith('/examples.html') || path.includes('/examples/')) return 'voorbeelden';
+        return 'merkboek';
+      }
+
+      function updateActiveNav() {
+        const activeKey = getActiveKey();
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('data-nav') === activeKey;
+          link.classList.toggle('bg-light-grey/60', isActive);
+          link.classList.toggle('text-dark-green', isActive);
+          link.classList.toggle('font-semibold', isActive);
+          if (isActive) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      updateActiveNav();
+      window.addEventListener('hashchange', updateActiveNav);
+    })();
+
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.deck-slide'));
+      const prevBtn = document.getElementById('deck-prev');
+      const nextBtn = document.getElementById('deck-next');
+      const dotsWrap = document.getElementById('deck-dots');
+      let current = 0;
+
+      function buildDots() {
+        dotsWrap.innerHTML = '';
+        slides.forEach(function (_, index) {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'deck-dot';
+          dot.setAttribute('aria-label', 'Ga naar slide ' + (index + 1));
+          dot.addEventListener('click', function () {
+            goTo(index);
+          });
+          dotsWrap.appendChild(dot);
+        });
+      }
+
+      function updateProgress() {
+        slides.forEach(function (slide, index) {
+          slide.classList.remove('active', 'prev');
+          if (index < current) slide.classList.add('prev');
+          if (index === current) slide.classList.add('active');
+
+          let bar = slide.querySelector('.deck-progress-fill');
+          if (!bar) {
+            const footer = slide.querySelector('.deck-footer');
+            if (footer) {
+              const progress = document.createElement('div');
+              progress.className = 'deck-progress';
+              bar = document.createElement('div');
+              bar.className = 'deck-progress-fill';
+              progress.appendChild(bar);
+              footer.appendChild(progress);
+            }
+          }
+
+          if (bar) {
+            bar.style.width = ((current + 1) / slides.length) * 100 + '%';
+          }
+        });
+
+        Array.from(dotsWrap.children).forEach(function (dot, index) {
+          dot.classList.toggle('active', index === current);
+        });
+
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+      }
+
+      function goTo(index) {
+        if (index < 0 || index >= slides.length) return;
+        current = index;
+        updateProgress();
+      }
+
+      function next() {
+        goTo(current + 1);
+      }
+
+      function prev() {
+        goTo(current - 1);
+      }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+          event.preventDefault();
+          next();
+        }
+        if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+          event.preventDefault();
+          prev();
+        }
+      });
+
+      buildDots();
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
