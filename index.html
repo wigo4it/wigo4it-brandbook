@@ -3,569 +3,934 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wigo4it Merkrichtlijnen (W4)</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Wigo4it Merkboek</title>
+
+  <!-- W4 Brand styles -->
+  <link rel="stylesheet" href="styles/w4.css" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'light-grey':  '#cfd6cc',
+            'dark-green':  '#005351',
+            'dark-blue':   '#434d8e',
+            'soft-yellow': '#e9eb86',
+            'light-green': '#63cf92',
+            'aubergine':   '#362c46',
+            'bright-red':  '#f56e6d',
+            'bright-pink': '#bb55a9',
+          },
+          fontFamily: {
+            heading: ['"PP Neue Machina"', 'sans-serif'],
+            body:    ['Raleway', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
 </head>
-<body>
-  <header class="topbar" aria-label="Kop van het merkboek">
-    <div class="topbar-inner">
-      <div class="brand-head">
-        <img src="img/logo/4.svg" alt="W4-symbool" />
-        <strong>Wigo4it / W4 Merkrichtlijnen</strong>
-      </div>
-      <span>Versie 1.0 · 2026-02-23</span>
+
+<body class="bg-white text-aubergine min-h-screen overflow-x-hidden">
+
+  <!-- Navbar -->
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
+    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <img src="img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
+      </a>
+
+      <!-- Nav items -->
+      <nav aria-label="Hoofdnavigatie">
+        <ul class="flex items-center gap-1">
+          <li><a href="#merkboek"      class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a href="#design-system" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a href="#iconen"        class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a href="#vormen"        class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a href="#voorbeelden"   class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+        </ul>
+      </nav>
+
     </div>
   </header>
 
-  <main class="shell">
-    <section class="cover" id="cover" aria-labelledby="cover-title">
-      <div>
-        <span class="badge">Officiële merkrichtlijnen</span>
-        <h1 id="cover-title">Wigo4it Merkrichtlijnen</h1>
-        <p>
-          Dit document is een volledig, direct toepasbaar merkboek voor design-, marketing- en developmentteams.
-          Het is gebaseerd op assets uit deze repository en publiek beschikbare uitspraken van wigo4it.nl.
+  <!-- Main -->
+  <main class="w-full p-0 m-0">
+
+    <!-- Cover (matched to page1 screenshot) -->
+    <section id="merkboek" class="w-full h-screen">
+      <div class="w4-cover">
+        <div class="absolute right-[-2.8%] top-[13.6%] h-[72%] w-[50.5%] bg-soft-yellow rounded-l-[40%]"></div>
+        <div class="absolute left-[51.2%] top-[6%] w-[20.8%] h-[37%] rounded-full border-[clamp(14px,2.2vw,42px)] border-dark-green bg-transparent"></div>
+
+        <img src="img/logo/Logo.svg" alt="Wigo4it" class="absolute left-[7.1%] top-[13.9%] w-[16.3%] min-w-[120px]" />
+
+        <div class="absolute left-[6.9%] top-[57.8%] -translate-y-1/2 z-10">
+          <h1 class="w4-cover-title">Merkgids</h1>
+        </div>
+
+        <div class="absolute left-[7.3%] bottom-[7%] w4-cover-meta">
+          versie 1.0<br />
+          mei 2024
+        </div>
+        <div class="absolute left-[19.8%] bottom-[7%] w4-cover-meta">
+          copyright Wigo4it<br />
+          contact: communicatie@wigo4it.nl
+        </div>
+
+        <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:12.8%; --h:22%; --color:var(--dark-blue); left:41.6%; bottom:5.8%;"></div>
+        <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:12.8%; --h:22%; --color:var(--dark-blue); left:50.2%; bottom:5.8%;"></div>
+
+        <img src="img/logo/4.svg" alt="W4 symbool" class="absolute right-[4.2%] bottom-[5.6%] w-[9.1%] min-w-[72px]" />
+      </div>
+    </section>
+
+    <!-- Het merk Wigo4it (page 2) -->
+    <section class="w-full min-h-screen relative bg-light-grey overflow-hidden">
+      <div class="relative w-full h-screen flex">
+
+        <!-- Left half -->
+        <div class="relative w-1/2 h-full flex items-center px-[7%]">
+          <!-- Circle behind heading, centered on the H -->
+          <div class="absolute left-[7%] top-1/2 w-[clamp(180px,28vw,420px)] aspect-square rounded-full bg-bright-pink -translate-x-[15%] -translate-y-[60%]"></div>
+          <h2 class="relative z-10 font-heading font-bold text-white leading-[0.94] text-[clamp(2.5rem,7.2vw,7.5rem)] tracking-tight">
+            Het merk<br />Wigo4it
+          </h2>
+        </div>
+
+        <!-- Right half — text panel -->
+        <div class="relative w-1/2 h-full px-[7%] py-[7%] flex flex-col justify-start">
+          <div class="max-w-[540px] space-y-6 text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed font-body">
+            <div>
+              <p class="font-semibold">Wij zijn Wigo4it</p>
+              <p>Voorlopers in innovatieve IT met sociale impact.</p>
+            </div>
+            <p>
+              Wij ontwikkelen oplossingen voor echte mensen. Mensen met een bijstands-uitkering
+              die door onze applicatie uit de armoede blijven. En professionals in het sociaal
+              domein die door onze dienstverlening slimmer werken.
+            </p>
+            <p>
+              Onze motivatie is de snel veranderende, complexe wet- en regelgeving rondom inkomen
+              zo goed en goedkoop mogelijk te helpen uitvoeren. Door processen te automatiseren,
+              kennis te delen, en mee te denken in de praktische uitvoerbaarheid van nieuw beleid.
+              Zo zorgen we ervoor dat we publiek geld goed besteden en kennis terugvloeit in de
+              maatschappij. Alles wat wij doen, heeft een grote sociale impact.
+            </p>
+            <p>
+              Daarvoor is, behalve actuele technische kennis, ook een avontuurlijke mindset
+              belangrijk. 'Funovation' – fouten maken en daarvan leren – zijn onderdeel van onze
+              cultuur. Dat zie je terug in onze merkidentiteit.
+            </p>
+            <p>
+              Wij zijn een sterk en zichtbaar merk. We worden gezien als autoriteit op het
+              snijvlak van innovatieve IT met sociale impact.
+            </p>
+            <p>
+              In deze merkgids tref je alles om het merk Wigo4it toe te passen. Als dit consistent
+              wordt gedaan in al onze uitingen ziet en hoort iedereen wat wij intern al lang weten:
+              wij zijn een club met een groot hart voor mens, maatschappij... & de allerbeste IT!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waar we voor staan -->
+    <section class="w-full h-screen relative bg-white overflow-hidden flex flex-col justify-start px-[7%] py-[10%]">
+      <h2 class="font-heading font-bold text-aubergine leading-[0.92] text-[clamp(3rem,10vw,10.5rem)] tracking-tight max-w-[80%]">
+        Waar we<br />voor staan
+      </h2>
+      <div class="mt-auto max-w-[540px] ml-[28%]">
+        <p class="font-heading font-semibold text-aubergine text-[clamp(0.9rem,1.3vw,1.35rem)] mb-4">
+          IT dient mens en maatschappij
         </p>
-        <div class="meta">
-          <div><strong>Merk:</strong> Wigo4it (W4)</div>
-          <div><strong>Sector:</strong> Publieke technologie (sociaal domein / inkomenssystemen)</div>
-          <div><strong>Primaire markt:</strong> Nederlandse gemeenten en professionals in het sociaal domein</div>
-          <div><strong>Laatst bijgewerkt:</strong> 2026-02-23</div>
-        </div>
-        <div class="hero-values" aria-label="Kernwaarden van het merk">
-          <span>IT dient de mens</span>
-          <span>Good code, good cause</span>
-          <span>Cloud-native publieke impact</span>
-        </div>
+        <p class="font-body text-aubergine text-[clamp(0.8rem,1.1vw,1.15rem)] leading-relaxed">
+          Met diepgaande kennis van inkomensvoorzieningen
+          en technologie bouwen wij software met
+          maatschappelijke impact.
+        </p>
       </div>
-      <figure class="logo-box" aria-label="Voorbeeld primair logo">
-        <img src="img/logo/Logo.svg" alt="Wigo4it primair logo" />
-      </figure>
     </section>
 
-    <nav class="toc" aria-label="Inhoudsopgave">
-      <h2>Inhoud</h2>
-      <ol>
-        <li><a href="#overview">Merkoverzicht</a></li>
-        <li><a href="#positioning">Marktpositionering</a></li>
-        <li><a href="#personas">Doelgroeppersona’s</a></li>
-        <li><a href="#logo">Logosysteem</a></li>
-        <li><a href="#colors">Kleursysteem</a></li>
-        <li><a href="#typography">Typografie</a></li>
-        <li><a href="#imagery">Beeldtaal & iconografie</a></li>
-        <li><a href="#layout">Layout & componenten</a></li>
-        <li><a href="#voice">Merkstem & messaging</a></li>
-        <li><a href="#samples">Voorbeeldcopy</a></li>
-      </ol>
-    </nav>
+    <!-- Merk identiteit -->
+    <section class="w-full h-screen relative bg-aubergine overflow-hidden flex items-end px-[7%] pb-[7%]">
+      <h2 class="font-heading font-bold text-white leading-[0.92] text-[clamp(3.5rem,11vw,11.5rem)] tracking-tight">
+        Merk<br />identiteit
+      </h2>
+    </section>
 
-    <section class="brand-strip" aria-labelledby="visual-language-title">
-      <h2 id="visual-language-title">Visuele merktaal in de praktijk</h2>
-      <div class="strip-grid">
+    <!-- Merkwaarden -->
+    <section class="w-full h-screen relative bg-dark-green overflow-hidden flex flex-col px-[7%] py-[8%]">
+      <h3 class="font-heading font-bold text-white text-[clamp(1.5rem,2.5vw,2.8rem)] tracking-tight">
+        Merkwaarden
+      </h3>
+      <div class="flex-1 flex items-center">
         <div>
-          <h3>Logofamilie</h3>
-          <div class="logo-row" aria-label="Voorbeeldenset logo’s">
-            <span class="logo-tile"><img src="img/logo/Logo.svg" alt="Primair logo" /></span>
-            <span class="logo-tile" style="background:var(--dark-green)"><img src="img/logo/Logo Diap.svg" alt="Diapositief logo" /></span>
-            <span class="logo-tile"><img src="img/logo/4.svg" alt="Symboollogo" /></span>
+          <h2 class="font-heading font-bold text-white leading-[0.95] text-[clamp(2.5rem,7.5vw,8rem)] tracking-tight whitespace-nowrap">
+            Kwaliteit&ensp;Innovatie&ensp;Fun
+          </h2>
+          <p class="font-body text-white/80 text-[clamp(0.75rem,1.1vw,1.15rem)] mt-4 tracking-wide">
+            Betrouwbaar, trots, toegewijd, vooruitstrevend, vrijheid, vertrouwen, verantwoordelijkheid, plezier
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ons merkverhaal -->
+    <section class="w-full h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-1/2 h-full flex items-center px-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight">
+          Ons merkverhaal
+        </h2>
+      </div>
+      <!-- Right half -->
+      <div class="w-1/2 h-full flex items-center px-[4%] pr-[10%]">
+        <div class="max-w-[480px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Onze grenzen verleggen, om impact te maken
+            op de levens van 100.000+ mensen in de
+            bijstand. Wij gaan voor IT.
+          </p>
+          <p>
+            Want wij geloven dat we zelf de limiet zijn in
+            wat techniek voor mensen mogelijk maakt.
+          </p>
+          <p>
+            Met een mix van IT-nerds en idealisten
+            ontwikkelen wij daarom impactvolle software.
+          </p>
+          <p>
+            Door te experimenteren en innoveren met de
+            nieuwste (cloud) technologie\u00ebn. Binnen een
+            organisatie met veel vrijheid en plezier.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Onze Tone of Voice -->
+    <section class="w-full h-screen relative overflow-hidden flex">
+      <!-- Left half — dark blue -->
+      <div class="w-1/2 h-full bg-dark-blue flex flex-col justify-center px-[7%] py-[8%]">
+        <h2 class="font-heading font-bold text-white leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Onze<br />Tone of Voice
+        </h2>
+        <p class="font-body text-white/85 text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed max-w-[440px]">
+          Hoe praten en schrijven wij? Onze identiteit in woord
+          en schrift: dat is onze 'Tone of Voice'. Het is belangrijk
+          deze altijd toe te passen in communicatie. Dat maakt
+          dat we herkenbaar zijn en dat de lezer/luisteraar zich
+          vertrouwd voelt bij Wigo4it.
+        </p>
+      </div>
+
+      <!-- Right half — stacked -->
+      <div class="w-1/2 h-full flex flex-col">
+        <!-- Top: white -->
+        <div class="flex-1 bg-white px-[7%] py-[6%] flex flex-col justify-center">
+          <div class="max-w-[480px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+            <p>
+              Onze toon is energiek, innovatief en zelfverzekerd. Onze taal is
+              gericht op het overbrengen van een gevoel van expertise en leider&shy;schap
+              in zowel IT als maatschappelijke kwesties. We benadrukken
+              een vooruitstrevende en probleemoplossende houding die sterk
+              leunt op samenwerking en verantwoordelijkheid.
+            </p>
+            <p>
+              Dit alles wordt gepresenteerd met een mix van professionele trots
+              en een vleugje humor, wat wijst op onze bedrijfscultuur die zowel
+              serieus als benaderbaar is. We don't mind a byte of English zo nu
+              en dan (pun intended). En gebruiken altijd de 'je' vorm of course.
+            </p>
+            <p>
+              Ter inspiratie kan je onze webteksten lezen.
+            </p>
           </div>
         </div>
-        <div>
-          <h3>Vormtaal</h3>
-          <div class="shape-row" aria-label="Voorbeeldenset vormen">
-            <span class="asset-chip"><img src="img/shapes/Vorm 1.svg" alt="Vorm 1" /></span>
-            <span class="asset-chip"><img src="img/shapes/Vorm 7.svg" alt="Vorm 7" /></span>
-            <span class="asset-chip"><img src="img/shapes/Vorm 14.svg" alt="Vorm 14" /></span>
+        <!-- Bottom: light grey -->
+        <div class="flex-1 bg-light-grey px-[7%] py-[6%] flex flex-col justify-center">
+          <div class="max-w-[480px]">
+            <h3 class="font-heading font-bold text-aubergine text-[clamp(1rem,1.6vw,1.7rem)] mb-2">
+              Ga je aan de slag met ChatGPT?
+            </h3>
+            <p class="font-body text-aubergine text-[clamp(0.7rem,0.95vw,1rem)] mb-4">
+              Vul dan de volgende prompt in om aan deze toon te voldoen:
+            </p>
+            <p class="font-body text-aubergine/90 text-[clamp(0.65rem,0.85vw,0.9rem)] leading-relaxed italic">
+              "Schrijf met een energieke en zelfverzekerde toon, waarbij je innovatie
+              en expertise in IT en maatschappelijke kwesties benadrukt. Weerspiegel
+              een vooruitstrevende, probleemoplossende houding die leunt op
+              samenwerking en verantwoordelijkheid. Gebruik professionele trots en
+              subtiele humor om onze benaderbare en serieuze bedrijfscultuur te tonen".
+            </p>
           </div>
         </div>
-        <div>
-          <h3>Icoonkarakter</h3>
-          <div class="icon-row" aria-label="Voorbeeldenset iconen">
-            <span class="asset-chip"><img src="img/icons/Laptop.svg" alt="Laptop-icoon" /></span>
-            <span class="asset-chip"><img src="img/icons/Rocket.svg" alt="Raket-icoon" /></span>
-            <span class="asset-chip"><img src="img/icons/Zon.svg" alt="Zon-icoon" /></span>
+      </div>
+    </section>
+
+    <!-- Good code, Good cause -->
+    <section class="w-full h-screen relative bg-white overflow-hidden flex flex-col items-center justify-center px-[5%]">
+      <h2 class="font-heading font-bold text-aubergine leading-[0.88] text-[clamp(3.5rem,12vw,13rem)] tracking-tighter text-center">
+        Good code,<br />Good cause
+      </h2>
+      <p class="font-body italic text-aubergine text-[clamp(1rem,2.2vw,2.2rem)] mt-6 tracking-wide text-center">
+        You build it, you run it &mdash; Let'sgo4IT &mdash; Be your own limit
+      </p>
+    </section>
+
+    <!-- Visuele identiteit -->
+    <section class="w-full h-screen relative bg-aubergine overflow-hidden flex items-end px-[7%] pb-[7%]">
+      <h2 class="font-heading font-bold text-white leading-[0.92] text-[clamp(3.5rem,11vw,11.5rem)] tracking-tight">
+        Visuele<br />identiteit
+      </h2>
+    </section>
+
+    <!-- Ons logo -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-1/2 h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Ons logo
+        </h2>
+        <div class="max-w-[440px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Ons logo is gebaseerd op de verbinding tussen de
+            4 grote gemeenten waaruit wij zijn ontstaan.
+            Het symboliseert ook de verbondenheid die we
+            voelen met ons product en voor wie we dat maken.
+          </p>
+          <p>
+            Je kunt onze logoset <u>hier</u> downloaden
+          </p>
+        </div>
+      </div>
+      <!-- Right half -->
+      <div class="w-1/2 h-screen flex flex-col py-[7%] px-[5%]">
+        <!-- Beeldmerk -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Beeldmerk</span>
+          <div class="w-full h-px bg-aubergine/20 mb-6"></div>
+          <div class="flex-1 flex items-center justify-center">
+            <img src="img/logo/4.svg" alt="Beeldmerk" class="w-[35%] max-w-[200px]" />
+          </div>
+        </div>
+        <!-- Lockup -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Lockup</span>
+          <div class="w-full h-px bg-aubergine/20 mb-6"></div>
+          <div class="flex-1 flex items-center justify-center">
+            <img src="img/logo/Logo.svg" alt="Lockup" class="w-[65%] max-w-[320px]" />
           </div>
         </div>
       </div>
     </section>
 
-    <section id="overview" class="section theme-teal" aria-labelledby="overview-title">
-      <h2 id="overview-title">1) Merkoverzicht</h2>
-      <div class="grid-2">
-        <article class="card">
-          <h3>Merkdoel</h3>
-          <p>Bouw IT die bestaanszekerheid beschermt en gemeenten helpt inwoners sneller, nauwkeuriger en tegen lagere maatschappelijke kosten te bedienen.</p>
-          <h3>Missie</h3>
-          <p>Complexe sociale wetgeving vertalen naar betrouwbare, innovatieve software die uitkeringen correct en op tijd houdt en tegelijkertijd operationele efficiëntie verhoogt.</p>
-          <h3>Visie</h3>
-          <p>Een vooruitstrevende, cloud-native publieke technologiepartner zijn die digitale soevereiniteit, duurzaamheid en uitvoerbare beleidsuitvoering in het sociaal domein versterkt.</p>
-        </article>
-        <article class="card">
-          <h3>Kernwaarden</h3>
-          <p><span class="pill">Publieke impact</span><span class="pill">Betrouwbaarheid</span><span class="pill">Autonomie</span><span class="pill">Kennisdeling</span><span class="pill">Innovatie</span><span class="pill">Duurzaamheid</span></p>
-          <h3>Merkbelofte</h3>
-          <p><strong>Good code, good cause.</strong> Elke release verbetert de uitvoeringskwaliteit voor gemeenten en de inkomenszekerheid voor inwoners.</p>
-          <h3>Merkpersoonlijkheid</h3>
-          <p>Deskundig, maatschappelijk betrokken, praktisch, vooruitstrevend, transparant en mensgericht.</p>
-        </article>
-      </div>
-
-      <div class="quote">
-        <p><strong>Merkuitgangspunt:</strong> IT dient de mens. Elke regel code heeft één missie: mensen met een uitkering ontvangen altijd op tijd en correct hun inkomen.</p>
-      </div>
-    </section>
-
-    <section id="positioning" class="section theme-split" aria-labelledby="positioning-title">
-      <h2 id="positioning-title">2) Marktpositionering</h2>
-      <table aria-label="Positioneringsmatrix">
-        <thead>
-          <tr>
-            <th>Element</th>
-            <th>Richtlijn</th>
-            <th>Standaard in uiting</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Categorie</td>
-            <td>Publieke softwarepartner voor inkomensuitvoering in het sociaal domein.</td>
-            <td>Socrates ondersteunt grootschalige gemeentelijke inkomensprocessen.</td>
-          </tr>
-          <tr>
-            <td>Onderscheider 1</td>
-            <td>Gemeentelijk DNA en positionering zonder winstoogmerk.</td>
-            <td>Opgericht door de vier grootste Nederlandse steden.</td>
-          </tr>
-          <tr>
-            <td>Onderscheider 2</td>
-            <td>Snelheid en diepgang in vertaling van wetgeving naar software.</td>
-            <td>4400+ ingebouwde wetsregels; herberekeningen tot vijf jaar terug.</td>
-          </tr>
-          <tr>
-            <td>Onderscheider 3</td>
-            <td>Cloud-native betrouwbaarheid met bestuurlijke relevantie.</td>
-            <td>Continuïteit en betalingszekerheid staan centraal in alle communicatie.</td>
-          </tr>
-          <tr>
-            <td>Merkbelofte in de markt</td>
-            <td>Betrouwbare levering, lagere maatschappelijke kosten en uitvoerbare beleidsresultaten.</td>
-            <td>“Geen commerciële leverancier, maar een partner in het sociaal domein.”</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="personas" class="section theme-purple" aria-labelledby="personas-title">
-      <h2 id="personas-title">3) Doelgroeppersona’s & toepassingsscenario’s</h2>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Persona A: Beleidsleider gemeente</h3>
-          <p><strong>Behoefte:</strong> Snelle implementatie van veranderende regelgeving met beheersbare kosten en risico’s.</p>
-          <p><strong>Boodschapshoek:</strong> “Werkbare beleidsuitvoering op schaal.”</p>
-          <p><strong>Toepassingsscenario:</strong> Nieuwe regelgeving snel en auditbaar vertaald naar productielogica.</p>
-        </article>
-        <article class="card">
-          <h3>Persona B: Inkomensprofessional</h3>
-          <p><strong>Behoefte:</strong> Nauwkeurige berekeningen en minder handmatige administratie.</p>
-          <p><strong>Boodschapshoek:</strong> “Meer tijd voor contact met inwoners.”</p>
-          <p><strong>Toepassingsscenario:</strong> Geautomatiseerde herberekeningen en uitzonderingsafhandeling verlagen de werkdruk.</p>
-        </article>
-        <article class="card">
-          <h3>Persona C: Public-tech engineer / partner</h3>
-          <p><strong>Behoefte:</strong> Moderne architectuur, betekenisvol werk en technische autonomie.</p>
-          <p><strong>Boodschapshoek:</strong> “High-end software met maatschappelijke impact.”</p>
-          <p><strong>Toepassingsscenario:</strong> Cloud-native DevOps, API-integratie en duurzame platformontwikkeling.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="logo" class="section theme-teal" aria-labelledby="logo-title">
-      <h2 id="logo-title">4) Logosysteem</h2>
-      <div class="logo-showcase" aria-label="Visuele voorbeelden van logovarianten">
-        <figure>
-          <img src="img/logo/Logo.svg" alt="Primair logo op lichte achtergrond" />
-          <figcaption>Primair / Licht</figcaption>
-        </figure>
-        <figure style="background:var(--dark-green);color:#fff;">
-          <img src="img/logo/Logo Diap.svg" alt="Diapositief logo op donkere achtergrond" />
-          <figcaption>Diapositief / Donker</figcaption>
-        </figure>
-        <figure>
-          <img src="img/logo/4.svg" alt="Symboolmerk" />
-          <figcaption>Symboolmerk</figcaption>
-        </figure>
-        <figure style="background:var(--aubergine);color:#fff;">
-          <img src="img/logo/4 Diap.svg" alt="Diapositief symboolmerk" />
-          <figcaption>Diapositief symbool</figcaption>
-        </figure>
-      </div>
-      <div class="grid-2">
-        <article class="card">
-          <h3>Goedgekeurde logobestanden</h3>
-          <ul>
-            <li>Primair: <code>img/logo/Logo.svg</code></li>
-            <li>Diapositief: <code>img/logo/Logo Diap.svg</code></li>
-            <li>Symbool: <code>img/logo/4.svg</code></li>
-            <li>Diapositief symbool: <code>img/logo/4 Diap.svg</code></li>
-            <li>M365: <code>img/logo/W4_logo_M365.png</code> en darkmode-variant</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Vrije ruimte & minimale maat</h3>
-          <div class="kv"><strong>Vrije ruimte:</strong><span>Minimaal gelijk aan 1× de hoogte van het “4”-symbool aan alle zijden.</span></div>
-          <div class="kv"><strong>Min. breedte digitaal:</strong><span>Primair logo 120 px, symbool 24 px.</span></div>
-          <div class="kv"><strong>Min. breedte print:</strong><span>Primair logo 30 mm, symbool 8 mm.</span></div>
-          <div class="kv"><strong>Rationale:</strong><span>Waarborgt herkenbaarheid en leesbaarheid in drukke interfaces.</span></div>
-        </article>
-      </div>
-
-      <div class="do-dont" aria-label="Wat wel en niet mag met logo">
-        <div class="do">
-          <h4>Wel doen</h4>
-          <ul>
-            <li>Gebruik originele vectorbestanden voor print en web.</li>
-            <li>Gebruik diapositieflogo’s op donkere achtergronden.</li>
-            <li>Houd vrije ruimte en minimale maat aan.</li>
-            <li>Gebruik de goedgekeurde darkmodeversie voor Microsoft 365-contexten.</li>
-          </ul>
+    <!-- Logovariaties -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-1/2 h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Logovariaties
+        </h2>
+        <div class="max-w-[440px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Ons beeldmerk kan vari\u00ebren. Het is er in drie
+            variaties. Het primaire logo heeft de voorkeur. Als
+            het logo echter op een donkere achtergrond komt,
+            gebruiken we de diapositieve versie. Voor zwart/wit-
+            drukwerk is er een versie in grijswaarden.
+          </p>
+          <p>
+            We plaatsen het logo het liefst op een egale
+            ondergrond. Soms kan het nodig zijn het logo over
+            fotografie heen te plaatsen. Zorg dan altijd voor
+            genoeg contrast in de achtergrond.
+          </p>
         </div>
-        <div class="dont">
-          <h4>Niet doen</h4>
-          <ul>
-            <li>Gebruik geen andere kleuren dan goedgekeurde varianten.</li>
-            <li>Voeg geen effecten toe (schaduw, glow, gradient, contouren).</li>
-            <li>Rek, roteer of crop de logolockup niet.</li>
-            <li>Plaats het logo niet op drukke achtergronden zonder ondersteunende vorm.</li>
-          </ul>
+      </div>
+      <!-- Right half -->
+      <div class="w-1/2 h-screen flex flex-col py-[5%] px-[5%] gap-4">
+        <!-- Primair -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Primair</span>
+          <div class="w-full h-px bg-aubergine/20 mb-4"></div>
+          <div class="flex-1 flex items-center justify-center">
+            <img src="img/logo/Logo.svg" alt="Primair logo" class="w-[55%] max-w-[280px]" />
+          </div>
+        </div>
+        <!-- Diapositief -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Diapositief</span>
+          <div class="w-full h-px bg-aubergine/20 mb-4"></div>
+          <div class="flex-1 flex items-center justify-center bg-aubergine rounded-xl">
+            <img src="img/logo/Logo Diap.svg" alt="Diapositief logo" class="w-[55%] max-w-[280px]" />
+          </div>
+        </div>
+        <!-- Zwart / grijswaarden -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Zwart / grijswaarden</span>
+          <div class="w-full h-px bg-aubergine/20 mb-4"></div>
+          <div class="flex-1 flex items-center justify-center">
+            <img src="img/logo/Logo.svg" alt="Grijswaarden logo" class="w-[55%] max-w-[280px] grayscale" />
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="colors" class="section theme-purple" aria-labelledby="colors-title">
-      <h2 id="colors-title">5) Kleursysteem</h2>
-      <p>Dit kleursysteem is de enige bron van waarheid. Gebruik deze waarden in alle uitingen en pas drukwerk technisch aan op het productieprofiel van de drukker.</p>
-      <table aria-label="Merkkleurentabel">
-        <thead>
-          <tr>
-            <th>Kleur</th>
-            <th>Staaltje</th>
-            <th>HEX</th>
-            <th>RGB</th>
-            <th>CMYK</th>
-            <th>Toepassing</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Lichtgrijs</td><td><div class="swatch" style="background:#cfd6cc"></div></td><td>#CFD6CC</td><td>207, 214, 204</td><td>3, 0, 5, 16</td><td>Achtergronden, scheidingslijnen, neutrale vlakken</td></tr>
-          <tr><td>Donkergroen</td><td><div class="swatch" style="background:#005351"></div></td><td>#005351</td><td>0, 83, 81</td><td>100, 0, 2, 67</td><td>Primair merk, kernkoppen, primaire CTA</td></tr>
-          <tr><td>Donkerblauw</td><td><div class="swatch" style="background:#434d8e"></div></td><td>#434D8E</td><td>67, 77, 142</td><td>53, 46, 0, 44</td><td>Secundaire UI-acties, links</td></tr>
-          <tr><td>Zachtgeel</td><td><div class="swatch" style="background:#e9eb86"></div></td><td>#E9EB86</td><td>233, 235, 134</td><td>1, 0, 43, 8</td><td>Highlightpanelen, positieve accenten</td></tr>
-          <tr><td>Lichtgroen</td><td><div class="swatch" style="background:#63cf92"></div></td><td>#63CF92</td><td>99, 207, 146</td><td>52, 0, 29, 19</td><td>Succesaccenten, tags, ondersteunende highlights</td></tr>
-          <tr><td>Aubergine</td><td><div class="swatch" style="background:#362c46"></div></td><td>#362C46</td><td>54, 44, 70</td><td>23, 37, 0, 73</td><td>Donkere achtergronden, serieuze boodschapblokken</td></tr>
-          <tr><td>Helderrood</td><td><div class="swatch" style="background:#f56e6d"></div></td><td>#F56E6D</td><td>245, 110, 109</td><td>0, 55, 56, 4</td><td>Alleen voor fout- of destructieve nadruk</td></tr>
-          <tr><td>Helderroze</td><td><div class="swatch" style="background:#bb55a9"></div></td><td>#BB55A9</td><td>187, 85, 169</td><td>0, 55, 10, 27</td><td>Campagneaccenten, beperkt decoratief gebruik</td></tr>
-        </tbody>
-      </table>
-
-      <div class="palette-moodboard" aria-label="Kleurmoodboard">
-        <div class="tone-card" style="background:linear-gradient(125deg,#005351,#434d8e);color:#fff;">Primaire merkdrager · betrouwbaar, modern, daadkrachtig</div>
-        <div class="tone-card" style="background:#e9eb86;color:#005351;border-color:rgba(0,83,81,.25);">Highlight · richting, focus</div>
-        <div class="tone-card" style="background:#63cf92;color:#005351;border-color:rgba(0,83,81,.25);">Positieve actie · vooruitgang</div>
-        <div class="tone-card" style="background:#362c46;color:#fff;">Serieuze context · diepte</div>
-      </div>
-
-      <div class="combo-grid" aria-label="Kleurcombinaties in toepassing">
-        <div class="combo" style="background:#005351;color:#fff;">
-          <div style="padding:14px;font-family:'PP Neue Machina';font-size:1.1rem;">Voor serviceblokken</div>
-          <div class="label">Wit op donkergroen</div>
-        </div>
-        <div class="combo" style="background:#e9eb86;color:#005351;">
-          <div style="padding:14px;font-family:'PP Neue Machina';font-size:1.1rem;">Voor call-outs</div>
-          <div class="label" style="background:rgba(0,83,81,.08)">Donkergroen op zachtgeel</div>
-        </div>
-        <div class="combo" style="background:#434d8e;color:#fff;">
-          <div style="padding:14px;font-family:'PP Neue Machina';font-size:1.1rem;">Voor campagnepanelen</div>
-          <div class="label">Wit op donkerblauw</div>
+    <!-- Maat & ruimte -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-1/2 h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Maat &amp; ruimte
+        </h2>
+        <div class="max-w-[440px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Geef het logo wat ruimte. Dan verdwijnt het niet in de
+            rest van de opmaak en blijft het goed zichtbaar.
+          </p>
+          <p>
+            Neem minimaal de grootte van de laatste letter T als
+            marge rondom. Dan zit je altijd goed.
+          </p>
+          <p>
+            Verder moet het logo altijd goed leesbaar geplaatst
+            worden. Hou daarom een minimale breedte van 90px aan.
+          </p>
         </div>
       </div>
-
-      <h3>Toegankelijkheidsregels voor contrast</h3>
-      <ul>
-        <li>Bodytekst moet voldoen aan WCAG 2.2 AA: minimaal 4,5:1 voor normale tekst, 3:1 voor grote tekst.</li>
-        <li>Goedgekeurde combinaties: wit op donkergroen (8,91:1), wit op donkerblauw (7,80:1), donkergroen op zachtgeel (7,08:1), aubergine op lichtgrijs (8,81:1).</li>
-        <li>Beperkte combinaties: helderrood op wit (2,86:1) en helderroze op wit (4,21:1) zijn niet geschikt voor normale bodytekst.</li>
-      </ul>
-    </section>
-
-    <section id="typography" class="section theme-split" aria-labelledby="typography-title">
-      <h2 id="typography-title">6) Typografie</h2>
-      <div class="grid-2">
-        <article class="card">
-          <h3>Primair lettertype</h3>
-          <p><strong>PP Neue Machina</strong> voor koppen, hero statements en nadrukkelijke labels.</p>
-          <ul>
-            <li>Toegestane gewichten: 400, 600, 700 (optioneel 300 en 500 voor designsystemen).</li>
-            <li>Schrijfwijze: bij voorkeur zinsschool; kapitalen alleen voor kleine UI-labels.</li>
-            <li>Tracking: 0% tot +1% voor leesbaarheid.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Secundair lettertype</h3>
-          <p><strong>Raleway</strong> voor lopende tekst, UI-controls, formulieren en langere content.</p>
-          <ul>
-            <li>Standaard body: 16 px / 1,55 regelhoogte.</li>
-            <li>Kleine tekst: 14 px / 1,45 regelhoogte (minimum digitaal).</li>
-            <li>Gebruik 700 alleen voor nadruk; voorkom te vette alinea’s.</li>
-          </ul>
-        </article>
-      </div>
-
-      <h3>Type-schaal (digitaal)</h3>
-      <table aria-label="Tabel type-schaal">
-        <thead>
-          <tr><th>Rol</th><th>Lettertype</th><th>Gewicht</th><th>Grootte</th><th>Regelhoogte</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Display</td><td>PP Neue Machina</td><td>700</td><td>56 px</td><td>1,1</td></tr>
-          <tr><td>H1</td><td>PP Neue Machina</td><td>700</td><td>44 px</td><td>1,15</td></tr>
-          <tr><td>H2</td><td>PP Neue Machina</td><td>600</td><td>32 px</td><td>1,2</td></tr>
-          <tr><td>H3</td><td>PP Neue Machina</td><td>600</td><td>24 px</td><td>1,25</td></tr>
-          <tr><td>Body</td><td>Raleway</td><td>400</td><td>16 px</td><td>1,55</td></tr>
-          <tr><td>Caption</td><td>Raleway</td><td>400</td><td>14 px</td><td>1,45</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Fallback-stack</h3>
-      <p><code>font-family: "PP Neue Machina", "Raleway", Arial, Helvetica, sans-serif;</code></p>
-    </section>
-
-    <section id="imagery" class="section theme-purple" aria-labelledby="imagery-title">
-      <h2 id="imagery-title">7) Beeldtaal, illustratie & iconografie</h2>
-      <div class="icon-row" aria-label="Voorbeeldrij iconografie">
-        <span class="asset-chip"><img src="img/icons/Alarm.svg" alt="Alarm-icoon" /></span>
-        <span class="asset-chip"><img src="img/icons/Auto.svg" alt="Auto-icoon" /></span>
-        <span class="asset-chip"><img src="img/icons/Pacman.svg" alt="Pacman-icoon" /></span>
-        <span class="asset-chip"><img src="img/icons/Paraplu.svg" alt="Paraplu-icoon" /></span>
-        <span class="asset-chip"><img src="img/icons/Zwaard.svg" alt="Zwaard-icoon" /></span>
-      </div>
-
-      <div class="visual-lab" aria-label="Showcase beeldtaal en iconografie">
-        <div class="visual-panel" style="background:linear-gradient(130deg,#005351,#434d8e);">
-          <div class="inner" style="color:#fff;background:url('img/shapes/Vorm 16.svg') no-repeat right -18px bottom -12px / 150px;">
-            <h4>Hero met vormtaal</h4>
-            <p style="margin:0;max-width:36ch;">Combineer één dominante vorm, sterke headline en één primaire CTA voor maximale impact.</p>
-            <div class="visual-icons">
-              <img src="img/icons/Rocket.svg" alt="Raket icoon" />
-              <img src="img/icons/Laptop.svg" alt="Laptop icoon" />
-              <img src="img/icons/Alarm.svg" alt="Alarm icoon" />
+      <!-- Right half -->
+      <div class="w-1/2 h-screen flex flex-col py-[7%] px-[5%]">
+        <!-- Ruimte / marge -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Ruimte / marge</span>
+          <div class="w-full h-px bg-aubergine/20 mb-6"></div>
+          <div class="flex-1 flex items-center justify-center">
+            <div class="border-2 border-dashed border-light-grey p-8 rounded-lg">
+              <img src="img/logo/Logo.svg" alt="Logo met marge" class="w-[280px]" />
             </div>
           </div>
         </div>
-        <div class="visual-panel" style="background:linear-gradient(145deg,#e9eb86,#cfd6cc);">
-          <div class="inner" style="background:url('img/shapes/Vorm 8.svg') no-repeat center bottom / 120px;">
-            <h4 style="color:#005351;">Editorial blok</h4>
-            <p style="margin:0;color:#005351;">Licht canvas + stevige kleurkop + één ondersteunend icoon.</p>
-            <div class="visual-icons">
-              <img src="img/icons/Potlood.svg" alt="Potlood icoon" />
+        <!-- Minimale maat -->
+        <div class="flex-1 flex flex-col">
+          <span class="font-body text-aubergine/60 text-sm mb-2">Minimale maat: 90px breed.</span>
+          <div class="w-full h-px bg-aubergine/20 mb-6"></div>
+          <div class="flex-1 flex items-start pt-8">
+            <img src="img/logo/Logo.svg" alt="Logo minimaal" class="w-[90px]" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typografie -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-1/2 h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Typografie
+        </h2>
+        <div class="max-w-[440px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Koppen, inleidingen, streamers, eyebrows en
+            block quotes worden gezet in 'Neue Machina'.
+            Deze kan in verschillende gewichten worden
+            gebruikt.
+          </p>
+          <p>
+            De broodletter is de Raleway. Deze wordt slechts
+            in \u00e9\u00e9n gewicht toegepast: Regular.
+          </p>
+          <p>
+            Over de toepassing van gewichten en groottes
+            meer op de volgende pagina.
+          </p>
+        </div>
+      </div>
+      <!-- Right half -->
+      <div class="w-1/2 h-screen flex flex-col py-[5%] px-[5%] gap-6 overflow-y-auto">
+        <!-- Hoofdkop -->
+        <div>
+          <span class="font-body text-aubergine/50 text-xs">Hoofdkop. Houd het kort. Niet langer dan \u00e9\u00e9n zin en niet langer dan drie zetregels.</span>
+          <div class="w-full h-px bg-aubergine/20 my-2"></div>
+          <p class="font-heading font-bold text-aubergine text-[clamp(1.6rem,2.8vw,2.8rem)] leading-tight">
+            Dit is een kop in Neue<br />Machina Bold.
+          </p>
+        </div>
+        <!-- Subkop -->
+        <div>
+          <span class="font-body text-aubergine/50 text-xs">Subkop. Houd het kort. Niet langer dan \u00e9\u00e9n zin en niet langer dan drie zetregels.</span>
+          <div class="w-full h-px bg-aubergine/20 my-2"></div>
+          <p class="font-heading font-semibold text-aubergine text-[clamp(1.3rem,2.2vw,2.2rem)] leading-tight">
+            Dit is een subkop in<br />Neue Machina Semibold.
+          </p>
+        </div>
+        <!-- Inleiding -->
+        <div>
+          <span class="font-body text-aubergine/50 text-xs">Inleiding. Niet langer dan drie tot vijf zinnen.</span>
+          <div class="w-full h-px bg-aubergine/20 my-2"></div>
+          <p class="font-heading font-medium text-aubergine text-[clamp(1rem,1.5vw,1.5rem)] leading-snug">
+            Dit is een inleiding in Neue Machina Medium
+          </p>
+        </div>
+        <!-- Broodtekst -->
+        <div>
+          <span class="font-body text-aubergine/50 text-xs">Broodtekst. Deel op in beknopte, leesbare paragrafen al dan niet met subkoppen.<br />Zorg voor afwisseling door toepassing van streamers of quotes. Zorg voor een niet te brede zetspiegel.</span>
+          <div class="w-full h-px bg-aubergine/20 my-2"></div>
+          <p class="font-body text-aubergine text-[clamp(0.85rem,1.05vw,1.08rem)] leading-relaxed">
+            Dit is een broodtekst in Raleway Regular. De broodtekst is de hoofdtekst,
+            exclusief intro's, koppen, tussenkoppen en streamers. De kern van het verhaal dus.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verhouding Typografie -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left column -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Verhouding<br />Typografie
+        </h2>
+        <div class="max-w-[400px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Koppen, subkoppen en overige typografische
+            elementen worden volgens een vaste onderlinge
+            verhouding toegepast. Tekstgroottes kunnen
+            vari\u00ebren al naar gelang van het formaat waar het
+            wordt toegepast. De onderlinge verhouding blijft
+            echter gelijk.
+          </p>
+          <p>
+            De verhoudingen staan hiernaast aangegeven.
+            Afronden op hele punten.
+          </p>
+          <p>
+            Alle tekst wordt altijd gezet in de donkerblauwe
+            kleur uit ons kleurpalet. Op een donkere
+            achtergrond kan tekst in wit worden toegepast.
+          </p>
+        </div>
+      </div>
+      <!-- Middle column: specs -->
+      <div class="w-[22%] h-screen flex flex-col py-[7%] px-[2%] gap-4 overflow-y-auto">
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">H1</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Neue Machina Bold<br />Grootte te bepalen door zetspiegel<br />Regelafstand 1 : 1</p>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">Inleiding</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Neue Machina Medium<br />Grootte H1 x 0.4<br />Regelafstand 1 : 1.2</p>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">Broodtekst</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Raleway Regular<br />Grootte H1 x 0.3<br />Regelafstand 1 : 1.5</p>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">H2</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Neue Machina Semibold<br />Grootte H1 x 0.6<br />Regelafstand 1 : 1.1</p>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">Streamer / Blockquote</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Neue Machina Medium Italic<br />Grootte H1 x 0.6<br />Regelafstand 1 : 1.2</p>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-aubergine text-sm">H3</p>
+          <p class="font-body text-aubergine/60 text-xs leading-relaxed">Neue Machina Semibold<br />Grootte H1 x 0.4<br />Regelafstand 1 : 1.1</p>
+        </div>
+      </div>
+      <!-- Right column: examples -->
+      <div class="w-[40%] h-screen flex flex-col py-[7%] px-[3%] gap-5 overflow-y-auto">
+        <div>
+          <p class="font-heading font-bold text-aubergine text-[clamp(1.3rem,2vw,2rem)] leading-tight">
+            Dit is een kop H1 in<br />Neue Machina Bold.
+          </p>
+          <p class="font-heading font-medium text-aubergine text-[clamp(0.7rem,0.85vw,0.85rem)] leading-relaxed mt-2">
+            Dit is een inleiding in Neue Machina Medium. Een inleiding
+            is het eerste deel van een tekst, waarin datgene waar de tekst
+            over gaat wordt omschreven.
+          </p>
+        </div>
+        <div>
+          <p class="font-body text-aubergine text-[clamp(0.7rem,0.85vw,0.85rem)] leading-relaxed">
+            Dit is de broodtekst in Raleway Regular. De broodtekst is de hoofdtekst, exclusief intro's, koppen,
+            tussenkoppen en streamers. De kern van het verhaal dus.
+          </p>
+        </div>
+        <div>
+          <p class="font-heading font-semibold text-aubergine text-[clamp(1rem,1.5vw,1.5rem)] leading-tight">
+            Dit is een kop H2 in Neue Machina<br />Semibold.
+          </p>
+          <p class="font-body text-aubergine/70 text-[clamp(0.65rem,0.8vw,0.8rem)] leading-relaxed mt-2">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor nisi sit amet
+            pulvinar auctor.
+          </p>
+        </div>
+        <div>
+          <p class="font-heading font-medium italic text-aubergine text-[clamp(0.95rem,1.3vw,1.3rem)] leading-snug">
+            En dit is een streamer in Neue<br />Machina Medium.
+          </p>
+        </div>
+        <div>
+          <p class="font-heading font-semibold text-aubergine text-[clamp(0.8rem,1vw,1rem)] leading-tight">
+            Dit is een kop H3 in Neue Machina Semibold.
+          </p>
+          <p class="font-body text-aubergine/70 text-[clamp(0.6rem,0.75vw,0.75rem)] leading-relaxed mt-1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vulputate leo et purus pharetra porta.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kleurpalet -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left: text -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Kleurpalet
+        </h2>
+        <div class="max-w-[400px] font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Ons kleurgebruik draagt bij aan onze
+            persoonlijkheid en zorgt voor herkenbaarheid. We
+            gebruiken kleuren die ons kunnen positioneren
+            naar onze waarden. Door te vari\u00ebren of kleur in
+            meer mindere mate toe te passen, kun je de juiste
+            toon voor de communicatie-uiting vinden.
+          </p>
+        </div>
+      </div>
+      <!-- Middle: 6 color circles -->
+      <div class="w-[42%] h-screen py-[4%] px-[2%] grid grid-cols-2 grid-rows-3 gap-4">
+        <!-- Lichtgroen -->
+        <div class="rounded-full bg-light-green flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Lichtgroen</span>
+          <div class="font-body text-white text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#66d18f</p>
+            <p><span class="font-semibold">RGB</span> &ensp;102 / 209 / 143</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;59 / 0 / 57 / 0</p>
+          </div>
+        </div>
+        <!-- Lichtblauw -->
+        <div class="rounded-full bg-dark-blue flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Lichtblauw</span>
+          <div class="font-body text-white text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#404d91</p>
+            <p><span class="font-semibold">RGB</span> &ensp;64 / 77 / 145</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;87 / 74 / 10 / 0</p>
+          </div>
+        </div>
+        <!-- Paarsroze -->
+        <div class="rounded-full bg-bright-pink flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Paarsroze</span>
+          <div class="font-body text-white text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#ba4fab</p>
+            <p><span class="font-semibold">RGB</span> &ensp;186 / 79 / 171</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;38 / 77 / 0 / 0</p>
+          </div>
+        </div>
+        <!-- Rood -->
+        <div class="rounded-full bg-bright-red flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Rood</span>
+          <div class="font-body text-white text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#f5666b</p>
+            <p><span class="font-semibold">RGB</span> &ensp;245 / 102 / 107</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;0 / 72 / 46 / 0</p>
+          </div>
+        </div>
+        <!-- Geel -->
+        <div class="rounded-full bg-soft-yellow flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-aubergine text-xs font-semibold mb-2">Geel</span>
+          <div class="font-body text-aubergine text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#ebeb7d</p>
+            <p><span class="font-semibold">RGB</span> &ensp;235 / 235 / 125</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;13 / 0 / 61 / 0</p>
+          </div>
+        </div>
+        <!-- Donkergroen -->
+        <div class="rounded-full bg-dark-green flex flex-col justify-center px-[12%]">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Donkergroen</span>
+          <div class="font-body text-white text-[0.7rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#005452</p>
+            <p><span class="font-semibold">RGB</span> &ensp;0 / 84 / 82</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;89 / 40 / 57 / 40</p>
+          </div>
+        </div>
+      </div>
+      <!-- Right: 2 neutral swatches -->
+      <div class="w-[20%] h-screen flex flex-col py-[4%] px-[2%] gap-4">
+        <!-- Donkerblauw -->
+        <div class="flex-1 bg-aubergine rounded-2xl flex flex-col justify-end p-5">
+          <span class="font-heading text-white text-xs font-semibold mb-2">Donkerblauw</span>
+          <div class="font-body text-white text-[0.65rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#332945</p>
+            <p><span class="font-semibold">RGB</span> &ensp;51 / 41 / 69</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;84 / 84 / 41 / 47</p>
+          </div>
+        </div>
+        <!-- Warmgrijs -->
+        <div class="flex-1 bg-light-grey rounded-2xl flex flex-col justify-end p-5">
+          <span class="font-heading text-aubergine text-xs font-semibold mb-2">Warmgrijs</span>
+          <div class="font-body text-aubergine text-[0.65rem] leading-relaxed space-y-0.5">
+            <p><span class="font-semibold">HEX</span> &ensp;#cfd6cc</p>
+            <p><span class="font-semibold">RGB</span> &ensp;207 / 214 / 204</p>
+            <p><span class="font-semibold">CMYK</span> &ensp;23 / 11 / 21 / 0</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vormtaal (shapes) -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Vormtaal
+        </h2>
+        <div class="max-w-[400px] font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Ons logo biedt de basis voor een aantal
+            geometrische elementen die kunnen worden
+            toegepast om de visuele identiteit nog meer
+            eigen karakter te geven. Hiernaast staan alle
+            elementen die je kunt gebruiken. Ieder element
+            kan in elke kleur uit het palet worden toegepast.
+          </p>
+        </div>
+      </div>
+      <!-- Right: shape grid -->
+      <div class="w-[62%] h-screen py-[5%] px-[4%] grid grid-cols-5 grid-rows-4 gap-4 place-items-center">
+        <img src="img/shapes/square.svg" alt="Square" class="w-[70%]" />
+        <img src="img/shapes/rectangle-tall.svg" alt="Rectangle tall" class="w-[35%]" />
+        <img src="img/shapes/diamond.svg" alt="Diamond" class="w-[60%]" />
+        <img src="img/shapes/triangle-right.svg" alt="Triangle right" class="w-[50%]" />
+        <img src="img/shapes/triangle-diagonal.svg" alt="Triangle diagonal" class="w-[65%]" />
+        <img src="img/shapes/quarter-ring-top-left.svg" alt="Quarter ring" class="w-[50%]" />
+        <img src="img/shapes/quarter-ring-top-right.svg" alt="Quarter ring" class="w-[50%]" />
+        <img src="img/shapes/semicircle-right.svg" alt="Semicircle" class="w-[45%]" />
+        <img src="img/shapes/quarter-circle-bottom-right.svg" alt="Quarter circle" class="w-[55%]" />
+        <img src="img/shapes/arch-open-bottom.svg" alt="Arch" class="w-[70%]" />
+        <img src="img/shapes/circle.svg" alt="Circle" class="w-[65%]" />
+        <img src="img/shapes/ring.svg" alt="Ring" class="w-[65%]" />
+        <img src="img/shapes/pill-narrow.svg" alt="Pill narrow" class="w-[80%]" />
+        <img src="img/shapes/pill-wide.svg" alt="Pill wide" class="w-[90%]" />
+        <img src="img/shapes/pill-extra-wide.svg" alt="Pill extra wide" class="w-[95%]" />
+        <img src="img/shapes/quarter-ring-bottom-left.svg" alt="Quarter ring BL" class="w-[50%]" />
+        <img src="img/shapes/quarter-ring-bottom-right.svg" alt="Quarter ring BR" class="w-[50%]" />
+        <img src="img/shapes/rectangle-round-right-narrow.svg" alt="Rect round narrow" class="w-[60%]" />
+        <img src="img/shapes/rectangle-round-right-wide.svg" alt="Rect round wide" class="w-[80%]" />
+        <img src="img/shapes/pill-medium.svg" alt="Pill medium" class="w-[85%]" />
+      </div>
+    </section>
+
+    <!-- Vormtaal (usage) -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Vormtaal
+        </h2>
+        <div class="max-w-[400px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            De vlakken zijn altijd decoratief. Ze duiden nooit
+            enige betekenis en dienen niet als placeholder
+            voor tekst of andere elementen.
+          </p>
+          <p>
+            De enige uitzondering daarop is dat ze kunnen
+            dienen als beeldkader waarin fotografie is
+            uitgekaderd. De foto dient dan altijd het
+            volledige vlak te vullen.
+          </p>
+          <p>
+            De vlakken kunnen zowel dekkend als in overdruk
+            (multiply) worden toegepast.
+          </p>
+        </div>
+      </div>
+      <!-- Right: photo examples with shapes -->
+      <div class="w-[62%] h-screen py-[5%] px-[4%] flex flex-col gap-6">
+        <!-- Top image -->
+        <div class="relative flex-1 flex items-center justify-center">
+          <div class="relative w-[70%]">
+            <img src="img/photos/group-looking-at-laptop.jpg" alt="Collegae" class="w-full rounded-xl object-cover aspect-[4/3]" />
+            <div class="absolute -top-4 -right-6 w-[30%] aspect-square rounded-full bg-light-green/60 mix-blend-multiply"></div>
+            <div class="absolute top-[40%] left-[55%] w-[22%] aspect-square rounded-full bg-bright-pink/70 mix-blend-multiply"></div>
+            <div class="absolute bottom-[-8%] right-[15%] w-[18%] aspect-square bg-dark-blue/50 mix-blend-multiply"></div>
+          </div>
+        </div>
+        <!-- Bottom image -->
+        <div class="relative flex-1 flex items-center justify-center">
+          <div class="relative w-[60%]">
+            <div class="rounded-[50%_50%_50%_10%] overflow-hidden">
+              <img src="img/photos/team-meeting.jpg" alt="Team" class="w-full object-cover aspect-[4/3]" />
             </div>
+            <div class="absolute -bottom-4 left-[20%] w-[16%] aspect-square rounded-sm bg-soft-yellow"></div>
+            <div class="absolute -bottom-2 left-[38%] w-[14%] aspect-square rounded-full bg-dark-blue"></div>
           </div>
         </div>
-        <div class="visual-panel" style="background:linear-gradient(145deg,#362c46,#bb55a9);">
-          <div class="inner" style="color:#fff;background:url('img/shapes/Vorm 13.svg') no-repeat center right / 110px;">
-            <h4>Campagne accent</h4>
-            <p style="margin:0;">Gebruik roze en aubergine alleen als expressieve laag, nooit als basis voor lange tekst.</p>
-            <div class="visual-icons">
-              <img src="img/icons/Zon.svg" alt="Zon icoon" />
-              <img src="img/icons/Game Boy.svg" alt="Game boy icoon" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-3">
-        <article class="card">
-          <h3>Fotografiestijl</h3>
-          <ul>
-            <li>Echte mensen, echte werksituaties, momenten met maatschappelijke impact.</li>
-            <li>Natuurlijk licht, documentaire uitstraling, weinig kunstmatige enscenering.</li>
-            <li>Toon interactie tussen mensen bij verhalen over resultaten voor inwoners.</li>
-            <li>Vermijd generieke stockbeelden en abstracte “tech tunnel”-visuals.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Illustratie & vormen</h3>
-          <ul>
-            <li>Gebruik vormassets uit <code>img/shapes/</code> als kaders en sectiescheiders.</li>
-            <li>Vervorm verhoudingen van vormen niet.</li>
-            <li>Gebruik per pagina één dominante vormfamilie om visuele ruis te beperken.</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Iconensysteem</h3>
-          <ul>
-            <li>Gebruik de bestaande SVG-bibliotheek in <code>img/icons/</code>.</li>
-            <li>Icoon stroke/fill gebruikt per toepassing één merkkleur.</li>
-            <li>Minimale icoongrootte: 16 px UI, 24 px marketing, 48 px hero.</li>
-            <li>Mix nooit meer dan 2 iconstijlen in één compositie.</li>
-          </ul>
-        </article>
-      </div>
-
-      <h3>Beeldbehandelingsregels</h3>
-      <ul>
-        <li>Plaats tekst op beeld alleen waar contrast minimaal 4,5:1 is na scrim/overlay.</li>
-        <li>Aanbevolen overlay voor witte tekst: <code>linear-gradient(rgba(0, 83, 81, 0.62), rgba(0, 83, 81, 0.62))</code>.</li>
-        <li>Alt-tekstpatroon: <em>[wat te zien is] + [waarom dit relevant is in context]</em>.</li>
-      </ul>
-    </section>
-
-    <section id="layout" class="section theme-teal" aria-labelledby="layout-title">
-      <h2 id="layout-title">8) Layout & componenten</h2>
-      <div class="shape-band" aria-label="Voorbeelden van vormritme">
-        <img src="img/shapes/Vorm 2.svg" alt="Voorbeeld vormritme 2" />
-        <img src="img/shapes/Vorm 5.svg" alt="Voorbeeld vormritme 5" />
-        <img src="img/shapes/Vorm 8.svg" alt="Voorbeeld vormritme 8" />
-        <img src="img/shapes/Vorm 12.svg" alt="Voorbeeld vormritme 12" />
-        <img src="img/shapes/Vorm 18.svg" alt="Voorbeeld vormritme 18" />
-      </div>
-
-      <div class="component-gallery" aria-label="Showcase layout en componenten">
-        <article class="component-card" style="background:linear-gradient(135deg,#f8f8f8,#e8f2ea);">
-          <h4 style="margin-top:0;color:#005351;">Informatieve card</h4>
-          <p style="margin:0;color:#2b3a39;">Gebruik rustige achtergronden met duidelijke typografische hiërarchie en één accentvorm.</p>
-          <div class="component-chip-row">
-            <span class="component-chip">Padding 24</span>
-            <span class="component-chip">Radius 12</span>
-            <span class="component-chip">1 primaire CTA</span>
-          </div>
-        </article>
-        <article class="component-card" style="background:linear-gradient(140deg,#434d8e,#005351);color:#fff;">
-          <h4 style="margin-top:0;color:#fff;">Actieblok</h4>
-          <p style="margin:0;">Gebruik dit patroon voor conversie: korte belofte, één knop, duidelijk vervolgpad.</p>
-          <div class="component-chip-row">
-            <span class="component-chip" style="background:#e9eb86;color:#005351;border-color:#e9eb86;">Primair contrast</span>
-          </div>
-        </article>
-        <article class="component-card" style="background:linear-gradient(145deg,#fff,#f6f8ff);">
-          <h4 style="margin-top:0;color:#362c46;">Formuliermodule</h4>
-          <p style="margin:0;color:#3b3a4a;">Houd formulieren compact: labels zichtbaar, helpertekst dichtbij, foutstate opvallend.</p>
-          <div class="component-chip-row">
-            <span class="component-chip" style="background:#f56e6d;color:#fff;border-color:#f56e6d;">Foutkleur alleen voor feedback</span>
-          </div>
-        </article>
-      </div>
-
-      <h3>Grid & spacing</h3>
-      <ul>
-        <li>Desktopgrid: 12 kolommen, 24 px gutters, 80 px paginamarges.</li>
-        <li>Tabletgrid: 8 kolommen, 20 px gutters, 32 px marges.</li>
-        <li>Mobiel grid: 4 kolommen, 16 px gutters, 16 px marges.</li>
-        <li>Spacing-systeem (basis 8): 8, 12, 16, 24, 32, 48, 64 px.</li>
-      </ul>
-
-      <div class="sample-ui" aria-label="Componentvoorbeelden">
-        <h4>Componentregels (cards, buttons, forms)</h4>
-        <div class="kv"><strong>Cards:</strong><span>Border-radius 12 px, subtiele rand, geen zware schaduwen, titel + samenvatting + actie.</span></div>
-        <div class="kv"><strong>Buttons:</strong><span>Primair gebruikt donkergroene achtergrond, secundair zachtgele achtergrond + donkergroene tekst.</span></div>
-        <div class="kv"><strong>Forms:</strong><span>2 px randen, duidelijke focus-state, labels altijd zichtbaar, helptekst onder het veld.</span></div>
-
-        <div class="btn-row" style="margin-top:12px">
-          <a href="#" class="btn btn-primary" aria-label="Voorbeeld primaire knop">Primaire actie</a>
-          <a href="#" class="btn btn-secondary" aria-label="Voorbeeld secundaire knop">Secundaire actie</a>
-          <a href="#" class="btn btn-outline" aria-label="Voorbeeld tertiaire knop">Tertiaire actie</a>
-        </div>
-
-        <label for="example-email" style="display:block;margin-top:14px;font-weight:700;">E-mailadres</label>
-        <input id="example-email" class="input" type="email" placeholder="naam@voorbeeld.nl" aria-describedby="email-help" />
-        <small id="email-help">Gebruik je zakelijke e-mail voor updates over gemeentelijke communicatie.</small>
-      </div>
-    </section>
-    <section id="voice" class="section theme-purple" aria-labelledby="voice-title">
-      <h2 id="voice-title">11) Merkstem & messaging-framework</h2>
-      <h3>Principes van de merkstem</h3>
-      <ul>
-        <li><strong>Mensgericht:</strong> Laat impact voor inwoners vóór technische details zien.</li>
-        <li><strong>Deskundig maar helder:</strong> Leg complexe beleidstechniek uit in gewone taal.</li>
-        <li><strong>Resultaatgericht:</strong> Benoem concrete uitkomsten en vermijd hypetaal.</li>
-        <li><strong>Samenwerkend:</strong> Positioneer Wigo4it als partner, niet als afstandelijke leverancier.</li>
-      </ul>
-
-      <h3>Toon per kanaal</h3>
-      <table aria-label="Toon per kanaal">
-        <thead>
-          <tr><th>Kanaal</th><th>Toon</th><th>Stijlnotities</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Website</td><td>Zelfverzekerd, toegankelijk</td><td>Start met maatschappelijke uitkomsten, daarna architectuurdiepte.</td></tr>
-          <tr><td>Thought leadership / Ads</td><td>Scherp maar verantwoordelijk</td><td>Stel scherpe vragen en vermijd angstgedreven formuleringen.</td></tr>
-          <tr><td>Social</td><td>Direct, praktisch</td><td>Korte alinea’s, één kernboodschap per post.</td></tr>
-          <tr><td>Klantcontact</td><td>Rustig, oplossingsgericht</td><td>Erken het probleem, geef duidelijke volgende stap en tijdlijn.</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Copywriting: doen & laten</h3>
-      <div class="do-dont">
-        <div class="do">
-          <h4>Wel doen</h4>
-          <ul>
-            <li>Gebruik concrete impacttaal (“correct en op tijd”).</li>
-            <li>Noem de doelgroep expliciet (gemeentelijke professionals, inwoners).</li>
-            <li>Gebruik actieve formuleringen en praktische werkwoorden.</li>
-          </ul>
-        </div>
-        <div class="dont">
-          <h4>Niet doen</h4>
-          <ul>
-            <li>Vermijd generieke techclichés (“cutting-edge innovation” zonder concrete onderbouwing).</li>
-            <li>Vermijd jargonrijke afkortingen zonder uitleg.</li>
-            <li>Vermijd absolute beloften die niet aantoonbaar zijn.</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3>Kernboodschappen per segment</h3>
-      <table aria-label="Tabel kernboodschappen">
-        <thead>
-          <tr><th>Doelgroep</th><th>Kernboodschap</th><th>Ondersteunend argument</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Gemeentelijke leiders</td><td>Betrouwbare uitvoering van veranderende regelgeving tegen duurzame kosten.</td><td>Cloud-native architectuur met hoge operationele continuïteit.</td></tr>
-          <tr><td>Uitvoerende professionals</td><td>Automatisering verlaagt handmatig werk en beschermt servicekwaliteit.</td><td>Grote regelset en mogelijkheid tot retroactieve berekening.</td></tr>
-          <tr><td>Engineeringtalent</td><td>High-end software met directe maatschappelijke relevantie.</td><td>DevOps-cultuur, autonomie en missie met publieke impact.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="samples" class="section theme-teal" aria-labelledby="samples-title">
-      <h2 id="samples-title">12) Voorbeeldcopyblokken</h2>
-      <div class="grid-2">
-        <article class="card">
-          <h3>Homepage-hero</h3>
-          <p><strong>Headline:</strong> IT die bestaanszekerheid beschermt.</p>
-          <p><strong>Subhead:</strong> Wij vertalen complexe sociale wetgeving naar betrouwbare software waarmee gemeenten sneller, eerlijker en tegen lagere maatschappelijke kosten leveren.</p>
-          <p><strong>CTA:</strong> Ontdek wat we doen</p>
-        </article>
-        <article class="card">
-          <h3>Intro servicepagina (Socrates)</h3>
-          <p>Socrates ondersteunt gemeentelijke professionals met geautomatiseerde, wetgevingsconforme inkomensprocessen — van rechtvaststelling tot betaling en terugvordering — zodat inwoners tijdig de juiste ondersteuning ontvangen.</p>
-        </article>
-        <article class="card">
-          <h3>Socialposttemplate</h3>
-          <p><strong>Hook:</strong> Nieuw sociaal beleid moet op dag één werken, niet pas in maand zes.</p>
-          <p><strong>Body:</strong> Wij vertaalden nieuwe regels naar productielogica met implementatieondersteuning voor gemeentelijke teams.</p>
-          <p><strong>Afsluiter:</strong> Good code, good cause.</p>
-        </article>
-        <article class="card">
-          <h3>Snippet reactie klantondersteuning</h3>
-          <p>Dank voor je melding. We hebben het issue gereproduceerd en corrigeren dit direct. Je ontvangt uiterlijk [DATUM/TIJD] een bevestigde update met impact en vervolgstappen.</p>
-        </article>
       </div>
     </section>
 
-    <p class="footer-note">
-      Dit merkboek is leidend voor alle merktoepassingen. Gebruik uitsluitend de aangegeven assets en specificaties.
-      Gebruik de bestaande mappen in deze repository: logo’s in <code>img/logo</code>, iconen in <code>img/icons</code>, vormen in <code>img/shapes</code> en lettertypes in <code>Fonts</code>.
-    </p>
+    <!-- Fotografie -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Fotografie
+        </h2>
+        <div class="max-w-[400px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Onze fotografie bevat zoveel als mogelijk mensen.
+            Mensen op de werkvloer of in een werksituatie.
+            We proberen onze IT-achtergrond te laten zien en
+            de sfeer die past bij onze cultuur: een ontspannen
+            werksfeer waar serieus wordt gewerkt en waar
+            ook wordt gelachen. Waar men elkaar waardeert
+            en respecteert.
+          </p>
+          <p>
+            Onze fotografie moet altijd 'echte' situaties
+            uitbeelden. Geen kiekjes of geposeerde
+            stockbeelden maar beelden die zo van de
+            werkvloer komen. Indien het portretten of
+            groepsfoto's betreft is fotografie natuurlijk wel
+            geposeerd.
+          </p>
+          <p>
+            We hebben een eigen beeldbank maar
+            stockfotografie is toegestaan mits het aan
+            bovenstaande voldoet.
+          </p>
+        </div>
+      </div>
+      <!-- Right: photo grid -->
+      <div class="w-[62%] h-screen py-[4%] px-[3%] grid grid-cols-3 grid-rows-4 gap-3">
+        <img src="img/photos/group-looking-at-laptop.jpg" alt="" class="w-full h-full object-cover rounded-lg col-span-2" />
+        <img src="img/photos/man-writing-code.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/colleages-discussing.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/woman-sticking-note-to-wall.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/man-working-on-laptop.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/team-meeting.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/man-working-on-laptop.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/woman-sticking-note-to-wall.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+        <img src="img/photos/colleages-discussing.jpg" alt="" class="w-full h-full object-cover rounded-lg col-span-2" />
+        <img src="img/photos/team-meeting.jpg" alt="" class="w-full h-full object-cover rounded-lg" />
+      </div>
+    </section>
+
+    <!-- Iconen -->
+    <section class="w-full min-h-screen relative bg-white overflow-hidden flex">
+      <!-- Left half -->
+      <div class="w-[38%] h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-aubergine leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Iconen
+        </h2>
+        <div class="max-w-[400px] space-y-5 font-body text-aubergine text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            Om concepten of speerpunten te duiden
+            gebruiken we iconen. Soms kunnen iconen ook
+            lossere toepassingen kennen die bedoeld zijn om
+            content luchtiger te maken.
+          </p>
+          <p>
+            Onze iconen zijn altijd opgebouwd uit lijnen van
+            dezelfde dikte en met afgeronde hoeken.
+          </p>
+          <p>
+            Er bestaat ook een iconenset die met grove
+            pixels is opgebouwd. Deze iconen zijn bedoeld
+            voor interne communicatie en verwijzen naar
+            de historie en cultuur van onze achtergrond in
+            computer-software.
+          </p>
+        </div>
+      </div>
+      <!-- Right: pixel icon grid -->
+      <div class="w-[62%] h-screen py-[5%] px-[4%] grid grid-cols-6 gap-3 place-items-center content-start">
+        <img src="img/icons/Laptop.svg" alt="Laptop" class="w-10 h-10" />
+        <img src="img/icons/Rocket.svg" alt="Rocket" class="w-10 h-10" />
+        <img src="img/icons/Diamant.svg" alt="Diamant" class="w-10 h-10" />
+        <img src="img/icons/Game Boy.svg" alt="Game Boy" class="w-10 h-10" />
+        <img src="img/icons/Formidabel.svg" alt="Formidabel" class="w-10 h-10" />
+        <img src="img/icons/Pin.svg" alt="Pin" class="w-10 h-10" />
+        <img src="img/icons/Hi5.svg" alt="Hi5" class="w-10 h-10" />
+        <img src="img/icons/Fiets Px.svg" alt="Fiets" class="w-10 h-10" />
+        <img src="img/icons/Alarm.svg" alt="Alarm" class="w-10 h-10" />
+        <img src="img/icons/Game Over.svg" alt="Game Over" class="w-10 h-10" />
+        <img src="img/icons/Duckie.svg" alt="Duckie" class="w-10 h-10" />
+        <img src="img/icons/Bliksem.svg" alt="Bliksem" class="w-10 h-10" />
+        <img src="img/icons/Snelle auto.svg" alt="Snelle auto" class="w-10 h-10" />
+        <img src="img/icons/Aarde.svg" alt="Aarde" class="w-10 h-10" />
+        <img src="img/icons/Drop.svg" alt="Drop" class="w-10 h-10" />
+        <img src="img/icons/Paraplu.svg" alt="Paraplu" class="w-10 h-10" />
+        <img src="img/icons/Zon.svg" alt="Zon" class="w-10 h-10" />
+        <img src="img/icons/Elixir.svg" alt="Elixir" class="w-10 h-10" />
+        <img src="img/icons/Potlood.svg" alt="Potlood" class="w-10 h-10" />
+        <img src="img/icons/Koffie.svg" alt="Koffie" class="w-10 h-10" />
+        <img src="img/icons/Ijsje.svg" alt="Ijsje" class="w-10 h-10" />
+        <img src="img/icons/Hart.svg" alt="Hart" class="w-10 h-10" />
+        <img src="img/icons/Regen.svg" alt="Regen" class="w-10 h-10" />
+        <img src="img/icons/Prullenbak.svg" alt="Prullenbak" class="w-10 h-10" />
+        <img src="img/icons/Kaars.svg" alt="Kaars" class="w-10 h-10" />
+        <img src="img/icons/Zwaard.svg" alt="Zwaard" class="w-10 h-10" />
+        <img src="img/icons/Bom.svg" alt="Bom" class="w-10 h-10" />
+        <img src="img/icons/Pilon.svg" alt="Pilon" class="w-10 h-10" />
+        <img src="img/icons/Rex.svg" alt="Rex" class="w-10 h-10" />
+        <img src="img/icons/Invasion.svg" alt="Invasion" class="w-10 h-10" />
+        <img src="img/icons/Pacman.svg" alt="Pacman" class="w-10 h-10" />
+        <img src="img/icons/Vuur.svg" alt="Vuur" class="w-10 h-10" />
+        <img src="img/icons/Bier.svg" alt="Bier" class="w-10 h-10" />
+        <img src="img/icons/Boot.svg" alt="Boot" class="w-10 h-10" />
+        <img src="img/icons/Auto.svg" alt="Auto" class="w-10 h-10" />
+        <img src="img/icons/Zandloper.svg" alt="Zandloper" class="w-10 h-10" />
+      </div>
+    </section>
+
+    <!-- Finale -->
+    <section class="w-full h-screen relative bg-light-grey overflow-hidden">
+      <!-- Top-right overlapping circles -->
+      <div class="absolute -right-[14%] -top-[8%] w-[30vw] min-w-[360px] aspect-square rounded-full bg-bright-red"></div>
+      <div class="absolute right-[9%] top-[5%] w-[11vw] min-w-[160px] aspect-square rounded-full border-[clamp(16px,2vw,34px)] border-dark-blue"></div>
+
+      <!-- Main text block -->
+      <div class="absolute left-[15%] top-[28%] text-aubergine">
+        <p class="font-heading font-semibold text-[clamp(2rem,3.4vw,4rem)] leading-none mb-6">En nu jij...</p>
+        <h2 class="font-heading font-bold text-[clamp(7rem,14vw,14rem)] leading-[0.85] tracking-tight">go4it!</h2>
+      </div>
+
+      <!-- Pink diamond under g -->
+      <div class="absolute left-[17%] top-[67%] w-[58px] h-[58px] bg-bright-pink rotate-45"></div>
+
+      <!-- Bottom meta -->
+      <div class="absolute left-[15%] bottom-[9%] font-body text-aubergine text-[clamp(0.95rem,1.1vw,1.2rem)] leading-relaxed">
+        copyright Wigo4it<br />
+        contact: communicatie@wigo4it.nl
+      </div>
+
+      <!-- Green quote marks -->
+      <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:4%; --h:7%; --color:var(--light-green); left:35%; bottom:8%;"></div>
+      <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:4%; --h:7%; --color:var(--light-green); left:39.3%; bottom:8%;"></div>
+      <div class="w4-shape" style="--shape:url('img/shapes/quarter-ring-top-left.svg'); --w:4%; --h:7%; --color:var(--light-green); left:43.6%; bottom:8%;"></div>
+    </section>
+
   </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-aubergine/10 px-8 py-6 text-center text-sm text-aubergine/40">
+    Wigo4it &copy; 2026
+  </footer>
+
+  <!-- GSAP animations -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="scripts/animations.js"></script>
+
 </body>
 </html>
