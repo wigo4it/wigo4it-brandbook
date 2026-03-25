@@ -129,6 +129,10 @@
           <a href="#spacing" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Spacing en Radius</a>
           <a href="#components" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Componenten</a>
           <a href="#patterns" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Patronen</a>
+          <a href="#data-viz" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Datavisualisatie</a>
+          <a href="#dashboards" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Dashboard patronen</a>
+          <a href="#presentation" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Presentatie patronen</a>
+          <a href="#brand-application" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Logo en accenten</a>
           <a href="#utilities" class="rounded-xl px-3 py-2 text-brand-aubergine/80 hover:bg-brand-lightGrey/55 hover:text-brand-darkGreen">Tailwind Utilities</a>
         </nav>
       </div>
@@ -405,6 +409,144 @@
               <div class="rounded-xl bg-brand-lightGreen/35 p-3 text-sm">Responsief</div>
               <div class="rounded-xl bg-brand-softYellow/60 p-3 text-sm">Merkveilig</div>
             </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="data-viz" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Datavisualisatie</h2>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">Gebruik visualisaties pas nadat de vraag helder is. Kies de grafiekvorm op basis van besliscontext, niet op esthetiek.</p>
+        <div class="mt-6 overflow-hidden rounded-2xl border border-brand-aubergine/10">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-brand-lightGrey/45 text-left text-brand-aubergine">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Vraagtype</th>
+                <th class="px-4 py-3 font-semibold">Aanbevolen visualisatie</th>
+                <th class="px-4 py-3 font-semibold">Regel</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white text-brand-aubergine/85">
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3">Trend over tijd</td><td class="px-4 py-3">Lijngrafiek</td><td class="px-4 py-3">Minimaal 4 meetpunten, consistente intervalgrootte.</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3">Categorievergelijking</td><td class="px-4 py-3">Staaf/kolom</td><td class="px-4 py-3">Sorteer op relevantie, start as op 0 indien zinvol.</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3">Delen van geheel</td><td class="px-4 py-3">Donut/pie</td><td class="px-4 py-3">Gebruik maximaal 5 segmenten met duidelijke labels.</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3">Relatie/correlatie</td><td class="px-4 py-3">Scatter</td><td class="px-4 py-3">Gebruik niet voor totalen, wel voor patroonherkenning.</td></tr>
+              <tr class="border-t border-brand-aubergine/10"><td class="px-4 py-3">Detail en exactheid</td><td class="px-4 py-3">Tabel</td><td class="px-4 py-3">Combineer met sortering, filtering en contextwaarden.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-6 rounded-2xl border border-brand-aubergine/10 bg-slate-950 p-4 text-xs text-slate-200 sm:p-5">
+          <p class="mb-2 font-semibold text-slate-100">Chart.js baseline (generiek)</p>
+          <pre class="overflow-x-auto text-[11px] leading-relaxed text-slate-300"><code>Chart.defaults.font.family = 'Raleway, sans-serif';
+Chart.defaults.color = 'rgba(54, 44, 70, 0.75)';
+
+const palette = {
+  primary: '#005351',
+  secondary: '#434d8e',
+  success: '#63cf92',
+  accent: '#bb55a9',
+  warning: '#e9eb86',
+  danger: '#f56e6d'
+};
+
+// Richtlijn:
+// - 1 primaire kleur per chart
+// - maximaal 1 accentkleur
+// - rood alleen voor risico/alert</code></pre>
+        </div>
+      </section>
+
+      <section id="dashboards" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Dashboard patronen</h2>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">Dashboards combineren signalering (KPI), context (grafiek) en detail (tabel). Bouw van boven naar beneden in informatielaag.</p>
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-lightGrey/35 p-4">
+            <h3 class="font-heading text-xl">KPI-kaart</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Toont kernwaarde, delta en korte contextregel. Gebruik maximaal 4 naast elkaar.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-lightGreen/30 p-4">
+            <h3 class="font-heading text-xl">Chart-kaart</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Bevat titel, subtitel (type), visual en eventueel benchmark of doelwaarde.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 bg-brand-softYellow/55 p-4">
+            <h3 class="font-heading text-xl">Data-tabel</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Gebruik voor exacte waarden, operationele details en traceerbaarheid.</p>
+          </article>
+        </div>
+        <div class="mt-6 grid gap-4 lg:grid-cols-2">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Do</h3>
+            <ul class="mt-3 text-sm text-brand-aubergine/80 space-y-2">
+              <li>Begin met de belangrijkste KPI's en maak daarna verdieping zichtbaar.</li>
+              <li>Gebruik consistente eenheden en benoem altijd de meetperiode.</li>
+              <li>Houd legenda's compact en label belangrijke punten direct.</li>
+            </ul>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Dont</h3>
+            <ul class="mt-3 text-sm text-brand-aubergine/80 space-y-2">
+              <li>Gebruik niet meerdere accentkleuren voor dezelfde databetekenis.</li>
+              <li>Mix geen verschillende schaaltypen zonder duidelijke toelichting.</li>
+              <li>Vermijd charts zonder context, doelwaarde of trendvergelijking.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="presentation" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Presentatie patronen</h2>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">Voor decks geldt hetzelfde principe: ritme, afwisseling en focus per slide. Gebruik maximaal een kernboodschap per sheet.</p>
+        <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Cover</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Statement + merkaccent + minimale metadata.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Agenda</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">3 tot 5 blokken met duidelijke doorlooptijd of volgorde.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Timeline</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Kolommen met vaste structuur: periode, label, visuele marker, korte toelichting.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Content split</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Links inhoudelijke blokken, rechts highlight/actie of beslisregel.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Library slide</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Vormen/iconen/foto's als visuele uitleg van het systeem.</p>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
+            <h3 class="font-heading text-xl mt-1">Closing</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Einde met korte call-to-action, hoge rust en duidelijke merktoon.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="brand-application" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
+        <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Logo en accenten</h2>
+        <div class="mt-6 grid gap-4 lg:grid-cols-2">
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Logo contrastregels</h3>
+            <ul class="mt-3 text-sm text-brand-aubergine/80 space-y-2">
+              <li>Gebruik standaard logo op lichte achtergronden.</li>
+              <li>Gebruik diapositief logo op donkere achtergronden of drukke visuals.</li>
+              <li>Houd altijd voldoende witruimte rondom het logo (minimaal de hoogte van de 4).</li>
+            </ul>
+          </article>
+          <article class="rounded-2xl border border-brand-aubergine/10 p-5">
+            <h3 class="font-heading text-2xl">Tekstaccentregels</h3>
+            <ul class="mt-3 text-sm text-brand-aubergine/80 space-y-2">
+              <li>Accentueer maximaal 1 tot 2 woorden per kopregel.</li>
+              <li>Gebruik accentkleur als betekenisdrager, niet decoratief op elk woord.</li>
+              <li>Kies geel/groen voor nadruk, roze voor punch, blauw voor systeemcontext.</li>
+            </ul>
           </article>
         </div>
       </section>
