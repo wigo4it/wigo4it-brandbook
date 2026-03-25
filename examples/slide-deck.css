@@ -288,6 +288,178 @@ body {
   text-transform: uppercase;
 }
 
+.showcase-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+  background: #e9eb86;
+  color: #005351;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.55rem;
+}
+
+.showcase-hero-body {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 0.95rem;
+}
+
+.showcase-overline {
+  font-family: 'PP Neue Machina', sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.showcase-hero-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: clamp(2.4rem, 5.6vw, 5.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+.showcase-split-panel {
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.showcase-split-panel article {
+  padding: 0.95rem 1.05rem;
+}
+
+.showcase-split-panel article + article {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(99, 207, 146, 0.14);
+}
+
+.showcase-split-panel h3 {
+  margin: 0;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 1.32rem;
+  line-height: 1;
+}
+
+.showcase-split-panel p {
+  margin: 0.45rem 0 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.showcase-reality {
+  background: radial-gradient(circle at 8% 8%, rgba(255, 255, 255, 0.06), transparent 45%), #231c35;
+}
+
+.showcase-rule {
+  display: inline-block;
+  margin-top: 0.35rem;
+  width: 42px;
+  height: 3px;
+  border-radius: 999px;
+  background: #bb55a9;
+}
+
+.showcase-reality-body {
+  align-content: center;
+  justify-items: start;
+  padding-inline: 0.2rem;
+  max-width: 58%;
+  gap: 0.8rem;
+}
+
+.showcase-reality-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: clamp(2.8rem, 5.1vw, 5rem);
+  line-height: 0.9;
+}
+
+.showcase-reality-body p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 40ch;
+  font-size: 1.1rem;
+}
+
+.showcase-quote {
+  background: #005b59;
+}
+
+.showcase-quote-wrap {
+  align-content: center;
+  justify-items: start;
+  padding-inline: clamp(1rem, 3vw, 2.4rem);
+  border-left: 3px solid #e9eb86;
+  margin-left: 0.2rem;
+  max-width: 70%;
+}
+
+.showcase-quote-text {
+  margin: 0;
+  font-style: italic;
+  font-size: clamp(2rem, 3.2vw, 3.55rem);
+  line-height: 1.14;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.showcase-quote-wrap cite {
+  margin-top: 0.85rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.05rem;
+}
+
+.showcase-question {
+  background: #362c46;
+}
+
+.showcase-question-body {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.showcase-question-rule {
+  width: 40px;
+  height: 3px;
+  border-radius: 999px;
+  background: #e9eb86;
+}
+
+.showcase-question-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: clamp(2.9rem, 5.8vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: #e9eb86;
+}
+
+.showcase-question-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  font-family: 'PP Neue Machina', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.42rem 0.95rem;
+}
+
 .deck-slide--light .deck-card,
 .deck-slide--yellow .deck-card {
   border-color: rgba(54, 44, 70, 0.16);
@@ -400,5 +572,19 @@ body {
 
   .deck-content-layout {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-split-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-split-panel article + article {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .showcase-reality-body,
+  .showcase-quote-wrap {
+    max-width: 100%;
   }
 }
