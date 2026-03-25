@@ -48,11 +48,11 @@
       <!-- Nav items -->
       <nav aria-label="Hoofdnavigatie">
         <ul class="flex items-center gap-1">
-          <li><a href="#merkboek"      class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
-          <li><a href="design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
-          <li><a href="icons.html"     class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
-          <li><a href="shapes.html"    class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
-          <li><a href="#voorbeelden"   class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+          <li><a data-nav="merkboek" href="#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a data-nav="design-system" href="design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a data-nav="icons" href="icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a data-nav="shapes" href="shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a data-nav="voorbeelden" href="#voorbeelden" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
         </ul>
       </nav>
 
@@ -931,6 +931,41 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="scripts/animations.js"></script>
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('[data-nav]');
+      if (!navLinks.length) return;
+
+      function getActiveKey() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.endsWith('/design-system.html')) return 'design-system';
+        if (path.endsWith('/icons.html')) return 'icons';
+        if (path.endsWith('/shapes.html')) return 'shapes';
+
+        const hash = (window.location.hash || '#merkboek').toLowerCase();
+        if (hash === '#voorbeelden') return 'voorbeelden';
+        return 'merkboek';
+      }
+
+      function updateActiveNav() {
+        const activeKey = getActiveKey();
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('data-nav') === activeKey;
+          link.classList.toggle('bg-light-grey/60', isActive);
+          link.classList.toggle('text-dark-green', isActive);
+          link.classList.toggle('font-semibold', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      updateActiveNav();
+      window.addEventListener('hashchange', updateActiveNav);
+    })();
+  </script>
 
 </body>
 </html>
