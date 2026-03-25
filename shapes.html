@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Vormen</title>
+  <link rel="stylesheet" href="styles/w4.css" />
+  <style>
+    :root {
+      --page-bg: #f5f8f4;
+      --card-bg: #ffffff;
+      --card-border: #d7ddd3;
+      --card-shadow: 0 10px 26px rgba(54, 44, 70, 0.09);
+      --text-muted: rgba(54, 44, 70, 0.7);
+      --focus: #434d8e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 92% 10%, rgba(67, 77, 142, 0.19), transparent 38%),
+        radial-gradient(circle at 12% 85%, rgba(245, 110, 109, 0.2), transparent 30%),
+        radial-gradient(circle at 26% 22%, rgba(99, 207, 146, 0.14), transparent 28%),
+        var(--page-bg);
+      color: var(--aubergine);
+      min-height: 100vh;
+    }
+
+    .page-shell {
+      width: min(1200px, calc(100% - 3rem));
+      margin: 0 auto;
+      padding-bottom: 4rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: rgba(245, 248, 244, 0.88);
+      border-bottom: 1px solid rgba(54, 44, 70, 0.09);
+    }
+
+    .topbar-inner {
+      width: min(1200px, calc(100% - 3rem));
+      margin: 0 auto;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      text-decoration: none;
+      color: inherit;
+      font-family: 'PP Neue Machina', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--dark-blue);
+      font-weight: 700;
+      border: 1px solid rgba(67, 77, 142, 0.33);
+      border-radius: 999px;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.92rem;
+      transition: all 0.15s ease;
+    }
+
+    .back-link:hover {
+      background: rgba(67, 77, 142, 0.08);
+      border-color: rgba(67, 77, 142, 0.52);
+    }
+
+    .hero {
+      padding: 3.2rem 0 2rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'PP Neue Machina', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+    }
+
+    .toolbar {
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 18px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.85rem;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(54, 44, 70, 0.06);
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      min-height: 46px;
+      padding: 0.7rem 0.9rem;
+      font-size: 1rem;
+      font-family: 'Raleway', sans-serif;
+      background: #ffffff;
+      color: var(--aubergine);
+    }
+
+    .search-wrap input:focus {
+      outline: 2px solid color-mix(in srgb, var(--focus) 24%, white);
+      border-color: var(--focus);
+    }
+
+    .meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .meta strong {
+      font-family: 'PP Neue Machina', sans-serif;
+      color: var(--aubergine);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .grid {
+      margin-top: 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 0.95rem;
+    }
+
+    .shape-card {
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      background: var(--card-bg);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.8rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .shape-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(67, 77, 142, 0.48);
+      box-shadow: var(--card-shadow);
+    }
+
+    .shape-preview {
+      height: 98px;
+      border-radius: 12px;
+      border: 1px solid rgba(54, 44, 70, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        linear-gradient(45deg, rgba(207, 214, 204, 0.32) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(207, 214, 204, 0.32) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(207, 214, 204, 0.32) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(207, 214, 204, 0.32) 75%);
+      background-size: 14px 14px;
+      background-position: 0 0, 0 7px, 7px -7px, -7px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shape-preview img {
+      width: 90px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 3px rgba(54, 44, 70, 0.14));
+    }
+
+    .shape-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.25;
+      word-break: break-word;
+      min-height: 2.2em;
+    }
+
+    .shape-file {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      word-break: break-word;
+    }
+
+    .empty {
+      margin-top: 1.2rem;
+      border: 1px dashed rgba(54, 44, 70, 0.35);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.55);
+      padding: 1.1rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      background: #1e2138;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 30;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 840px) {
+      .page-shell,
+      .topbar-inner {
+        width: min(1200px, calc(100% - 1.25rem));
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">
+        <img src="img/logo/4.svg" alt="Wigo4it" />
+        <span>Wigo4it Vormen</span>
+      </a>
+      <a class="back-link" href="index.html">Terug naar merkgids</a>
+    </div>
+  </header>
+
+  <main class="page-shell" id="vormen">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Vormenoverzicht</h1>
+      <p>
+        Overzicht van alle vormen uit de set. Zoek op naam en klik op een kaart om het pad te kopieren.
+      </p>
+    </section>
+
+    <section aria-label="Vormen catalogus">
+      <div class="toolbar">
+        <label class="search-wrap" for="shape-search">
+          <input id="shape-search" type="search" placeholder="Zoek vormen, bijvoorbeeld: ring, quarter, triangle" autocomplete="off" />
+        </label>
+        <div class="meta">
+          <strong id="shape-count">0</strong>
+          <span>zichtbaar</span>
+          <span>| totaal <span id="shape-total">0</span></span>
+        </div>
+      </div>
+
+      <div id="shape-grid" class="grid"></div>
+      <p id="empty-state" class="empty">Geen vormen gevonden voor deze zoekterm.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Gekopieerd</div>
+
+  <script>
+    const shapeFiles = [
+      'arch-open-bottom.png',
+      'arch-open-bottom.svg',
+      'circle.svg',
+      'diamond.png',
+      'diamond.svg',
+      'pill-extra-wide.svg',
+      'pill-medium.svg',
+      'pill-narrow.svg',
+      'pill-wide.svg',
+      'quarter-circle-bottom-right.png',
+      'quarter-circle-bottom-right.svg',
+      'quarter-ring-bottom-left.svg',
+      'quarter-ring-bottom-right.svg',
+      'quarter-ring-top-left.png',
+      'quarter-ring-top-left.svg',
+      'quarter-ring-top-right.svg',
+      'rectangle-round-right-narrow.svg',
+      'rectangle-round-right-wide.svg',
+      'rectangle-tall.png',
+      'rectangle-tall.svg',
+      'ring.svg',
+      'semicircle-right.svg',
+      'square.png',
+      'square.svg',
+      'triangle-diagonal.svg',
+      'triangle-right.svg'
+    ];
+
+    shapeFiles.sort((a, b) => a.localeCompare(b, 'nl'));
+
+    const searchInput = document.getElementById('shape-search');
+    const grid = document.getElementById('shape-grid');
+    const emptyState = document.getElementById('empty-state');
+    const countNode = document.getElementById('shape-count');
+    const totalNode = document.getElementById('shape-total');
+    const toast = document.getElementById('toast');
+
+    totalNode.textContent = String(shapeFiles.length);
+
+    function toSrc(fileName) {
+      return 'img/shapes/' + encodeURIComponent(fileName);
+    }
+
+    function toLabel(fileName) {
+      return fileName.replace(/\.(svg|png)$/i, '');
+    }
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('visible');
+      window.setTimeout(() => toast.classList.remove('visible'), 1300);
+    }
+
+    function buildCard(fileName) {
+      const button = document.createElement('button');
+      button.className = 'shape-card';
+      button.type = 'button';
+      button.setAttribute('aria-label', 'Kopieer pad van ' + fileName);
+
+      const preview = document.createElement('div');
+      preview.className = 'shape-preview';
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = toSrc(fileName);
+      img.alt = toLabel(fileName);
+      preview.appendChild(img);
+
+      const label = document.createElement('div');
+      label.className = 'shape-label';
+      label.textContent = toLabel(fileName);
+
+      const file = document.createElement('div');
+      file.className = 'shape-file';
+      file.textContent = fileName;
+
+      button.append(preview, label, file);
+
+      button.addEventListener('click', async () => {
+        const shapePath = 'img/shapes/' + fileName;
+        try {
+          await navigator.clipboard.writeText(shapePath);
+          showToast('Pad gekopieerd: ' + shapePath);
+        } catch {
+          showToast('Kopieren niet toegestaan in deze browsercontext');
+        }
+      });
+
+      return button;
+    }
+
+    function render() {
+      const query = searchInput.value.trim().toLowerCase();
+      const filtered = shapeFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
+
+      grid.innerHTML = '';
+      for (const fileName of filtered) {
+        grid.appendChild(buildCard(fileName));
+      }
+
+      countNode.textContent = String(filtered.length);
+      emptyState.style.display = filtered.length === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
