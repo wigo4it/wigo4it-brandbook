@@ -173,7 +173,161 @@
       </div>
     </section>
   </main>
+  <script>
+    (function () {
+      const navLinks = document.querySelectorAll('[data-nav]');
+      if (!navLinks.length) return;
 
-  
+      function getActiveKey() {
+        const path = window.location.pathname.toLowerCase();
+        if (path.endsWith('/design-system.html')) return 'design-system';
+        if (path.endsWith('/icons.html')) return 'icons';
+        if (path.endsWith('/shapes.html')) return 'shapes';
+        if (path.endsWith('/examples.html') || path.includes('/examples/')) return 'voorbeelden';
+        return 'merkboek';
+      }
+
+      function updateActiveNav() {
+        const activeKey = getActiveKey();
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('data-nav') === activeKey;
+          link.classList.toggle('bg-light-grey/60', isActive);
+          link.classList.toggle('text-dark-green', isActive);
+          link.classList.toggle('font-semibold', isActive);
+          if (isActive) link.setAttribute('aria-current', 'page');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      updateActiveNav();
+      window.addEventListener('hashchange', updateActiveNav);
+    })();
+
+    (function () {
+      Chart.defaults.font.family = 'Raleway, sans-serif';
+      Chart.defaults.color = 'rgba(54, 44, 70, 0.75)';
+
+      new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug'],
+          datasets: [
+            {
+              label: 'Doorstroom',
+              data: [62, 66, 64, 71, 74, 79, 83, 88],
+              borderColor: '#005351',
+              backgroundColor: 'rgba(0, 83, 81, 0.12)',
+              tension: 0.35,
+              fill: true,
+              pointRadius: 3
+            },
+            {
+              label: 'Doelwaarde',
+              data: [65, 65, 65, 70, 70, 75, 80, 85],
+              borderColor: '#434d8e',
+              borderDash: [6, 5],
+              tension: 0.2,
+              fill: false,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' }
+          },
+          scales: {
+            y: { beginAtZero: false, min: 50, max: 95, grid: { color: 'rgba(54, 44, 70, 0.08)' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('shareChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Intake', 'Beoordeling', 'Nazorg', 'Overig'],
+          datasets: [{
+            data: [34, 28, 22, 16],
+            backgroundColor: ['#005351', '#434d8e', '#63cf92', '#bb55a9'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '68%',
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('workloadChart'), {
+        type: 'bar',
+        data: {
+          labels: ['Noord', 'Zuid', 'Oost', 'West'],
+          datasets: [
+            {
+              label: 'Open',
+              data: [34, 28, 40, 26],
+              backgroundColor: '#005351'
+            },
+            {
+              label: 'In uitvoering',
+              data: [16, 14, 18, 12],
+              backgroundColor: '#63cf92'
+            },
+            {
+              label: 'Afgerond',
+              data: [82, 76, 69, 80],
+              backgroundColor: '#434d8e'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } },
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(54, 44, 70, 0.08)' } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('scatterChart'), {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Teams',
+              data: [
+                { x: 6.4, y: 78 },
+                { x: 7.1, y: 82 },
+                { x: 8.0, y: 86 },
+                { x: 8.4, y: 91 },
+                { x: 7.6, y: 88 },
+                { x: 6.9, y: 80 }
+              ],
+              backgroundColor: '#bb55a9'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } },
+          scales: {
+            x: { title: { display: true, text: 'Snelheid (score)' }, min: 6, max: 9, grid: { color: 'rgba(54, 44, 70, 0.08)' } },
+            y: { title: { display: true, text: 'Kwaliteit (score)' }, min: 70, max: 95, grid: { color: 'rgba(54, 44, 70, 0.08)' } }
+          }
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
