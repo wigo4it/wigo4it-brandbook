@@ -17,6 +17,10 @@ desktop.ini
 *.bak
 *.tmp
 
+# Python / test caches
+__pycache__/
+.pytest_cache/
+
 # Node modules (if using npm/yarn)
 node_modules/
 npm-debug.log*

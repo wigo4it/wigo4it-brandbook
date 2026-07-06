@@ -22,8 +22,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Gate: draai lint/smoke-tests (herbruikte CI-workflow) vóór we deployen.
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  # Deploy pas als de gate groen is.
   deploy:
+    needs: test
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
