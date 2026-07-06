@@ -12,23 +12,8 @@
   <script src="../scripts/tailwind-config.js"></script>
 </head>
 <body class="font-body text-aubergine overflow-x-hidden">
-  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
-    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
-      <a href="../index.html#merkboek" class="flex items-center gap-2 shrink-0">
-        <img loading="lazy" src="../img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
-      </a>
-
-      <nav aria-label="Hoofdnavigatie">
-        <ul class="flex items-center gap-1">
-          <li><a data-nav="merkboek" href="../index.html#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
-          <li><a data-nav="design-system" href="../design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
-          <li><a data-nav="icons" href="../icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
-          <li><a data-nav="shapes" href="../shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
-          <li><a data-nav="voorbeelden" href="../examples.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div id="w4-nav"></div>
+  <script src="../scripts/nav.js"></script>
 
   <main class="deck-page">
     <section class="mb-4 rounded-2xl border border-aubergine/15 bg-white/80 p-4 backdrop-blur-sm sm:p-5">
@@ -477,35 +462,6 @@
     </div>
   </main>
   <script>
-    (function () {
-      const navLinks = document.querySelectorAll('[data-nav]');
-      if (!navLinks.length) return;
-
-      function getActiveKey() {
-        const path = window.location.pathname.toLowerCase();
-        if (path.endsWith('/design-system.html')) return 'design-system';
-        if (path.endsWith('/icons.html')) return 'icons';
-        if (path.endsWith('/shapes.html')) return 'shapes';
-        if (path.endsWith('/examples.html') || path.includes('/examples/')) return 'voorbeelden';
-        return 'merkboek';
-      }
-
-      function updateActiveNav() {
-        const activeKey = getActiveKey();
-        navLinks.forEach(function (link) {
-          const isActive = link.getAttribute('data-nav') === activeKey;
-          link.classList.toggle('bg-light-grey/60', isActive);
-          link.classList.toggle('text-dark-green', isActive);
-          link.classList.toggle('font-semibold', isActive);
-          if (isActive) link.setAttribute('aria-current', 'page');
-          else link.removeAttribute('aria-current');
-        });
-      }
-
-      updateActiveNav();
-      window.addEventListener('hashchange', updateActiveNav);
-    })();
-
     (function () {
       const slides = Array.from(document.querySelectorAll('.deck-slide'));
       const prevBtn = document.getElementById('deck-prev');

@@ -48,8 +48,8 @@
 }
 
 /* ── Base typography ── */
-body            { font-family: 'Raleway', sans-serif; }
-h1, h2, h3, h4  { font-family: 'PP Neue Machina', sans-serif; }
+body            { font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+h1, h2, h3, h4  { font-family: 'PP Neue Machina', 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
 
 /* ── Cover composition helpers ── */
 .w4-cover {

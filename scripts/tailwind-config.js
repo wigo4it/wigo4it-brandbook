@@ -35,8 +35,8 @@ tailwind.config = {
         },
       },
       fontFamily: {
-        heading: ['"PP Neue Machina"', 'sans-serif'],
-        body:    ['Raleway', 'sans-serif'],
+        heading: ['"PP Neue Machina"', '"Segoe UI"', 'system-ui', '-apple-system', 'Helvetica', 'Arial', 'sans-serif'],
+        body:    ['Raleway', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
       },
       borderRadius: {
         '4xl': '2rem',
