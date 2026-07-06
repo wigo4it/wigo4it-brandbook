@@ -77,7 +77,8 @@ wigo4it-brandbook/
 Iconen, vormen en foto's zijn vrij te gebruiken binnen de merkrichtlijnen.
 
 **Voor mensen:** open `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
-**Download**-knop en een **Kopieer pad**-knop.
+**Download**-knop en een **Kopieer pad**-knop, en boven de lijst zit een
+**Download alles (ZIP)**-knop die de hele categorie in één keer inpakt (client-side, via JSZip).
 
 **Voor een agent of script:** `assets.json` in de root is een machine-leesbaar manifest van
 alle assets met een kant-en-klare download-URL per stuk. Geef de site-URL aan een agent en die
