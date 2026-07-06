@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wigo4it | Voorbeelden</title>
+  <meta name="description" content="Voorbeeldtoepassingen van het Wigo4it-merk, van dashboards tot presentaties." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
   <link rel="stylesheet" href="styles/w4.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="scripts/tailwind-config.js"></script>
@@ -26,8 +28,23 @@
   </style>
 </head>
 <body class="font-body">
-  <div id="w4-nav"></div>
-  <script src="scripts/nav.js"></script>
+  <header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">
+    <div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-12 w-full max-w-3xl mx-4">
+      <a href="index.html#merkboek" class="flex items-center gap-2 shrink-0">
+        <img loading="lazy" src="img/logo/Logo.svg" alt="Wigo4it" class="h-7" />
+      </a>
+
+      <nav aria-label="Hoofdnavigatie">
+        <ul class="flex items-center gap-1">
+          <li><a data-nav="merkboek" href="index.html#merkboek" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Merkboek</a></li>
+          <li><a data-nav="design-system" href="design-system.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Design system</a></li>
+          <li><a data-nav="icons" href="icons.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Iconen</a></li>
+          <li><a data-nav="shapes" href="shapes.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Vormen</a></li>
+          <li><a data-nav="voorbeelden" href="examples.html" class="font-body text-sm text-aubergine/70 hover:text-dark-green px-3 py-1.5 rounded-md hover:bg-light-grey/60 transition-colors">Voorbeelden</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
   <main class="page-shell">
     <section class="rounded-3xl border border-aubergine/10 bg-white/85 p-6 shadow-sm backdrop-blur-sm sm:p-8">
