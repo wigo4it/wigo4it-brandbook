@@ -1,0 +1,8 @@
+# Test-dependencies voor de CI-gate. Niet nodig om de site te draaien of te
+# deployen; alleen om de browser-smoke tests lokaal of in CI uit te voeren.
+#
+#   pip install -r requirements-dev.txt
+#   python -m playwright install chromium
+#   pytest
+pytest>=8.0
+pytest-playwright>=0.5
