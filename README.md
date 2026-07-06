@@ -13,8 +13,10 @@ De site is opgebouwd als losse pagina's met gedeelde assets (fonts, logo's, icon
 - `examples.html`: overzicht met voorbeeldtoepassingen
 - `examples/dashboard.html`: dashboardvoorbeeld met KPI's, charts, tabellen en datavis-richtlijnen
 - `examples/slide-deck.html`: uitgebreid presentatievoorbeeld met meerdere slidepatronen
-- `icons.html`: iconenoverzicht
-- `shapes.html`: vormenoverzicht
+- `icons.html`: iconenoverzicht met download per icoon
+- `shapes.html`: vormenoverzicht met download per vorm
+- `photos.html`: fotogalerij met download per foto
+- `assets.json`: machine-leesbaar manifest van alle downloadbare assets
 
 ## Mappenstructuur
 
@@ -69,6 +71,33 @@ wigo4it-brandbook/
 - Bevat KPI-kaarten, chart-kaarten, tabelsectie en guidanceblokken voor visualisatiekeuzes.
 - Gebruikt Chart.js via CDN voor lijn-, donut-, stacked bar- en scatter-visualisaties.
 - Ontworpen als voorbeeld voor data-gedreven pagina's binnen dezelfde merktaal.
+
+## Assets downloaden
+
+Iconen, vormen en foto's zijn vrij te gebruiken binnen de merkrichtlijnen.
+
+**Voor mensen:** open `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
+**Download**-knop en een **Kopieer pad**-knop, en boven de lijst zit een
+**Download alles (ZIP)**-knop die de hele categorie in één keer inpakt (client-side, via JSZip).
+
+**Voor een agent of script:** `assets.json` in de root is een machine-leesbaar manifest van
+alle assets met een kant-en-klare download-URL per stuk. Geef de site-URL aan een agent en die
+kan `assets.json` ophalen om alles te vinden:
+
+```
+https://wigo4it.github.io/wigo4it-brandbook/assets.json
+```
+
+Elke asset heeft `name`, `file`, `path`, `url`, `format` en `bytes`. Gebruik de `url`
+direct, of plak een `path` achter `baseUrl`.
+
+Het manifest wordt door `scripts/generate-assets.py` uit `img/` gegenereerd. De Pages-workflow
+draait dat script bij elke deploy, dus de live `assets.json` blijft vanzelf actueel. Handmatig
+verversen na het toevoegen of verwijderen van assets:
+
+```
+python scripts/generate-assets.py
+```
 
 ## Typografie
 

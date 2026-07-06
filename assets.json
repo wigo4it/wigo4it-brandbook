@@ -1,0 +1,593 @@
+{
+  "brand": "Wigo4it",
+  "version": "1.1",
+  "baseUrl": "https://wigo4it.github.io/wigo4it-brandbook/",
+  "generated": "2026-07-06",
+  "usage": "Wigo4it brand assets, free to reuse within brand guidelines. Each asset has a ready-to-use \"url\"; alternatively append its \"path\" to \"baseUrl\". Icons and shapes are SVG, photos are JPG.",
+  "categories": [
+    {
+      "id": "icons",
+      "label": "Iconen",
+      "dir": "img/icons",
+      "count": 38,
+      "assets": [
+        {
+          "name": "Aarde",
+          "file": "Aarde.svg",
+          "path": "img/icons/Aarde.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Aarde.svg",
+          "format": "svg",
+          "bytes": 2377
+        },
+        {
+          "name": "Alarm",
+          "file": "Alarm.svg",
+          "path": "img/icons/Alarm.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Alarm.svg",
+          "format": "svg",
+          "bytes": 596
+        },
+        {
+          "name": "Auto",
+          "file": "Auto.svg",
+          "path": "img/icons/Auto.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Auto.svg",
+          "format": "svg",
+          "bytes": 1918
+        },
+        {
+          "name": "Bier",
+          "file": "Bier.svg",
+          "path": "img/icons/Bier.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Bier.svg",
+          "format": "svg",
+          "bytes": 1138
+        },
+        {
+          "name": "Bliksem",
+          "file": "Bliksem.svg",
+          "path": "img/icons/Bliksem.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Bliksem.svg",
+          "format": "svg",
+          "bytes": 1465
+        },
+        {
+          "name": "Bom",
+          "file": "Bom.svg",
+          "path": "img/icons/Bom.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Bom.svg",
+          "format": "svg",
+          "bytes": 1377
+        },
+        {
+          "name": "Boot",
+          "file": "Boot.svg",
+          "path": "img/icons/Boot.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Boot.svg",
+          "format": "svg",
+          "bytes": 1305
+        },
+        {
+          "name": "Diamant",
+          "file": "Diamant.svg",
+          "path": "img/icons/Diamant.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Diamant.svg",
+          "format": "svg",
+          "bytes": 2181
+        },
+        {
+          "name": "Drop",
+          "file": "Drop.svg",
+          "path": "img/icons/Drop.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Drop.svg",
+          "format": "svg",
+          "bytes": 1201
+        },
+        {
+          "name": "Duckie",
+          "file": "Duckie.svg",
+          "path": "img/icons/Duckie.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Duckie.svg",
+          "format": "svg",
+          "bytes": 2440
+        },
+        {
+          "name": "Eek",
+          "file": "Eek.svg",
+          "path": "img/icons/Eek.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Eek.svg",
+          "format": "svg",
+          "bytes": 816
+        },
+        {
+          "name": "Elixir",
+          "file": "Elixir.svg",
+          "path": "img/icons/Elixir.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Elixir.svg",
+          "format": "svg",
+          "bytes": 784
+        },
+        {
+          "name": "Fiets Px",
+          "file": "Fiets Px.svg",
+          "path": "img/icons/Fiets Px.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Fiets%20Px.svg",
+          "format": "svg",
+          "bytes": 2028
+        },
+        {
+          "name": "Formidabel",
+          "file": "Formidabel.svg",
+          "path": "img/icons/Formidabel.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Formidabel.svg",
+          "format": "svg",
+          "bytes": 1063
+        },
+        {
+          "name": "Game Boy",
+          "file": "Game Boy.svg",
+          "path": "img/icons/Game Boy.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Game%20Boy.svg",
+          "format": "svg",
+          "bytes": 1095
+        },
+        {
+          "name": "Game Over",
+          "file": "Game Over.svg",
+          "path": "img/icons/Game Over.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Game%20Over.svg",
+          "format": "svg",
+          "bytes": 1116
+        },
+        {
+          "name": "Hart",
+          "file": "Hart.svg",
+          "path": "img/icons/Hart.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Hart.svg",
+          "format": "svg",
+          "bytes": 515
+        },
+        {
+          "name": "Hi5",
+          "file": "Hi5.svg",
+          "path": "img/icons/Hi5.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Hi5.svg",
+          "format": "svg",
+          "bytes": 2162
+        },
+        {
+          "name": "Ijsje",
+          "file": "Ijsje.svg",
+          "path": "img/icons/Ijsje.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Ijsje.svg",
+          "format": "svg",
+          "bytes": 724
+        },
+        {
+          "name": "Invasion",
+          "file": "Invasion.svg",
+          "path": "img/icons/Invasion.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Invasion.svg",
+          "format": "svg",
+          "bytes": 617
+        },
+        {
+          "name": "Kaars",
+          "file": "Kaars.svg",
+          "path": "img/icons/Kaars.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Kaars.svg",
+          "format": "svg",
+          "bytes": 971
+        },
+        {
+          "name": "Koffie",
+          "file": "Koffie.svg",
+          "path": "img/icons/Koffie.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Koffie.svg",
+          "format": "svg",
+          "bytes": 718
+        },
+        {
+          "name": "Laptop",
+          "file": "Laptop.svg",
+          "path": "img/icons/Laptop.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Laptop.svg",
+          "format": "svg",
+          "bytes": 1916
+        },
+        {
+          "name": "Pacman",
+          "file": "Pacman.svg",
+          "path": "img/icons/Pacman.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Pacman.svg",
+          "format": "svg",
+          "bytes": 5778
+        },
+        {
+          "name": "Paraplu",
+          "file": "Paraplu.svg",
+          "path": "img/icons/Paraplu.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Paraplu.svg",
+          "format": "svg",
+          "bytes": 911
+        },
+        {
+          "name": "Pilon",
+          "file": "Pilon.svg",
+          "path": "img/icons/Pilon.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Pilon.svg",
+          "format": "svg",
+          "bytes": 452
+        },
+        {
+          "name": "Pin",
+          "file": "Pin.svg",
+          "path": "img/icons/Pin.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Pin.svg",
+          "format": "svg",
+          "bytes": 991
+        },
+        {
+          "name": "Potlood",
+          "file": "Potlood.svg",
+          "path": "img/icons/Potlood.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Potlood.svg",
+          "format": "svg",
+          "bytes": 880
+        },
+        {
+          "name": "Prullenbak",
+          "file": "Prullenbak.svg",
+          "path": "img/icons/Prullenbak.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Prullenbak.svg",
+          "format": "svg",
+          "bytes": 999
+        },
+        {
+          "name": "Regen",
+          "file": "Regen.svg",
+          "path": "img/icons/Regen.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Regen.svg",
+          "format": "svg",
+          "bytes": 1837
+        },
+        {
+          "name": "Rex 2",
+          "file": "Rex 2.svg",
+          "path": "img/icons/Rex 2.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Rex%202.svg",
+          "format": "svg",
+          "bytes": 475
+        },
+        {
+          "name": "Rex",
+          "file": "Rex.svg",
+          "path": "img/icons/Rex.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Rex.svg",
+          "format": "svg",
+          "bytes": 618
+        },
+        {
+          "name": "Rocket",
+          "file": "Rocket.svg",
+          "path": "img/icons/Rocket.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Rocket.svg",
+          "format": "svg",
+          "bytes": 359
+        },
+        {
+          "name": "Snelle auto",
+          "file": "Snelle auto.svg",
+          "path": "img/icons/Snelle auto.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Snelle%20auto.svg",
+          "format": "svg",
+          "bytes": 810
+        },
+        {
+          "name": "Vuur",
+          "file": "Vuur.svg",
+          "path": "img/icons/Vuur.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Vuur.svg",
+          "format": "svg",
+          "bytes": 2905
+        },
+        {
+          "name": "Zandloper",
+          "file": "Zandloper.svg",
+          "path": "img/icons/Zandloper.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Zandloper.svg",
+          "format": "svg",
+          "bytes": 1421
+        },
+        {
+          "name": "Zon",
+          "file": "Zon.svg",
+          "path": "img/icons/Zon.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Zon.svg",
+          "format": "svg",
+          "bytes": 1404
+        },
+        {
+          "name": "Zwaard",
+          "file": "Zwaard.svg",
+          "path": "img/icons/Zwaard.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Zwaard.svg",
+          "format": "svg",
+          "bytes": 1551
+        }
+      ]
+    },
+    {
+      "id": "shapes",
+      "label": "Vormen",
+      "dir": "img/shapes",
+      "count": 26,
+      "assets": [
+        {
+          "name": "arch open bottom",
+          "file": "arch-open-bottom.png",
+          "path": "img/shapes/arch-open-bottom.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/arch-open-bottom.png",
+          "format": "png",
+          "bytes": 2850
+        },
+        {
+          "name": "arch open bottom",
+          "file": "arch-open-bottom.svg",
+          "path": "img/shapes/arch-open-bottom.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/arch-open-bottom.svg",
+          "format": "svg",
+          "bytes": 460
+        },
+        {
+          "name": "circle",
+          "file": "circle.svg",
+          "path": "img/shapes/circle.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/circle.svg",
+          "format": "svg",
+          "bytes": 268
+        },
+        {
+          "name": "diamond",
+          "file": "diamond.png",
+          "path": "img/shapes/diamond.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/diamond.png",
+          "format": "png",
+          "bytes": 3045
+        },
+        {
+          "name": "diamond",
+          "file": "diamond.svg",
+          "path": "img/shapes/diamond.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/diamond.svg",
+          "format": "svg",
+          "bytes": 333
+        },
+        {
+          "name": "pill extra wide",
+          "file": "pill-extra-wide.svg",
+          "path": "img/shapes/pill-extra-wide.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/pill-extra-wide.svg",
+          "format": "svg",
+          "bytes": 365
+        },
+        {
+          "name": "pill medium",
+          "file": "pill-medium.svg",
+          "path": "img/shapes/pill-medium.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/pill-medium.svg",
+          "format": "svg",
+          "bytes": 365
+        },
+        {
+          "name": "pill narrow",
+          "file": "pill-narrow.svg",
+          "path": "img/shapes/pill-narrow.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/pill-narrow.svg",
+          "format": "svg",
+          "bytes": 365
+        },
+        {
+          "name": "pill wide",
+          "file": "pill-wide.svg",
+          "path": "img/shapes/pill-wide.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/pill-wide.svg",
+          "format": "svg",
+          "bytes": 363
+        },
+        {
+          "name": "quarter circle bottom right",
+          "file": "quarter-circle-bottom-right.png",
+          "path": "img/shapes/quarter-circle-bottom-right.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-circle-bottom-right.png",
+          "format": "png",
+          "bytes": 1257
+        },
+        {
+          "name": "quarter circle bottom right",
+          "file": "quarter-circle-bottom-right.svg",
+          "path": "img/shapes/quarter-circle-bottom-right.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-circle-bottom-right.svg",
+          "format": "svg",
+          "bytes": 286
+        },
+        {
+          "name": "quarter ring bottom left",
+          "file": "quarter-ring-bottom-left.svg",
+          "path": "img/shapes/quarter-ring-bottom-left.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-ring-bottom-left.svg",
+          "format": "svg",
+          "bytes": 324
+        },
+        {
+          "name": "quarter ring bottom right",
+          "file": "quarter-ring-bottom-right.svg",
+          "path": "img/shapes/quarter-ring-bottom-right.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-ring-bottom-right.svg",
+          "format": "svg",
+          "bytes": 318
+        },
+        {
+          "name": "quarter ring top left",
+          "file": "quarter-ring-top-left.png",
+          "path": "img/shapes/quarter-ring-top-left.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-ring-top-left.png",
+          "format": "png",
+          "bytes": 1729
+        },
+        {
+          "name": "quarter ring top left",
+          "file": "quarter-ring-top-left.svg",
+          "path": "img/shapes/quarter-ring-top-left.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-ring-top-left.svg",
+          "format": "svg",
+          "bytes": 315
+        },
+        {
+          "name": "quarter ring top right",
+          "file": "quarter-ring-top-right.svg",
+          "path": "img/shapes/quarter-ring-top-right.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/quarter-ring-top-right.svg",
+          "format": "svg",
+          "bytes": 315
+        },
+        {
+          "name": "rectangle round right narrow",
+          "file": "rectangle-round-right-narrow.svg",
+          "path": "img/shapes/rectangle-round-right-narrow.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/rectangle-round-right-narrow.svg",
+          "format": "svg",
+          "bytes": 392
+        },
+        {
+          "name": "rectangle round right wide",
+          "file": "rectangle-round-right-wide.svg",
+          "path": "img/shapes/rectangle-round-right-wide.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/rectangle-round-right-wide.svg",
+          "format": "svg",
+          "bytes": 391
+        },
+        {
+          "name": "rectangle tall",
+          "file": "rectangle-tall.png",
+          "path": "img/shapes/rectangle-tall.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/rectangle-tall.png",
+          "format": "png",
+          "bytes": 661
+        },
+        {
+          "name": "rectangle tall",
+          "file": "rectangle-tall.svg",
+          "path": "img/shapes/rectangle-tall.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/rectangle-tall.svg",
+          "format": "svg",
+          "bytes": 263
+        },
+        {
+          "name": "ring",
+          "file": "ring.svg",
+          "path": "img/shapes/ring.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/ring.svg",
+          "format": "svg",
+          "bytes": 563
+        },
+        {
+          "name": "semicircle right",
+          "file": "semicircle-right.svg",
+          "path": "img/shapes/semicircle-right.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/semicircle-right.svg",
+          "format": "svg",
+          "bytes": 299
+        },
+        {
+          "name": "square",
+          "file": "square.png",
+          "path": "img/shapes/square.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/square.png",
+          "format": "png",
+          "bytes": 813
+        },
+        {
+          "name": "square",
+          "file": "square.svg",
+          "path": "img/shapes/square.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/square.svg",
+          "format": "svg",
+          "bytes": 265
+        },
+        {
+          "name": "triangle diagonal",
+          "file": "triangle-diagonal.svg",
+          "path": "img/shapes/triangle-diagonal.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/triangle-diagonal.svg",
+          "format": "svg",
+          "bytes": 365
+        },
+        {
+          "name": "triangle right",
+          "file": "triangle-right.svg",
+          "path": "img/shapes/triangle-right.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/shapes/triangle-right.svg",
+          "format": "svg",
+          "bytes": 357
+        }
+      ]
+    },
+    {
+      "id": "photos",
+      "label": "Foto's",
+      "dir": "img/photos",
+      "count": 6,
+      "assets": [
+        {
+          "name": "colleages discussing",
+          "file": "colleages-discussing.jpg",
+          "path": "img/photos/colleages-discussing.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/colleages-discussing.jpg",
+          "format": "jpg",
+          "bytes": 1793659
+        },
+        {
+          "name": "group looking at laptop",
+          "file": "group-looking-at-laptop.jpg",
+          "path": "img/photos/group-looking-at-laptop.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/group-looking-at-laptop.jpg",
+          "format": "jpg",
+          "bytes": 407142
+        },
+        {
+          "name": "man working on laptop",
+          "file": "man-working-on-laptop.jpg",
+          "path": "img/photos/man-working-on-laptop.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/man-working-on-laptop.jpg",
+          "format": "jpg",
+          "bytes": 702921
+        },
+        {
+          "name": "man writing code",
+          "file": "man-writing-code.jpg",
+          "path": "img/photos/man-writing-code.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/man-writing-code.jpg",
+          "format": "jpg",
+          "bytes": 744261
+        },
+        {
+          "name": "team meeting",
+          "file": "team-meeting.jpg",
+          "path": "img/photos/team-meeting.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/team-meeting.jpg",
+          "format": "jpg",
+          "bytes": 1827529
+        },
+        {
+          "name": "woman sticking note to wall",
+          "file": "woman-sticking-note-to-wall.jpg",
+          "path": "img/photos/woman-sticking-note-to-wall.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/woman-sticking-note-to-wall.jpg",
+          "format": "jpg",
+          "bytes": 1124016
+        }
+      ]
+    }
+  ]
+}
