@@ -83,4 +83,4 @@ wigo4it-brandbook/
 
 ---
 
-Laatst bijgewerkt: maart 2026
+Versie 1.1 · laatst bijgewerkt: juli 2026
