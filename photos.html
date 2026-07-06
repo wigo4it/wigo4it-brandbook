@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wigo4it | Iconen</title>
-  <meta name="description" content="Doorzoekbaar overzicht van de iconenset van Wigo4it." />
+  <title>Wigo4it | Foto's</title>
+  <meta name="description" content="Downloadbare merkfoto's van Wigo4it voor eigen gebruik." />
   <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
   <link rel="stylesheet" href="styles/w4.css" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -34,57 +34,6 @@
       width: min(1200px, calc(100% - 3rem));
       margin: 5.5rem auto 0;
       padding-bottom: 4rem;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(8px);
-      background: rgba(245, 248, 244, 0.88);
-      border-bottom: 1px solid rgba(54, 44, 70, 0.09);
-    }
-
-    .topbar-inner {
-      width: min(1200px, calc(100% - 3rem));
-      margin: 0 auto;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
-      text-decoration: none;
-      color: inherit;
-      font-family: 'PP Neue Machina', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .brand img {
-      width: 34px;
-      height: 34px;
-    }
-
-    .back-link {
-      text-decoration: none;
-      color: var(--dark-green);
-      font-weight: 700;
-      border: 1px solid rgba(0, 83, 81, 0.28);
-      border-radius: 999px;
-      padding: 0.45rem 0.95rem;
-      font-size: 0.92rem;
-      transition: all 0.15s ease;
-    }
-
-    .back-link:hover {
-      background: rgba(0, 83, 81, 0.08);
-      border-color: rgba(0, 83, 81, 0.45);
     }
 
     .hero {
@@ -161,11 +110,11 @@
     .grid {
       margin-top: 1.2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 0.95rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
     }
 
-    .icon-card {
+    .photo-card {
       border: 1px solid var(--card-border);
       border-radius: 16px;
       background: var(--card-bg);
@@ -176,40 +125,35 @@
       box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     }
 
-    .icon-card:hover {
+    .photo-card:hover {
       transform: translateY(-2px);
       border-color: rgba(0, 83, 81, 0.48);
       box-shadow: var(--card-shadow);
     }
 
-    .icon-preview {
-      height: 88px;
+    .photo-preview {
+      aspect-ratio: 3 / 2;
       border-radius: 12px;
       border: 1px solid rgba(54, 44, 70, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(207, 214, 204, 0.18);
-      position: relative;
       overflow: hidden;
+      background: rgba(207, 214, 204, 0.18);
     }
 
-    .icon-preview img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 3px rgba(54, 44, 70, 0.14));
+    .photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .icon-label {
-      font-size: 0.88rem;
+    .photo-label {
+      font-size: 0.92rem;
       font-weight: 700;
       line-height: 1.25;
       word-break: break-word;
-      min-height: 2.2em;
     }
 
-    .icon-file {
+    .photo-file {
       font-size: 0.75rem;
       color: var(--text-muted);
       word-break: break-word;
@@ -286,8 +230,7 @@
     }
 
     @media (max-width: 840px) {
-      .page-shell,
-      .topbar-inner {
+      .page-shell {
         width: min(1200px, calc(100% - 1.25rem));
       }
 
@@ -305,93 +248,62 @@
   <div id="w4-nav"></div>
   <script src="scripts/nav.js"></script>
 
-  <main class="page-shell" id="iconen">
+  <main class="page-shell" id="fotos">
     <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">Iconenoverzicht</h1>
+      <h1 id="page-title">Foto's</h1>
       <p>
-        Overzicht van alle iconen uit de set. Zoek op naam, download een icoon of kopieer het pad.
+        Merkfoto's om te downloaden voor eigen gebruik. Zoek op naam, download een foto of kopieer het pad.
         Alle assets ook als <a href="assets.json" style="color: var(--dark-green, #005351); font-weight: 700; text-decoration: underline;">manifest (assets.json)</a> voor bulk- of programmatisch gebruik.
       </p>
     </section>
 
-    <section aria-label="Iconen catalogus">
+    <section aria-label="Fotocatalogus">
       <div class="toolbar">
-        <label class="search-wrap" for="icon-search">
-          <input id="icon-search" type="search" placeholder="Zoek iconen, bijvoorbeeld: auto, zon, game" autocomplete="off" />
+        <label class="search-wrap" for="photo-search">
+          <input id="photo-search" type="search" placeholder="Zoek foto's, bijvoorbeeld: team, laptop, code" autocomplete="off" />
         </label>
         <div class="meta">
-          <strong id="icon-count">0</strong>
+          <strong id="photo-count">0</strong>
           <span>zichtbaar</span>
-          <span>| totaal <span id="icon-total">0</span></span>
+          <span>| totaal <span id="photo-total">0</span></span>
         </div>
       </div>
 
-      <div id="icon-grid" class="grid"></div>
-      <p id="empty-state" class="empty">Geen iconen gevonden voor deze zoekterm.</p>
+      <div id="photo-grid" class="grid"></div>
+      <p id="empty-state" class="empty">Geen foto's gevonden voor deze zoekterm.</p>
     </section>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite">Gekopieerd</div>
 
   <script>
-    const iconFiles = [
-      'Aarde.svg',
-      'Alarm.svg',
-      'Auto.svg',
-      'Bier.svg',
-      'Bliksem.svg',
-      'Bom.svg',
-      'Boot.svg',
-      'Diamant.svg',
-      'Drop.svg',
-      'Duckie.svg',
-      'Eek.svg',
-      'Elixir.svg',
-      'Fiets Px.svg',
-      'Formidabel.svg',
-      'Game Boy.svg',
-      'Game Over.svg',
-      'Hart.svg',
-      'Hi5.svg',
-      'Ijsje.svg',
-      'Invasion.svg',
-      'Kaars.svg',
-      'Koffie.svg',
-      'Laptop.svg',
-      'Pacman.svg',
-      'Paraplu.svg',
-      'Pilon.svg',
-      'Pin.svg',
-      'Potlood.svg',
-      'Prullenbak.svg',
-      'Regen.svg',
-      'Rex 2.svg',
-      'Rex.svg',
-      'Rocket.svg',
-      'Snelle auto.svg',
-      'Vuur.svg',
-      'Zandloper.svg',
-      'Zon.svg',
-      'Zwaard.svg'
+    const photoFiles = [
+      'colleages-discussing.jpg',
+      'group-looking-at-laptop.jpg',
+      'man-working-on-laptop.jpg',
+      'man-writing-code.jpg',
+      'team-meeting.jpg',
+      'woman-sticking-note-to-wall.jpg'
     ];
 
-    iconFiles.sort((a, b) => a.localeCompare(b, 'nl'));
+    photoFiles.sort((a, b) => a.localeCompare(b, 'nl'));
 
-    const searchInput = document.getElementById('icon-search');
-    const grid = document.getElementById('icon-grid');
+    const searchInput = document.getElementById('photo-search');
+    const grid = document.getElementById('photo-grid');
     const emptyState = document.getElementById('empty-state');
-    const countNode = document.getElementById('icon-count');
-    const totalNode = document.getElementById('icon-total');
+    const countNode = document.getElementById('photo-count');
+    const totalNode = document.getElementById('photo-total');
     const toast = document.getElementById('toast');
 
-    totalNode.textContent = String(iconFiles.length);
+    totalNode.textContent = String(photoFiles.length);
 
     function toSrc(fileName) {
-      return 'img/icons/' + encodeURIComponent(fileName);
+      return 'img/photos/' + encodeURIComponent(fileName);
     }
 
     function toLabel(fileName) {
-      return fileName.replace(/\.svg$/i, '');
+      const stem = fileName.replace(/\.(jpg|jpeg|png)$/i, '').replace(/[-_]+/g, ' ').trim();
+      return stem.charAt(0).toUpperCase() + stem.slice(1);
     }
 
     function showToast(text) {
@@ -402,10 +314,10 @@
 
     function buildCard(fileName) {
       const card = document.createElement('div');
-      card.className = 'icon-card';
+      card.className = 'photo-card';
 
       const preview = document.createElement('div');
-      preview.className = 'icon-preview';
+      preview.className = 'photo-preview';
 
       const img = document.createElement('img');
       img.loading = 'lazy';
@@ -414,11 +326,11 @@
       preview.appendChild(img);
 
       const label = document.createElement('div');
-      label.className = 'icon-label';
+      label.className = 'photo-label';
       label.textContent = toLabel(fileName);
 
       const file = document.createElement('div');
-      file.className = 'icon-file';
+      file.className = 'photo-file';
       file.textContent = fileName;
 
       const actions = document.createElement('div');
@@ -437,10 +349,10 @@
       copy.textContent = 'Kopieer pad';
       copy.setAttribute('aria-label', 'Kopieer pad van ' + fileName);
       copy.addEventListener('click', async () => {
-        const iconPath = 'img/icons/' + fileName;
+        const photoPath = 'img/photos/' + fileName;
         try {
-          await navigator.clipboard.writeText(iconPath);
-          showToast('Pad gekopieerd: ' + iconPath);
+          await navigator.clipboard.writeText(photoPath);
+          showToast('Pad gekopieerd: ' + photoPath);
         } catch {
           showToast('Kopieren niet toegestaan in deze browsercontext');
         }
@@ -454,7 +366,7 @@
 
     function render() {
       const query = searchInput.value.trim().toLowerCase();
-      const filtered = iconFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
+      const filtered = photoFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
 
       grid.innerHTML = '';
       for (const fileName of filtered) {
@@ -468,6 +380,5 @@
     searchInput.addEventListener('input', render);
     render();
   </script>
-  
 </body>
 </html>

@@ -20,6 +20,7 @@
     { key: 'design-system', label: 'Design system', href: 'design-system.html' },
     { key: 'icons',         label: 'Iconen',        href: 'icons.html' },
     { key: 'shapes',        label: 'Vormen',        href: 'shapes.html' },
+    { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
     { key: 'voorbeelden',   label: 'Voorbeelden',   href: 'examples.html' },
   ];
 
@@ -28,6 +29,7 @@
     if (p.endsWith('/design-system.html')) return 'design-system';
     if (p.endsWith('/icons.html')) return 'icons';
     if (p.endsWith('/shapes.html')) return 'shapes';
+    if (p.endsWith('/photos.html')) return 'fotos';
     if (p.endsWith('/examples.html') || p.indexOf('/examples/') !== -1) return 'voorbeelden';
     return 'merkboek';
   }
