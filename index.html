@@ -10,30 +10,9 @@
   <!-- W4 Brand styles -->
   <link rel="stylesheet" href="styles/w4.css" />
 
-  <!-- Tailwind CSS (CDN) -->
+  <!-- Tailwind CSS (CDN) + shared brand config -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'light-grey':  '#cfd6cc',
-            'dark-green':  '#005351',
-            'dark-blue':   '#434d8e',
-            'soft-yellow': '#e9eb86',
-            'light-green': '#63cf92',
-            'aubergine':   '#362c46',
-            'bright-red':  '#f56e6d',
-            'bright-pink': '#bb55a9',
-          },
-          fontFamily: {
-            heading: ['"PP Neue Machina"', 'sans-serif'],
-            body:    ['Raleway', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
+  <script src="scripts/tailwind-config.js"></script>
 </head>
 
 <body class="m-0 bg-white text-aubergine min-h-screen overflow-x-hidden">
@@ -936,39 +915,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="scripts/animations.js"></script>
-  <script>
-    (function () {
-      const navLinks = document.querySelectorAll('[data-nav]');
-      if (!navLinks.length) return;
-
-      function getActiveKey() {
-        const path = window.location.pathname.toLowerCase();
-        if (path.endsWith('/design-system.html')) return 'design-system';
-        if (path.endsWith('/icons.html')) return 'icons';
-        if (path.endsWith('/shapes.html')) return 'shapes';
-        if (path.endsWith('/examples.html')) return 'voorbeelden';
-        return 'merkboek';
-      }
-
-      function updateActiveNav() {
-        const activeKey = getActiveKey();
-        navLinks.forEach(function (link) {
-          const isActive = link.getAttribute('data-nav') === activeKey;
-          link.classList.toggle('bg-light-grey/60', isActive);
-          link.classList.toggle('text-dark-green', isActive);
-          link.classList.toggle('font-semibold', isActive);
-          if (isActive) {
-            link.setAttribute('aria-current', 'page');
-          } else {
-            link.removeAttribute('aria-current');
-          }
-        });
-      }
-
-      updateActiveNav();
-      window.addEventListener('hashchange', updateActiveNav);
-    })();
-  </script>
 
 </body>
 </html>

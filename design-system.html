@@ -50,46 +50,7 @@
   </style>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            'light-grey': '#cfd6cc',
-            'dark-green': '#005351',
-            'dark-blue': '#434d8e',
-            'soft-yellow': '#e9eb86',
-            'light-green': '#63cf92',
-            aubergine: '#362c46',
-            'bright-red': '#f56e6d',
-            'bright-pink': '#bb55a9',
-            brand: {
-              lightGrey: '#cfd6cc',
-              darkGreen: '#005351',
-              darkBlue: '#434d8e',
-              softYellow: '#e9eb86',
-              lightGreen: '#63cf92',
-              aubergine: '#362c46',
-              brightRed: '#f56e6d',
-              brightPink: '#bb55a9'
-            }
-          },
-          fontFamily: {
-            heading: ['"PP Neue Machina"', 'sans-serif'],
-            body: ['Raleway', 'sans-serif']
-          },
-          borderRadius: {
-            '4xl': '2rem'
-          },
-          boxShadow: {
-            panel: '0 10px 30px rgba(54, 44, 70, 0.10)',
-            float: '0 14px 42px rgba(0, 83, 81, 0.18)'
-          }
-        }
-      }
-    };
-  </script>
+  <script src="scripts/tailwind-config.js"></script>
 </head>
 <body class="font-body bg-slate-100 text-brand-aubergine antialiased overflow-x-hidden">
   <div class="fixed inset-0 -z-10 overflow-hidden">
@@ -579,71 +540,6 @@ const palette = {
 
   <div id="copy-toast" class="pointer-events-none fixed bottom-5 right-5 rounded-full bg-slate-950 px-4 py-2 text-xs font-semibold text-white opacity-0 transition">Gekopieerd</div>
 
-  <script>
-    (function () {
-      const cards = document.querySelectorAll('[data-copy]');
-      const toast = document.getElementById('copy-toast');
-
-      function showToast(message) {
-        toast.textContent = message;
-        toast.classList.remove('opacity-0');
-        toast.classList.add('opacity-100');
-        window.clearTimeout(showToast.timer);
-        showToast.timer = window.setTimeout(function () {
-          toast.classList.remove('opacity-100');
-          toast.classList.add('opacity-0');
-        }, 1300);
-      }
-
-      cards.forEach(function (card) {
-        card.addEventListener('click', function () {
-          const value = card.getAttribute('data-copy');
-          if (!value) return;
-
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(value)
-              .then(function () { showToast(value + ' gekopieerd'); })
-              .catch(function () { showToast(value); });
-            return;
-          }
-
-          showToast(value);
-        });
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      const navLinks = document.querySelectorAll('[data-nav]');
-      if (!navLinks.length) return;
-
-      function getActiveKey() {
-        const path = window.location.pathname.toLowerCase();
-        if (path.endsWith('/design-system.html')) return 'design-system';
-        if (path.endsWith('/icons.html')) return 'icons';
-        if (path.endsWith('/shapes.html')) return 'shapes';
-        if (path.endsWith('/examples.html')) return 'voorbeelden';
-        return 'merkboek';
-      }
-
-      function updateActiveNav() {
-        const activeKey = getActiveKey();
-        navLinks.forEach(function (link) {
-          const isActive = link.getAttribute('data-nav') === activeKey;
-          link.classList.toggle('bg-light-grey/60', isActive);
-          link.classList.toggle('text-dark-green', isActive);
-          link.classList.toggle('font-semibold', isActive);
-          if (isActive) {
-            link.setAttribute('aria-current', 'page');
-          } else {
-            link.removeAttribute('aria-current');
-          }
-        });
-      }
-
-      updateActiveNav();
-      window.addEventListener('hashchange', updateActiveNav);
-    })();
-  </script>
+  
 </body>
 </html>
