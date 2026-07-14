@@ -22,6 +22,7 @@
     { key: 'shapes',        label: 'Vormen',        href: 'shapes.html' },
     { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
     { key: 'voorbeelden',   label: 'Voorbeelden',   href: 'examples.html' },
+    { key: 'pdf',           label: 'PDF-export',    href: 'pdf.html' },
   ];
 
   function activeKey() {
@@ -31,6 +32,7 @@
     if (p.endsWith('/shapes.html')) return 'shapes';
     if (p.endsWith('/photos.html')) return 'fotos';
     if (p.endsWith('/examples.html') || p.indexOf('/examples/') !== -1) return 'voorbeelden';
+    if (p.endsWith('/pdf.html')) return 'pdf';
     return 'merkboek';
   }
 

@@ -1,0 +1,495 @@
+/* ============================================================
+   W4 Markdown -> PDF
+   Opmaak voor de PDF-tool: schermweergave (instellingen + preview) en
+   de print-regels die de browser-print-to-pdf sturen. Kleuren en fonts
+   komen uit styles/w4.css; hier staat alleen wat deze pagina nodig heeft.
+   ============================================================ */
+
+:root {
+  --pdf-page-w: 210mm;
+  --pdf-margin: 18mm;
+}
+
+/* ── Schermlayout ── */
+.pdf-shell {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 2rem;
+  width: min(1400px, calc(100% - 3rem));
+  margin: 6rem auto 3rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .pdf-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pdf-panel {
+  position: sticky;
+  top: 6rem;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
+}
+
+.pdf-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pdf-field > label,
+.pdf-fieldset > legend {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--aubergine);
+}
+
+.pdf-field textarea,
+.pdf-field input[type='text'] {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+  background: #fbfcfa;
+  border: 1px solid rgba(54, 44, 70, 0.2);
+  border-radius: 0.6rem;
+  resize: vertical;
+}
+
+.pdf-field textarea {
+  min-height: 260px;
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+  line-height: 1.5;
+}
+
+.pdf-field textarea:focus,
+.pdf-field input[type='text']:focus {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 1px;
+}
+
+.pdf-fieldset {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.pdf-covers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.pdf-cover-opt {
+  position: relative;
+  cursor: pointer;
+}
+
+.pdf-cover-opt input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pdf-cover-swatch {
+  display: flex;
+  align-items: flex-end;
+  height: 62px;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 0.55rem;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.pdf-cover-opt input:focus-visible + .pdf-cover-swatch {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 2px;
+}
+
+.pdf-cover-opt input:checked + .pdf-cover-swatch {
+  border-color: var(--aubergine);
+  transform: translateY(-1px);
+}
+
+.pdf-cover-swatch.is-green {
+  background: var(--dark-green);
+}
+.pdf-cover-swatch.is-aubergine {
+  background: var(--aubergine);
+}
+.pdf-cover-swatch.is-pink {
+  background: var(--bright-pink);
+}
+.pdf-cover-swatch.is-none {
+  color: var(--aubergine);
+  background: var(--light-grey);
+}
+
+.pdf-check {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+}
+
+.pdf-actions {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  background: var(--dark-green);
+  border: 0;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pdf-btn:hover {
+  background: #013f3e;
+}
+
+.pdf-hint {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: rgba(54, 44, 70, 0.65);
+}
+
+/* ── Preview: toont het echte print-document op A4-breedte ── */
+.pdf-preview {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: #e7ebe4;
+  border-radius: 1.25rem;
+  overflow-x: auto;
+}
+
+.w4-doc {
+  width: var(--pdf-page-w);
+  max-width: 100%;
+  background: #fff;
+  color: var(--aubergine);
+  box-shadow: 0 12px 40px rgba(54, 44, 70, 0.18);
+}
+
+/* ── Documentinhoud ── */
+.w4-doc-content {
+  padding: var(--pdf-margin);
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 11pt;
+  line-height: 1.55;
+}
+
+.w4-doc-content h1 {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 22pt;
+  line-height: 1.1;
+  color: var(--dark-green);
+  margin: 0 0 0.6rem;
+}
+
+.w4-doc-content h2 {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 15pt;
+  color: var(--aubergine);
+  margin: 1.6rem 0 0.5rem;
+}
+
+.w4-doc-content h3 {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 12pt;
+  color: var(--dark-blue);
+  margin: 1.2rem 0 0.4rem;
+}
+
+.w4-doc-content p {
+  margin: 0 0 0.7rem;
+}
+
+.w4-doc-content a {
+  color: var(--dark-blue);
+  text-decoration: underline;
+}
+
+.w4-doc-content ul,
+.w4-doc-content ol {
+  margin: 0 0 0.7rem 1.2rem;
+}
+
+.w4-doc-content li {
+  margin: 0.2rem 0;
+}
+
+.w4-doc-content blockquote {
+  margin: 0.8rem 0;
+  padding: 0.4rem 1rem;
+  border-left: 4px solid var(--light-green);
+  color: rgba(54, 44, 70, 0.8);
+}
+
+.w4-doc-content pre {
+  padding: 0.8rem 1rem;
+  background: #f3f5f1;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 9.5pt;
+}
+
+.w4-doc-content code {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.92em;
+}
+
+.w4-doc-content :not(pre) > code {
+  padding: 0.1em 0.35em;
+  background: #f3f5f1;
+  border-radius: 0.3rem;
+}
+
+.w4-doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 10pt;
+}
+
+.w4-doc-content th,
+.w4-doc-content td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(54, 44, 70, 0.15);
+  text-align: left;
+}
+
+.w4-doc-content th {
+  background: var(--light-grey);
+}
+
+.w4-doc-content img {
+  max-width: 100%;
+}
+
+.w4-doc-content hr {
+  border: 0;
+  border-top: 1px solid rgba(54, 44, 70, 0.15);
+  margin: 1.2rem 0;
+}
+
+/* ── Voorblad ── */
+.w4-cover-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 210 / 297;
+  padding: var(--pdf-margin);
+  overflow: hidden;
+  color: #fff;
+  background: var(--dark-green);
+}
+
+.w4-cover--green {
+  background: var(--dark-green);
+}
+.w4-cover--aubergine {
+  background: var(--aubergine);
+}
+.w4-cover--pink {
+  background: var(--bright-pink);
+}
+
+/* Merk-motief: een grote cirkelvorm rechtsboven, uit de shape-set. */
+.w4-cover-page::before {
+  content: '';
+  position: absolute;
+  top: -12%;
+  right: -10%;
+  width: 55%;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.14);
+  -webkit-mask: url('../img/shapes/quarter-ring-top-left.svg') center / contain no-repeat;
+  mask: url('../img/shapes/quarter-ring-top-left.svg') center / contain no-repeat;
+}
+
+.w4-cover-page-title {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 30pt;
+  line-height: 1.05;
+  margin: 0;
+  max-width: 80%;
+}
+
+.w4-cover-page-subtitle {
+  margin: 0.8rem 0 0;
+  font-size: 12pt;
+  opacity: 0.85;
+}
+
+.w4-cover-page-logo {
+  position: absolute;
+  top: var(--pdf-margin);
+  left: var(--pdf-margin);
+  height: 32px;
+}
+
+/* ── Inhoudsopgave ── */
+.w4-toc {
+  padding: var(--pdf-margin);
+}
+
+.w4-toc-title {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 16pt;
+  color: var(--dark-green);
+  margin: 0 0 1rem;
+}
+
+.w4-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: toc;
+}
+
+.w4-toc-item {
+  margin: 0.35rem 0;
+  font-size: 11pt;
+}
+
+.w4-toc-item a {
+  color: var(--aubergine);
+  text-decoration: none;
+}
+
+.w4-toc-item a:hover {
+  text-decoration: underline;
+}
+
+.w4-toc-l2 {
+  padding-left: 1.4rem;
+  font-size: 10.5pt;
+  color: rgba(54, 44, 70, 0.8);
+}
+
+/* ── Footer (herhaalt per pagina bij printen) ── */
+.w4-page-footer {
+  display: none;
+  font-family: 'Raleway', system-ui, sans-serif;
+  font-size: 8.5pt;
+  color: rgba(54, 44, 70, 0.7);
+}
+
+/* Preview toont de footer een keer onderaan het document als voorbeeld. */
+.pdf-preview .w4-page-footer {
+  display: block;
+  padding: 0 var(--pdf-margin) var(--pdf-margin);
+  border-top: 1px solid rgba(54, 44, 70, 0.12);
+  padding-top: 0.6rem;
+  margin-top: -0.4rem;
+}
+
+/* ============================================================
+   Paged.js-output
+   Bij export pagineert Paged.js het document in .pdf-paged. Dat blijft
+   op het scherm buiten beeld (maar wel gelayout, want Paged.js meet de
+   pagina's op) en komt alleen bij het printen tevoorschijn. De echte
+   footer en paginanummers zet Paged.js in de @page-marge-boxen; die
+   regels injecteert scripts/pdf-app.js per export (de footer-tekst is
+   dynamisch).
+   ============================================================ */
+.pdf-paged {
+  position: absolute;
+  left: -99999px;
+  top: 0;
+  width: 210mm;
+}
+
+.pdf-paged:empty {
+  display: none;
+}
+
+/* Binnen een Paged-pagina doet de @page-marge de witruimte al. */
+.pagedjs_page .w4-doc-content,
+.pagedjs_page .w4-toc {
+  padding: 0;
+}
+
+/* Het footer-element hoort in Paged-output niet inline; de @page-marge-box
+   doet de footer. In de simpele preview blijft het als voorbeeld staan. */
+.pagedjs_page .w4-page-footer {
+  display: none;
+}
+
+/* Voorblad vult in Paged-output een hele pagina (named page 'cover'). */
+.pagedjs_page .w4-cover-page {
+  width: 210mm;
+  height: 297mm;
+  aspect-ratio: auto;
+  margin: 0;
+}
+
+/* Koppen niet als wees onderaan een pagina. */
+.w4-doc-content h1,
+.w4-doc-content h2,
+.w4-doc-content h3 {
+  break-after: avoid;
+}
+
+.w4-doc-content pre,
+.w4-doc-content table,
+.w4-doc-content blockquote,
+.w4-doc-content img {
+  break-inside: avoid;
+}
+
+@media print {
+  /* Zet merkkleuren echt op papier/PDF. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Alleen de gepagineerde output print; de editor en simpele preview weg. */
+  #w4-nav,
+  .pdf-panel,
+  .pdf-preview {
+    display: none !important;
+  }
+
+  .pdf-shell {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: auto;
+  }
+
+  .pdf-paged {
+    position: static;
+    left: auto;
+    width: auto;
+  }
+}
