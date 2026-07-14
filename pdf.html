@@ -17,7 +17,17 @@
   <div id="w4-nav"></div>
   <script src="scripts/nav.js"></script>
 
-  <main class="pdf-shell">
+  <main class="pdf-page">
+    <section class="pdf-hero">
+      <h1>Markdown naar PDF</h1>
+      <p>
+        Zet een markdown-bestand om naar een PDF in de Wigo4it-huisstijl. Kies een voorblad,
+        wel of geen inhoudsopgave en een footer. Alles gebeurt in je browser, er gaat niets
+        naar een server.
+      </p>
+    </section>
+
+    <div class="pdf-shell">
     <!-- Instellingen: valt weg bij printen -->
     <form class="pdf-panel no-print" aria-label="PDF-instellingen">
       <div class="pdf-field">
@@ -107,6 +117,8 @@ Gewone tekst, een lijst:
     <section class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
       <!-- pdf-app.js vult dit met het samengestelde document -->
     </section>
+
+    </div>
 
     <!-- Paged.js rendert hier de gepagineerde export; buiten beeld tot printen -->
     <section class="pdf-paged" id="pdf-paged" aria-hidden="true"></section>

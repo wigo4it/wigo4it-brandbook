@@ -11,12 +11,43 @@
 }
 
 /* ── Schermlayout ── */
+body {
+  background: #f5f8f4;
+}
+
+.pdf-page {
+  width: min(1400px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 6rem 0 3rem;
+}
+
+.pdf-hero {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem 0 2rem;
+}
+
+.pdf-hero h1 {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--aubergine);
+}
+
+.pdf-hero p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(54, 44, 70, 0.72);
+}
+
 .pdf-shell {
   display: grid;
   grid-template-columns: 340px minmax(0, 1fr);
   gap: 2rem;
-  width: min(1400px, calc(100% - 3rem));
-  margin: 6rem auto 3rem;
   align-items: start;
 }
 
@@ -28,13 +59,13 @@
 
 .pdf-panel {
   position: sticky;
-  top: 6rem;
+  top: 5.5rem;
   display: grid;
   gap: 1.25rem;
   padding: 1.5rem;
   background: #fff;
   border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 1.25rem;
+  border-radius: 1.5rem;
   box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
 }
 
@@ -226,7 +257,8 @@
   gap: 1.5rem;
   padding: 1.5rem;
   background: #e7ebe4;
-  border-radius: 1.25rem;
+  border: 1px solid rgba(54, 44, 70, 0.08);
+  border-radius: 1.5rem;
   overflow-x: auto;
 }
 
@@ -516,11 +548,13 @@
 
   /* Alleen de gepagineerde output print; de editor en simpele preview weg. */
   #w4-nav,
+  .pdf-hero,
   .pdf-panel,
   .pdf-preview {
     display: none !important;
   }
 
+  .pdf-page,
   .pdf-shell {
     display: block;
     margin: 0;
