@@ -203,12 +203,36 @@ body {
 .pdf-cover-swatch.is-aubergine {
   background: var(--aubergine);
 }
-.pdf-cover-swatch.is-pink {
-  background: var(--bright-pink);
+.pdf-cover-swatch.is-white {
+  color: var(--aubergine);
+  background: #fff;
+  border-color: rgba(54, 44, 70, 0.18);
 }
 .pdf-cover-swatch.is-none {
   color: var(--aubergine);
   background: var(--light-grey);
+}
+
+/* Datumveld: greyed-out zolang het vinkje uit staat. */
+.pdf-field input[type='date'] {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+  background: #fbfcfa;
+  border: 1px solid rgba(54, 44, 70, 0.2);
+  border-radius: 0.6rem;
+}
+
+.pdf-field input[type='date']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pdf-field input[type='date']:focus {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 1px;
 }
 
 .pdf-check {
@@ -391,8 +415,21 @@ body {
 .w4-cover--aubergine {
   background: var(--aubergine);
 }
-.w4-cover--pink {
-  background: var(--bright-pink);
+
+/* Witte variant: donkere tekst en logo, motief als subtiele merk-tint,
+   plus een fijne keyline zodat de pagina op wit papier niet leeg oogt. */
+.w4-cover--white {
+  color: var(--aubergine);
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.12);
+}
+
+.w4-cover--white .w4-cover-page-title {
+  color: var(--dark-green);
+}
+
+.w4-cover--white::before {
+  background: rgba(0, 83, 81, 0.1);
 }
 
 /* Merk-motief: een grote cirkelvorm rechtsboven, uit de shape-set. */
@@ -420,6 +457,14 @@ body {
   margin: 0.8rem 0 0;
   font-size: 12pt;
   opacity: 0.85;
+}
+
+.w4-cover-page-date {
+  margin: 1.2rem 0 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 10.5pt;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
 }
 
 .w4-cover-page-logo {

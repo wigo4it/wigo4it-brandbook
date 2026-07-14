@@ -191,6 +191,47 @@ def test_assemble_unknown_cover_falls_back_to_none(builder):
     assert count == 0
 
 
+def test_assemble_white_cover_variant(builder):
+    result = builder(
+        f"""(m) => {{
+            const doc = m.assembleDocument({{ {DOC_ARGS}, cover: 'white' }});
+            const cover = doc.querySelector('.w4-cover-page');
+            return cover ? cover.classList.contains('w4-cover--white') : null;
+        }}"""
+    )
+    assert result is True
+
+
+def test_assemble_pink_cover_is_gone(builder):
+    # Roze is vervangen door wit; 'pink' is geen geldige variant meer.
+    count = builder(
+        f"(m) => m.assembleDocument({{ {DOC_ARGS}, cover: 'pink' }})"
+        ".querySelectorAll('.w4-cover-page').length"
+    )
+    assert count == 0
+
+
+def test_assemble_cover_date_when_provided(builder):
+    result = builder(
+        f"""(m) => {{
+            const doc = m.assembleDocument({{
+                {DOC_ARGS}, cover: 'green', coverDate: '14 juli 2026'
+            }});
+            const d = doc.querySelector('.w4-cover-page-date');
+            return d && d.textContent;
+        }}"""
+    )
+    assert result == "14 juli 2026"
+
+
+def test_assemble_no_cover_date_when_empty(builder):
+    count = builder(
+        f"(m) => m.assembleDocument({{ {DOC_ARGS}, cover: 'green' }})"
+        ".querySelectorAll('.w4-cover-page-date').length"
+    )
+    assert count == 0
+
+
 def test_assemble_toc_when_requested_links_to_headings(builder):
     hrefs = builder(
         f"""(m) => {{
@@ -255,6 +296,22 @@ def test_assemble_no_footer_when_empty(builder):
 )
 def test_filename_to_title(builder, filename, expected):
     result = builder(f"(m) => m.filenameToTitle({filename!r})")
+    assert result == expected
+
+
+@pytest.mark.parametrize(
+    "iso, expected",
+    [
+        ("2026-07-14", "14 juli 2026"),
+        ("2026-01-01", "1 januari 2026"),
+        ("2025-12-31", "31 december 2025"),
+        ("", ""),  # niets ingevuld
+        ("14-07-2026", ""),  # verkeerd formaat -> leeg
+        ("2026-13-01", ""),  # ongeldige maand -> leeg
+    ],
+)
+def test_format_date_nl(builder, iso, expected):
+    result = builder(f"(m) => m.formatDateNL({iso!r})")
     assert result == expected
 
 

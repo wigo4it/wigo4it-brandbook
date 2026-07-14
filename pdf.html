@@ -74,8 +74,8 @@ Gewone tekst, een lijst:
             <span class="pdf-cover-swatch is-aubergine">Aubergine</span>
           </label>
           <label class="pdf-cover-opt">
-            <input type="radio" name="pdf-cover" value="pink" />
-            <span class="pdf-cover-swatch is-pink">Roze</span>
+            <input type="radio" name="pdf-cover" value="white" />
+            <span class="pdf-cover-swatch is-white">Wit</span>
           </label>
           <label class="pdf-cover-opt">
             <input type="radio" name="pdf-cover" value="none" />
@@ -92,6 +92,14 @@ Gewone tekst, een lijst:
       <div class="pdf-field">
         <label for="pdf-subtitle">Ondertitel (optioneel)</label>
         <input type="text" id="pdf-subtitle" placeholder="bijv. Kwartaalrapportage 2026" />
+      </div>
+
+      <div class="pdf-field">
+        <label class="pdf-check">
+          <input type="checkbox" id="pdf-date-toggle" />
+          Datum op voorblad
+        </label>
+        <input type="date" id="pdf-date" disabled />
       </div>
 
       <label class="pdf-check">

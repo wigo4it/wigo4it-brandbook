@@ -4,7 +4,7 @@
    (scripts/pdf-builder.js), rendert de live preview en start de
    browser-print. markdown-it (CDN) doet de markdown -> HTML stap.
    ============================================================ */
-import { assembleDocument, filenameToTitle } from './pdf-builder.js';
+import { assembleDocument, filenameToTitle, formatDateNL } from './pdf-builder.js';
 
 const md = window.markdownit
   ? window.markdownit({ html: false, linkify: true, typographer: true })
@@ -15,6 +15,8 @@ const els = {
   file: document.getElementById('pdf-file'),
   title: document.getElementById('pdf-title'),
   subtitle: document.getElementById('pdf-subtitle'),
+  dateToggle: document.getElementById('pdf-date-toggle'),
+  date: document.getElementById('pdf-date'),
   toc: document.getElementById('pdf-toc'),
   footer: document.getElementById('pdf-footer'),
   preview: document.getElementById('pdf-preview'),
@@ -37,6 +39,7 @@ function buildDoc() {
     cover: selectedCover(),
     coverTitle: els.title.value.trim(),
     coverSubtitle: els.subtitle.value.trim(),
+    coverDate: els.dateToggle.checked ? formatDateNL(els.date.value) : '',
     includeToc: els.toc.checked,
     footerText: els.footer.value.trim(),
   });
@@ -51,13 +54,14 @@ function render() {
   els.paged.replaceChildren();
 }
 
-/** Diapositief-logo op elk voorblad, voor donkere achtergronden. */
+/** Logo op het voorblad: diapositief op donker, gewoon logo op wit. */
 function addCoverLogo(doc) {
   const cover = doc.querySelector('.w4-cover-page');
   if (!cover) return;
+  const onWhite = cover.classList.contains('w4-cover--white');
   const logo = document.createElement('img');
   logo.className = 'w4-cover-page-logo';
-  logo.src = 'img/logo/Logo Diap.svg';
+  logo.src = onWhite ? 'img/logo/Logo.svg' : 'img/logo/Logo Diap.svg';
   logo.alt = 'Wigo4it';
   cover.prepend(logo);
 }
@@ -167,11 +171,25 @@ els.markdown.addEventListener('drop', (e) => {
   }
 });
 
+/** Lokale datum van vandaag als YYYY-MM-DD (zonder tijdzone-verschuiving). */
+function todayISO() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+// Datumveld start op vandaag en is pas actief als het vinkje aan staat.
+els.date.value = todayISO();
+els.dateToggle.addEventListener('change', () => {
+  els.date.disabled = !els.dateToggle.checked;
+  render();
+});
+
 // Herrender bij elke wijziging; goedkoop genoeg voor deze schaal.
 for (const el of [els.markdown, els.title, els.subtitle, els.footer]) {
   el.addEventListener('input', render);
 }
-for (const el of [els.toc, ...document.querySelectorAll('input[name="pdf-cover"]')]) {
+for (const el of [els.date, els.toc, ...document.querySelectorAll('input[name="pdf-cover"]')]) {
   el.addEventListener('change', render);
 }
 els.print.addEventListener('click', exportPdf);

@@ -102,8 +102,30 @@ export function filenameToTitle(filename) {
   return base.charAt(0).toUpperCase() + base.slice(1);
 }
 
-/** De drie voorblad-varianten die we ondersteunen. */
-export const COVER_VARIANTS = ['green', 'aubergine', 'pink'];
+/** De voorblad-varianten die we ondersteunen. */
+export const COVER_VARIANTS = ['green', 'aubergine', 'white'];
+
+const MONTHS_NL = [
+  'januari', 'februari', 'maart', 'april', 'mei', 'juni',
+  'juli', 'augustus', 'september', 'oktober', 'november', 'december',
+];
+
+/**
+ * Formatteer een ISO-datum (YYYY-MM-DD) naar Nederlandse lange notatie,
+ * bijvoorbeeld "14 juli 2026". Parseert de delen zelf om tijdzone-verschuiving
+ * te vermijden. Ongeldige of lege invoer geeft een lege string.
+ * @param {string} iso
+ * @returns {string}
+ */
+export function formatDateNL(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
+  if (!m) return '';
+  const year = Number(m[1]);
+  const month = Number(m[2]);
+  const day = Number(m[3]);
+  if (month < 1 || month > 12 || day < 1 || day > 31) return '';
+  return `${day} ${MONTHS_NL[month - 1]} ${year}`;
+}
 
 /**
  * Stel het print-klare document samen: optioneel voorblad, optionele
@@ -113,9 +135,10 @@ export const COVER_VARIANTS = ['green', 'aubergine', 'pink'];
  *
  * @param {Object} opts
  * @param {string} opts.contentHtml   Gerenderde markdown (HTML-string).
- * @param {string} [opts.cover]       'green' | 'aubergine' | 'pink' | 'none'.
+ * @param {string} [opts.cover]       'green' | 'aubergine' | 'white' | 'none'.
  * @param {string} [opts.coverTitle]  Titel op het voorblad.
  * @param {string} [opts.coverSubtitle] Ondertitel op het voorblad.
+ * @param {string} [opts.coverDate]   Datum op het voorblad; leeg = geen datum.
  * @param {boolean} [opts.includeToc] Inhoudsopgave meenemen.
  * @param {string} [opts.footerText]  Footer-tekst; leeg = geen footer.
  * @returns {HTMLElement} article.w4-doc
@@ -126,6 +149,7 @@ export function assembleDocument(opts) {
     cover = 'none',
     coverTitle = '',
     coverSubtitle = '',
+    coverDate = '',
     includeToc = false,
     footerText = '',
   } = opts || {};
@@ -140,7 +164,7 @@ export function assembleDocument(opts) {
   const headings = collectHeadings(content);
 
   if (COVER_VARIANTS.includes(cover)) {
-    root.appendChild(buildCover(cover, coverTitle, coverSubtitle));
+    root.appendChild(buildCover(cover, { title: coverTitle, subtitle: coverSubtitle, date: coverDate }));
   }
 
   if (includeToc) {
@@ -163,12 +187,15 @@ export function assembleDocument(opts) {
 
 /**
  * Bouw een voorblad in een van de merk-varianten.
- * @param {string} variant  'green' | 'aubergine' | 'pink'
- * @param {string} title
- * @param {string} subtitle
+ * @param {string} variant  'green' | 'aubergine' | 'white'
+ * @param {Object} meta
+ * @param {string} [meta.title]
+ * @param {string} [meta.subtitle]
+ * @param {string} [meta.date]  Al geformatteerde datumtekst.
  * @returns {HTMLElement} section.w4-cover-page
  */
-function buildCover(variant, title, subtitle) {
+function buildCover(variant, meta) {
+  const { title = '', subtitle = '', date = '' } = meta || {};
   const section = document.createElement('section');
   section.className = `w4-cover-page w4-cover--${variant}`;
 
@@ -182,6 +209,13 @@ function buildCover(variant, title, subtitle) {
     sub.className = 'w4-cover-page-subtitle';
     sub.textContent = subtitle;
     section.appendChild(sub);
+  }
+
+  if (date) {
+    const dateEl = document.createElement('p');
+    dateEl.className = 'w4-cover-page-date';
+    dateEl.textContent = date;
+    section.appendChild(dateEl);
   }
 
   return section;
