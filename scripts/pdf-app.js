@@ -4,7 +4,7 @@
    (scripts/pdf-builder.js), rendert de live preview en start de
    browser-print. markdown-it (CDN) doet de markdown -> HTML stap.
    ============================================================ */
-import { assembleDocument } from './pdf-builder.js';
+import { assembleDocument, filenameToTitle } from './pdf-builder.js';
 
 const md = window.markdownit
   ? window.markdownit({ html: false, linkify: true, typographer: true })
@@ -12,6 +12,7 @@ const md = window.markdownit
 
 const els = {
   markdown: document.getElementById('pdf-markdown'),
+  file: document.getElementById('pdf-file'),
   title: document.getElementById('pdf-title'),
   subtitle: document.getElementById('pdf-subtitle'),
   toc: document.getElementById('pdf-toc'),
@@ -127,6 +128,44 @@ async function exportPdf() {
     els.print.textContent = 'Exporteer naar PDF';
   }
 }
+
+/**
+ * Lees een gekozen/gesleept bestand in de editor. Volledig client-side via
+ * FileReader; er gaat niets naar een server. De bestandsnaam vult meteen de
+ * voorblad-titel.
+ * @param {File} file
+ */
+function loadFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    els.markdown.value = String(reader.result);
+    els.title.value = filenameToTitle(file.name);
+    render();
+  };
+  reader.readAsText(file);
+}
+
+els.file.addEventListener('change', (e) => {
+  loadFile(e.target.files[0]);
+  e.target.value = ''; // zelfde bestand nogmaals kunnen kiezen
+});
+
+// Sleep een bestand op het tekstvak.
+els.markdown.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  els.markdown.classList.add('is-dragover');
+});
+for (const evt of ['dragleave', 'dragend', 'drop']) {
+  els.markdown.addEventListener(evt, () => els.markdown.classList.remove('is-dragover'));
+}
+els.markdown.addEventListener('drop', (e) => {
+  const file = e.dataTransfer && e.dataTransfer.files[0];
+  if (file) {
+    e.preventDefault();
+    loadFile(file);
+  }
+});
 
 // Herrender bij elke wijziging; goedkoop genoeg voor deze schaal.
 for (const el of [els.markdown, els.title, els.subtitle, els.footer]) {

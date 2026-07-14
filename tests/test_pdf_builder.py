@@ -242,6 +242,22 @@ def test_assemble_no_footer_when_empty(builder):
     assert count == 0
 
 
+@pytest.mark.parametrize(
+    "filename, expected",
+    [
+        ("jaarplan-2026.md", "Jaarplan 2026"),
+        ("mijn_document.markdown", "Mijn document"),
+        ("notes.txt", "Notes"),
+        ("README", "README"),  # geen extensie -> naam blijft heel
+        ("architectuur.ontwerp.md", "Architectuur.ontwerp"),  # alleen laatste .md eraf
+        ("   ", "Document"),  # niets bruikbaars -> stabiele fallback
+    ],
+)
+def test_filename_to_title(builder, filename, expected):
+    result = builder(f"(m) => m.filenameToTitle({filename!r})")
+    assert result == expected
+
+
 def test_assemble_full_order_cover_toc_content(builder):
     order = builder(
         f"""(m) => {{

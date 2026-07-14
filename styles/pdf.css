@@ -70,6 +70,47 @@
   line-height: 1.5;
 }
 
+.pdf-field textarea.is-dragover {
+  border-color: var(--dark-green);
+  background: #eef5ef;
+}
+
+.pdf-field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.pdf-upload-btn {
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(0, 83, 81, 0.35);
+  border-radius: 0.5rem;
+  transition: background 0.15s;
+}
+
+.pdf-upload-btn:hover {
+  background: rgba(0, 83, 81, 0.08);
+}
+
+.pdf-upload-btn input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.pdf-upload-btn:focus-within {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 2px;
+}
+
 .pdf-field textarea:focus,
 .pdf-field input[type='text']:focus {
   outline: 2px solid var(--dark-green);

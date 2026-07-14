@@ -85,6 +85,23 @@ export function renderToc(headings) {
   return nav;
 }
 
+/**
+ * Leid een nette voorblad-titel af van een bestandsnaam. Haalt een bekende
+ * markdown/tekst-extensie eraf, maakt van koppeltekens en underscores spaties
+ * en zet de eerste letter groot. Valt terug op "Document".
+ * @param {string} filename
+ * @returns {string}
+ */
+export function filenameToTitle(filename) {
+  const base = String(filename)
+    .replace(/\.(md|markdown|txt)$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!base) return 'Document';
+  return base.charAt(0).toUpperCase() + base.slice(1);
+}
+
 /** De drie voorblad-varianten die we ondersteunen. */
 export const COVER_VARIANTS = ['green', 'aubergine', 'pink'];
 

@@ -21,8 +21,15 @@
     <!-- Instellingen: valt weg bij printen -->
     <form class="pdf-panel no-print" aria-label="PDF-instellingen">
       <div class="pdf-field">
-        <label for="pdf-markdown">Markdown</label>
-        <textarea id="pdf-markdown" spellcheck="false"># Titel van het document
+        <div class="pdf-field-head">
+          <label for="pdf-markdown">Markdown</label>
+          <label class="pdf-upload-btn">
+            Bestand kiezen
+            <input type="file" id="pdf-file" accept=".md,.markdown,.txt,text/markdown,text/plain" />
+          </label>
+        </div>
+        <textarea id="pdf-markdown" spellcheck="false"
+          aria-describedby="pdf-drop-hint"># Titel van het document
 
 Plak of typ hier je markdown. Dit is een **voorbeeld** met een [link](https://wigo4it.nl).
 
@@ -42,6 +49,7 @@ Gewone tekst, een lijst:
 | ------- | ------- |
 | 1       | 2       |
 </textarea>
+        <p class="pdf-hint" id="pdf-drop-hint">Of sleep een .md-bestand op het tekstvak.</p>
       </div>
 
       <fieldset class="pdf-fieldset">
