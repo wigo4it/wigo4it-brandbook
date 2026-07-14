@@ -2,7 +2,7 @@
   "brand": "Wigo4it",
   "version": "1.1",
   "baseUrl": "https://wigo4it.github.io/wigo4it-brandbook/",
-  "generated": "2026-07-06",
+  "generated": "2026-07-14",
   "usage": "Wigo4it brand assets, free to reuse within brand guidelines. Each asset has a ready-to-use \"url\"; alternatively append its \"path\" to \"baseUrl\". Icons and shapes are SVG, photos are JPG.",
   "categories": [
     {
@@ -545,7 +545,7 @@
           "path": "img/photos/colleages-discussing.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/colleages-discussing.jpg",
           "format": "jpg",
-          "bytes": 1793659
+          "bytes": 392888
         },
         {
           "name": "group looking at laptop",
@@ -553,7 +553,7 @@
           "path": "img/photos/group-looking-at-laptop.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/group-looking-at-laptop.jpg",
           "format": "jpg",
-          "bytes": 407142
+          "bytes": 401463
         },
         {
           "name": "man working on laptop",
@@ -561,7 +561,7 @@
           "path": "img/photos/man-working-on-laptop.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/man-working-on-laptop.jpg",
           "format": "jpg",
-          "bytes": 702921
+          "bytes": 291491
         },
         {
           "name": "man writing code",
@@ -569,7 +569,7 @@
           "path": "img/photos/man-writing-code.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/man-writing-code.jpg",
           "format": "jpg",
-          "bytes": 744261
+          "bytes": 369279
         },
         {
           "name": "team meeting",
@@ -577,7 +577,7 @@
           "path": "img/photos/team-meeting.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/team-meeting.jpg",
           "format": "jpg",
-          "bytes": 1827529
+          "bytes": 515112
         },
         {
           "name": "woman sticking note to wall",
@@ -585,7 +585,7 @@
           "path": "img/photos/woman-sticking-note-to-wall.jpg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/woman-sticking-note-to-wall.jpg",
           "format": "jpg",
-          "bytes": 1124016
+          "bytes": 310383
         }
       ]
     }
