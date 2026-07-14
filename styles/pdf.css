@@ -82,7 +82,13 @@ body {
   color: var(--aubergine);
 }
 
-.pdf-field textarea,
+.pdf-field-label {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--aubergine);
+}
+
 .pdf-field input[type='text'] {
   width: 100%;
   padding: 0.6rem 0.7rem;
@@ -92,43 +98,47 @@ body {
   background: #fbfcfa;
   border: 1px solid rgba(54, 44, 70, 0.2);
   border-radius: 0.6rem;
-  resize: vertical;
 }
 
-.pdf-field textarea {
-  min-height: 260px;
-  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
-  line-height: 1.5;
+.pdf-field input[type='text']:focus {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 1px;
 }
 
-.pdf-field textarea.is-dragover {
-  border-color: var(--dark-green);
-  background: #eef5ef;
-}
-
-.pdf-field-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+/* ── Upload-dropzone ── */
+.pdf-dropzone {
+  display: grid;
+  justify-items: center;
   gap: 0.5rem;
-}
-
-.pdf-upload-btn {
+  padding: 1.6rem 1rem;
+  text-align: center;
   cursor: pointer;
-  font-size: 0.72rem;
-  font-weight: 600;
+  color: rgba(54, 44, 70, 0.7);
+  background: #fbfcfa;
+  border: 1.5px dashed rgba(54, 44, 70, 0.28);
+  border-radius: 0.8rem;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.pdf-dropzone:hover {
+  border-color: var(--dark-green);
+  color: var(--aubergine);
+}
+
+.pdf-dropzone.is-dragover {
+  border-color: var(--dark-green);
+  border-style: solid;
+  background: #eef5ef;
+  color: var(--aubergine);
+}
+
+.pdf-dropzone.has-file {
+  border-style: solid;
+  border-color: rgba(0, 83, 81, 0.4);
   color: var(--dark-green);
-  padding: 0.25rem 0.6rem;
-  border: 1px solid rgba(0, 83, 81, 0.35);
-  border-radius: 0.5rem;
-  transition: background 0.15s;
 }
 
-.pdf-upload-btn:hover {
-  background: rgba(0, 83, 81, 0.08);
-}
-
-.pdf-upload-btn input[type='file'] {
+.pdf-dropzone input[type='file'] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -137,15 +147,28 @@ body {
   clip: rect(0, 0, 0, 0);
 }
 
-.pdf-upload-btn:focus-within {
+.pdf-dropzone:focus-within {
   outline: 2px solid var(--dark-green);
   outline-offset: 2px;
 }
 
-.pdf-field textarea:focus,
-.pdf-field input[type='text']:focus {
-  outline: 2px solid var(--dark-green);
-  outline-offset: 1px;
+.pdf-dropzone-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pdf-dropzone-text {
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+/* Placeholder in de preview zolang er geen bestand is. */
+.pdf-empty {
+  margin: 0;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: rgba(54, 44, 70, 0.55);
+  font-size: 0.95rem;
 }
 
 .pdf-fieldset {

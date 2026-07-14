@@ -31,35 +31,16 @@
     <!-- Instellingen: valt weg bij printen -->
     <form class="pdf-panel no-print" aria-label="PDF-instellingen">
       <div class="pdf-field">
-        <div class="pdf-field-head">
-          <label for="pdf-markdown">Markdown</label>
-          <label class="pdf-upload-btn">
-            Bestand kiezen
-            <input type="file" id="pdf-file" accept=".md,.markdown,.txt,text/markdown,text/plain" />
-          </label>
-        </div>
-        <textarea id="pdf-markdown" spellcheck="false"
-          aria-describedby="pdf-drop-hint"># Titel van het document
-
-Plak of typ hier je markdown. Dit is een **voorbeeld** met een [link](https://wigo4it.nl).
-
-## Eerste sectie
-
-Gewone tekst, een lijst:
-
-- Punt een
-- Punt twee
-- Punt drie
-
-## Tweede sectie
-
-> Een citaat in de huisstijl.
-
-| Kolom A | Kolom B |
-| ------- | ------- |
-| 1       | 2       |
-</textarea>
-        <p class="pdf-hint" id="pdf-drop-hint">Of sleep een .md-bestand op het tekstvak.</p>
+        <span class="pdf-field-label" id="pdf-upload-label">Markdown-bestand</span>
+        <label class="pdf-dropzone" id="pdf-dropzone"
+          aria-describedby="pdf-upload-label">
+          <input type="file" id="pdf-file"
+            accept=".md,.markdown,.txt,text/markdown,text/plain" />
+          <span class="pdf-dropzone-icon" aria-hidden="true">⬆</span>
+          <span class="pdf-dropzone-text" id="pdf-dropzone-text">
+            Sleep een .md-bestand hierheen of klik om te kiezen
+          </span>
+        </label>
       </div>
 
       <fieldset class="pdf-fieldset">

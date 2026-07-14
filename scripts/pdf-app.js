@@ -11,8 +11,9 @@ const md = window.markdownit
   : null;
 
 const els = {
-  markdown: document.getElementById('pdf-markdown'),
   file: document.getElementById('pdf-file'),
+  dropzone: document.getElementById('pdf-dropzone'),
+  dropzoneText: document.getElementById('pdf-dropzone-text'),
   title: document.getElementById('pdf-title'),
   subtitle: document.getElementById('pdf-subtitle'),
   dateToggle: document.getElementById('pdf-date-toggle'),
@@ -24,6 +25,9 @@ const els = {
   print: document.getElementById('pdf-print'),
 };
 
+// De markdown komt uitsluitend uit een geupload bestand; hier bewaard.
+let markdownSource = '';
+
 function selectedCover() {
   const checked = document.querySelector('input[name="pdf-cover"]:checked');
   return checked ? checked.value : 'none';
@@ -31,8 +35,7 @@ function selectedCover() {
 
 /** Stel het document samen uit de huidige instellingen. */
 function buildDoc() {
-  const source = els.markdown.value;
-  const contentHtml = md ? md.render(source) : escapeHtml(source);
+  const contentHtml = md ? md.render(markdownSource) : escapeHtml(markdownSource);
 
   const doc = assembleDocument({
     contentHtml,
@@ -49,9 +52,21 @@ function buildDoc() {
 }
 
 function render() {
-  els.preview.replaceChildren(buildDoc());
   // Elke wijziging maakt de vorige paginering ongeldig.
   els.paged.replaceChildren();
+  if (!markdownSource) {
+    els.preview.replaceChildren(emptyState());
+    return;
+  }
+  els.preview.replaceChildren(buildDoc());
+}
+
+/** Placeholder in de preview zolang er nog geen bestand geladen is. */
+function emptyState() {
+  const box = document.createElement('p');
+  box.className = 'pdf-empty';
+  box.textContent = 'Nog geen bestand geladen. Kies of sleep een .md-bestand.';
+  return box;
 }
 
 /** Logo op het voorblad: diapositief op donker, gewoon logo op wit. */
@@ -95,7 +110,7 @@ function buildPageCss(footerText) {
       @bottom-right { content: none; }
     }
     .w4-cover-page { page: cover; break-after: page; }
-    .w4-toc { break-after: page; }
+    .w4-toc { break-before: page; break-after: page; }
   `;
 }
 
@@ -103,6 +118,8 @@ let pageCssUrl = null;
 
 /** Pagineer met Paged.js en open daarna het printvenster. */
 async function exportPdf() {
+  if (!markdownSource) return; // niks om te exporteren
+
   if (!window.Paged || !window.Paged.Previewer) {
     // Paged.js niet geladen (offline/CDN): val terug op een gewone print.
     window.print();
@@ -134,17 +151,19 @@ async function exportPdf() {
 }
 
 /**
- * Lees een gekozen/gesleept bestand in de editor. Volledig client-side via
- * FileReader; er gaat niets naar een server. De bestandsnaam vult meteen de
- * voorblad-titel.
+ * Lees een gekozen/gesleept bestand in. Volledig client-side via FileReader;
+ * er gaat niets naar een server. De bestandsnaam vult meteen de voorblad-titel
+ * en verschijnt in de dropzone.
  * @param {File} file
  */
 function loadFile(file) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
-    els.markdown.value = String(reader.result);
+    markdownSource = String(reader.result);
     els.title.value = filenameToTitle(file.name);
+    els.dropzoneText.textContent = file.name;
+    els.dropzone.classList.add('has-file');
     render();
   };
   reader.readAsText(file);
@@ -155,15 +174,15 @@ els.file.addEventListener('change', (e) => {
   e.target.value = ''; // zelfde bestand nogmaals kunnen kiezen
 });
 
-// Sleep een bestand op het tekstvak.
-els.markdown.addEventListener('dragover', (e) => {
+// Sleep een bestand op de dropzone.
+els.dropzone.addEventListener('dragover', (e) => {
   e.preventDefault();
-  els.markdown.classList.add('is-dragover');
+  els.dropzone.classList.add('is-dragover');
 });
 for (const evt of ['dragleave', 'dragend', 'drop']) {
-  els.markdown.addEventListener(evt, () => els.markdown.classList.remove('is-dragover'));
+  els.dropzone.addEventListener(evt, () => els.dropzone.classList.remove('is-dragover'));
 }
-els.markdown.addEventListener('drop', (e) => {
+els.dropzone.addEventListener('drop', (e) => {
   const file = e.dataTransfer && e.dataTransfer.files[0];
   if (file) {
     e.preventDefault();
@@ -186,7 +205,7 @@ els.dateToggle.addEventListener('change', () => {
 });
 
 // Herrender bij elke wijziging; goedkoop genoeg voor deze schaal.
-for (const el of [els.markdown, els.title, els.subtitle, els.footer]) {
+for (const el of [els.title, els.subtitle, els.footer]) {
   el.addEventListener('input', render);
 }
 for (const el of [els.date, els.toc, ...document.querySelectorAll('input[name="pdf-cover"]')]) {
