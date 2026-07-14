@@ -635,4 +635,26 @@ body {
     left: auto;
     width: auto;
   }
+
+  /* Fit-for-print: geen zachte pagina-achtergrond of preview-chrome op papier. */
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* Paged.js geeft z'n pagina's in preview een marge en schaduw; op papier weg. */
+  .pagedjs_pages {
+    margin: 0 !important;
+  }
+
+  .pagedjs_page {
+    margin: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .w4-doc {
+    box-shadow: none !important;
+    background: none !important;
+  }
 }
