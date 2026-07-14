@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Markdown naar PDF</title>
+  <meta name="description" content="Zet markdown om naar een PDF in de huisstijl van Wigo4it: kies een voorblad, inhoudsopgave en footer, en print naar PDF." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/pdf.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <main class="pdf-page">
+    <section class="pdf-hero">
+      <h1>Markdown naar PDF</h1>
+      <p>
+        Zet een markdown-bestand om naar een PDF in de Wigo4it-huisstijl. Kies een voorblad,
+        wel of geen inhoudsopgave en een footer. Alles gebeurt in je browser, er gaat niets
+        naar een server.
+      </p>
+    </section>
+
+    <div class="pdf-shell">
+    <!-- Instellingen: valt weg bij printen -->
+    <form class="pdf-panel no-print" aria-label="PDF-instellingen">
+      <div class="pdf-field">
+        <span class="pdf-field-label" id="pdf-upload-label">Markdown-bestand</span>
+        <label class="pdf-dropzone" id="pdf-dropzone"
+          aria-describedby="pdf-upload-label">
+          <input type="file" id="pdf-file"
+            accept=".md,.markdown,.txt,text/markdown,text/plain" />
+          <span class="pdf-dropzone-icon" aria-hidden="true">⬆</span>
+          <span class="pdf-dropzone-text" id="pdf-dropzone-text">
+            Sleep een .md-bestand hierheen of klik om te kiezen
+          </span>
+        </label>
+      </div>
+
+      <fieldset class="pdf-fieldset">
+        <legend>Voorblad</legend>
+        <div class="pdf-covers">
+          <label class="pdf-cover-opt">
+            <input type="radio" name="pdf-cover" value="green" checked />
+            <span class="pdf-cover-swatch is-green">Groen</span>
+          </label>
+          <label class="pdf-cover-opt">
+            <input type="radio" name="pdf-cover" value="aubergine" />
+            <span class="pdf-cover-swatch is-aubergine">Aubergine</span>
+          </label>
+          <label class="pdf-cover-opt">
+            <input type="radio" name="pdf-cover" value="white" />
+            <span class="pdf-cover-swatch is-white">Wit</span>
+          </label>
+          <label class="pdf-cover-opt">
+            <input type="radio" name="pdf-cover" value="none" />
+            <span class="pdf-cover-swatch is-none">Geen</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="pdf-field">
+        <label for="pdf-title">Titel op voorblad</label>
+        <input type="text" id="pdf-title" value="Titel van het document" />
+      </div>
+
+      <div class="pdf-field">
+        <label for="pdf-subtitle">Ondertitel (optioneel)</label>
+        <input type="text" id="pdf-subtitle" placeholder="bijv. Kwartaalrapportage 2026" />
+      </div>
+
+      <div class="pdf-field">
+        <label class="pdf-check">
+          <input type="checkbox" id="pdf-date-toggle" />
+          Datum op voorblad
+        </label>
+        <input type="date" id="pdf-date" disabled />
+      </div>
+
+      <label class="pdf-check">
+        <input type="checkbox" id="pdf-toc" />
+        Inhoudsopgave toevoegen
+      </label>
+
+      <div class="pdf-field">
+        <label for="pdf-footer">Footer per pagina (optioneel)</label>
+        <input type="text" id="pdf-footer" placeholder="bijv. Wigo4it - vertrouwelijk" />
+      </div>
+
+      <div class="pdf-actions">
+        <button type="button" class="pdf-btn" id="pdf-print">Exporteer naar PDF</button>
+        <p class="pdf-hint">
+          Opent het printvenster. Kies "Opslaan als PDF" en zet
+          <strong>Achtergrondafbeeldingen</strong> aan, anders verdwijnt het gekleurde voorblad.
+        </p>
+      </div>
+    </form>
+
+    <!-- Preview: toont exact wat er geprint wordt -->
+    <section class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
+      <!-- pdf-app.js vult dit met het samengestelde document -->
+    </section>
+
+    </div>
+
+    <!-- Paged.js rendert hier de gepagineerde export; buiten beeld tot printen -->
+    <section class="pdf-paged" id="pdf-paged" aria-hidden="true"></section>
+  </main>
+
+  <script type="module" src="scripts/pdf-app.js"></script>
+</body>
+</html>
