@@ -116,6 +116,40 @@ function buildPageCss(footerText) {
 
 let pageCssUrl = null;
 
+/** Zoek een element op id binnen een subtree (ids uit slugify zijn veilig,
+ *  maar kunnen met een cijfer beginnen; CSS.escape vangt dat af). */
+function findById(root, id) {
+  try {
+    return root.querySelector(`#${CSS.escape(id)}`);
+  } catch {
+    return root.querySelector(`[id="${id.replace(/"/g, '\\"')}"]`);
+  }
+}
+
+/**
+ * Vul de paginanummers in de inhoudsopgave nadat Paged.js het document heeft
+ * gepagineerd. Per link zoeken we de doelkop op in de Paged-output en lezen we
+ * het paginanummer van de `.pagedjs_page` waarop die kop landt. Zo hoeven we
+ * niet te leunen op `target-counter`, dat in Paged.js 0.4.3 onbetrouwbaar is.
+ * @param {Element} pagedRoot  De container met de Paged.js-output.
+ */
+function fillTocPageNumbers(pagedRoot) {
+  const pages = Array.from(pagedRoot.querySelectorAll('.pagedjs_page'));
+  for (const link of pagedRoot.querySelectorAll('.w4-toc-item a[href^="#"]')) {
+    const span = link.querySelector('.w4-toc-page');
+    if (!span) continue;
+    const id = decodeURIComponent(link.getAttribute('href').slice(1));
+    const target = findById(pagedRoot, id);
+    const pageEl = target && target.closest('.pagedjs_page');
+    if (!pageEl) {
+      span.textContent = '';
+      continue;
+    }
+    span.textContent =
+      pageEl.getAttribute('data-page-number') || String(pages.indexOf(pageEl) + 1);
+  }
+}
+
 /** Pagineer met Paged.js en open daarna het printvenster. */
 async function exportPdf() {
   if (!markdownSource) return; // niks om te exporteren
@@ -143,6 +177,8 @@ async function exportPdf() {
       ['styles/w4.css', 'styles/pdf.css', pageCssUrl],
       els.paged
     );
+    // Paged.js kent nu de pagina-indeling: schrijf de nummers in de TOC.
+    fillTocPageNumbers(els.paged);
     window.print();
   } finally {
     els.print.disabled = false;

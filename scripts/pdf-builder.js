@@ -55,6 +55,12 @@ export function collectHeadings(container) {
 /**
  * Bouw een inhoudsopgave-element uit de verzamelde koppen. Nesting laten we
  * zien via data-level op de li (h1 = 1, h2 = 2), zodat de opmaak in CSS zit.
+ *
+ * Elke link krijgt drie delen: het label, een puntjes-leader en een leeg
+ * paginanummer-veld. Het nummer vult scripts/pdf-app.js na het pagineren met
+ * Paged.js in (de kop kan dan op een pagina gemeten worden). In de live preview
+ * blijft het veld leeg, want daar is niets gepagineerd.
+ *
  * @param {{level: number, text: string, id: string}[]} headings
  * @returns {HTMLElement} nav.w4-toc
  */
@@ -64,7 +70,7 @@ export function renderToc(headings) {
 
   const title = document.createElement('h2');
   title.className = 'w4-toc-title';
-  title.textContent = 'Inhoud';
+  title.textContent = 'Inhoudsopgave';
   nav.appendChild(title);
 
   const list = document.createElement('ol');
@@ -76,7 +82,21 @@ export function renderToc(headings) {
 
     const link = document.createElement('a');
     link.setAttribute('href', `#${h.id}`);
-    link.textContent = h.text;
+
+    const label = document.createElement('span');
+    label.className = 'w4-toc-label';
+    label.textContent = h.text;
+
+    const dots = document.createElement('span');
+    dots.className = 'w4-toc-dots';
+    dots.setAttribute('aria-hidden', 'true');
+
+    const page = document.createElement('span');
+    page.className = 'w4-toc-page';
+
+    link.appendChild(label);
+    link.appendChild(dots);
+    link.appendChild(page);
 
     item.appendChild(link);
     list.appendChild(item);
