@@ -504,36 +504,75 @@ body {
 
 .w4-toc-title {
   font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 16pt;
+  font-size: 20pt;
   color: var(--dark-green);
-  margin: 0 0 1rem;
+  margin: 0 0 1.4rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--dark-green);
 }
 
 .w4-toc-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: toc;
 }
 
 .w4-toc-item {
-  margin: 0.35rem 0;
+  margin: 0.55rem 0;
   font-size: 11pt;
 }
 
+/* Elke regel: label links, puntjes ertussen, paginanummer rechts. */
 .w4-toc-item a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
   color: var(--aubergine);
   text-decoration: none;
 }
 
-.w4-toc-item a:hover {
+.w4-toc-item a:hover .w4-toc-label {
   text-decoration: underline;
 }
 
+.w4-toc-label {
+  flex: 0 1 auto;
+}
+
+/* Puntjes-leader vult de ruimte tussen label en paginanummer. */
+.w4-toc-dots {
+  flex: 1 1 auto;
+  align-self: stretch;
+  min-width: 1.5rem;
+  margin-bottom: 0.28em;
+  border-bottom: 1px dotted rgba(54, 44, 70, 0.4);
+}
+
+/* Paginanummer: scripts/pdf-app.js vult dit na het pagineren met Paged.js. In
+   de preview blijft het leeg (niets gepagineerd), dan zie je alleen de leaders. */
+.w4-toc-page {
+  flex: 0 0 auto;
+  min-width: 1.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: rgba(54, 44, 70, 0.75);
+}
+
+/* Hoofdstukken (h1) zwaarder aangezet dan subkoppen (h2). */
+.w4-toc-l1 {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 11.5pt;
+  margin-top: 0.9rem;
+}
+
+.w4-toc-l1 .w4-toc-dots {
+  border-bottom-color: rgba(0, 83, 81, 0.35);
+}
+
 .w4-toc-l2 {
-  padding-left: 1.4rem;
+  padding-left: 1.6rem;
   font-size: 10.5pt;
-  color: rgba(54, 44, 70, 0.8);
+  color: rgba(54, 44, 70, 0.85);
 }
 
 /* ── Footer (herhaalt per pagina bij printen) ── */
