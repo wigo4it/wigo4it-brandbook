@@ -53,6 +53,31 @@ export function collectHeadings(container) {
 }
 
 /**
+ * Haal het voorwerk uit de content: alles wat voor de eerste h1 staat, zoals
+ * een versiebeheer-tabel of changelog. Dat hoort voor de inhoudsopgave en niet
+ * erin, want het gaat over het document en niet over de inhoud.
+ *
+ * De eerste h1 is de documenttitel; staat die vooraan (of ontbreekt hij), dan
+ * is er geen voorwerk en blijft de content ongemoeid. De verplaatste elementen
+ * verdwijnen uit `content`, zodat collectHeadings ze daarna niet meer ziet.
+ *
+ * @param {Element} content  De container met de gerenderde markdown.
+ * @returns {HTMLElement|null} div.w4-doc-front, of null als er geen voorwerk is.
+ */
+export function extractFrontMatter(content) {
+  const children = Array.from(content.children);
+  const titleIndex = children.findIndex((el) => el.tagName === 'H1');
+  if (titleIndex <= 0) return null;
+
+  const front = document.createElement('div');
+  front.className = 'w4-doc-front w4-doc-content';
+  for (const el of children.slice(0, titleIndex)) {
+    front.appendChild(el);
+  }
+  return front;
+}
+
+/**
  * Bouw een inhoudsopgave-element uit de verzamelde koppen. Nesting laten we
  * zien via data-level op de li (h1 = 1, h2 = 2), zodat de opmaak in CSS zit.
  *
@@ -148,10 +173,10 @@ export function formatDateNL(iso) {
 }
 
 /**
- * Stel het print-klare document samen: optioneel voorblad, optionele
- * inhoudsopgave, de content en optioneel een per-pagina footer.
+ * Stel het print-klare document samen: optioneel voorblad, het voorwerk,
+ * optionele inhoudsopgave, de content en optioneel een per-pagina footer.
  *
- * Volgorde in het document: voorblad, inhoudsopgave, content.
+ * Volgorde in het document: voorblad, voorwerk, inhoudsopgave, content.
  *
  * @param {Object} opts
  * @param {string} opts.contentHtml   Gerenderde markdown (HTML-string).
@@ -181,10 +206,16 @@ export function assembleDocument(opts) {
   const content = document.createElement('div');
   content.className = 'w4-doc-content';
   content.innerHTML = contentHtml;
+  // Voorwerk er eerst uit, anders komen die koppen alsnog in de TOC terecht.
+  const front = extractFrontMatter(content);
   const headings = collectHeadings(content);
 
   if (COVER_VARIANTS.includes(cover)) {
     root.appendChild(buildCover(cover, { title: coverTitle, subtitle: coverSubtitle, date: coverDate }));
+  }
+
+  if (front) {
+    root.appendChild(front);
   }
 
   if (includeToc) {
