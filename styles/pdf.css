@@ -356,13 +356,34 @@ body {
   text-decoration: underline;
 }
 
+/* Tailwind's preflight sloopt de markers (list-style: none op elke ul/ol);
+   in een lopend document horen bolletjes en nummers er juist bij. */
 .w4-doc-content ul,
 .w4-doc-content ol {
   margin: 0 0 0.7rem 1.2rem;
+  padding-left: 0.4rem;
+}
+
+.w4-doc-content ul {
+  list-style: disc outside;
+}
+
+.w4-doc-content ol {
+  list-style: decimal outside;
 }
 
 .w4-doc-content li {
   margin: 0.2rem 0;
+}
+
+.w4-doc-content li::marker {
+  color: var(--dark-green);
+}
+
+/* Geneste lijsten: geen dubbele witruimte onderaan. */
+.w4-doc-content li > ul,
+.w4-doc-content li > ol {
+  margin-bottom: 0;
 }
 
 .w4-doc-content blockquote {
