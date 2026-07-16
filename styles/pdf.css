@@ -440,6 +440,18 @@ body {
   margin: 1.2rem 0;
 }
 
+/* Voorwerk (versiebeheer, changelog): zelfde opmaak als de content, maar het
+   staat voor de inhoudsopgave en krijgt bij het printen een eigen pagina. In de
+   preview markeert een streep waar die pagina-overgang komt. */
+.w4-doc-front {
+  padding-bottom: 0;
+}
+
+.pdf-preview .w4-doc-front {
+  border-bottom: 1px dashed rgba(54, 44, 70, 0.25);
+  padding-bottom: var(--pdf-margin);
+}
+
 /* ── Voorblad ── */
 .w4-cover-page {
   position: relative;

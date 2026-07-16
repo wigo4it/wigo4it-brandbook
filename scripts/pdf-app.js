@@ -110,6 +110,7 @@ function buildPageCss(footerText) {
       @bottom-right { content: none; }
     }
     .w4-cover-page { page: cover; break-after: page; }
+    .w4-doc-front { break-after: page; }
     .w4-toc { break-before: page; break-after: page; }
   `;
 }

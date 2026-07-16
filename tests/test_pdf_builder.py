@@ -8,6 +8,7 @@ repo-root (zie conftest) en draaien de asserties via Playwright's evaluate.
 We testen alleen onze eigen logica op de afgesproken seams:
 * slugify        - koptekst -> veilig anker-id
 * collectHeadings - h1/h2 uit gerenderde markdown halen + ids injecteren
+* extractFrontMatter - voorwerk (alles voor de eerste h1) uit de content halen
 * renderToc      - inhoudsopgave-element met nesting en links
 * assembleDocument - voorblad, optionele TOC, footer en content samenstellen
 
@@ -103,6 +104,56 @@ def test_collect_headings_preserves_existing_id(builder):
         }"""
     )
     assert result == ["eigen-id"]
+
+
+# ── extractFrontMatter: alles voor de documenttitel ──
+
+FRONT_HTML = (
+    "'<h2>Versiebeheer</h2><table><tr><td>1.1</td></tr></table>'"
+    " + '<h3>Changelog</h3><p>Wijziging.</p>'"
+    " + '<h1>Documenttitel</h1><h2>Inleiding</h2><p>Body.</p>'"
+)
+
+
+def test_extract_front_matter_moves_everything_before_first_h1(builder):
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {FRONT_HTML};
+            const front = m.extractFrontMatter(c);
+            return {{
+                front: Array.from(front.children).map(el => el.tagName),
+                rest: Array.from(c.children).map(el => el.tagName),
+            }};
+        }}"""
+    )
+    assert result == {
+        "front": ["H2", "TABLE", "H3", "P"],
+        "rest": ["H1", "H2", "P"],
+    }
+
+
+def test_extract_front_matter_none_when_document_starts_with_h1(builder):
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<h1>Titel</h1><p>Body.</p>';
+            return m.extractFrontMatter(c);
+        }"""
+    )
+    assert result is None
+
+
+def test_extract_front_matter_none_without_h1(builder):
+    # Geen documenttitel: dan is er geen grens en blijft alles gewoon content.
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<h2>Sectie</h2><p>Body.</p>';
+            return m.extractFrontMatter(c);
+        }"""
+    )
+    assert result is None
 
 
 def test_render_toc_builds_nav_with_links_per_heading(builder):
@@ -327,3 +378,52 @@ def test_assemble_full_order_cover_toc_content(builder):
         }}"""
     )
     assert order == ["w4-cover-page", "w4-toc", "w4-doc-content"]
+
+
+FRONT_DOC_ARGS = f"contentHtml: {FRONT_HTML}, coverTitle: 'Mijn document'"
+
+
+def test_assemble_front_matter_sits_between_cover_and_toc(builder):
+    order = builder(
+        f"""(m) => {{
+            const doc = m.assembleDocument({{
+                {FRONT_DOC_ARGS}, cover: 'green', includeToc: true
+            }});
+            return Array.from(doc.children).map(el => el.className.split(' ')[0]);
+        }}"""
+    )
+    assert order == ["w4-cover-page", "w4-doc-front", "w4-toc", "w4-doc-content"]
+
+
+def test_assemble_front_matter_headings_stay_out_of_toc(builder):
+    labels = builder(
+        f"""(m) => {{
+            const doc = m.assembleDocument({{ {FRONT_DOC_ARGS}, includeToc: true }});
+            return Array.from(doc.querySelectorAll('.w4-toc-label'))
+                .map(el => el.textContent);
+        }}"""
+    )
+    assert labels == ["Documenttitel", "Inleiding"]
+
+
+def test_assemble_front_matter_content_is_not_duplicated(builder):
+    counts = builder(
+        f"""(m) => {{
+            const doc = m.assembleDocument({{ {FRONT_DOC_ARGS}, includeToc: true }});
+            const text = doc.textContent;
+            return {{
+                versiebeheer: text.split('Versiebeheer').length - 1,
+                inFront: !!doc.querySelector('.w4-doc-front table'),
+                inBody: !!doc.querySelector('.w4-doc-content:not(.w4-doc-front) table'),
+            }};
+        }}"""
+    )
+    assert counts == {"versiebeheer": 1, "inFront": True, "inBody": False}
+
+
+def test_assemble_without_front_matter_has_no_front_block(builder):
+    count = builder(
+        f"(m) => m.assembleDocument({{ {DOC_ARGS}, includeToc: true }})"
+        ".querySelectorAll('.w4-doc-front').length"
+    )
+    assert count == 0
