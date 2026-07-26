@@ -1,0 +1,665 @@
+/* ============================================================
+   W4 Markdown -> slide-deck
+   Twee delen in een bestand:
+   1. het thema voor de slides zelf (draait op reveal.js);
+   2. de opmaak van de tool-pagina (instellingen + preview).
+   Kleuren en fonts komen uit styles/w4.css; hier staat alleen wat
+   deze twee pagina's nodig hebben.
+   ============================================================ */
+
+/* ============================================================
+   1. Slide-thema
+   ============================================================ */
+
+/* Reveal hangt zijn eigen typografie aan custom properties. Daarmee zetten
+   we het merk in een handvol regels neer in plaats van met !important-oorlog. */
+.reveal {
+  --r-main-font: 'Raleway', system-ui, sans-serif;
+  --r-main-font-size: 30px;
+  --r-main-color: var(--aubergine);
+  --r-heading-font: 'PP Neue Machina', 'Segoe UI', system-ui, sans-serif;
+  --r-heading-color: inherit;
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-heading1-size: 3.1em;
+  --r-heading2-size: 2.1em;
+  --r-heading3-size: 1.1em;
+  --r-link-color: var(--dark-green);
+  --r-link-color-hover: var(--bright-pink);
+  --r-block-margin: 0.7em;
+}
+
+/* We laden bewust geen reveal-thema (dist/theme/*.css): dat brengt een compleet
+   ander merk mee. De basisregels die zo'n thema normaal legt, staan daarom hier. */
+.reveal {
+  font-family: var(--r-main-font);
+  font-size: var(--r-main-font-size);
+  font-weight: 400;
+  color: var(--r-main-color);
+}
+
+.reveal a {
+  color: var(--r-link-color);
+  text-decoration: underline;
+}
+
+.reveal a:hover {
+  color: var(--r-link-color-hover);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: var(--r-heading-font);
+  font-weight: var(--r-heading-font-weight);
+  color: var(--r-heading-color);
+  text-transform: var(--r-heading-text-transform);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.35em;
+}
+
+.reveal h1 { font-size: var(--r-heading1-size); }
+.reveal h2 { font-size: var(--r-heading2-size); }
+.reveal h3 { font-size: var(--r-heading3-size); }
+
+.reveal p,
+.reveal ul,
+.reveal ol,
+.reveal blockquote {
+  margin: 0 0 var(--r-block-margin);
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.45;
+}
+
+.reveal strong {
+  font-weight: 700;
+}
+
+/* ── De slide als raster ──
+   center:false in de reveal-config, zodat elke slide de volle hoogte krijgt
+   en de footer altijd onderaan staat in plaats van tegen de tekst aan.
+
+   De section zelf blijft een block: reveal zet `display` inline op de actieve
+   slide, daar valt met CSS niet tegenop te schrijven. Het raster zit daarom in
+   de body, die als absolute laag het tekstvlak vult. */
+.reveal .slides section.w4-slide {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  text-align: left;
+  overflow: hidden;
+}
+
+.reveal .slides section.w4-slide.is-dark {
+  color: #ffffff;
+}
+
+.w4-slide--yellow {
+  color: var(--dark-green);
+}
+
+.w4-slide-body {
+  position: absolute;
+  inset: 6% 6% 8%;
+  z-index: 2;
+  display: grid;
+  gap: 0.6em;
+  align-content: center;
+}
+
+/* Vaste elementen: logo rechtsboven, footer onderlangs. */
+.w4-slide-logo {
+  position: absolute;
+  top: 4%;
+  right: 5%;
+  width: 8.5%;
+  height: auto;
+  z-index: 3;
+  opacity: 0.95;
+}
+
+.w4-slide-footer {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 3.2%;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.42em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* ── Decoratie ──
+   Shapes en iconen zitten achter de tekst en zijn puur sfeer; ze staan
+   daarom op aria-hidden en houden ruime afstand tot de leesregel. */
+.w4-slide-shape {
+  position: absolute;
+  width: 26%;
+  z-index: 1;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.w4-slide-shape.is-topright    { top: -6%; right: -5%; }
+.w4-slide-shape.is-topleft     { top: -6%; left: -5%; }
+.w4-slide-shape.is-bottomright { bottom: -8%; right: -5%; }
+.w4-slide-shape.is-bottomleft  { bottom: -8%; left: -5%; }
+
+.is-dark .w4-slide-shape {
+  filter: brightness(0) invert(1);
+  opacity: 0.14;
+}
+
+.w4-slide-icon {
+  position: absolute;
+  right: 8%;
+  bottom: 14%;
+  width: 11%;
+  z-index: 1;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.is-dark .w4-slide-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* ── Layout: cover ── */
+.w4-slide--cover .w4-slide-body h1 {
+  font-size: 3.4em;
+  max-width: 15ch;
+}
+
+.w4-slide--cover .w4-slide-logo {
+  top: auto;
+  bottom: 6%;
+  left: 6%;
+  right: auto;
+  width: 13%;
+}
+
+/* ── Layout: statement ── */
+.w4-slide--statement .w4-slide-body {
+  justify-items: start;
+  align-content: center;
+}
+
+.w4-slide--statement .w4-slide-body h1,
+.w4-slide--statement .w4-slide-body h2 {
+  font-size: 2.9em;
+  max-width: 16ch;
+}
+
+.w4-slide--statement blockquote,
+.w4-slide--quote blockquote {
+  border: 0;
+  box-shadow: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.6em;
+  line-height: 1.1;
+  font-style: normal;
+}
+
+.w4-slide--quote blockquote p {
+  margin: 0 0 0.4em;
+}
+
+.w4-slide--quote blockquote + p {
+  font-size: 0.62em;
+  opacity: 0.75;
+}
+
+/* ── Layout: split ── */
+.w4-slide-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2em;
+  align-items: center;
+}
+
+.w4-slide-panel > :first-child {
+  margin-top: 0;
+}
+
+.w4-slide-panel img {
+  max-height: 62vh;
+  border-radius: 18px;
+}
+
+/* ── Layout: columns ── */
+.w4-slide-cards {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 0.7em;
+  align-items: stretch;
+}
+
+.w4-slide-cards[data-count='1'] { --cols: 1; }
+.w4-slide-cards[data-count='2'] { --cols: 2; }
+.w4-slide-cards[data-count='4'] { --cols: 2; }
+
+.w4-slide-card {
+  border-radius: 16px;
+  padding: 0.8em 0.9em;
+  background: rgba(54, 44, 70, 0.06);
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  font-size: 0.72em;
+}
+
+.is-dark .w4-slide-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.w4-slide-card h3 {
+  font-size: 1.25em;
+  margin-bottom: 0.4em;
+}
+
+.w4-slide-card > :last-child {
+  margin-bottom: 0;
+}
+
+/* ── Layout: end ── */
+.w4-slide--end .w4-slide-body {
+  justify-items: center;
+  text-align: center;
+}
+
+.w4-slide--end .w4-slide-logo {
+  top: auto;
+  bottom: 8%;
+  left: 50%;
+  right: auto;
+  width: 12%;
+  transform: translateX(-50%);
+}
+
+/* ── Losse elementen binnen slides ── */
+.reveal .w4-slide-body ul,
+.reveal .w4-slide-body ol {
+  margin-left: 1.1em;
+}
+
+.reveal .w4-slide-body img {
+  max-width: 100%;
+  margin: 0;
+}
+
+.reveal .w4-slide-body table {
+  font-size: 0.62em;
+}
+
+.reveal .w4-slide-body th {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  text-align: left;
+}
+
+.reveal .w4-slide-body code {
+  font-size: 0.8em;
+  border-radius: 6px;
+  padding: 0.05em 0.3em;
+  background: rgba(54, 44, 70, 0.08);
+}
+
+.is-dark .w4-slide-body code {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Reveal-navigatie in merkkleur. */
+.reveal .controls { color: var(--dark-green); }
+.reveal .progress { color: var(--light-green); height: 4px; }
+
+/* ============================================================
+   2. De presentatiepagina (deck-view.html)
+   ============================================================ */
+
+.deck-view-body {
+  margin: 0;
+  background: var(--aubergine);
+}
+
+/* Melding als er nog geen deck is ingeladen: blijft leesbaar zonder reveal. */
+.deck-empty[hidden] {
+  display: none;
+}
+
+.deck-empty {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Raleway', system-ui, sans-serif;
+}
+
+.deck-empty h1 {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.deck-empty p {
+  margin: 0;
+  opacity: 0.75;
+  max-width: 46ch;
+}
+
+/* ============================================================
+   3. De tool-pagina (deck.html)
+   ============================================================ */
+
+body.deck-tool-body {
+  background: #f5f8f4;
+}
+
+.deck-tool {
+  width: min(1280px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 6rem 0 4rem;
+}
+
+.deck-tool-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 440px);
+  gap: 2rem;
+  align-items: start;
+  padding: 0 0 2.5rem;
+}
+
+@media (max-width: 1100px) {
+  .deck-tool-hero { grid-template-columns: 1fr; }
+}
+
+.deck-tool-eyebrow {
+  justify-self: start;
+  margin: 0;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-green);
+  background: rgba(0, 83, 81, 0.1);
+  border: 1px solid rgba(0, 83, 81, 0.25);
+  border-radius: 999px;
+}
+
+.deck-tool-hero h1 {
+  margin: 0.75rem 0 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--aubergine);
+}
+
+.deck-tool-lead {
+  margin: 1rem 0 0;
+  max-width: 54ch;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(54, 44, 70, 0.72);
+}
+
+/* Syntax-uitleg naast de intro. */
+.deck-tool-syntax {
+  border-radius: 18px;
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  background: #ffffff;
+  padding: 1.25rem 1.35rem;
+}
+
+.deck-tool-syntax h2 {
+  margin: 0 0 0.6rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.05rem;
+  color: var(--aubergine);
+}
+
+.deck-tool-syntax pre {
+  margin: 0 0 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: rgba(54, 44, 70, 0.05);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.deck-tool-syntax dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.deck-tool-syntax dt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--dark-green);
+  white-space: nowrap;
+}
+
+.deck-tool-syntax dd {
+  margin: 0;
+  color: rgba(54, 44, 70, 0.75);
+}
+
+/* ── Werkblad: instellingen links, preview rechts ── */
+.deck-tool-shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1000px) {
+  .deck-tool-shell { grid-template-columns: 1fr; }
+}
+
+.deck-tool-panel {
+  border-radius: 18px;
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  background: #ffffff;
+  overflow: hidden;
+  position: sticky;
+  top: 6rem;
+}
+
+.deck-tool-panel-head {
+  padding: 1rem 1.25rem;
+  background: var(--dark-green);
+  color: #ffffff;
+}
+
+.deck-tool-panel-head p {
+  margin: 0;
+}
+
+.deck-tool-panel-title {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1rem;
+}
+
+.deck-tool-panel-sub {
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.deck-tool-panel-body {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.deck-tool-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.deck-tool-field label,
+.deck-tool-field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--aubergine);
+}
+
+.deck-tool-field input[type='text'],
+.deck-tool-field select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid rgba(54, 44, 70, 0.2);
+  background: #fff;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--aubergine);
+}
+
+.deck-tool-dropzone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 0.4rem;
+  padding: 1.4rem 1rem;
+  border: 2px dashed rgba(0, 83, 81, 0.35);
+  border-radius: 14px;
+  background: rgba(0, 83, 81, 0.04);
+  cursor: pointer;
+  text-align: center;
+}
+
+.deck-tool-dropzone.is-dragover,
+.deck-tool-dropzone:hover {
+  border-color: var(--dark-green);
+  background: rgba(0, 83, 81, 0.08);
+}
+
+.deck-tool-dropzone.has-file {
+  border-style: solid;
+  border-color: var(--light-green);
+}
+
+.deck-tool-dropzone input[type='file'] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.deck-tool-dropzone-icon {
+  font-size: 1.2rem;
+  color: var(--dark-green);
+}
+
+.deck-tool-dropzone-text {
+  font-size: 0.82rem;
+  color: rgba(54, 44, 70, 0.75);
+}
+
+.deck-tool-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+}
+
+.deck-tool-actions {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.deck-tool-btn {
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--dark-green);
+  color: #ffffff;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.deck-tool-btn:hover { background: #00403e; }
+
+.deck-tool-btn.is-secondary {
+  background: transparent;
+  color: var(--dark-green);
+  border: 1px solid rgba(0, 83, 81, 0.35);
+}
+
+.deck-tool-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: rgba(54, 44, 70, 0.65);
+}
+
+.deck-tool-warning {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  background: rgba(245, 110, 109, 0.14);
+  border: 1px solid rgba(245, 110, 109, 0.4);
+  color: #8f2b2a;
+}
+
+.deck-tool-warning[hidden] { display: none; }
+
+/* ── Preview ── */
+.deck-tool-canvas {
+  border-radius: 18px;
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.deck-tool-canvas-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid rgba(54, 44, 70, 0.1);
+}
+
+.deck-tool-canvas-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--aubergine);
+}
+
+.deck-tool-canvas-sub {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(54, 44, 70, 0.6);
+}
+
+.deck-tool-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: var(--light-grey);
+}
