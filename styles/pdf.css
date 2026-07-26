@@ -440,6 +440,31 @@ body {
   margin: 1.2rem 0;
 }
 
+/* Handmatig pagina-einde uit de markdown (`<!-- pagebreak -->`). In de export
+   is het een leeg element dat de pagina afsluit; in de preview tekenen we een
+   streep met label, zodat je ziet waar de knip komt. */
+.w4-pagebreak {
+  break-after: page;
+  height: 0;
+  margin: 0;
+}
+
+.pdf-preview .w4-pagebreak {
+  height: auto;
+  margin: 1.6rem 0;
+  border-top: 1px dashed rgba(54, 44, 70, 0.25);
+}
+
+.pdf-preview .w4-pagebreak::after {
+  content: 'Pagina-einde';
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(54, 44, 70, 0.45);
+}
+
 /* Voorwerk (versiebeheer, changelog): zelfde opmaak als de content, maar het
    staat voor de inhoudsopgave en krijgt bij het printen een eigen pagina. In de
    preview markeert een streep waar die pagina-overgang komt. */

@@ -77,6 +77,50 @@ export function extractFrontMatter(content) {
   return front;
 }
 
+/* Handmatige pagina-einden.
+   In de markdown zet je een marker op een eigen regel. markdown-it draait met
+   html:false en typographer:true, dus zo'n regel komt hier binnen als gewone
+   paragraaf-tekst, en `--` is onderweg al een en-dash geworden. Vandaar de
+   ruime dash-klasse in de patronen. */
+const PAGEBREAK_PATTERNS = [
+  /^<!\s*[-–—]{1,3}\s*page\s*-?\s*break\s*[-–—]{1,3}\s*>$/i, // <!-- pagebreak -->
+  /^<\s*page\s*-?\s*break\s*\/?\s*>$/i, // <pagebreak>
+  /^\\page\s*-?\s*break$/i, // \pagebreak
+];
+
+/**
+ * Is deze tekst een pagina-einde-marker?
+ * Accepteert `<!-- pagebreak -->`, `<pagebreak>` en `\pagebreak`, met of
+ * zonder koppelteken in "page break".
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function isPageBreakMarker(text) {
+  const trimmed = String(text).trim();
+  return PAGEBREAK_PATTERNS.some((re) => re.test(trimmed));
+}
+
+/**
+ * Vervang pagina-einde-markers in de content door een leeg breek-element.
+ * Alleen paragrafen die uit niets anders dan de marker bestaan tellen mee, zodat
+ * een marker die je in een zin noemt gewoon tekst blijft. De print-CSS hangt
+ * `break-after: page` aan `.w4-pagebreak`.
+ * @param {Element} container
+ * @returns {number} Aantal vervangen markers.
+ */
+export function applyPageBreaks(container) {
+  let count = 0;
+  for (const p of Array.from(container.querySelectorAll('p'))) {
+    if (!isPageBreakMarker(p.textContent)) continue;
+    const brk = document.createElement('div');
+    brk.className = 'w4-pagebreak';
+    brk.setAttribute('aria-hidden', 'true');
+    p.replaceWith(brk);
+    count++;
+  }
+  return count;
+}
+
 /**
  * Bouw een inhoudsopgave-element uit de verzamelde koppen. Nesting laten we
  * zien via data-level op de li (h1 = 1, h2 = 2), zodat de opmaak in CSS zit.
@@ -206,6 +250,9 @@ export function assembleDocument(opts) {
   const content = document.createElement('div');
   content.className = 'w4-doc-content';
   content.innerHTML = contentHtml;
+  // Markers eerst omzetten, dan pas knippen: een pagina-einde in het voorwerk
+  // hoort net zo goed te werken.
+  applyPageBreaks(content);
   // Voorwerk er eerst uit, anders komen die koppen alsnog in de TOC terecht.
   const front = extractFrontMatter(content);
   const headings = collectHeadings(content);
