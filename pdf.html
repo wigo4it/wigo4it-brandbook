@@ -18,18 +18,65 @@
   <script src="scripts/nav.js"></script>
 
   <main class="pdf-page">
-    <section class="pdf-hero">
-      <h1>Markdown naar PDF</h1>
-      <p>
-        Zet een markdown-bestand om naar een PDF in de Wigo4it-huisstijl. Kies een voorblad,
-        wel of geen inhoudsopgave en een footer. Alles gebeurt in je browser, er gaat niets
-        naar een server.
-      </p>
-    </section>
+    <header class="pdf-hero">
+      <div class="pdf-hero-text">
+        <p class="pdf-eyebrow">Documenten</p>
+        <h1>Markdown naar PDF</h1>
+        <p class="pdf-lead">
+          Zet een markdown-bestand om naar een PDF in de Wigo4it-huisstijl. Kies een voorblad,
+          wel of geen inhoudsopgave en een footer. Alles gebeurt in je browser, er gaat niets
+          naar een server.
+        </p>
+        <ul class="pdf-tags">
+          <li class="pdf-tag is-grey">Volledig client-side</li>
+          <li class="pdf-tag is-yellow">Huisstijl-voorblad</li>
+          <li class="pdf-tag is-green">Inhoudsopgave met paginanummers</li>
+        </ul>
+
+        <ol class="pdf-steps">
+          <li>
+            <span class="pdf-step-num">1</span>
+            <span class="pdf-step-text">Sleep je <strong>.md-bestand</strong> in het paneel hiernaast.</span>
+          </li>
+          <li>
+            <span class="pdf-step-num">2</span>
+            <span class="pdf-step-text">Kies <strong>voorblad, inhoudsopgave en footer</strong>. De preview loopt mee.</span>
+          </li>
+          <li>
+            <span class="pdf-step-num">3</span>
+            <span class="pdf-step-text">Exporteer en kies in het printvenster <strong>Opslaan als PDF</strong>.</span>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="pdf-notes" aria-labelledby="pdf-notes-title">
+        <h2 id="pdf-notes-title">Pagina-einde afdwingen</h2>
+        <p>
+          Zet een marker op een eigen regel in je markdown. Alles daarna begint op een nieuwe
+          pagina.
+        </p>
+        <pre class="pdf-notes-code"><code>Laatste alinea van dit hoofdstuk.
+
+&lt;!-- pagebreak --&gt;
+
+## Volgend hoofdstuk</code></pre>
+        <p>
+          <code>&lt;!-- pagebreak --&gt;</code> is de nette vorm: in andere markdown-viewers is het
+          een comment en zie je er niets van. <code>&lt;pagebreak&gt;</code> en
+          <code>\pagebreak</code> werken ook. Noem je de marker in een zin, dan blijft het
+          gewoon tekst.
+        </p>
+      </aside>
+    </header>
 
     <div class="pdf-shell">
     <!-- Instellingen: valt weg bij printen -->
     <form class="pdf-panel no-print" aria-label="PDF-instellingen">
+      <div class="pdf-panel-head">
+        <p class="pdf-panel-title">Instellingen</p>
+        <p class="pdf-panel-sub">Bestand, voorblad en footer</p>
+      </div>
+      <div class="pdf-panel-body">
       <div class="pdf-field">
         <span class="pdf-field-label" id="pdf-upload-label">Markdown-bestand</span>
         <label class="pdf-dropzone" id="pdf-dropzone"
@@ -100,11 +147,18 @@
           <strong>Achtergrondafbeeldingen</strong> aan, anders verdwijnt het gekleurde voorblad.
         </p>
       </div>
+      </div>
     </form>
 
     <!-- Preview: toont exact wat er geprint wordt -->
-    <section class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
-      <!-- pdf-app.js vult dit met het samengestelde document -->
+    <section class="pdf-canvas no-print" aria-labelledby="pdf-canvas-title">
+      <div class="pdf-canvas-head">
+        <p class="pdf-canvas-title" id="pdf-canvas-title">Voorbeeld</p>
+        <p class="pdf-canvas-sub">A4, zo komt het uit de printer</p>
+      </div>
+      <div class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
+        <!-- pdf-app.js vult dit met het samengestelde document -->
+      </div>
     </section>
 
     </div>

@@ -9,6 +9,7 @@ We testen alleen onze eigen logica op de afgesproken seams:
 * slugify        - koptekst -> veilig anker-id
 * collectHeadings - h1/h2 uit gerenderde markdown halen + ids injecteren
 * extractFrontMatter - voorwerk (alles voor de eerste h1) uit de content halen
+* isPageBreakMarker / applyPageBreaks - handmatige pagina-einden uit de markdown
 * renderToc      - inhoudsopgave-element met nesting en links
 * assembleDocument - voorblad, optionele TOC, footer en content samenstellen
 
@@ -154,6 +155,81 @@ def test_extract_front_matter_none_without_h1(builder):
         }"""
     )
     assert result is None
+
+
+# ── pagina-einden: markers uit de markdown ──
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "<!-- pagebreak -->",
+        "<!– pagebreak –>",  # zoals typographer 'm oplevert
+        "<pagebreak>",
+        "<pagebreak/>",
+        "<page-break>",
+        "\\pagebreak",
+        "  <!-- PAGEBREAK -->  ",
+    ],
+)
+def test_is_page_break_marker_accepts_markers(builder, text):
+    assert builder(f"(m) => m.isPageBreakMarker({text!r})") is True
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "pagebreak",  # zonder markertekens is het gewoon een woord
+        "Hier komt een <!-- pagebreak --> midden in een zin",
+        "<!-- toc -->",
+        "",
+    ],
+)
+def test_is_page_break_marker_rejects_other_text(builder, text):
+    assert builder(f"(m) => m.isPageBreakMarker({text!r})") is False
+
+
+def test_apply_page_breaks_replaces_marker_paragraph(builder):
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<p>Voor</p><p>&lt;!-- pagebreak --&gt;</p><p>Na</p>';
+            const count = m.applyPageBreaks(c);
+            return { count, tags: Array.from(c.children).map(el => el.tagName + ':' + el.className) };
+        }"""
+    )
+    assert result == {
+        "count": 1,
+        "tags": ["P:", "DIV:w4-pagebreak", "P:"],
+    }
+
+
+def test_apply_page_breaks_leaves_inline_mentions_alone(builder):
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<p>Gebruik &lt;!-- pagebreak --&gt; op een eigen regel.</p>';
+            return { count: m.applyPageBreaks(c), breaks: c.querySelectorAll('.w4-pagebreak').length };
+        }"""
+    )
+    assert result == {"count": 0, "breaks": 0}
+
+
+def test_assemble_turns_markers_into_page_breaks(builder):
+    result = builder(
+        """(m) => {
+            const doc = m.assembleDocument({
+                contentHtml: '<h1>Titel</h1><p>Een</p><p>&lt;pagebreak&gt;</p><h2>Twee</h2>',
+                includeToc: true,
+            });
+            return {
+                breaks: doc.querySelectorAll('.w4-doc-content .w4-pagebreak').length,
+                text: doc.querySelector('.w4-doc-content').textContent.includes('pagebreak'),
+                headings: Array.from(doc.querySelectorAll('.w4-toc-label')).map(e => e.textContent),
+            };
+        }"""
+    )
+    assert result == {"breaks": 1, "text": False, "headings": ["Titel", "Twee"]}
 
 
 def test_render_toc_builds_nav_with_links_per_heading(builder):
