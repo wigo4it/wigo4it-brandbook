@@ -22,8 +22,8 @@
     { key: 'shapes',        label: 'Vormen',        href: 'shapes.html' },
     { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
     { key: 'voorbeelden',   label: 'Voorbeelden',   href: 'examples.html' },
-    { key: 'pdf',           label: 'PDF',           href: 'pdf.html' },
-    { key: 'deck',          label: 'Deck',          href: 'deck.html' },
+    // PDF en Deck wonen samen onder Tools, met een eigen zijbalk (tool-nav.js).
+    { key: 'tools',         label: 'Tools',         href: 'deck.html' },
   ];
 
   function activeKey() {
@@ -33,8 +33,7 @@
     if (p.endsWith('/shapes.html')) return 'shapes';
     if (p.endsWith('/photos.html')) return 'fotos';
     if (p.endsWith('/examples.html') || p.indexOf('/examples/') !== -1) return 'voorbeelden';
-    if (p.endsWith('/pdf.html')) return 'pdf';
-    if (p.endsWith('/deck.html') || p.endsWith('/deck-view.html')) return 'deck';
+    if (/\/(pdf|pdf-syntax|deck|deck-view|deck-syntax|deck-templates)\.html$/.test(p)) return 'tools';
     return 'merkboek';
   }
 

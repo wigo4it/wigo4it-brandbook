@@ -727,305 +727,277 @@
   opacity: 0.75;
   max-width: 46ch;
 }
-
 /* ============================================================
-   3. De tool-pagina (deck.html)
+   3. De tool-pagina's (deck.html, deck-syntax.html, deck-templates.html)
+
+   Het skelet (zijbalk, paneel, knoppen, dropzone) staat in styles/tool.css
+   en wordt gedeeld met de PDF-tool. Hier alleen wat eigen is aan het deck.
    ============================================================ */
 
-body.deck-tool-body {
-  background: #f5f8f4;
-}
-
-.deck-tool {
-  width: min(1280px, calc(100% - 3rem));
-  margin: 0 auto;
-  padding: 6rem 0 4rem;
-}
-
-.deck-tool-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 440px);
-  gap: 2rem;
-  align-items: start;
-  padding: 0 0 2.5rem;
-}
-
-@media (max-width: 1100px) {
-  .deck-tool-hero { grid-template-columns: 1fr; }
-}
-
-.deck-tool-eyebrow {
-  justify-self: start;
-  margin: 0;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--dark-green);
-  background: rgba(0, 83, 81, 0.1);
-  border: 1px solid rgba(0, 83, 81, 0.25);
-  border-radius: 999px;
-}
-
-.deck-tool-hero h1 {
-  margin: 0.75rem 0 0;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--aubergine);
-}
-
-.deck-tool-lead {
-  margin: 1rem 0 0;
-  max-width: 54ch;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: rgba(54, 44, 70, 0.72);
-}
-
-/* Syntax-uitleg naast de intro. */
-.deck-tool-syntax {
-  border-radius: 18px;
-  border: 1px solid rgba(54, 44, 70, 0.12);
-  background: #ffffff;
-  padding: 1.25rem 1.35rem;
-}
-
-.deck-tool-syntax h2 {
-  margin: 0 0 0.6rem;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 1.05rem;
-  color: var(--aubergine);
-}
-
-.deck-tool-syntax pre {
-  margin: 0 0 0.9rem;
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  background: rgba(54, 44, 70, 0.05);
-  font-size: 0.78rem;
-  line-height: 1.5;
-  overflow-x: auto;
-}
-
-.deck-tool-syntax dl {
-  margin: 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.35rem 0.85rem;
-  font-size: 0.82rem;
-}
-
-.deck-tool-syntax dt {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  color: var(--dark-green);
-  white-space: nowrap;
-}
-
-.deck-tool-syntax dd {
-  margin: 0;
-  color: rgba(54, 44, 70, 0.75);
-}
-
-/* ── Werkblad: instellingen links, preview rechts ── */
-.deck-tool-shell {
-  display: grid;
-  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
-}
-
-@media (max-width: 1000px) {
-  .deck-tool-shell { grid-template-columns: 1fr; }
-}
-
-.deck-tool-panel {
-  border-radius: 18px;
-  border: 1px solid rgba(54, 44, 70, 0.12);
-  background: #ffffff;
-  overflow: hidden;
-  position: sticky;
-  top: 6rem;
-}
-
-.deck-tool-panel-head {
-  padding: 1rem 1.25rem;
-  background: var(--dark-green);
-  color: #ffffff;
-}
-
-.deck-tool-panel-head p {
-  margin: 0;
-}
-
-.deck-tool-panel-title {
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 1rem;
-}
-
-.deck-tool-panel-sub {
-  font-size: 0.78rem;
-  opacity: 0.8;
-}
-
-.deck-tool-panel-body {
-  display: grid;
-  gap: 1rem;
-  padding: 1.25rem;
-}
-
-.deck-tool-field {
-  display: grid;
-  gap: 0.4rem;
-}
-
-.deck-tool-field label,
-.deck-tool-field-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--aubergine);
-}
-
-.deck-tool-field input[type='text'],
-.deck-tool-field select {
-  width: 100%;
-  padding: 0.5rem 0.65rem;
-  border-radius: 10px;
-  border: 1px solid rgba(54, 44, 70, 0.2);
-  background: #fff;
-  font: inherit;
-  font-size: 0.88rem;
-  color: var(--aubergine);
-}
-
-.deck-tool-dropzone {
-  position: relative;
-  display: grid;
-  place-items: center;
-  gap: 0.4rem;
-  padding: 1.4rem 1rem;
-  border: 2px dashed rgba(0, 83, 81, 0.35);
-  border-radius: 14px;
-  background: rgba(0, 83, 81, 0.04);
-  cursor: pointer;
-  text-align: center;
-}
-
-.deck-tool-dropzone.is-dragover,
-.deck-tool-dropzone:hover {
-  border-color: var(--dark-green);
-  background: rgba(0, 83, 81, 0.08);
-}
-
-.deck-tool-dropzone.has-file {
-  border-style: solid;
-  border-color: var(--light-green);
-}
-
-.deck-tool-dropzone input[type='file'] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.deck-tool-dropzone-icon {
-  font-size: 1.2rem;
-  color: var(--dark-green);
-}
-
-.deck-tool-dropzone-text {
-  font-size: 0.82rem;
-  color: rgba(54, 44, 70, 0.75);
-}
-
-.deck-tool-check {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--aubergine);
-}
-
-.deck-tool-actions {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.deck-tool-btn {
-  padding: 0.65rem 1rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--dark-green);
-  color: #ffffff;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.deck-tool-btn:hover { background: #00403e; }
-
-.deck-tool-btn.is-secondary {
-  background: transparent;
-  color: var(--dark-green);
-  border: 1px solid rgba(0, 83, 81, 0.35);
-}
-
-.deck-tool-hint {
-  margin: 0;
-  font-size: 0.75rem;
-  line-height: 1.45;
-  color: rgba(54, 44, 70, 0.65);
-}
-
-.deck-tool-warning {
-  margin: 0;
-  padding: 0.6rem 0.75rem;
-  border-radius: 10px;
-  font-size: 0.78rem;
-  background: rgba(245, 110, 109, 0.14);
-  border: 1px solid rgba(245, 110, 109, 0.4);
-  color: #8f2b2a;
-}
-
-.deck-tool-warning[hidden] { display: none; }
-
-/* ── Preview ── */
-.deck-tool-canvas {
-  border-radius: 18px;
-  border: 1px solid rgba(54, 44, 70, 0.12);
-  background: #ffffff;
-  overflow: hidden;
-}
-
-.deck-tool-canvas-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.9rem 1.25rem;
-  border-bottom: 1px solid rgba(54, 44, 70, 0.1);
-}
-
-.deck-tool-canvas-title {
-  margin: 0;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.95rem;
-  color: var(--aubergine);
-}
-
-.deck-tool-canvas-sub {
-  margin: 0;
-  font-size: 0.78rem;
-  color: rgba(54, 44, 70, 0.6);
-}
-
+/* Live preview van de presentatie, in de verhouding van een beamer. */
 .deck-tool-frame {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
   background: var(--light-grey);
+}
+
+.w4-tool-warning[hidden] { display: none; }
+
+/* ── Naslag: de syntax-pagina ── */
+.w4-doc-page {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 74ch;
+}
+
+.w4-doc-card {
+  padding: 1.5rem 1.75rem;
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.06);
+}
+
+.w4-doc-card h2 {
+  margin: 0 0 0.9rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.15rem;
+  color: var(--aubergine);
+}
+
+.w4-doc-card p {
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(54, 44, 70, 0.8);
+}
+
+.w4-doc-card pre {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.8rem;
+  background: rgba(54, 44, 70, 0.05);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.w4-doc-card code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+}
+
+.w4-doc-card p code,
+.w4-doc-list code {
+  padding: 0.1em 0.35em;
+  border-radius: 0.35rem;
+  background: rgba(54, 44, 70, 0.08);
+}
+
+.w4-doc-card kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(54, 44, 70, 0.25);
+  border-bottom-width: 2px;
+  border-radius: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.w4-doc-list {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.w4-doc-list dt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--dark-green);
+  white-space: nowrap;
+}
+
+.w4-doc-list dd {
+  margin: 0;
+  line-height: 1.5;
+  color: rgba(54, 44, 70, 0.8);
+}
+
+/* De regel die je moet onthouden, iets nadrukkelijker dan de rest. */
+.w4-doc-callout {
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--dark-green);
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: rgba(0, 83, 81, 0.06);
+}
+
+.w4-doc-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.w4-doc-swatches li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.w4-doc-swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+}
+
+/* ── Naslag: de template-galerij ── */
+.w4-tpl-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.w4-tpl-toolbar input {
+  flex: 1 1 16rem;
+  max-width: 24rem;
+  padding: 0.55rem 0.8rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--aubergine);
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.2);
+  border-radius: 0.7rem;
+}
+
+.w4-tpl-toolbar input:focus {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 1px;
+}
+
+.w4-tpl-count {
+  font-size: 0.8rem;
+  color: rgba(54, 44, 70, 0.6);
+}
+
+.w4-tpl-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Slide links, uitleg en markdown rechts. Onder de 900px onder elkaar. */
+.w4-tpl {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.06);
+}
+
+.w4-tpl[hidden] { display: none; }
+
+@media (max-width: 900px) {
+  .w4-tpl { grid-template-columns: 1fr; }
+}
+
+/* De slide wordt op 1600x900 opgebouwd en teruggeschaald naar de kaartbreedte;
+   scripts/deck-templates.js zet --tpl-scale op de gemeten breedte. */
+.w4-tpl-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(54, 44, 70, 0.12);
+  background: var(--light-grey);
+}
+
+.w4-tpl-stage .reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1600px;
+  height: 900px;
+  transform: scale(var(--tpl-scale, 0.25));
+  transform-origin: top left;
+}
+
+.w4-tpl-stage .slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reveal.js draait hier niet, dus de section krijgt zijn maat van ons. */
+.w4-tpl-stage section.w4-slide {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.w4-tpl-info {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+}
+
+.w4-tpl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+}
+
+.w4-tpl-head h3 {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1rem;
+  color: var(--dark-green);
+}
+
+.w4-tpl-group {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(54, 44, 70, 0.07);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(54, 44, 70, 0.65);
+}
+
+.w4-tpl-about {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: rgba(54, 44, 70, 0.78);
+}
+
+.w4-tpl-code {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  max-height: 15rem;
+  overflow: auto;
+  border-radius: 0.7rem;
+  background: rgba(54, 44, 70, 0.05);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.w4-tpl-copy {
+  justify-self: start;
+  font-size: 0.8rem;
+  padding: 0.5rem 0.9rem;
 }

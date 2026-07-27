@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | PDF-naslag</title>
+  <meta name="description" content="Hoe een markdown-bestand een PDF in de Wigo4it-huisstijl wordt: gewone markdown, één marker voor een pagina-einde, de rest zet je in de tool." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <link rel="stylesheet" href="styles/deck.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>PDF-naslag</h1>
+        <p>
+          Kort verhaal: je schrijft gewone markdown en zet de opmaak in de tool. Er is één
+          marker, en verder niets te leren. Voor presentaties ligt dat anders; daar hoort een
+          <a href="deck-syntax.html">eigen naslag</a> bij.
+        </p>
+      </header>
+
+      <div class="w4-doc-page">
+        <section class="w4-doc-card">
+          <h2>Gewone markdown, geen tokens</h2>
+          <p class="w4-doc-callout">
+            Anders dan bij een slide-deck staat er niets van de huisstijl in je bestand. Koppen,
+            lijsten, tabellen, links, vet en cursief: het gaat er zo in en de opmaak valt er
+            overheen. Je bestand blijft leesbaar in elke andere markdown-viewer.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Pagina-einde afdwingen</h2>
+          <p>
+            Zet een marker op een eigen regel. Alles daarna begint op een nieuwe pagina. Dit is
+            het enige wat je in de markdown zelf kunt sturen.
+          </p>
+          <pre><code>Laatste alinea van dit hoofdstuk.
+
+&lt;!-- pagebreak --&gt;
+
+## Volgend hoofdstuk</code></pre>
+          <p>
+            <code>&lt;!-- pagebreak --&gt;</code> is de nette vorm: in andere viewers is het een
+            comment en zie je er niets van. <code>&lt;pagebreak&gt;</code> en
+            <code>\pagebreak</code> werken ook. Noem je de marker midden in een zin, dan blijft
+            het gewoon tekst.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Wat je koppen bepalen</h2>
+          <dl class="w4-doc-list">
+            <dt># Kop</dt>
+            <dd>
+              de eerste <code>#</code> is de documenttitel. Alles wat daarvóór staat, zoals een
+              versietabel of changelog, komt als voorwerk op een eigen pagina vóór de
+              inhoudsopgave, want dat gaat over het document en niet over de inhoud.
+            </dd>
+            <dt>## Kop</dt>
+            <dd>komt in de inhoudsopgave, met paginanummer</dd>
+            <dt>### en dieper</dt>
+            <dd>blijft uit de inhoudsopgave; die zou anders onleesbaar lang worden</dd>
+          </dl>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>De rest zet je in de tool</h2>
+          <p>
+            Voorblad en kleur, titel en ondertitel, datum, inhoudsopgave en de footer per pagina
+            zijn instellingen in het paneel, geen markdown. Zo blijft hetzelfde bestand bruikbaar
+            voor een vertrouwelijke versie met footer en een gewone zonder.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Bij het exporteren</h2>
+          <p>
+            De knop opent het printvenster van je browser. Kies daar <strong>Opslaan als
+            PDF</strong> en zet <strong>Achtergrondafbeeldingen</strong> aan, anders verdwijnt het
+            gekleurde voorblad en print je een wit vel. De paginanummers in de inhoudsopgave
+            worden pas tijdens het opmaken ingevuld, dus geef de knop even de tijd bij een lang
+            document.
+          </p>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

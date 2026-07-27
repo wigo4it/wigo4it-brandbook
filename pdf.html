@@ -7,165 +7,122 @@
   <meta name="description" content="Zet markdown om naar een PDF in de huisstijl van Wigo4it: kies een voorblad, inhoudsopgave en footer, en print naar PDF." />
   <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
   <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
   <link rel="stylesheet" href="styles/pdf.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="scripts/tailwind-config.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.js"></script>
 </head>
-<body class="font-body text-aubergine antialiased">
+<body class="font-body text-aubergine antialiased w4-tool-body">
   <div id="w4-nav"></div>
   <script src="scripts/nav.js"></script>
 
-  <main class="pdf-page">
-    <header class="pdf-hero">
-      <div class="pdf-hero-text">
-        <p class="pdf-eyebrow">Documenten</p>
-        <h1>Markdown naar PDF</h1>
-        <p class="pdf-lead">
-          Zet een markdown-bestand om naar een PDF in de Wigo4it-huisstijl. Kies een voorblad,
-          wel of geen inhoudsopgave en een footer. Alles gebeurt in je browser, er gaat niets
-          naar een server.
-        </p>
-        <ul class="pdf-tags">
-          <li class="pdf-tag is-grey">Volledig client-side</li>
-          <li class="pdf-tag is-yellow">Huisstijl-voorblad</li>
-          <li class="pdf-tag is-green">Inhoudsopgave met paginanummers</li>
-        </ul>
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav" class="no-print"></div>
+    <script src="scripts/tool-nav.js"></script>
 
-        <ol class="pdf-steps">
-          <li>
-            <span class="pdf-step-num">1</span>
-            <span class="pdf-step-text">Sleep je <strong>.md-bestand</strong> in het paneel hiernaast.</span>
-          </li>
-          <li>
-            <span class="pdf-step-num">2</span>
-            <span class="pdf-step-text">Kies <strong>voorblad, inhoudsopgave en footer</strong>. De preview loopt mee.</span>
-          </li>
-          <li>
-            <span class="pdf-step-num">3</span>
-            <span class="pdf-step-text">Exporteer en kies in het printvenster <strong>Opslaan als PDF</strong>.</span>
-          </li>
-        </ol>
+    <main class="w4-tool-main">
+      <h1 class="w4-sr-only">PDF-document</h1>
+
+      <div class="w4-tool-shell">
+        <!-- Instellingen: valt weg bij printen -->
+        <form class="w4-tool-panel no-print" aria-label="PDF-instellingen">
+          <div class="w4-tool-panel-head">
+            <p class="w4-tool-panel-title">Instellingen</p>
+            <p class="w4-tool-panel-sub">Bestand, voorblad en footer</p>
+          </div>
+          <div class="w4-tool-panel-body">
+            <div class="w4-tool-field">
+              <span class="w4-tool-field-label" id="pdf-upload-label">Markdown-bestand</span>
+              <label class="w4-tool-dropzone" id="pdf-dropzone" aria-describedby="pdf-upload-label">
+                <input type="file" id="pdf-file"
+                  accept=".md,.markdown,.txt,text/markdown,text/plain" />
+                <span class="w4-tool-dropzone-icon" aria-hidden="true">⬆</span>
+                <span class="w4-tool-dropzone-text" id="pdf-dropzone-text">
+                  Sleep een .md-bestand hierheen of klik om te kiezen
+                </span>
+              </label>
+            </div>
+
+            <fieldset class="w4-tool-fieldset">
+              <legend>Voorblad</legend>
+              <div class="pdf-covers">
+                <label class="pdf-cover-opt">
+                  <input type="radio" name="pdf-cover" value="green" checked />
+                  <span class="pdf-cover-swatch is-green">Groen</span>
+                </label>
+                <label class="pdf-cover-opt">
+                  <input type="radio" name="pdf-cover" value="aubergine" />
+                  <span class="pdf-cover-swatch is-aubergine">Aubergine</span>
+                </label>
+                <label class="pdf-cover-opt">
+                  <input type="radio" name="pdf-cover" value="white" />
+                  <span class="pdf-cover-swatch is-white">Wit</span>
+                </label>
+                <label class="pdf-cover-opt">
+                  <input type="radio" name="pdf-cover" value="none" />
+                  <span class="pdf-cover-swatch is-none">Geen</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="w4-tool-field">
+              <label for="pdf-title">Titel op voorblad</label>
+              <input type="text" id="pdf-title" value="Titel van het document" />
+            </div>
+
+            <div class="w4-tool-field">
+              <label for="pdf-subtitle">Ondertitel (optioneel)</label>
+              <input type="text" id="pdf-subtitle" placeholder="bijv. Kwartaalrapportage 2026" />
+            </div>
+
+            <div class="w4-tool-field">
+              <label class="w4-tool-check">
+                <input type="checkbox" id="pdf-date-toggle" />
+                Datum op voorblad
+              </label>
+              <input type="date" id="pdf-date" disabled />
+            </div>
+
+            <label class="w4-tool-check">
+              <input type="checkbox" id="pdf-toc" />
+              Inhoudsopgave toevoegen
+            </label>
+
+            <div class="w4-tool-field">
+              <label for="pdf-footer">Footer per pagina (optioneel)</label>
+              <input type="text" id="pdf-footer" placeholder="bijv. Wigo4it - vertrouwelijk" />
+            </div>
+
+            <div class="w4-tool-actions">
+              <button type="button" class="w4-tool-btn" id="pdf-print">Exporteer naar PDF</button>
+              <p class="w4-tool-hint">
+                Opent het printvenster. Kies "Opslaan als PDF" en zet
+                <strong>Achtergrondafbeeldingen</strong> aan, anders verdwijnt het gekleurde
+                voorblad. Een pagina-einde afdwingen doe je met een marker in je markdown; zie
+                <a href="pdf-syntax.html">de syntax</a>.
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <!-- Preview: toont exact wat er geprint wordt -->
+        <section class="w4-tool-canvas no-print" aria-labelledby="pdf-canvas-title">
+          <div class="w4-tool-canvas-head">
+            <p class="w4-tool-canvas-title" id="pdf-canvas-title">Voorbeeld</p>
+            <p class="w4-tool-canvas-sub">A4, zo komt het uit de printer</p>
+          </div>
+          <div class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
+            <!-- pdf-app.js vult dit met het samengestelde document -->
+          </div>
+        </section>
       </div>
+    </main>
+  </div>
 
-      <aside class="pdf-notes" aria-labelledby="pdf-notes-title">
-        <h2 id="pdf-notes-title">Pagina-einde afdwingen</h2>
-        <p>
-          Zet een marker op een eigen regel in je markdown. Alles daarna begint op een nieuwe
-          pagina.
-        </p>
-        <pre class="pdf-notes-code"><code>Laatste alinea van dit hoofdstuk.
-
-&lt;!-- pagebreak --&gt;
-
-## Volgend hoofdstuk</code></pre>
-        <p>
-          <code>&lt;!-- pagebreak --&gt;</code> is de nette vorm: in andere markdown-viewers is het
-          een comment en zie je er niets van. <code>&lt;pagebreak&gt;</code> en
-          <code>\pagebreak</code> werken ook. Noem je de marker in een zin, dan blijft het
-          gewoon tekst.
-        </p>
-      </aside>
-    </header>
-
-    <div class="pdf-shell">
-    <!-- Instellingen: valt weg bij printen -->
-    <form class="pdf-panel no-print" aria-label="PDF-instellingen">
-      <div class="pdf-panel-head">
-        <p class="pdf-panel-title">Instellingen</p>
-        <p class="pdf-panel-sub">Bestand, voorblad en footer</p>
-      </div>
-      <div class="pdf-panel-body">
-      <div class="pdf-field">
-        <span class="pdf-field-label" id="pdf-upload-label">Markdown-bestand</span>
-        <label class="pdf-dropzone" id="pdf-dropzone"
-          aria-describedby="pdf-upload-label">
-          <input type="file" id="pdf-file"
-            accept=".md,.markdown,.txt,text/markdown,text/plain" />
-          <span class="pdf-dropzone-icon" aria-hidden="true">⬆</span>
-          <span class="pdf-dropzone-text" id="pdf-dropzone-text">
-            Sleep een .md-bestand hierheen of klik om te kiezen
-          </span>
-        </label>
-      </div>
-
-      <fieldset class="pdf-fieldset">
-        <legend>Voorblad</legend>
-        <div class="pdf-covers">
-          <label class="pdf-cover-opt">
-            <input type="radio" name="pdf-cover" value="green" checked />
-            <span class="pdf-cover-swatch is-green">Groen</span>
-          </label>
-          <label class="pdf-cover-opt">
-            <input type="radio" name="pdf-cover" value="aubergine" />
-            <span class="pdf-cover-swatch is-aubergine">Aubergine</span>
-          </label>
-          <label class="pdf-cover-opt">
-            <input type="radio" name="pdf-cover" value="white" />
-            <span class="pdf-cover-swatch is-white">Wit</span>
-          </label>
-          <label class="pdf-cover-opt">
-            <input type="radio" name="pdf-cover" value="none" />
-            <span class="pdf-cover-swatch is-none">Geen</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <div class="pdf-field">
-        <label for="pdf-title">Titel op voorblad</label>
-        <input type="text" id="pdf-title" value="Titel van het document" />
-      </div>
-
-      <div class="pdf-field">
-        <label for="pdf-subtitle">Ondertitel (optioneel)</label>
-        <input type="text" id="pdf-subtitle" placeholder="bijv. Kwartaalrapportage 2026" />
-      </div>
-
-      <div class="pdf-field">
-        <label class="pdf-check">
-          <input type="checkbox" id="pdf-date-toggle" />
-          Datum op voorblad
-        </label>
-        <input type="date" id="pdf-date" disabled />
-      </div>
-
-      <label class="pdf-check">
-        <input type="checkbox" id="pdf-toc" />
-        Inhoudsopgave toevoegen
-      </label>
-
-      <div class="pdf-field">
-        <label for="pdf-footer">Footer per pagina (optioneel)</label>
-        <input type="text" id="pdf-footer" placeholder="bijv. Wigo4it - vertrouwelijk" />
-      </div>
-
-      <div class="pdf-actions">
-        <button type="button" class="pdf-btn" id="pdf-print">Exporteer naar PDF</button>
-        <p class="pdf-hint">
-          Opent het printvenster. Kies "Opslaan als PDF" en zet
-          <strong>Achtergrondafbeeldingen</strong> aan, anders verdwijnt het gekleurde voorblad.
-        </p>
-      </div>
-      </div>
-    </form>
-
-    <!-- Preview: toont exact wat er geprint wordt -->
-    <section class="pdf-canvas no-print" aria-labelledby="pdf-canvas-title">
-      <div class="pdf-canvas-head">
-        <p class="pdf-canvas-title" id="pdf-canvas-title">Voorbeeld</p>
-        <p class="pdf-canvas-sub">A4, zo komt het uit de printer</p>
-      </div>
-      <div class="pdf-preview" id="pdf-preview" aria-label="Voorbeeld van het document">
-        <!-- pdf-app.js vult dit met het samengestelde document -->
-      </div>
-    </section>
-
-    </div>
-
-    <!-- Paged.js rendert hier de gepagineerde export; buiten beeld tot printen -->
-    <section class="pdf-paged" id="pdf-paged" aria-hidden="true"></section>
-  </main>
+  <!-- Paged.js rendert hier de gepagineerde export; buiten beeld tot printen -->
+  <section class="pdf-paged" id="pdf-paged" aria-hidden="true"></section>
 
   <script type="module" src="scripts/pdf-app.js"></script>
 </body>

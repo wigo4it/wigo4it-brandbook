@@ -1,0 +1,399 @@
+/* ============================================================
+   W4 Tools: gedeeld skelet
+
+   De PDF-tool en de deck-tool waren losse pagina's met dezelfde UI onder
+   twee namen (pdf-panel/deck-tool-panel, pdf-dropzone/deck-tool-dropzone,
+   en zo verder). Dat staat hier nu een keer, als w4-tool-*.
+
+   De opbouw van een toolpagina:
+
+     <body class="w4-tool-body">
+       <div id="w4-nav"></div>            de topnav van de site
+       <div class="w4-tool-layout">
+         <div id="w4-tool-nav"></div>     de zijbalk (scripts/tool-nav.js)
+         <main class="w4-tool-main">
+           <header class="w4-tool-head">  titel plus een regel uitleg
+           <div class="w4-tool-shell">    instellingen links, werkvlak rechts
+
+   Pagina-eigen opmaak (de A4-preview, het slide-thema) blijft in
+   styles/pdf.css en styles/deck.css staan.
+   ============================================================ */
+
+body.w4-tool-body {
+  background: #f5f8f4;
+}
+
+/* ── Layout ──
+   Eén kolom: de tabrij bovenaan, daaronder het werkblad. Bewust geen tweede
+   verticale lijst naast het instellingenpaneel; navigatie loopt horizontaal,
+   bediening verticaal, zodat je oog niet twee keer hoeft te kiezen. */
+.w4-tool-layout {
+  display: grid;
+  gap: 1.25rem;
+  width: min(1440px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 5.75rem 0 4rem;
+}
+
+/* ── Tabrij: het tweede navigatieniveau ──
+   Twee groepen naast elkaar met een scheiding ertussen. Onder de 720px
+   breken ze naar twee regels. */
+.w4-tool-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(54, 44, 70, 0.12);
+}
+
+.w4-tool-tabs-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* De scheiding tussen Maken en Naslag; niet vóór de eerste groep. */
+.w4-tool-tabs-group + .w4-tool-tabs-group {
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(54, 44, 70, 0.14);
+}
+
+.w4-tool-tabs-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(54, 44, 70, 0.42);
+}
+
+.w4-tool-tabs ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.w4-tool-tabs a {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: rgba(54, 44, 70, 0.75);
+  transition: background 0.15s, color 0.15s;
+}
+
+.w4-tool-tabs a:hover {
+  background: rgba(207, 214, 204, 0.5);
+  color: var(--aubergine);
+}
+
+.w4-tool-tabs a[aria-current='page'] {
+  background: rgba(0, 83, 81, 0.1);
+  color: var(--dark-green);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .w4-tool-tabs-group + .w4-tool-tabs-group {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* ── Kop ──
+   Op een tool-pagina zegt de actieve tab al waar je bent; daar staat de titel
+   alleen voor schermlezers (.w4-sr-only). De naslagpagina's zijn documenten en
+   houden een zichtbare kop. */
+.w4-tool-main {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.w4-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.w4-tool-head {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.w4-tool-head h1 {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--aubergine);
+}
+
+.w4-tool-head p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(54, 44, 70, 0.7);
+}
+
+.w4-tool-head a {
+  color: var(--dark-green);
+}
+
+/* ── Werkblad: instellingen links, werkvlak rechts ── */
+.w4-tool-shell {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .w4-tool-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Paneel en werkvlak delen dezelfde vorm: gekleurde kop op een witte kaart. */
+.w4-tool-panel,
+.w4-tool-canvas {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.1);
+  border-radius: 2rem;
+  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
+}
+
+.w4-tool-panel {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.w4-tool-panel-head {
+  padding: 1rem 1.5rem;
+  color: #fff;
+  background: var(--aubergine);
+}
+
+.w4-tool-canvas-head {
+  padding: 1rem 1.5rem;
+  color: #fff;
+  background: var(--dark-green);
+}
+
+.w4-tool-panel-title,
+.w4-tool-canvas-title {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.05rem;
+}
+
+.w4-tool-panel-sub,
+.w4-tool-canvas-sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Het paneel scrollt zelf als het langer is dan het scherm, zodat de knop
+   onderaan bereikbaar blijft zonder de hele pagina mee te nemen. */
+.w4-tool-panel-body {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
+}
+
+@media (max-width: 1100px) {
+  .w4-tool-panel {
+    position: static;
+  }
+
+  .w4-tool-panel-body {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+/* ── Velden ── */
+.w4-tool-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.w4-tool-field > label,
+.w4-tool-fieldset > legend,
+.w4-tool-field-label {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--aubergine);
+}
+
+.w4-tool-field input[type='text'],
+.w4-tool-field input[type='date'],
+.w4-tool-field select {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+  background: #fbfcfa;
+  border: 1px solid rgba(54, 44, 70, 0.2);
+  border-radius: 0.6rem;
+}
+
+.w4-tool-field input:focus,
+.w4-tool-field select:focus {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 1px;
+}
+
+.w4-tool-field input[type='date']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.w4-tool-fieldset {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.w4-tool-check {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--aubergine);
+}
+
+/* ── Upload-dropzone ── */
+.w4-tool-dropzone {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 1.6rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  color: rgba(54, 44, 70, 0.7);
+  background: #fbfcfa;
+  border: 1.5px dashed rgba(54, 44, 70, 0.28);
+  border-radius: 0.8rem;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.w4-tool-dropzone:hover {
+  border-color: var(--dark-green);
+  color: var(--aubergine);
+}
+
+.w4-tool-dropzone:focus-within {
+  outline: 2px solid var(--dark-green);
+  outline-offset: 2px;
+}
+
+/* Deze twee zet de JS erop; zie scripts/pdf-app.js en scripts/deck-app.js. */
+.w4-tool-dropzone.is-dragover {
+  border-color: var(--dark-green);
+  border-style: solid;
+  background: #eef5ef;
+  color: var(--aubergine);
+}
+
+.w4-tool-dropzone.has-file {
+  border-style: solid;
+  border-color: rgba(0, 83, 81, 0.4);
+  color: var(--dark-green);
+}
+
+.w4-tool-dropzone input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.w4-tool-dropzone-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.w4-tool-dropzone-text {
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+/* ── Knoppen en meldingen ── */
+.w4-tool-actions {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.w4-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  background: var(--dark-green);
+  border: 0;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.w4-tool-btn:hover {
+  background: #013f3e;
+}
+
+.w4-tool-btn.is-secondary {
+  color: var(--aubergine);
+  background: rgba(54, 44, 70, 0.08);
+}
+
+.w4-tool-btn.is-secondary:hover {
+  background: rgba(54, 44, 70, 0.14);
+}
+
+.w4-tool-hint {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: rgba(54, 44, 70, 0.65);
+}
+
+/* Onbekende tokens en andere zachte fouten: opvallend genoeg om te zien,
+   niet zo hard dat je denkt dat er iets stuk is. */
+.w4-tool-warning {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #8a2d2c;
+  background: rgba(245, 110, 109, 0.14);
+  border: 1px solid rgba(245, 110, 109, 0.4);
+  border-radius: 0.6rem;
+}

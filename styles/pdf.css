@@ -1,8 +1,9 @@
 /* ============================================================
    W4 Markdown -> PDF
-   Opmaak voor de PDF-tool: schermweergave (instellingen + preview) en
-   de print-regels die de browser-print-to-pdf sturen. Kleuren en fonts
-   komen uit styles/w4.css; hier staat alleen wat deze pagina nodig heeft.
+   Alleen wat eigen is aan de PDF-tool: de keuze van het voorblad, de
+   A4-preview en de print-regels die de browser-print-to-pdf sturen.
+   Het skelet van de toolpagina (zijbalk, paneel, velden, knoppen) staat
+   in styles/tool.css en wordt gedeeld met de deck-tool.
    ============================================================ */
 
 :root {
@@ -10,397 +11,7 @@
   --pdf-margin: 18mm;
 }
 
-/* ── Schermlayout ── */
-body {
-  background: #f5f8f4;
-}
-
-.pdf-page {
-  width: min(1280px, calc(100% - 3rem));
-  margin: 0 auto;
-  padding: 6rem 0 4rem;
-}
-
-/* Hero: tekst links, de markdown-uitleg rechts. Twee kolommen, zodat de
-   pagina bovenaan in balans is en de tool zelf niet weggedrukt wordt. */
-.pdf-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 420px);
-  gap: 2rem;
-  align-items: start;
-  padding: 0 0 2.5rem;
-}
-
-@media (max-width: 1100px) {
-  .pdf-hero {
-    grid-template-columns: 1fr;
-  }
-}
-
-.pdf-hero-text {
-  display: grid;
-  gap: 1rem;
-  align-content: start;
-}
-
-.pdf-eyebrow {
-  justify-self: start;
-  margin: 0;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--dark-green);
-  background: rgba(0, 83, 81, 0.1);
-  border: 1px solid rgba(0, 83, 81, 0.25);
-  border-radius: 999px;
-}
-
-.pdf-hero h1 {
-  margin: 0;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--aubergine);
-}
-
-.pdf-lead {
-  margin: 0;
-  max-width: 54ch;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: rgba(54, 44, 70, 0.72);
-}
-
-/* Kenmerk-chips: zelfde vorm als de tags in design-system.html. */
-.pdf-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pdf-tag {
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--aubergine);
-  border-radius: 999px;
-}
-
-.pdf-tag.is-grey {
-  background: var(--light-grey);
-}
-.pdf-tag.is-yellow {
-  background: var(--soft-yellow);
-}
-.pdf-tag.is-green {
-  background: rgba(99, 207, 146, 0.45);
-}
-
-/* Drie stappen: vult de hero-kolom en vertelt meteen de volgorde. */
-.pdf-steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (max-width: 640px) {
-  .pdf-steps {
-    grid-template-columns: 1fr;
-  }
-}
-
-.pdf-steps li {
-  display: grid;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 1rem;
-}
-
-.pdf-step-num {
-  display: grid;
-  place-items: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.8rem;
-  color: #fff;
-  background: var(--dark-green);
-  border-radius: 999px;
-}
-
-.pdf-step-text {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: rgba(54, 44, 70, 0.75);
-}
-
-.pdf-step-text strong {
-  color: var(--aubergine);
-}
-
-/* Uitleg-blok: korte handleiding bij de markdown-conventies. */
-.pdf-notes {
-  display: grid;
-  gap: 0.75rem;
-  padding: 1.5rem;
-  background: #fff;
-  border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 2rem;
-  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
-}
-
-.pdf-notes h2 {
-  margin: 0;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 1.15rem;
-  color: var(--aubergine);
-}
-
-.pdf-notes p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: rgba(54, 44, 70, 0.75);
-}
-
-.pdf-notes code {
-  padding: 0.1em 0.35em;
-  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  font-size: 0.85em;
-  color: var(--dark-green);
-  background: rgba(0, 83, 81, 0.08);
-  border-radius: 0.3rem;
-}
-
-.pdf-notes-code {
-  margin: 0;
-  padding: 0.9rem 1rem;
-  overflow-x: auto;
-  font-size: 0.82rem;
-  line-height: 1.6;
-  color: var(--aubergine);
-  background: #f5f8f4;
-  border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 0.7rem;
-}
-
-.pdf-notes-code code {
-  padding: 0;
-  color: inherit;
-  background: none;
-}
-
-.pdf-shell {
-  display: grid;
-  grid-template-columns: 340px minmax(0, 1fr);
-  gap: 2rem;
-  align-items: start;
-}
-
-@media (max-width: 1100px) {
-  .pdf-shell {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Instellingen-paneel: gekleurde kop plus body, zoals de aside in
-   design-system.html. */
-.pdf-panel {
-  position: sticky;
-  top: 5.5rem;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 2rem;
-  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
-}
-
-.pdf-panel-head {
-  padding: 1rem 1.5rem;
-  color: #fff;
-  background: var(--aubergine);
-}
-
-.pdf-panel-title,
-.pdf-canvas-title {
-  margin: 0;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 1.05rem;
-}
-
-.pdf-panel-sub,
-.pdf-canvas-sub {
-  margin: 0.15rem 0 0;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-/* Het paneel blijft meescrollen; is het langer dan het scherm, dan scrollt de
-   body zelf, zodat de exportknop altijd bereikbaar blijft. */
-.pdf-panel-body {
-  display: grid;
-  gap: 1.25rem;
-  padding: 1.5rem;
-  max-height: calc(100vh - 12rem);
-  overflow-y: auto;
-}
-
-@media (max-width: 1100px) {
-  .pdf-panel {
-    position: static;
-  }
-
-  .pdf-panel-body {
-    max-height: none;
-    overflow-y: visible;
-  }
-}
-
-/* Preview-kolom: kop in dezelfde vorm als het paneel, met de A4-pagina's
-   op een rustige achtergrond eronder. */
-.pdf-canvas {
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(54, 44, 70, 0.1);
-  border-radius: 2rem;
-  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.1);
-}
-
-.pdf-canvas-head {
-  padding: 1rem 1.5rem;
-  color: #fff;
-  background: var(--dark-green);
-}
-
-.pdf-field {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.pdf-field > label,
-.pdf-fieldset > legend {
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
-  color: var(--aubergine);
-}
-
-.pdf-field-label {
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
-  color: var(--aubergine);
-}
-
-.pdf-field input[type='text'] {
-  width: 100%;
-  padding: 0.6rem 0.7rem;
-  font: inherit;
-  font-size: 0.85rem;
-  color: var(--aubergine);
-  background: #fbfcfa;
-  border: 1px solid rgba(54, 44, 70, 0.2);
-  border-radius: 0.6rem;
-}
-
-.pdf-field input[type='text']:focus {
-  outline: 2px solid var(--dark-green);
-  outline-offset: 1px;
-}
-
-/* ── Upload-dropzone ── */
-.pdf-dropzone {
-  display: grid;
-  justify-items: center;
-  gap: 0.5rem;
-  padding: 1.6rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  color: rgba(54, 44, 70, 0.7);
-  background: #fbfcfa;
-  border: 1.5px dashed rgba(54, 44, 70, 0.28);
-  border-radius: 0.8rem;
-  transition: border-color 0.15s, background 0.15s, color 0.15s;
-}
-
-.pdf-dropzone:hover {
-  border-color: var(--dark-green);
-  color: var(--aubergine);
-}
-
-.pdf-dropzone.is-dragover {
-  border-color: var(--dark-green);
-  border-style: solid;
-  background: #eef5ef;
-  color: var(--aubergine);
-}
-
-.pdf-dropzone.has-file {
-  border-style: solid;
-  border-color: rgba(0, 83, 81, 0.4);
-  color: var(--dark-green);
-}
-
-.pdf-dropzone input[type='file'] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-}
-
-.pdf-dropzone:focus-within {
-  outline: 2px solid var(--dark-green);
-  outline-offset: 2px;
-}
-
-.pdf-dropzone-icon {
-  font-size: 1.4rem;
-  line-height: 1;
-}
-
-.pdf-dropzone-text {
-  font-size: 0.82rem;
-  word-break: break-word;
-}
-
-/* Placeholder in de preview zolang er geen bestand is: een leeg vel op
-   A4-breedte, zodat de kolom al laat zien wat er straks komt. */
-.pdf-empty {
-  display: grid;
-  place-items: center;
-  width: var(--pdf-page-w);
-  max-width: 100%;
-  min-height: 22rem;
-  margin: 0;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  color: rgba(54, 44, 70, 0.55);
-  font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1.5px dashed rgba(54, 44, 70, 0.2);
-}
-
-.pdf-fieldset {
-  display: grid;
-  gap: 0.55rem;
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
+/* ── Voorbladkeuze ── */
 .pdf-covers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -458,65 +69,22 @@ body {
   background: var(--light-grey);
 }
 
-/* Datumveld: greyed-out zolang het vinkje uit staat. */
-.pdf-field input[type='date'] {
-  width: 100%;
-  padding: 0.55rem 0.7rem;
-  font: inherit;
-  font-size: 0.85rem;
-  color: var(--aubergine);
-  background: #fbfcfa;
-  border: 1px solid rgba(54, 44, 70, 0.2);
-  border-radius: 0.6rem;
-}
-
-.pdf-field input[type='date']:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pdf-field input[type='date']:focus {
-  outline: 2px solid var(--dark-green);
-  outline-offset: 1px;
-}
-
-.pdf-check {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.85rem;
-  color: var(--aubergine);
-}
-
-.pdf-actions {
+/* Placeholder in de preview zolang er geen bestand is: een leeg vel op
+   A4-breedte, zodat de kolom al laat zien wat er straks komt.
+   scripts/pdf-app.js zet deze klasse. */
+.pdf-empty {
   display: grid;
-  gap: 0.6rem;
-}
-
-.pdf-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1rem;
-  font-family: 'PP Neue Machina', system-ui, sans-serif;
-  font-size: 0.9rem;
-  color: #fff;
-  background: var(--dark-green);
-  border: 0;
-  border-radius: 0.7rem;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.pdf-btn:hover {
-  background: #013f3e;
-}
-
-.pdf-hint {
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: rgba(54, 44, 70, 0.65);
+  place-items: center;
+  width: var(--pdf-page-w);
+  max-width: 100%;
+  min-height: 22rem;
+  margin: 0;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: rgba(54, 44, 70, 0.55);
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1.5px dashed rgba(54, 44, 70, 0.2);
 }
 
 /* ── Preview: toont het echte print-document op A4-breedte ── */
@@ -932,16 +500,19 @@ body {
     print-color-adjust: exact;
   }
 
-  /* Alleen de gepagineerde output print; de editor en simpele preview weg. */
+  /* Alleen de gepagineerde output print; de editor en simpele preview weg.
+     De klassen komen uit styles/tool.css, plus .no-print op wat daar niet
+     onder valt. */
   #w4-nav,
-  .pdf-hero,
-  .pdf-panel,
-  .pdf-canvas {
+  .no-print,
+  .w4-tool-panel,
+  .w4-tool-canvas {
     display: none !important;
   }
 
-  .pdf-page,
-  .pdf-shell {
+  .w4-tool-layout,
+  .w4-tool-main,
+  .w4-tool-shell {
     display: block;
     margin: 0;
     padding: 0;
