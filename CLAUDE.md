@@ -26,7 +26,8 @@ Elke pagina is zelfstandig en laadt dezelfde brand-laag plus Tailwind via CDN. E
 **Drie stijllagen, in deze volgorde:**
 1. `styles/w4.css` — de bron van waarheid voor het merk. Bevat de 8 brand-kleuren als CSS custom properties (`--dark-green`, `--aubergine`, etc.), de `@font-face` declaraties, base-typografie en de `w4-*` compositie-helpers (o.a. `.w4-cover`, `.w4-shape`, cover-motieven). **Kleuren, fonts of shape-helpers aanpassen doe je hier.**
 2. Tailwind via CDN (`https://cdn.tailwindcss.com`), per pagina geconfigureerd in een inline `tailwind.config`. Die config herhaalt dezelfde brand-kleuren (`dark-green`, `aubergine`, …) en font-families (`font-heading`, `font-body`). **Let op: kleuren staan hierdoor op twee plekken. Wijzig je een kleur, pas dan zowel `w4.css` als de `tailwind.config` in elke pagina aan.**
-3. Pagina-specifieke CSS voor de voorbeelden: `examples/dashboard.css` en `examples/slide-deck.css`.
+3. `styles/tool.css` — het gedeelde skelet van de toolpagina's (tabrij, instellingenpaneel, velden, dropzone, knoppen). Gebruikt door `pdf.html`, `deck.html` en hun naslagpagina's. **Chrome van een tool aanpassen doe je hier, niet in `pdf.css` of `deck.css`.**
+4. Pagina-specifieke CSS: `styles/pdf.css` (voorblad, A4-preview, printregels), `styles/deck.css` (het reveal-thema plus de template-galerij), `examples/dashboard.css` en `examples/slide-deck.css`.
 
 `style.css` (root) is legacy en wordt alleen door `index_oud.html` gebruikt. Niet aanraken voor nieuw werk; nieuwe pagina's gebruiken `styles/w4.css`.
 
@@ -34,7 +35,27 @@ Elke pagina is zelfstandig en laadt dezelfde brand-laag plus Tailwind via CDN. E
 - `index.html` — hoofd-merkgids (scroll-pagina met animaties)
 - `design-system.html` — foundations plus datavis-/dashboard-/presentatiepatronen
 - `examples.html` + `examples/dashboard.html` + `examples/slide-deck.html`
-- `icons.html`, `shapes.html` — overzichten
+- `icons.html`, `shapes.html`, `photos.html` — overzichten
+- Tools (zie hieronder): `pdf.html`, `pdf-syntax.html`, `deck.html`, `deck-view.html`, `deck-templates.html`, `deck-syntax.html`
+
+**Navigatie** zit op twee niveaus, allebei uit één bron: `scripts/nav.js` rendert de topnav op elke pagina, `scripts/tool-nav.js` de tabrij binnen de tools. Een tool of naslagpagina toevoegen is een regel in `GROUPS` in `tool-nav.js`, plus het bestand opnemen in de regex in `activeKey()` van `nav.js`.
+
+## De tools
+
+Twee client-side tools die markdown omzetten naar iets in de huisstijl. Ze delen `tool.css` en de tabrij, verder niets.
+
+**`pdf.html`** → markdown naar een A4-document. `scripts/pdf-builder.js` (pure logica) plus `scripts/pdf-app.js` (UI). Paged.js pagineert bij export; de browser print naar PDF. In de markdown is alleen `<!-- pagebreak -->` betekenisvol, de rest zet je in het paneel.
+
+**`deck.html`** → markdown naar een reveal.js-presentatie. `scripts/deck-builder.js` (pure logica) plus `scripts/deck-app.js` (UI); `deck-view.html` is de presentatie zelf, in een iframe als preview en in een eigen tab bij "Presenteer".
+
+Het auteursformaat van een deck staat in de kop van `deck-builder.js` en op `deck-syntax.html`. Twee dingen om te weten voordat je erin duikt:
+
+- **Een `###`-kop start een item.** Dat is de gedeelde conventie onder alle meervoudige layouts (`columns`, `list`, `agenda`, `timeline`, `kpi`, `contrast`). Dezelfde markdown wordt kaarten of een tijdlijn; alleen het layout-token verschilt. De bouwsteen is `collectItems()`. Een layout toevoegen is een renderer in `LAYOUT_RENDERERS` plus wat CSS.
+- **Kleur loopt via `--slide-accent`.** De builder zet die per slide op de `<section>`; alles wat een accentkleur nodig heeft (badges, stamps, tijdlijnpunten, KPI-cijfers, lijnen) leest die ene variabele. Geen klasse per kleurcombinatie.
+
+`deck-templates.html` rendert elke template met dezelfde `buildSlide()` als de tool, zonder reveal.js: op 1600×900 opgebouwd en met een transform teruggeschaald. De templates staan als markdown in `scripts/deck-templates.js`. **Nieuwe layout erbij? Zet 'm daar ook neer**, anders loopt het overzicht achter.
+
+**Let op bij de slide-decoratie:** reveal schaalt de slide naar het venster maar schildert de achtergrondkleur over het hele scherm, ook over de balken bij een afwijkende verhouding. Daarom klipt `.w4-slide` niet zelf; de decoratie zit in `.w4-slide-decor`, die tot de echte beeldrand doorloopt. `fitDecoration()` meet die overhang en zet 'm als CSS-variabele. Zonder dat breekt een shape midden in het gekleurde vlak af. Diezelfde functie wordt via `toString()` in de HTML-export meegeschreven, zodat er één versie van bestaat.
 
 **Animaties:** `scripts/animations.js` draait alleen op `index.html`. Het gebruikt GSAP + ScrollTrigger (CDN) en hangt reveal-animaties aan `main > section` op basis van DOM-conventies: het selecteert op `img[src*='logo']`, `img[src*='shapes']`, `.w4-shape`, `.w4-cover-meta` enzovoort. Nieuwe secties krijgen animaties gratis mee als je diezelfde classes/paden aanhoudt. `.w4-shape-static` sluit een shape uit van de zwevende ambient-motion. Respecteert `prefers-reduced-motion`.
 
@@ -48,4 +69,7 @@ Elke pagina is zelfstandig en laadt dezelfde brand-laag plus Tailwind via CDN. E
 ## Werkafspraken
 
 - Houd `design-system.html` synchroon met wat de voorbeeldpagina's daadwerkelijk doen; het is documentatie, geen losse waarheid.
+- Verander je iets aan het deck-formaat, werk dan `deck-syntax.html`, `scripts/deck-templates.js` en `examples/deck-test.md` mee bij. Die drie samen zijn de documentatie; loopt er een achter, dan is het overzicht niet meer te vertrouwen.
+- `examples/deck-test.md` is het testdeck: elke layout plus de randgevallen (layout zonder de bijbehorende structuur, onbekende tokens, dubbele scheiding, tekst die niet past). Laad 'm na een wijziging in de builder.
 - `docs/screenshots/*.png` en `pdf_to_screenshots.py` staan in `.gitignore`; die worden niet meegedeployed.
+- Werk je lokaal aan `scripts/` of `styles/`, ververs dan hard (Ctrl+Shift+R). Browsers houden ES-modules in geheugen, en je debugt anders de vorige versie.
