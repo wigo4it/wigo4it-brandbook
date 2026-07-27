@@ -30,13 +30,81 @@ export const SLIDE_COLORS = {
   white: { color: '#ffffff', dark: false },
 };
 
-/** Layouts die de builder structureel anders opbouwt. */
-export const SLIDE_LAYOUTS = ['cover', 'statement', 'split', 'columns', 'quote', 'end'];
+/**
+ * Accentkleur per achtergrondkleur. Het accent kleurt de kleine dingen die
+ * structuur aanbrengen: badges, stamps, tijdlijn-punten, KPI-cijfers, lijnen.
+ * Een slide zet er met `accent:naam` een andere voor in de plaats; de rest van
+ * de opmaak leest altijd `--slide-accent` en hoeft dus niets van kleur te weten.
+ */
+const DEFAULT_ACCENTS = {
+  green: 'yellow',
+  aubergine: 'yellow',
+  blue: 'yellow',
+  pink: 'yellow',
+  red: 'yellow',
+  yellow: 'green',
+  grey: 'green',
+  white: 'green',
+};
+
+/**
+ * Layouts die de builder structureel anders opbouwt.
+ *
+ * Eén conventie loopt door alle meervoudige layouts heen: **een `###`-kop start
+ * een item**. Wat ervoor staat (meestal de slidetitel) blijft bovenaan staan.
+ * De layout bepaalt alleen hoe die items neergezet worden, niet hoe je ze
+ * opschrijft. Layouts met precies twee helften (`split`, `before-after`,
+ * `stacked`) knippen op `***` in plaats daarvan.
+ */
+export const SLIDE_LAYOUTS = [
+  // Bestaand
+  'cover',
+  'statement',
+  'split',
+  'columns',
+  'quote',
+  'end',
+  // Items onder elkaar
+  'list',
+  'agenda',
+  // Items naast elkaar
+  'timeline',
+  'kpi',
+  'contrast',
+  // Twee helften met een connector ertussen
+  'before-after',
+  'stacked',
+  // Losse vormen
+  'table',
+  'section',
+  'photo',
+];
 
 /** Posities voor een decoratieve shape. */
 const SHAPE_SPOTS = ['topright', 'topleft', 'bottomright', 'bottomleft'];
 
 const DEFAULT_COLOR = 'white';
+
+/**
+ * Knip een tokenregel op in losse tokens. Waarden mogen tussen dubbele quotes
+ * staan, zodat spaties erin blijven: `icon:"Game Boy"` of `eyebrow:"Onze aanpak"`.
+ * Zonder die uitzondering zou elke naam met een spatie onbereikbaar zijn, en
+ * vijf van de iconen in img/icons hebben er een.
+ * @param {string} text
+ * @returns {string[]}
+ */
+export function tokenize(text) {
+  return String(text).match(/[A-Za-z][\w-]*:"[^"]*"|\S+/g) || [];
+}
+
+/** Splits een token in sleutel en waarde, met de quotes eraf. */
+function splitToken(token) {
+  const at = token.indexOf(':');
+  if (at === -1) return { key: token, value: '' };
+  const value = token.slice(at + 1).trim();
+  const unquoted = /^"(.*)"$/.exec(value);
+  return { key: token.slice(0, at), value: unquoted ? unquoted[1] : value };
+}
 
 /**
  * Splits de frontmatter (optioneel, bovenaan, tussen twee `---`-regels) van
@@ -108,7 +176,7 @@ export function extractDirectives(markdown) {
   const kept = [];
   for (const line of String(markdown).split('\n')) {
     const match = /^\s*<!--\s*w4:\s*(.*?)\s*-->\s*$/.exec(line);
-    if (match) tokens.push(...match[1].split(/\s+/).filter(Boolean));
+    if (match) tokens.push(...tokenize(match[1]));
     else kept.push(line);
   }
   return { tokens, markdown: kept.join('\n').trim() };
@@ -135,19 +203,22 @@ export function extractNotes(markdown) {
  * niet weg maar geven we terug als `unknown`, zodat de UI een typefout kan
  * melden in plaats van 'm stil te negeren.
  * @param {string[]} tokens
- * @returns {{color: string, dark: boolean, layout: string, transition: string,
- *            shape: string, shapeSpot: string, icon: string, steps: boolean,
- *            unknown: string[]}}
+ * @returns {{color: string, dark: boolean, accent: string, layout: string,
+ *            transition: string, shape: string, shapeSpot: string, icon: string,
+ *            ghost: string, eyebrow: string, steps: boolean, unknown: string[]}}
  */
 export function slideConfig(tokens = []) {
   const config = {
     color: DEFAULT_COLOR,
     dark: SLIDE_COLORS[DEFAULT_COLOR].dark,
+    accent: '',
     layout: '',
     transition: '',
     shape: '',
     shapeSpot: 'topright',
     icon: '',
+    ghost: '',
+    eyebrow: '',
     steps: false,
     unknown: [],
   };
@@ -155,7 +226,7 @@ export function slideConfig(tokens = []) {
   for (const raw of tokens) {
     const token = String(raw).trim();
     if (!token) continue;
-    const [key, value = ''] = token.split(':');
+    const { key, value } = splitToken(token);
 
     if (SLIDE_COLORS[token]) {
       config.color = token;
@@ -164,12 +235,18 @@ export function slideConfig(tokens = []) {
       config.layout = token;
     } else if (token === 'steps') {
       config.steps = true;
+    } else if (key === 'accent' && SLIDE_COLORS[value]) {
+      config.accent = value;
     } else if (key === 'shape' && value) {
       const [name, spot] = value.split('@');
       config.shape = name;
       if (SHAPE_SPOTS.includes(spot)) config.shapeSpot = spot;
     } else if (key === 'icon' && value) {
       config.icon = value;
+    } else if (key === 'ghost' && value) {
+      config.ghost = value;
+    } else if (key === 'eyebrow' && value) {
+      config.eyebrow = value;
     } else if (key === 'transition' && value) {
       config.transition = value;
     } else {
@@ -182,6 +259,11 @@ export function slideConfig(tokens = []) {
     config.color = 'green';
     config.dark = true;
   }
+  // Een foto vult de hele slide; daar hoort altijd witte tekst en het
+  // diapositieve logo bij, ongeacht welke achtergrondkleur eronder zit.
+  if (config.layout === 'photo') config.dark = true;
+  // Zonder expliciet accent kiest de achtergrondkleur er een die leesbaar is.
+  if (!config.accent) config.accent = DEFAULT_ACCENTS[config.color];
   return config;
 }
 
@@ -197,59 +279,284 @@ function assetUrl(base, path) {
   return base + path.split('/').map(encodeURIComponent).join('/');
 }
 
+/** Kort hulpje: element met class en kinderen in een keer. */
+function el(tag, className, ...children) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  node.append(...children.filter(Boolean));
+  return node;
+}
+
+/** Tekst van een kop, voor gebruik in een badge of stamp. */
+function headingText(node) {
+  return node.textContent.trim();
+}
+
+/**
+ * Knip de body in items op `###`-koppen. Alles voor de eerste `###` (in de
+ * praktijk de slidetitel) komt terug als `before`.
+ *
+ * Dit is de gedeelde bouwsteen onder alle meervoudige layouts. Daardoor schrijf
+ * je een tijdlijn, een agenda en een rij kaarten in exact dezelfde markdown en
+ * bepaalt alleen het layout-token hoe het eruitziet.
+ * @param {Element} body
+ * @returns {{before: ChildNode[], items: {heading: Element, nodes: ChildNode[]}[]}}
+ */
+function collectItems(body) {
+  const before = [];
+  const items = [];
+  let current = null;
+
+  for (const node of Array.from(body.childNodes)) {
+    if (node.nodeName === 'H3') {
+      current = { heading: node, nodes: [] };
+      items.push(current);
+    } else if (current) {
+      current.nodes.push(node);
+    } else {
+      before.push(node);
+    }
+  }
+  return { before, items };
+}
+
+/**
+ * Splits de body op de eerste `<hr>` (in markdown: `***`) in twee helften.
+ * Geeft null terug als de scheiding ontbreekt, zodat de aanroeper de slide
+ * ongemoeid kan laten in plaats van een halve layout te bouwen.
+ * @param {Element} body
+ */
+function splitHalves(body) {
+  const nodes = Array.from(body.childNodes);
+  const divider = nodes.find((n) => n.nodeName === 'HR');
+  if (!divider) return null;
+
+  const at = nodes.indexOf(divider);
+  divider.remove();
+  return { left: nodes.slice(0, at), right: nodes.slice(at + 1) };
+}
+
+/**
+ * Haal de inleiding los uit een rij nodes, zodat een layout die boven de
+ * constructie kan zetten in plaats van 'm in de eerste kaart te stoppen.
+ *
+ * Dezelfde regel als bij `collectItems`: alles voor de eerste `###` is intro.
+ * Staat er geen `###`, dan telt alleen een leidende `#`/`##` als titel, want de
+ * rest is dan gewoon de inhoud van de kaart.
+ */
+function takeIntro(nodes) {
+  const at = nodes.findIndex((n) => n.nodeName === 'H3');
+  if (at !== -1) return { intro: nodes.slice(0, at), rest: nodes.slice(at) };
+
+  const first = nodes.find((n) => n.nodeType === 1 || n.textContent.trim());
+  if (first && (first.nodeName === 'H1' || first.nodeName === 'H2')) {
+    return { intro: [first], rest: nodes.filter((n) => n !== first) };
+  }
+  return { intro: [], rest: nodes };
+}
+
+/** Zet een grid neer met het aantal items als data-attribuut voor de CSS. */
+function itemGrid(className, count) {
+  const grid = el('div', className);
+  grid.dataset.count = String(count);
+  return grid;
+}
+
 /**
  * Split-layout: alles voor de eerste `<hr>` wordt de linkerkolom, de rest de
  * rechter. Zonder `<hr>` (in markdown: `***`) blijft de slide zoals hij was.
  * @param {Element} body
  */
 function applySplit(body) {
-  const nodes = Array.from(body.childNodes);
-  const divider = nodes.find((n) => n.nodeName === 'HR');
-  if (!divider) return;
+  const halves = splitHalves(body);
+  if (!halves) return;
 
-  const index = nodes.indexOf(divider);
-  const left = document.createElement('div');
-  const right = document.createElement('div');
-  left.className = 'w4-slide-panel';
-  right.className = 'w4-slide-panel';
-  left.append(...nodes.slice(0, index));
-  right.append(...nodes.slice(index + 1));
-  divider.remove();
+  body.replaceChildren(
+    el(
+      'div',
+      'w4-slide-split',
+      el('div', 'w4-slide-panel', ...halves.left),
+      el('div', 'w4-slide-panel', ...halves.right)
+    )
+  );
+}
 
-  const grid = document.createElement('div');
-  grid.className = 'w4-slide-split';
-  grid.append(left, right);
-  body.replaceChildren(grid);
+/** Kolommen-layout: elk item wordt een kaart naast de andere. */
+function applyColumns(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
+
+  const grid = itemGrid('w4-slide-cards', items.length);
+  for (const item of items) {
+    grid.append(el('article', 'w4-slide-card', item.heading, ...item.nodes));
+  }
+  body.replaceChildren(...before, grid);
 }
 
 /**
- * Kolommen-layout: elke `###`-kop start een kaart, met alles eronder erin.
- * Wat voor de eerste `###` staat (meestal de slidetitel) blijft bovenaan.
- * @param {Element} body
+ * Lijst-layout: items onder elkaar, met de kop als klein label ervoor.
+ * Bedoeld voor korte codes of afkortingen ("1.1", "KR2"); de tekst ernaast
+ * krijgt de ruimte.
  */
-function applyColumns(body) {
-  const nodes = Array.from(body.childNodes);
-  const before = [];
-  const cards = [];
-  let current = null;
+function applyList(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
 
-  for (const node of nodes) {
-    if (node.nodeName === 'H3') {
-      current = document.createElement('article');
-      current.className = 'w4-slide-card';
-      cards.push(current);
-    }
-    if (current) current.append(node);
-    else before.push(node);
+  const list = itemGrid('w4-slide-list', items.length);
+  for (const item of items) {
+    const badge = el('span', 'w4-slide-badge');
+    badge.textContent = headingText(item.heading);
+    list.append(
+      el('div', 'w4-slide-list-item', badge, el('div', 'w4-slide-list-text', ...item.nodes))
+    );
   }
-  if (!cards.length) return;
+  body.replaceChildren(...before, list);
+}
 
-  const grid = document.createElement('div');
-  grid.className = 'w4-slide-cards';
-  grid.dataset.count = String(cards.length);
-  grid.append(...cards);
+/**
+ * Agenda-layout: items onder elkaar met een doorlopend nummer ervoor. De kop
+ * blijft staan als titel van het item, want anders dan bij `list` is het
+ * nummer niet iets wat je zelf verzint.
+ */
+function applyAgenda(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
+
+  const list = itemGrid('w4-slide-list is-agenda', items.length);
+  items.forEach((item, index) => {
+    const badge = el('span', 'w4-slide-badge is-number');
+    badge.textContent = String(index + 1).padStart(2, '0');
+    list.append(
+      el(
+        'div',
+        'w4-slide-list-item',
+        badge,
+        el('div', 'w4-slide-list-text', item.heading, ...item.nodes)
+      )
+    );
+  });
+  body.replaceChildren(...before, list);
+}
+
+/** Tijdlijn: items naast elkaar op een doorlopende lijn met een punt per stap. */
+function applyTimeline(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
+
+  const track = itemGrid('w4-slide-timeline', items.length);
+  for (const item of items) {
+    const dot = el('span', 'w4-slide-timeline-dot');
+    dot.setAttribute('aria-hidden', 'true');
+    track.append(el('div', 'w4-slide-timeline-step', dot, item.heading, ...item.nodes));
+  }
+  body.replaceChildren(...before, track);
+}
+
+/** KPI-rij: de kop van elk item wordt het grote cijfer, de tekst het bijschrift. */
+function applyKpi(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
+
+  const row = itemGrid('w4-slide-kpis', items.length);
+  for (const item of items) {
+    const figure = el('p', 'w4-slide-kpi-figure');
+    figure.textContent = headingText(item.heading);
+    row.append(el('div', 'w4-slide-kpi', figure, el('div', 'w4-slide-kpi-label', ...item.nodes)));
+  }
+  body.replaceChildren(...before, row);
+}
+
+/**
+ * Contrast-kaarten: de kop van elk item wordt een gekleurd stamp-label. Het
+ * eerste item krijgt de "weg hiervan"-kleur, de rest de "hier naartoe"-kleur.
+ * Die volgorde is de hele betekenis van de layout, dus zet het item dat je
+ * afwijst vooraan.
+ */
+function applyContrast(body) {
+  const { before, items } = collectItems(body);
+  if (!items.length) return;
+
+  const grid = itemGrid('w4-slide-cards is-contrast', items.length);
+  items.forEach((item, index) => {
+    const stamp = el('span', 'w4-slide-stamp');
+    stamp.textContent = headingText(item.heading);
+    grid.append(
+      el('article', `w4-slide-card is-${index === 0 ? 'out' : 'in'}`, stamp, ...item.nodes)
+    );
+  });
   body.replaceChildren(...before, grid);
 }
+
+/**
+ * Twee kaarten met een connector ertussen: de oude situatie, een pijl, de
+ * nieuwe. Horizontaal bij `before-after`, verticaal bij `stacked`.
+ * @param {Element} body
+ * @param {{vertical?: boolean}} [options]
+ */
+function applyTransformation(body, { vertical = false } = {}) {
+  const halves = splitHalves(body);
+  if (!halves) return;
+
+  const { intro, rest } = takeIntro(halves.left);
+  const arrow = el('div', `w4-slide-arrow${vertical ? ' is-down' : ''}`);
+  arrow.setAttribute('aria-hidden', 'true');
+  arrow.textContent = vertical ? '↓' : '→';
+
+  const grid = el(
+    'div',
+    vertical ? 'w4-slide-stacked' : 'w4-slide-before-after',
+    el('article', 'w4-slide-card is-before', ...rest),
+    arrow,
+    el('article', 'w4-slide-card is-after', ...halves.right)
+  );
+  body.replaceChildren(...intro, grid);
+}
+
+/** Tabel-layout: de tabel krijgt de volle breedte in een eigen omhulsel. */
+function applyTable(body) {
+  const table = body.querySelector('table');
+  if (!table) return;
+
+  const wrap = el('div', 'w4-slide-table');
+  table.replaceWith(wrap);
+  wrap.append(table);
+}
+
+/**
+ * Foto-layout: de eerste afbeelding wordt een laag over de hele slide, met een
+ * tint in de accentkleur eroverheen zodat de tekst leesbaar blijft. Geeft de
+ * laag terug zodat de aanroeper 'm achter de tekst kan hangen.
+ * @param {Element} body
+ * @returns {Element|null}
+ */
+function extractPhoto(body) {
+  const img = body.querySelector('img');
+  if (!img) return null;
+
+  img.remove();
+  img.classList.add('w4-slide-photo');
+  img.setAttribute('aria-hidden', 'true');
+  img.alt = '';
+  return el('div', 'w4-slide-photo-layer', img, el('span', 'w4-slide-photo-tint'));
+}
+
+/**
+ * Welke layout welke bewerking op de body doet. Layouts die hier niet in staan
+ * (cover, statement, quote, end, section, photo) verschillen alleen in CSS en
+ * hoeven de markdown niet te herschikken.
+ */
+const LAYOUT_RENDERERS = {
+  split: applySplit,
+  columns: applyColumns,
+  list: applyList,
+  agenda: applyAgenda,
+  timeline: applyTimeline,
+  kpi: applyKpi,
+  contrast: applyContrast,
+  table: applyTable,
+  'before-after': (body) => applyTransformation(body),
+  stacked: (body) => applyTransformation(body, { vertical: true }),
+};
 
 /** Laat lijstitems een voor een verschijnen (reveal-fragments). */
 function applySteps(body) {
@@ -258,9 +565,45 @@ function applySteps(body) {
   }
 }
 
-/** Decoratieve shape of icoon voor op de slide. */
+/**
+ * Houd de decoratielaag gelijk aan wat je werkelijk ziet.
+ *
+ * Reveal schaalt de slide naar het venster en schildert de achtergrondkleur
+ * over het hele scherm, ook over de balken die ontstaan als het venster een
+ * andere verhouding heeft dan de slide (een 16:10 laptop, een half scherm).
+ * Decoratie die op de sliderand wordt afgekapt hangt daardoor los in een vlak
+ * dat gewoon doorloopt. Deze functie meet die overhang en zet 'm als CSS-
+ * variabele, zodat de decoratielaag tot de echte beeldrand doorloopt en een
+ * afgesneden shape altijd strak tegen de zijkant staat.
+ *
+ * Draait ook in het geëxporteerde HTML-bestand; deck-app.js schrijft de bron
+ * van deze functie daarin mee, zodat er maar een versie van bestaat.
+ * @param {object} reveal De reveal.js-instantie.
+ */
+export function fitDecoration(reveal) {
+  const apply = () => {
+    const root = document.querySelector('.reveal');
+    if (!root) return;
+    const scale = reveal.getScale() || 1;
+    const { width, height } = reveal.getConfig();
+    const x = Math.max(0, (window.innerWidth / scale - width) / 2);
+    const y = Math.max(0, (window.innerHeight / scale - height) / 2);
+    root.style.setProperty('--w4-overhang-x', `${Math.ceil(x)}px`);
+    root.style.setProperty('--w4-overhang-y', `${Math.ceil(y)}px`);
+  };
+
+  apply();
+  reveal.on('resize', apply);
+  window.addEventListener('resize', apply);
+}
+
+/**
+ * Decoratieve shape, icoon of ghost-nummer voor op de slide. Zit in een eigen
+ * laag die tot de beeldrand doorloopt; zie fitDecoration.
+ * @returns {Element|null} null als deze slide geen decoratie heeft.
+ */
 function decoration(config, assetBase) {
-  const layer = document.createDocumentFragment();
+  const layer = el('div', 'w4-slide-decor');
   if (config.shape) {
     const img = document.createElement('img');
     img.className = `w4-slide-shape is-${config.shapeSpot}`;
@@ -277,7 +620,15 @@ function decoration(config, assetBase) {
     img.setAttribute('aria-hidden', 'true');
     layer.append(img);
   }
-  return layer;
+  if (config.ghost) {
+    // Reusachtig, half doorzichtig nummer of woord achter de tekst.
+    const ghost = document.createElement('span');
+    ghost.className = 'w4-slide-ghost';
+    ghost.textContent = config.ghost;
+    ghost.setAttribute('aria-hidden', 'true');
+    layer.append(ghost);
+  }
+  return layer.childNodes.length ? layer : null;
 }
 
 /**
@@ -331,17 +682,32 @@ export function buildSlide({ markdown, renderMarkdown, number, footerText = '', 
   // letterbox-randen, wat een gekleurde slide op een breed scherm rustiger maakt.
   section.dataset.backgroundColor = SLIDE_COLORS[config.color].color;
   if (config.transition) section.dataset.transition = config.transition;
+  // Een variabele in plaats van een klasse per kleurcombinatie: alle kleine
+  // accenten (badges, stamps, tijdlijn, KPI-cijfers) lezen deze ene waarde.
+  section.style.setProperty('--slide-accent', SLIDE_COLORS[config.accent].color);
 
   const body = document.createElement('div');
   body.className = 'w4-slide-body';
   body.append(...htmlToNodes(renderMarkdown(content)));
 
-  if (config.layout === 'split') applySplit(body);
-  if (config.layout === 'columns') applyColumns(body);
+  const photo = config.layout === 'photo' ? extractPhoto(body) : null;
+
+  const applyLayout = LAYOUT_RENDERERS[config.layout];
+  if (applyLayout) applyLayout(body);
   if (config.steps) applySteps(body);
 
+  if (config.eyebrow) {
+    const eyebrow = document.createElement('p');
+    eyebrow.className = 'w4-slide-eyebrow';
+    eyebrow.textContent = config.eyebrow;
+    body.prepend(eyebrow);
+  }
+
   const bare = config.layout === 'cover' || config.layout === 'end';
-  section.append(decoration(config, assetBase), body);
+  const decor = decoration(config, assetBase);
+  if (decor) section.append(decor);
+  section.append(body);
+  if (photo) section.prepend(photo);
   section.append(chrome(config, { footerText, number, showNumber: !bare }));
 
   if (notes) {

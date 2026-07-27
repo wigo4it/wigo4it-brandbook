@@ -87,12 +87,14 @@
    De section zelf blijft een block: reveal zet `display` inline op de actieve
    slide, daar valt met CSS niet tegenop te schrijven. Het raster zit daarom in
    de body, die als absolute laag het tekstvlak vult. */
+/* Bewust geen overflow:hidden: de decoratielaag mag buiten de slide komen, tot
+   aan de echte beeldrand. Wat binnen de kaders moet blijven klipt zelf. */
 .reveal .slides section.w4-slide {
   height: 100%;
   box-sizing: border-box;
   padding: 0;
   text-align: left;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .reveal .slides section.w4-slide.is-dark {
@@ -110,7 +112,29 @@
   display: grid;
   gap: 0.6em;
   align-content: center;
+  /* De slide klipt niet meer, dus de tekst houdt zichzelf binnen het tekstvlak. */
+  overflow: hidden;
 }
+
+/* ── De decoratielaag ──
+   Reveal vult het hele scherm met de achtergrondkleur, ook de balken die
+   ontstaan als het venster een andere verhouding heeft dan de slide. Zou de
+   decoratie op de sliderand stoppen, dan zie je een shape midden in het gekleurde
+   vlak afbreken. Deze laag rekt daarom op tot de beeldrand; fitDecoration() in
+   scripts/deck-builder.js vult de twee variabelen met de gemeten overhang. */
+.w4-slide-decor,
+.w4-slide-photo-layer {
+  position: absolute;
+  top: calc(-1 * var(--w4-overhang-y, 0px));
+  right: calc(-1 * var(--w4-overhang-x, 0px));
+  bottom: calc(-1 * var(--w4-overhang-y, 0px));
+  left: calc(-1 * var(--w4-overhang-x, 0px));
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.w4-slide-decor { z-index: 1; }
+.w4-slide-photo-layer { z-index: 0; }
 
 /* Vaste elementen: logo rechtsboven, footer onderlangs. */
 .w4-slide-logo {
@@ -287,6 +311,348 @@
   right: auto;
   width: 12%;
   transform: translateX(-50%);
+}
+
+/* ============================================================
+   Accent en decoratie
+
+   Elke slide krijgt van de builder een `--slide-accent` mee (zie
+   deck-builder.js). Alles wat hieronder kleur nodig heeft leest die ene
+   variabele, zodat `accent:pink` in de markdown de hele slide omkleurt
+   zonder dat er een klasse per kleurcombinatie bij komt.
+   ============================================================ */
+
+.w4-slide {
+  --slide-accent: var(--dark-green);
+  /* Vlakken en randen schalen mee met licht of donker: op een donkere slide
+     moet een kaart oplichten, op een lichte juist iets terugzakken. */
+  --slide-fill: rgba(54, 44, 70, 0.06);
+  --slide-line: rgba(54, 44, 70, 0.14);
+}
+
+.w4-slide.is-dark {
+  --slide-fill: rgba(255, 255, 255, 0.1);
+  --slide-line: rgba(255, 255, 255, 0.22);
+}
+
+/* Klein label boven de titel. */
+.reveal .w4-slide-eyebrow {
+  margin: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.44em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slide-accent);
+}
+
+/* Reusachtig nummer of woord achter de tekst. Puur sfeer, dus laag contrast
+   en buiten de leesvolgorde. */
+.w4-slide-ghost {
+  position: absolute;
+  right: 4%;
+  bottom: -4%;
+  z-index: 0;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 12em;
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Layout: list en agenda ──
+   Items onder elkaar, met een label of nummer in een vaste kolom ervoor. */
+.w4-slide-list {
+  display: grid;
+  gap: 0.55em;
+  align-content: center;
+}
+
+.w4-slide-list-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7em;
+  align-items: baseline;
+  font-size: 0.74em;
+}
+
+/* Vanaf vijf items wordt het krap; dan mag de tekst een maat kleiner. */
+.w4-slide-list[data-count='5'] .w4-slide-list-item,
+.w4-slide-list[data-count='6'] .w4-slide-list-item {
+  font-size: 0.62em;
+}
+
+.w4-slide-badge {
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--slide-accent);
+  white-space: nowrap;
+}
+
+.w4-slide-badge.is-number {
+  font-size: 1.6em;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.w4-slide-list-text > :first-child { margin-top: 0; }
+.w4-slide-list-text > :last-child { margin-bottom: 0; }
+
+.reveal .w4-slide-list-text h3 {
+  font-size: 1.15em;
+  margin-bottom: 0.15em;
+}
+
+/* Een lijn onder elk item houdt de agenda leesbaar zonder kaders. */
+.w4-slide-list.is-agenda .w4-slide-list-item {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--slide-line);
+}
+
+.w4-slide-list.is-agenda .w4-slide-list-item:last-child {
+  border-bottom: 0;
+}
+
+/* ── Layout: timeline ──
+   Stappen naast elkaar op een doorlopende lijn. De lijn is een pseudo-element
+   op het spoor zelf, zodat het aantal stappen niets uitmaakt. */
+.w4-slide-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 0.9em;
+  align-items: start;
+  padding-top: 1.2em;
+}
+
+.w4-slide-timeline[data-count='2'] { --cols: 2; }
+.w4-slide-timeline[data-count='4'] { --cols: 4; }
+.w4-slide-timeline[data-count='5'] { --cols: 5; }
+
+.w4-slide-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.42em;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--slide-line);
+}
+
+.w4-slide-timeline-step {
+  position: relative;
+  font-size: 0.62em;
+}
+
+.w4-slide-timeline-dot {
+  position: absolute;
+  top: -1.35em;
+  left: 0;
+  width: 0.85em;
+  height: 0.85em;
+  border-radius: 50%;
+  background: var(--slide-accent);
+}
+
+.reveal .w4-slide-timeline-step h3 {
+  font-size: 1.3em;
+  margin-bottom: 0.25em;
+}
+
+.w4-slide-timeline-step > :last-child { margin-bottom: 0; }
+
+/* ── Layout: kpi ──
+   Grote cijfers met een bijschrift eronder. */
+.w4-slide-kpis {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 1em;
+  align-items: start;
+}
+
+.w4-slide-kpis[data-count='1'] { --cols: 1; }
+.w4-slide-kpis[data-count='2'] { --cols: 2; }
+.w4-slide-kpis[data-count='4'] { --cols: 4; }
+
+.reveal .w4-slide-kpi-figure {
+  margin: 0 0 0.1em;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 2.6em;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--slide-accent);
+}
+
+.w4-slide-kpis[data-count='4'] .w4-slide-kpi-figure { font-size: 2em; }
+
+.w4-slide-kpi-label {
+  font-size: 0.58em;
+  opacity: 0.85;
+}
+
+.w4-slide-kpi-label > :last-child { margin-bottom: 0; }
+
+/* ── Layout: contrast ──
+   Twee kaarten waarvan de volgorde de betekenis draagt: eerst wat je achter je
+   laat, daarna waar je heen wilt. Het stamp-label kleurt mee. */
+.w4-slide-stamp {
+  display: inline-block;
+  margin-bottom: 0.5em;
+  padding: 0.3em 0.65em;
+  border-radius: 7px;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.w4-slide-card.is-out .w4-slide-stamp {
+  background: rgba(245, 110, 109, 0.18);
+  color: var(--bright-red);
+}
+
+.w4-slide-card.is-in .w4-slide-stamp {
+  background: rgba(99, 207, 146, 0.22);
+  color: var(--dark-green);
+}
+
+.is-dark .w4-slide-card.is-in .w4-slide-stamp {
+  color: #ffffff;
+}
+
+.w4-slide-cards.is-contrast .w4-slide-card.is-out { border-left: 4px solid var(--bright-red); }
+.w4-slide-cards.is-contrast .w4-slide-card.is-in { border-left: 4px solid var(--light-green); }
+
+/* ── Layout: before-after en stacked ──
+   Twee kaarten met een pijl ertussen. Horizontaal of verticaal; verder gelijk. */
+.w4-slide-before-after {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.8em;
+  align-items: center;
+}
+
+.w4-slide-stacked {
+  display: grid;
+  gap: 0.4em;
+  justify-items: stretch;
+  align-content: center;
+}
+
+.w4-slide-arrow {
+  font-size: 1.6em;
+  line-height: 1;
+  text-align: center;
+  color: var(--slide-accent);
+}
+
+.w4-slide-before-after .w4-slide-card { align-self: stretch; }
+
+.w4-slide-card.is-before { opacity: 0.78; }
+
+/* Doorgestreepte tekst in de "voor"-kaart krijgt de rode streep uit de huisstijl. */
+.reveal .w4-slide-card s,
+.reveal .w4-slide-card del {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--bright-red);
+  text-decoration-thickness: 2px;
+}
+
+/* ── Layout: table ── */
+.w4-slide-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.reveal .w4-slide-table table {
+  width: 100%;
+  font-size: 0.6em;
+  border-collapse: collapse;
+}
+
+.reveal .w4-slide-table th,
+.reveal .w4-slide-table td {
+  padding: 0.5em 0.7em;
+  border-bottom: 1px solid var(--slide-line);
+}
+
+.reveal .w4-slide-table thead th {
+  border-bottom: 2px solid var(--slide-accent);
+  white-space: nowrap;
+}
+
+.reveal .w4-slide-table tbody tr:nth-child(even) {
+  background: var(--slide-fill);
+}
+
+/* ── Layout: section ──
+   Tussenschot tussen twee delen van een deck: alleen een titel, groot, met een
+   streep in de accentkleur eronder. */
+.w4-slide--section .w4-slide-body {
+  align-content: center;
+  justify-items: start;
+}
+
+.w4-slide--section .w4-slide-body h1,
+.w4-slide--section .w4-slide-body h2 {
+  font-size: 2.6em;
+  max-width: 18ch;
+}
+
+.w4-slide--section .w4-slide-body h2::after {
+  content: '';
+  display: block;
+  width: 2.2em;
+  height: 5px;
+  margin-top: 0.35em;
+  background: var(--slide-accent);
+}
+
+/* ── Layout: photo ──
+   De foto vult de hele slide, met een tint in de accentkleur eroverheen zodat
+   de tekst leesbaar blijft. */
+.reveal .w4-slide-photo {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: cover;
+}
+
+/* De tekst staat onderaan en het logo bovenaan; het verloop is daarom verticaal
+   en niet horizontaal. Zonder de donkere band bovenin valt het diapositieve
+   logo weg op een lichte foto. */
+.w4-slide-photo-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 22, 36, 0.5) 0%,
+    rgba(28, 22, 36, 0) 26%,
+    rgba(28, 22, 36, 0) 38%,
+    rgba(28, 22, 36, 0.82) 100%
+  );
+}
+
+.w4-slide--photo,
+.reveal .slides section.w4-slide--photo {
+  color: #ffffff;
+}
+
+.w4-slide--photo .w4-slide-body {
+  align-content: end;
+}
+
+.w4-slide--photo .w4-slide-body h1,
+.w4-slide--photo .w4-slide-body h2 {
+  max-width: 18ch;
 }
 
 /* ── Losse elementen binnen slides ── */

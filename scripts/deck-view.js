@@ -4,7 +4,7 @@
    anders het meegeleverde voorbeeld), laat deck-builder.js er slides
    van maken en start reveal.js. Alles client-side.
    ============================================================ */
-import { buildDeck } from './deck-builder.js';
+import { buildDeck, fitDecoration } from './deck-builder.js';
 
 const STORAGE_SOURCE = 'w4-deck-source';
 const STORAGE_OPTIONS = 'w4-deck-options';
@@ -69,6 +69,7 @@ async function render(source, options = {}) {
     transition: options.transition || 'slide',
     plugins: window.RevealNotes ? [window.RevealNotes] : [],
   });
+  fitDecoration(deck);
 }
 
 /** Opties uit localStorage, met een lege set als er niets (geldigs) staat. */

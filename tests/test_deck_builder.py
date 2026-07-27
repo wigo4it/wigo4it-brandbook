@@ -228,6 +228,18 @@ def test_build_slide_adds_shape_and_icon(builder):
     assert "is-topleft" in html
 
 
+def test_build_slide_decoration_sits_in_its_own_layer(builder):
+    """De laag mag buiten de slide komen, zodat een afgesneden shape niet los hangt."""
+    html = _slide(builder, "<!-- w4: shape:ring ghost:01 -->\nTekst")
+    assert "w4-slide-decor" in html
+    assert html.index("w4-slide-decor") < html.index("w4-slide-body")
+
+
+def test_build_slide_without_decoration_has_no_empty_layer(builder):
+    html = _slide(builder, "Tekst")
+    assert "w4-slide-decor" not in html
+
+
 def test_build_slide_steps_makes_list_items_fragments(builder):
     render = "(md) => '<ul><li>een</li><li>twee</li></ul>'"
     html = builder(
@@ -274,6 +286,208 @@ def test_build_slide_columns_groups_by_h3(builder):
     assert 'data-count="2"' in html
     # wat voor de eerste h3 staat blijft buiten de kaarten
     assert html.index("<h2>Kop</h2>") < html.index("w4-slide-cards")
+
+
+# ── tokens met spaties ───────────────────────────────────────────────────────
+
+
+def test_tokenize_splits_on_whitespace(builder):
+    result = builder("(m) => m.tokenize('green statement icon:Rocket')")
+    assert result == ["green", "statement", "icon:Rocket"]
+
+
+def test_tokenize_keeps_quoted_value_together(builder):
+    """Vijf iconen hebben een spatie in de naam; zonder quotes onbereikbaar."""
+    result = builder('(m) => m.tokenize(\'green icon:"Game Boy" steps\')')
+    assert result == ["green", 'icon:"Game Boy"', "steps"]
+
+
+def test_slide_config_strips_quotes_from_value(builder):
+    result = builder("(m) => m.slideConfig(['icon:\"Game Boy\"'])")
+    assert result["icon"] == "Game Boy"
+    assert result["unknown"] == []
+
+
+def test_build_slide_escapes_spaces_in_icon_path(builder):
+    html = _slide(builder, '<!-- w4: icon:"Game Boy" -->\nTekst')
+    assert "img/icons/Game%20Boy.svg" in html
+
+
+# ── accent, eyebrow en ghost ─────────────────────────────────────────────────
+
+
+def test_slide_config_accent_defaults_per_background(builder):
+    """Donkere achtergrond krijgt een licht accent en andersom."""
+    dark = builder("(m) => m.slideConfig(['green'])")
+    light = builder("(m) => m.slideConfig(['white'])")
+    assert dark["accent"] == "yellow"
+    assert light["accent"] == "green"
+
+
+def test_slide_config_explicit_accent_wins(builder):
+    result = builder("(m) => m.slideConfig(['green', 'accent:pink'])")
+    assert result["accent"] == "pink"
+
+
+def test_slide_config_rejects_accent_that_is_not_a_brand_color(builder):
+    result = builder("(m) => m.slideConfig(['accent:turquoise'])")
+    assert result["unknown"] == ["accent:turquoise"]
+    assert result["accent"] == "green"
+
+
+def test_build_slide_sets_accent_variable(builder):
+    html = _slide(builder, "<!-- w4: blue accent:red -->\nTekst")
+    assert "--slide-accent: var(--bright-red)" in html
+
+
+def test_build_slide_eyebrow_lands_above_the_content(builder):
+    html = _slide(builder, '<!-- w4: eyebrow:"Onze aanpak" -->\nTekst')
+    assert "w4-slide-eyebrow" in html
+    assert html.index("Onze aanpak") < html.index("Tekst")
+
+
+def test_build_slide_ghost_is_hidden_from_assistive_tech(builder):
+    html = _slide(builder, "<!-- w4: ghost:01 -->\nTekst")
+    assert "w4-slide-ghost" in html
+    assert ">01<" in html
+
+
+# ── de nieuwe layouts ────────────────────────────────────────────────────────
+
+
+def _layout(builder, tokens, render):
+    """Bouw een slide met een layout-token en een vaste HTML-uitkomst."""
+    return builder(
+        f"(m) => m.buildSlide({{markdown: '<!-- w4: {tokens} -->\\nx', "
+        f"renderMarkdown: {render}, number: 1}}).outerHTML"
+    )
+
+
+ITEMS = "(md) => '<h2>Kop</h2><h3>Een</h3><p>a</p><h3>Twee</h3><p>b</p>'"
+
+
+def test_build_slide_list_turns_headings_into_badges(builder):
+    html = _layout(builder, "list", ITEMS)
+    assert html.count("w4-slide-list-item") == 2
+    assert '<span class="w4-slide-badge">Een</span>' in html
+    # de kop zelf staat niet nog een keer in de tekstkolom
+    assert "<h3>Een</h3>" not in html
+
+
+def test_build_slide_agenda_numbers_items(builder):
+    html = _layout(builder, "agenda", ITEMS)
+    assert ">01<" in html and ">02<" in html
+    # anders dan bij list blijft de kop staan als titel van het item
+    assert "<h3>Een</h3>" in html
+
+
+def test_build_slide_timeline_gives_each_step_a_dot(builder):
+    html = _layout(builder, "timeline", ITEMS)
+    assert html.count("w4-slide-timeline-dot") == 2
+    assert 'data-count="2"' in html
+
+
+def test_build_slide_kpi_uses_heading_as_figure(builder):
+    html = _layout(builder, "kpi", ITEMS)
+    assert '<p class="w4-slide-kpi-figure">Een</p>' in html
+    assert html.count("w4-slide-kpi-label") == 2
+
+
+def test_build_slide_contrast_marks_first_item_as_out(builder):
+    html = _layout(builder, "contrast", ITEMS)
+    assert "w4-slide-card is-out" in html
+    assert "w4-slide-card is-in" in html
+    assert html.index("is-out") < html.index("is-in")
+
+
+def test_build_slide_item_layouts_keep_the_title_above(builder):
+    """Alles voor de eerste `###` blijft buiten de constructie staan."""
+    for layout, marker in [
+        ("list", "w4-slide-list"),
+        ("agenda", "w4-slide-list"),
+        ("timeline", "w4-slide-timeline"),
+        ("kpi", "w4-slide-kpis"),
+        ("contrast", "w4-slide-cards"),
+    ]:
+        html = _layout(builder, layout, ITEMS)
+        assert html.index("<h2>Kop</h2>") < html.index(marker), layout
+
+
+def test_build_slide_item_layouts_without_headings_stay_flat(builder):
+    """Geen `###` betekent niets om te herschikken; de slide blijft heel."""
+    render = "(md) => '<h2>Kop</h2><p>tekst</p>'"
+    for layout in ["list", "agenda", "timeline", "kpi", "contrast"]:
+        html = _layout(builder, layout, render)
+        assert "<p>tekst</p>" in html, layout
+        assert "w4-slide-list-item" not in html, layout
+
+
+HALVES = "(md) => '<h2>Kop</h2><p>oud</p><hr><p>nieuw</p>'"
+
+
+def test_build_slide_before_after_puts_an_arrow_between_two_cards(builder):
+    html = _layout(builder, "before-after", HALVES)
+    assert "w4-slide-card is-before" in html
+    assert "w4-slide-card is-after" in html
+    assert "→" in html
+    assert "<hr>" not in html
+
+
+def test_build_slide_before_after_lifts_the_title_out_of_the_card(builder):
+    html = _layout(builder, "before-after", HALVES)
+    assert html.index("<h2>Kop</h2>") < html.index("w4-slide-before-after")
+
+
+def test_build_slide_transformation_lifts_everything_before_the_first_h3(builder):
+    """Zelfde regel als bij de item-layouts: voor de eerste `###` is intro."""
+    render = "(md) => '<h2>Kop</h2><p>lead</p><h3>Voor</h3><p>oud</p><hr><h3>Na</h3><p>nieuw</p>'"
+    html = _layout(builder, "stacked", render)
+    assert html.index("<p>lead</p>") < html.index("w4-slide-stacked")
+    assert html.index("<h3>Voor</h3>") > html.index("w4-slide-card is-before")
+
+
+def test_build_slide_stacked_uses_a_downward_arrow(builder):
+    html = _layout(builder, "stacked", HALVES)
+    assert "w4-slide-stacked" in html
+    assert "↓" in html
+
+
+def test_build_slide_transformation_without_divider_stays_flat(builder):
+    render = "(md) => '<p>alleen dit</p>'"
+    for layout in ["before-after", "stacked"]:
+        html = _layout(builder, layout, render)
+        assert "w4-slide-card" not in html, layout
+
+
+def test_build_slide_table_gets_its_own_wrapper(builder):
+    render = "(md) => '<table><tr><td>a</td></tr></table>'"
+    html = _layout(builder, "table", render)
+    assert "w4-slide-table" in html
+    assert html.index("w4-slide-table") < html.index("<table>")
+
+
+def test_build_slide_photo_moves_the_image_behind_the_text(builder):
+    render = "(md) => '<h2>Kop</h2><img src=\"img/photos/x.jpg\" alt=\"x\">'"
+    html = _layout(builder, "photo", render)
+    assert "w4-slide-photo-layer" in html
+    # de foto staat voor de tekstlaag in de DOM, dus eronder in beeld
+    assert html.index("w4-slide-photo-layer") < html.index("w4-slide-body")
+    # en is decoratief, dus zonder alt-tekst in de leesvolgorde
+    assert 'alt="x"' not in html
+
+
+def test_build_slide_photo_always_uses_the_diapositive_logo(builder):
+    """De foto vult de slide, dus de achtergrondkleur zegt niets over contrast."""
+    render = "(md) => '<img src=\"img/photos/x.jpg\" alt=\"\">'"
+    html = _layout(builder, "photo white", render)
+    assert "Logo%20Diap.svg" in html
+
+
+def test_build_slide_photo_without_image_stays_flat(builder):
+    render = "(md) => '<p>geen foto</p>'"
+    html = _layout(builder, "photo", render)
+    assert "w4-slide-photo-layer" not in html
+    assert "<p>geen foto</p>" in html
 
 
 # ── het hele deck ────────────────────────────────────────────────────────────

@@ -8,6 +8,7 @@
 import {
   buildDeck,
   extractDirectives,
+  fitDecoration,
   slideConfig,
   splitSlides,
   parseFrontMatter,
@@ -146,11 +147,12 @@ ${slides}
 <script src="${reveal}/dist/reveal.js"><\/script>
 <script src="${reveal}/plugin/notes/notes.js"><\/script>
 <script>
+${fitDecoration.toString()}
 Reveal.initialize({
   width: 1600, height: 900, margin: 0, center: false,
   hash: false, transition: ${JSON.stringify(transition)},
   plugins: window.RevealNotes ? [RevealNotes] : []
-});
+}).then(() => fitDecoration(Reveal));
 <\/script>
 </body>
 </html>
