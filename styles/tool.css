@@ -398,3 +398,117 @@ body.w4-tool-body {
   border: 1px solid rgba(245, 110, 109, 0.4);
   border-radius: 0.6rem;
 }
+
+/* ── Naslagpagina's ──
+   pdf-syntax.html en deck-syntax.html zijn documenten, geen gereedschap:
+   kaarten met tekst, code en definitielijsten. Ze horen bij het skelet van
+   de tools, niet bij een van de twee tools, dus staan ze hier. */
+.w4-doc-page {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 74ch;
+}
+
+.w4-doc-card {
+  padding: 1.5rem 1.75rem;
+  background: #fff;
+  border: 1px solid rgba(54, 44, 70, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(54, 44, 70, 0.06);
+}
+
+.w4-doc-card h2 {
+  margin: 0 0 0.9rem;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-size: 1.15rem;
+  color: var(--aubergine);
+}
+
+.w4-doc-card p {
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(54, 44, 70, 0.8);
+}
+
+.w4-doc-card pre {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.8rem;
+  background: rgba(54, 44, 70, 0.05);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.w4-doc-card code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88em;
+}
+
+.w4-doc-card p code,
+.w4-doc-list code {
+  padding: 0.1em 0.35em;
+  border-radius: 0.35rem;
+  background: rgba(54, 44, 70, 0.08);
+}
+
+.w4-doc-card kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(54, 44, 70, 0.25);
+  border-bottom-width: 2px;
+  border-radius: 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+}
+
+.w4-doc-list {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.w4-doc-list dt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--dark-green);
+  white-space: nowrap;
+}
+
+.w4-doc-list dd {
+  margin: 0;
+  line-height: 1.5;
+  color: rgba(54, 44, 70, 0.8);
+}
+
+/* De regel die je moet onthouden, iets nadrukkelijker dan de rest. */
+.w4-doc-callout {
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--dark-green);
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: rgba(0, 83, 81, 0.06);
+}
+
+.w4-doc-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.w4-doc-swatches li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.w4-doc-swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+}
