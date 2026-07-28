@@ -1,8 +1,8 @@
 /* ============================================================
    W4 Asset-manifest
    Eén ingang naar assets.json voor alles wat op de site iets met
-   img/ doet: de catalogus-pagina's (icons, shapes, photos) en de
-   deck-tool, die er de shape:/icon:-tokens tegen controleert.
+   img/ doet: de catalogus-pagina's (logos, icons, shapes, photos) en
+   de deck-tool, die er de shape:/icon:-tokens tegen controleert.
 
    Het manifest wordt gegenereerd door scripts/generate-assets.py en
    is daarmee de enige plek waar de bestandslijst staat. Voeg je een

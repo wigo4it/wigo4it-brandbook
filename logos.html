@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Logo's</title>
+  <meta name="description" content="Downloadbare logo's van Wigo4it, inclusief de diapositieve varianten." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+  <style>
+    :root {
+      --page-bg: #f5f8f4;
+      --card-bg: #ffffff;
+      --card-border: #d7ddd3;
+      --card-shadow: 0 10px 26px rgba(54, 44, 70, 0.09);
+      --text-muted: rgba(54, 44, 70, 0.7);
+      --focus: #005351;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--aubergine);
+      min-height: 100vh;
+    }
+
+    .page-shell {
+      width: min(1200px, calc(100% - 3rem));
+      margin: 5.5rem auto 0;
+      padding-bottom: 4rem;
+    }
+
+    .hero {
+      padding: 3.2rem 0 2rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'PP Neue Machina', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--text-muted);
+      font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+    }
+
+    .toolbar {
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 18px;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 0.85rem;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(54, 44, 70, 0.06);
+    }
+
+    .zip-button {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 0;
+      border-radius: 12px;
+      padding: 0.7rem 1.1rem;
+      background: var(--dark-green, #005351);
+      color: #ffffff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+
+    .zip-button:hover {
+      background: #00423f;
+    }
+
+    .zip-button:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      min-height: 46px;
+      padding: 0.7rem 0.9rem;
+      font-size: 1rem;
+      font-family: 'Raleway', sans-serif;
+      background: #ffffff;
+      color: var(--aubergine);
+    }
+
+    .search-wrap input:focus {
+      outline: 2px solid color-mix(in srgb, var(--focus) 24%, white);
+      border-color: var(--focus);
+    }
+
+    .meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .meta strong {
+      font-family: 'PP Neue Machina', sans-serif;
+      color: var(--aubergine);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .grid {
+      margin-top: 1.2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .logo-card {
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      background: var(--card-bg);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.8rem;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .logo-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 83, 81, 0.48);
+      box-shadow: var(--card-shadow);
+    }
+
+    .logo-preview {
+      height: 120px;
+      border-radius: 12px;
+      border: 1px solid rgba(54, 44, 70, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem;
+      background: #ffffff;
+      /* Ruitjes maken zichtbaar dat een logo een transparante achtergrond heeft. */
+      background-image:
+        linear-gradient(45deg, rgba(54, 44, 70, 0.055) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(54, 44, 70, 0.055) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(54, 44, 70, 0.055) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(54, 44, 70, 0.055) 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+
+    /* Diapositieve en darkmode-varianten zijn licht; op wit zie je ze niet. */
+    .logo-preview--dark {
+      background: var(--aubergine, #362c46);
+      background-image: none;
+      border-color: rgba(54, 44, 70, 0.25);
+    }
+
+    .logo-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+
+    .logo-file {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      word-break: break-word;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--dark-green, #005351);
+      background: rgba(0, 83, 81, 0.1);
+      vertical-align: 0.1em;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+    }
+
+    .card-action {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 0.5rem 0.7rem;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card-action--download {
+      background: var(--dark-green, #005351);
+      color: #ffffff;
+    }
+
+    .card-action--download:hover {
+      background: #00423f;
+    }
+
+    .card-action--copy {
+      background: #ffffff;
+      color: var(--dark-green, #005351);
+      border-color: rgba(0, 83, 81, 0.28);
+    }
+
+    .card-action--copy:hover {
+      background: rgba(0, 83, 81, 0.08);
+      border-color: rgba(0, 83, 81, 0.45);
+    }
+
+    .empty {
+      margin-top: 1.2rem;
+      border: 1px dashed rgba(54, 44, 70, 0.35);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.55);
+      padding: 1.1rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      background: #1e2138;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 30;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 840px) {
+      .page-shell {
+        width: min(1200px, calc(100% - 1.25rem));
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <main class="page-shell" id="logos">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Logo's</h1>
+      <p>
+        Het logo in al zijn varianten. Op een donkere achtergrond gebruik je de diapositieve
+        versie; die staat hier op aubergine afgebeeld, de rest op wit. Zoek op naam, download
+        een logo of kopieer het pad. Alle assets ook als
+        <a href="assets.json" style="color: var(--dark-green, #005351); font-weight: 700; text-decoration: underline;">manifest (assets.json)</a>
+        voor bulk- of programmatisch gebruik.
+      </p>
+    </section>
+
+    <section aria-label="Logocatalogus">
+      <div class="toolbar">
+        <label class="search-wrap" for="logo-search">
+          <input id="logo-search" type="search" placeholder="Zoek logo's, bijvoorbeeld: diap, M365, pill" autocomplete="off" />
+        </label>
+        <div class="meta">
+          <strong id="logo-count">0</strong>
+          <span>zichtbaar</span>
+          <span>| totaal <span id="logo-total">0</span></span>
+        </div>
+        <button type="button" id="download-all" class="zip-button">Download alles (ZIP)</button>
+      </div>
+
+      <div id="logo-grid" class="grid"></div>
+      <p id="empty-state" class="empty">Geen logo's gevonden voor deze zoekterm.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Gekopieerd</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="scripts/zip-download.js"></script>
+  <script type="module">
+    // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
+    // img/logo uit de pas kan lopen. Zie scripts/assets.js. Het .ai-bronbestand
+    // in die map staat niet in het manifest en hoort hier dus ook niet.
+    import { loadAssets, files } from './scripts/assets.js';
+
+    let logoFiles = [];
+
+    const searchInput = document.getElementById('logo-search');
+    const grid = document.getElementById('logo-grid');
+    const emptyState = document.getElementById('empty-state');
+    const countNode = document.getElementById('logo-count');
+    const totalNode = document.getElementById('logo-total');
+    const toast = document.getElementById('toast');
+
+    function toSrc(fileName) {
+      return 'img/logo/' + encodeURIComponent(fileName);
+    }
+
+    function toLabel(fileName) {
+      return fileName.replace(/\.(svg|png)$/i, '').replace(/[_]+/g, ' ').trim();
+    }
+
+    function toFormat(fileName) {
+      return fileName.split('.').pop().toUpperCase();
+    }
+
+    /** Diapositief en darkmode zijn lichte logo's; die vragen om een donkere tegel. */
+    function isDiapositive(fileName) {
+      return /diap|darkmode/i.test(fileName);
+    }
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('visible');
+      window.setTimeout(() => toast.classList.remove('visible'), 1300);
+    }
+
+    function buildCard(fileName) {
+      const card = document.createElement('div');
+      card.className = 'logo-card';
+
+      const preview = document.createElement('div');
+      preview.className = 'logo-preview' + (isDiapositive(fileName) ? ' logo-preview--dark' : '');
+
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = toSrc(fileName);
+      img.alt = toLabel(fileName);
+      preview.appendChild(img);
+
+      const label = document.createElement('div');
+      label.className = 'logo-label';
+      label.textContent = toLabel(fileName);
+
+      const badge = document.createElement('span');
+      badge.className = 'logo-badge';
+      badge.textContent = toFormat(fileName);
+      label.appendChild(badge);
+
+      const file = document.createElement('div');
+      file.className = 'logo-file';
+      file.textContent = fileName;
+
+      const actions = document.createElement('div');
+      actions.className = 'card-actions';
+
+      const download = document.createElement('a');
+      download.className = 'card-action card-action--download';
+      download.href = toSrc(fileName);
+      download.download = fileName;
+      download.textContent = 'Download';
+      download.setAttribute('aria-label', 'Download ' + fileName);
+
+      const copy = document.createElement('button');
+      copy.type = 'button';
+      copy.className = 'card-action card-action--copy';
+      copy.textContent = 'Kopieer pad';
+      copy.setAttribute('aria-label', 'Kopieer pad van ' + fileName);
+      copy.addEventListener('click', async () => {
+        const logoPath = 'img/logo/' + fileName;
+        try {
+          await navigator.clipboard.writeText(logoPath);
+          showToast('Pad gekopieerd: ' + logoPath);
+        } catch {
+          showToast('Kopieren niet toegestaan in deze browsercontext');
+        }
+      });
+
+      actions.append(download, copy);
+      card.append(preview, label, file, actions);
+
+      return card;
+    }
+
+    function render() {
+      const query = searchInput.value.trim().toLowerCase();
+      const filtered = logoFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
+
+      grid.innerHTML = '';
+      for (const fileName of filtered) {
+        grid.appendChild(buildCard(fileName));
+      }
+
+      countNode.textContent = String(filtered.length);
+      emptyState.style.display = filtered.length === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', render);
+
+    document.getElementById('download-all').addEventListener('click', function () {
+      window.w4DownloadZip({ files: logoFiles, dir: 'img/logo', zipName: 'wigo4it-logos.zip', button: this });
+    });
+
+    loadAssets()
+      .then((manifest) => {
+        logoFiles = files(manifest, 'logos').sort((a, b) => a.localeCompare(b, 'nl'));
+        totalNode.textContent = String(logoFiles.length);
+        render();
+      })
+      .catch(() => {
+        emptyState.textContent =
+          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
+        emptyState.style.display = 'block';
+      });
+  </script>
+</body>
+</html>

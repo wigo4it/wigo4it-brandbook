@@ -91,3 +91,26 @@ def test_page_loads_cleanly(page, server_url, page_path):
 
     body_text = page.locator("body").inner_text()
     assert len(body_text.strip()) > 100, f"{page_path}: pagina rendert nauwelijks tekst"
+
+
+@pytest.mark.parametrize("width", [1280, 1024])
+def test_navbar_fits_on_a_normal_screen(page, server_url, width):
+    """De topnav mag op een gewoon scherm niet hoeven schuiven.
+
+    Er komt af en toe een item bij (Logo's was de achtste). Deze test valt om
+    zodra de rij breder wordt dan de balk, in plaats van dat het laatste item
+    stilletjes onder de rand verdwijnt.
+    """
+    page.set_viewport_size({"width": width, "height": 800})
+    page.goto(f"{server_url}/index.html", wait_until="domcontentloaded")
+    page.wait_for_selector("#w4-nav nav ul li a")
+
+    fit = page.evaluate(
+        "() => {"
+        "  const nav = document.querySelector('#w4-nav nav');"
+        "  return {over: nav.scrollWidth - nav.clientWidth,"
+        "          items: nav.querySelectorAll('li').length};"
+        "}"
+    )
+    assert fit["items"] >= 8
+    assert fit["over"] <= 0, f"topnav schuift op {width}px: {fit['over']}px te breed"

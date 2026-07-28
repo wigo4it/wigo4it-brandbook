@@ -13,6 +13,7 @@ De site is opgebouwd als losse pagina's met gedeelde assets (fonts, logo's, icon
 - `examples.html`: overzicht met voorbeeldtoepassingen
 - `examples/dashboard.html`: dashboardvoorbeeld met KPI's, charts, tabellen en datavis-richtlijnen
 - `examples/slide-deck.html`: uitgebreid presentatievoorbeeld met meerdere slidepatronen
+- `logos.html`: logo-overzicht met download per logo, diapositieve varianten op een donkere tegel
 - `icons.html`: iconenoverzicht met download per icoon
 - `shapes.html`: vormenoverzicht met download per vorm
 - `photos.html`: fotogalerij met download per foto
@@ -76,7 +77,7 @@ wigo4it-brandbook/
 
 Iconen, vormen, foto's en logo's zijn vrij te gebruiken binnen de merkrichtlijnen.
 
-**Voor mensen:** open `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
+**Voor mensen:** open `logos.html`, `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
 **Download**-knop en een **Kopieer pad**-knop, en boven de lijst zit een
 **Download alles (ZIP)**-knop die de hele categorie in één keer inpakt (client-side, via JSZip).
 
@@ -92,7 +93,7 @@ Elke asset heeft `name`, `file`, `path`, `url`, `format` en `bytes`. Gebruik de 
 direct, of plak een `path` achter `baseUrl`. De categorieën zijn `icons`, `shapes`, `photos`
 en `logos`.
 
-Het manifest is ook de bron voor de site zelf: de drie overzichtspagina's vullen er hun
+Het manifest is ook de bron voor de site zelf: de vier overzichtspagina's vullen er hun
 galerij mee en de deck-tool controleert er `shape:`/`icon:` tegen. Eén lijst, geen kopieën
 die uit de pas kunnen lopen.
 

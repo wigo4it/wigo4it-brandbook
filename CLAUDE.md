@@ -35,10 +35,10 @@ Elke pagina is zelfstandig en laadt dezelfde brand-laag plus Tailwind via CDN. E
 - `index.html` — hoofd-merkgids (scroll-pagina met animaties)
 - `design-system.html` — foundations plus datavis-/dashboard-/presentatiepatronen
 - `examples.html` + `examples/dashboard.html` + `examples/slide-deck.html`
-- `icons.html`, `shapes.html`, `photos.html` — overzichten
+- `logos.html`, `icons.html`, `shapes.html`, `photos.html` — overzichten, alle vier gevuld uit `assets.json`
 - Tools (zie hieronder): `pdf.html`, `pdf-syntax.html`, `deck.html`, `deck-view.html`, `deck-templates.html`, `deck-syntax.html`
 
-**Navigatie** zit op twee niveaus, allebei uit één bron: `scripts/nav.js` rendert de topnav op elke pagina, `scripts/tool-nav.js` de tabrij binnen de tools. Een tool of naslagpagina toevoegen is een regel in `GROUPS` in `tool-nav.js`, plus het bestand opnemen in de regex in `activeKey()` van `nav.js`.
+**Navigatie** zit op twee niveaus, allebei uit één bron: `scripts/nav.js` rendert de topnav op elke pagina, `scripts/tool-nav.js` de tabrij binnen de tools. Een tool of naslagpagina toevoegen is een regel in `GROUPS` in `tool-nav.js`, plus het bestand opnemen in de regex in `activeKey()` van `nav.js`. Een item in de topnav is een regel in `items` plus een regel in `activeKey()`. Let op de breedte: acht items passen op 1024px, meer niet vanzelf. `tests/test_pages.py::test_navbar_fits_on_a_normal_screen` valt om zodra de rij moet schuiven.
 
 ## De tools
 
@@ -61,7 +61,7 @@ Het auteursformaat van een deck staat in de kop van `deck-builder.js` en op `dec
 
 **Assets** in `img/`: `shapes/` (SVG masks, aangestuurd via `mask`/`-webkit-mask` in de `w4-shape-*` classes), `icons/`, `logo/`, `photos/`. Shapes bestaan vaak als SVG én PNG. Voor donkere achtergronden: gebruik het diapositief-logo `img/logo/Logo Diap.svg`.
 
-`assets.json` is het manifest van die map: vier categorieën (`icons`, `shapes`, `photos`, `logos`), gegenereerd door `scripts/generate-assets.py`. Het is niet alleen een download-manifest voor buiten, het is ook de bestandslijst die de site zelf gebruikt: `icons.html`, `shapes.html` en `photos.html` vullen er hun galerij mee, en de deck-tool controleert er `shape:`/`icon:` tegen met een suggestie bij een typefout. Die toegang loopt via `scripts/assets.js` (`loadAssets`, `files`, `names`, `suggest`). **Voeg je iets toe aan `img/`, draai dan `python scripts/generate-assets.py`**, anders zie je het nergens terug en faalt de CI-drift-check. Gevolg van deze keuze: die drie pagina's halen een bestand op en werken dus niet meer via `file://`; serveren dus.
+`assets.json` is het manifest van die map: vier categorieën (`icons`, `shapes`, `photos`, `logos`), gegenereerd door `scripts/generate-assets.py`. Het is niet alleen een download-manifest voor buiten, het is ook de bestandslijst die de site zelf gebruikt: `logos.html`, `icons.html`, `shapes.html` en `photos.html` vullen er hun galerij mee, en de deck-tool controleert er `shape:`/`icon:` tegen met een suggestie bij een typefout. Die toegang loopt via `scripts/assets.js` (`loadAssets`, `files`, `names`, `suggest`). **Voeg je iets toe aan `img/`, draai dan `python scripts/generate-assets.py`**, anders zie je het nergens terug en faalt de CI-drift-check. Gevolg van deze keuze: die vier pagina's halen een bestand op en werken dus niet meer via `file://`; serveren dus.
 
 ## Merk
 

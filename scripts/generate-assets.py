@@ -7,8 +7,8 @@ Purpose: point a human or an automated agent at the deployed site and let them
 discover every asset with a ready-to-use download URL. Append an asset's "path"
 (or use its pre-built "url") to grab the file directly.
 
-Het manifest is ook de bron voor de site zelf: icons.html, shapes.html en
-photos.html vullen hun galerij ermee en de deck-tool controleert er de
+Het manifest is ook de bron voor de site zelf: logos.html, icons.html,
+shapes.html en photos.html vullen hun galerij ermee en de deck-tool controleert er de
 `shape:`/`icon:`-tokens tegen. Draai dit dus na elke wijziging in img/.
 
 Run from the repo root:  python scripts/generate-assets.py

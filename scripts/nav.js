@@ -12,12 +12,13 @@
   var base = script ? script.src.replace(/scripts\/nav\.js(?:\?.*)?$/, '') : '';
 
   var linkClass =
-    'font-body text-sm whitespace-nowrap text-aubergine/70 hover:text-dark-green px-3 py-1.5 ' +
+    'font-body text-sm whitespace-nowrap text-aubergine/70 hover:text-dark-green px-2.5 py-1.5 ' +
     'rounded-md hover:bg-light-grey/60 transition-colors';
 
   var items = [
     { key: 'merkboek',      label: 'Merkboek',      href: 'index.html#merkboek' },
     { key: 'design-system', label: 'Design system', href: 'design-system.html' },
+    { key: 'logos',         label: "Logo's",        href: 'logos.html' },
     { key: 'icons',         label: 'Iconen',        href: 'icons.html' },
     { key: 'shapes',        label: 'Vormen',        href: 'shapes.html' },
     { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
@@ -29,6 +30,7 @@
   function activeKey() {
     var p = window.location.pathname.toLowerCase();
     if (p.endsWith('/design-system.html')) return 'design-system';
+    if (p.endsWith('/logos.html')) return 'logos';
     if (p.endsWith('/icons.html')) return 'icons';
     if (p.endsWith('/shapes.html')) return 'shapes';
     if (p.endsWith('/photos.html')) return 'fotos';
@@ -61,12 +63,14 @@
     mount.innerHTML =
       '<header class="fixed top-4 inset-x-0 z-50 flex justify-center pointer-events-none">' +
         '<div class="pointer-events-auto bg-white/80 backdrop-blur-md border border-gray-100 ' +
-          'shadow-sm rounded-2xl px-6 h-14 flex items-center justify-between gap-8 w-full max-w-4xl mx-4">' +
+          'shadow-sm rounded-2xl px-5 h-14 flex items-center justify-between gap-5 w-full max-w-5xl mx-4">' +
           '<a href="' + logoHref + '" class="flex items-center gap-2 shrink-0">' +
             '<img src="' + base + 'img/logo/Logo.svg" alt="Wigo4it" class="h-7" />' +
           '</a>' +
-          '<nav aria-label="Hoofdnavigatie">' +
-            '<ul class="flex items-center gap-1">' + lis + '</ul>' +
+          // min-w-0 + overflow-x-auto: past de rij niet, dan schuift hij mee in
+          // plaats van dat het laatste item onder de rand verdwijnt.
+          '<nav aria-label="Hoofdnavigatie" class="min-w-0 overflow-x-auto w4-nav-scroll">' +
+            '<ul class="flex items-center gap-0.5">' + lis + '</ul>' +
           '</nav>' +
         '</div>' +
       '</header>';

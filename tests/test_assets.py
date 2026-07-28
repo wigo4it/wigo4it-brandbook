@@ -165,6 +165,7 @@ def test_asset_issues_stays_quiet_without_a_manifest(builder):
         ("icons.html", ".icon-card", "#icon-total", "icons"),
         ("shapes.html", ".shape-card", "#shape-total", "shapes"),
         ("photos.html", ".photo-card", "#photo-total", "photos"),
+        ("logos.html", ".logo-card", "#logo-total", "logos"),
     ],
 )
 def test_gallery_renders_every_asset_from_the_manifest(
