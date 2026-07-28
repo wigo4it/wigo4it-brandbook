@@ -340,7 +340,7 @@
     // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
     // img/logo uit de pas kan lopen. Zie scripts/assets.js. Het .ai-bronbestand
     // in die map staat niet in het manifest en hoort hier dus ook niet.
-    import { loadAssets, files } from './scripts/assets.js';
+    import { loadGallery } from './scripts/assets.js';
 
     let logoFiles = [];
 
@@ -450,17 +450,15 @@
       window.w4DownloadZip({ files: logoFiles, dir: 'img/logo', zipName: 'wigo4it-logos.zip', button: this });
     });
 
-    loadAssets()
-      .then((manifest) => {
-        logoFiles = files(manifest, 'logos').sort((a, b) => a.localeCompare(b, 'nl'));
-        totalNode.textContent = String(logoFiles.length);
+    loadGallery(
+      'logos',
+      (list) => {
+        logoFiles = list;
+        totalNode.textContent = String(list.length);
         render();
-      })
-      .catch(() => {
-        emptyState.textContent =
-          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
-        emptyState.style.display = 'block';
-      });
+      },
+      emptyState
+    );
   </script>
 </body>
 </html>

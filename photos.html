@@ -305,7 +305,7 @@
   <script type="module">
     // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
     // img/photos uit de pas kan lopen. Zie scripts/assets.js.
-    import { loadAssets, files } from './scripts/assets.js';
+    import { loadGallery } from './scripts/assets.js';
 
     let photoFiles = [];
 
@@ -402,17 +402,15 @@
       window.w4DownloadZip({ files: photoFiles, dir: 'img/photos', zipName: 'wigo4it-fotos.zip', button: this });
     });
 
-    loadAssets()
-      .then((manifest) => {
-        photoFiles = files(manifest, 'photos').sort((a, b) => a.localeCompare(b, 'nl'));
-        totalNode.textContent = String(photoFiles.length);
+    loadGallery(
+      'photos',
+      (list) => {
+        photoFiles = list;
+        totalNode.textContent = String(list.length);
         render();
-      })
-      .catch(() => {
-        emptyState.textContent =
-          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
-        emptyState.style.display = 'block';
-      });
+      },
+      emptyState
+    );
   </script>
 </body>
 </html>

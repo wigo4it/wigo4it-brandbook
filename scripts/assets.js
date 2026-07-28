@@ -70,6 +70,36 @@ export function names(manifest, id, format = '') {
   return out;
 }
 
+/** Wat er te doen staat als het manifest niet binnenkomt. Bijna altijd file://. */
+const NO_MANIFEST =
+  'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
+
+/**
+ * De start van een galerijpagina: manifest ophalen, bestandsnamen op alfabet
+ * zetten en de pagina laten renderen. De vier overzichtspagina's deden dit
+ * woordelijk hetzelfde, inclusief de foutmelding, en dat is precies het soort
+ * kopie dat na een tijdje per pagina anders is.
+ *
+ * Sorteren gebeurt hier omdat het manifest de volgorde van het bestandssysteem
+ * volgt en dat leest niet als een lijst waar je iets in opzoekt.
+ *
+ * @param {string} id                          Categorie: logos, icons, shapes, photos.
+ * @param {(files: string[]) => void} onReady   Krijgt de gesorteerde bestandsnamen.
+ * @param {HTMLElement} [emptyState]            Toont de melding als het misgaat.
+ * @returns {Promise<void>}
+ */
+export function loadGallery(id, onReady, emptyState) {
+  return loadAssets()
+    .then((manifest) => {
+      onReady(files(manifest, id).sort((a, b) => a.localeCompare(b, 'nl')));
+    })
+    .catch(() => {
+      if (!emptyState) return;
+      emptyState.textContent = NO_MANIFEST;
+      emptyState.style.display = 'block';
+    });
+}
+
 /** Levenshtein-afstand tussen twee strings. */
 function distance(a, b) {
   if (a === b) return 0;
