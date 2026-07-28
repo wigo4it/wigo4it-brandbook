@@ -61,6 +61,8 @@ Het auteursformaat van een deck staat in de kop van `deck-builder.js` en op `dec
 
 **Assets** in `img/`: `shapes/` (SVG masks, aangestuurd via `mask`/`-webkit-mask` in de `w4-shape-*` classes), `icons/`, `logo/`, `photos/`. Shapes bestaan vaak als SVG én PNG. Voor donkere achtergronden: gebruik het diapositief-logo `img/logo/Logo Diap.svg`.
 
+`assets.json` is het manifest van die map: vier categorieën (`icons`, `shapes`, `photos`, `logos`), gegenereerd door `scripts/generate-assets.py`. Het is niet alleen een download-manifest voor buiten, het is ook de bestandslijst die de site zelf gebruikt: `icons.html`, `shapes.html` en `photos.html` vullen er hun galerij mee, en de deck-tool controleert er `shape:`/`icon:` tegen met een suggestie bij een typefout. Die toegang loopt via `scripts/assets.js` (`loadAssets`, `files`, `names`, `suggest`). **Voeg je iets toe aan `img/`, draai dan `python scripts/generate-assets.py`**, anders zie je het nergens terug en faalt de CI-drift-check. Gevolg van deze keuze: die drie pagina's halen een bestand op en werken dus niet meer via `file://`; serveren dus.
+
 ## Merk
 
 - Kleuren: light-grey `#cfd6cc`, dark-green `#005351`, dark-blue `#434d8e`, soft-yellow `#e9eb86`, light-green `#63cf92`, aubergine `#362c46`, bright-red `#f56e6d`, bright-pink `#bb55a9` (canoniek in `brandColors.md` en `styles/w4.css`).

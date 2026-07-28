@@ -16,7 +16,7 @@ De site is opgebouwd als losse pagina's met gedeelde assets (fonts, logo's, icon
 - `icons.html`: iconenoverzicht met download per icoon
 - `shapes.html`: vormenoverzicht met download per vorm
 - `photos.html`: fotogalerij met download per foto
-- `assets.json`: machine-leesbaar manifest van alle downloadbare assets
+- `assets.json`: machine-leesbaar manifest van alle downloadbare assets, en de bestandslijst waar de overzichtspagina's en de deck-tool op draaien
 
 ## Mappenstructuur
 
@@ -74,7 +74,7 @@ wigo4it-brandbook/
 
 ## Assets downloaden
 
-Iconen, vormen en foto's zijn vrij te gebruiken binnen de merkrichtlijnen.
+Iconen, vormen, foto's en logo's zijn vrij te gebruiken binnen de merkrichtlijnen.
 
 **Voor mensen:** open `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
 **Download**-knop en een **Kopieer pad**-knop, en boven de lijst zit een
@@ -89,7 +89,12 @@ https://wigo4it.github.io/wigo4it-brandbook/assets.json
 ```
 
 Elke asset heeft `name`, `file`, `path`, `url`, `format` en `bytes`. Gebruik de `url`
-direct, of plak een `path` achter `baseUrl`.
+direct, of plak een `path` achter `baseUrl`. De categorieën zijn `icons`, `shapes`, `photos`
+en `logos`.
+
+Het manifest is ook de bron voor de site zelf: de drie overzichtspagina's vullen er hun
+galerij mee en de deck-tool controleert er `shape:`/`icon:` tegen. Eén lijst, geen kopieën
+die uit de pas kunnen lopen.
 
 Het manifest wordt door `scripts/generate-assets.py` uit `img/` gegenereerd. De Pages-workflow
 draait dat script bij elke deploy, dus de live `assets.json` blijft vanzelf actueel. Handmatig

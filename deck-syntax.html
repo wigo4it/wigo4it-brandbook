@@ -145,6 +145,12 @@ footer: Wigo4it · Jaarplan
             <code>icon:"Game Boy"</code>. Zonder quotes knipt de tokenregel op de spatie en zoekt
             de builder een icoon dat <code>Game</code> heet.
           </p>
+          <p class="w4-doc-callout">
+            De namen achter <code>shape:</code> en <code>icon:</code> worden gecontroleerd tegen
+            <a href="assets.json">assets.json</a>, het manifest van alles in <code>img/</code>.
+            Staat een naam er niet in, dan zegt de tool dat meteen, met de dichtstbijzijnde naam
+            erbij. Anders merk je een typefout pas op de beamer, aan een vorm die er niet is.
+          </p>
         </section>
 
         <section class="w4-doc-card">
