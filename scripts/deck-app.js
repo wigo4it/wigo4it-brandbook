@@ -6,6 +6,7 @@
    scripts/deck-builder.js.
    ============================================================ */
 import {
+  assetIssues,
   buildDeck,
   extractDirectives,
   fitDecoration,
@@ -13,6 +14,7 @@ import {
   splitSlides,
   parseFrontMatter,
 } from './deck-builder.js';
+import { loadAssets, names } from './assets.js';
 
 const STORAGE_SOURCE = 'w4-deck-source';
 const STORAGE_OPTIONS = 'w4-deck-options';
@@ -33,6 +35,9 @@ const els = {
 
 let markdownSource = '';
 let frameReady = false;
+// Namen uit assets.json, om shape:/icon:-tokens tegen te controleren. Blijft
+// leeg tot het manifest binnen is; dan slaat de controle over, niet aan.
+let assetNames = {};
 
 function options() {
   return {
@@ -51,17 +56,21 @@ function pushToPreview() {
 }
 
 /**
- * Controleer de tokens op typefouten. De builder negeert onbekende tokens,
- * maar stil falen is precies waar je in een presentatie niet achter wil komen.
+ * Controleer de tokens op typefouten. De builder negeert onbekende tokens en
+ * een verkeerde asset-naam levert een stille 404 op; dat is precies waar je in
+ * een presentatie niet achter wil komen.
  */
 function checkTokens() {
   const unknown = new Set();
+  const missing = new Map();
   let slides = 0;
   for (const group of splitSlides(parseFrontMatter(markdownSource).body)) {
     for (const slide of group) {
       slides += 1;
-      for (const token of slideConfig(extractDirectives(slide).tokens).unknown) {
-        unknown.add(token);
+      const config = slideConfig(extractDirectives(slide).tokens);
+      for (const token of config.unknown) unknown.add(token);
+      for (const issue of assetIssues(config, assetNames)) {
+        missing.set(`${issue.kind}:${issue.value}`, issue);
       }
     }
   }
@@ -70,12 +79,20 @@ function checkTokens() {
     ? `${slides} slides, 16:9`
     : '16:9, zoals het op de beamer komt';
 
+  const messages = [];
   if (unknown.size) {
-    els.warning.textContent = `Onbekende tokens, worden genegeerd: ${[...unknown].join(', ')}`;
-    els.warning.hidden = false;
-  } else {
-    els.warning.hidden = true;
+    messages.push(`Onbekende tokens, worden genegeerd: ${[...unknown].join(', ')}`);
   }
+  for (const issue of missing.values()) {
+    messages.push(
+      issue.suggestion
+        ? `Onbekende ${issue.kind}: "${issue.value}". Bedoelde je "${issue.suggestion}"?`
+        : `Onbekende ${issue.kind}: "${issue.value}". Staat niet in assets.json.`
+    );
+  }
+
+  els.warning.textContent = messages.join('\n');
+  els.warning.hidden = messages.length === 0;
 }
 
 function update() {
@@ -232,6 +249,17 @@ els.frame.addEventListener('load', () => {
   frameReady = true;
   pushToPreview();
 });
+
+// De namen van shapes en icons komen uit het manifest. Lukt dat niet, dan
+// werkt de tool gewoon door; alleen de controle op typefouten valt weg.
+loadAssets()
+  .then((manifest) => {
+    assetNames = { shapes: names(manifest, 'shapes', 'svg'), icons: names(manifest, 'icons', 'svg') };
+    if (markdownSource) checkTokens();
+  })
+  .catch(() => {
+    /* geen manifest: shape:/icon: worden niet gecontroleerd */
+  });
 
 // Zonder eigen bestand draait de tool op het voorbeelddeck, zodat de preview
 // meteen laat zien wat de syntax oplevert.

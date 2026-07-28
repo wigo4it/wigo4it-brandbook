@@ -8,7 +8,8 @@ discover every asset with a ready-to-use download URL. Append an asset's "path"
 (or use its pre-built "url") to grab the file directly.
 
 Het manifest is ook de bron voor de site zelf: icons.html, shapes.html en
-photos.html vullen hun galerij ermee. Draai dit dus na elke wijziging in img/.
+photos.html vullen hun galerij ermee en de deck-tool controleert er de
+`shape:`/`icon:`-tokens tegen. Draai dit dus na elke wijziging in img/.
 
 Run from the repo root:  python scripts/generate-assets.py
 The GitHub Pages workflow runs this before deploy, so the live manifest stays

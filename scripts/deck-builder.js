@@ -12,6 +12,7 @@
      <!-- w4: ... --> opmaak-tokens voor die ene slide
      Note:          alles daarna is sprekersnotitie
    ============================================================ */
+import { suggest } from './assets.js';
 
 /**
  * Kleurtokens -> huisstijlkleur. De waarde is bewust een CSS-variabele en
@@ -265,6 +266,28 @@ export function slideConfig(tokens = []) {
   // Zonder expliciet accent kiest de achtergrondkleur er een die leesbaar is.
   if (!config.accent) config.accent = DEFAULT_ACCENTS[config.color];
   return config;
+}
+
+/**
+ * Controleer de asset-verwijzingen van een slide tegen het manifest. Een
+ * `shape:rng` levert nu een 404 op een plaatje dat niemand mist tot het op de
+ * beamer staat; met de namen uit assets.json is die typefout aan te wijzen.
+ *
+ * De namenlijst komt van buiten binnen: de builder blijft zo pure logica en
+ * hoeft niets op te halen. Zonder lijst (`{}`) valt de controle stil weg.
+ *
+ * @param {object} config             Resultaat van slideConfig.
+ * @param {{shapes?: string[], icons?: string[]}} [assets] Namen zonder extensie.
+ * @returns {{kind: string, value: string, suggestion: string}[]}
+ */
+export function assetIssues(config, assets = {}) {
+  const issues = [];
+  for (const [kind, names] of [['shape', assets.shapes], ['icon', assets.icons]]) {
+    const value = config[kind];
+    if (!value || !names || !names.length || names.includes(value)) continue;
+    issues.push({ kind, value, suggestion: suggest(value, names) });
+  }
+  return issues;
 }
 
 /** Zet losse HTML om in kind-elementen, zonder wrapper-div in het resultaat. */

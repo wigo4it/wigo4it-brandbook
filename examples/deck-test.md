@@ -372,6 +372,14 @@ De tokens `paars` en `glitter` bestaan niet. De tool hoort ze te melden als type
 
 ---
 
+<!-- w4: white shape:rng icon:Zonn -->
+
+## 26b. Asset die niet bestaat
+
+`shape:rng` en `icon:Zonn` staan niet in `assets.json`. De tool hoort beide te melden met de dichtstbijzijnde naam erbij (`ring`, `Zon`). Op de slide zelf blijft de decoratie leeg; een gebroken plaatje-icoontje mag je hier zien.
+
+---
+
 <!-- w4: blue -->
 <!-- w4: steps shape:square@bottomright -->
 

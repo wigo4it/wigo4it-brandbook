@@ -2,7 +2,8 @@
 
 assets.json is sinds deze stap niet alleen een download-manifest voor externe
 gebruikers, maar ook de bron voor de site zelf: de drie catalogus-pagina's
-vullen er hun galerij mee. Deze tests bewaken die twee kanten:
+vullen er hun galerij mee en de deck-tool controleert er `shape:`/`icon:`
+tegen. Deze tests bewaken die twee kanten:
 
 * het manifest zelf  - categorieen aanwezig, paden bestaan echt;
 * scripts/assets.js  - files/names/suggest, in de browser;
@@ -31,6 +32,24 @@ def assets(page, server_url):
         return page.evaluate(
             "async ({fnBody}) => {"
             "  const m = await import('/scripts/assets.js');"
+            "  const fn = new Function('m', 'return (' + fnBody + ')(m);');"
+            "  return await fn(m);"
+            "}",
+            {"fnBody": fn_body},
+        )
+
+    return call
+
+
+@pytest.fixture
+def builder(page, server_url):
+    """Zelfde helper als in test_deck_builder.py, voor assetIssues."""
+    page.goto(f"{server_url}/", wait_until="domcontentloaded")
+
+    def call(fn_body):
+        return page.evaluate(
+            "async ({fnBody}) => {"
+            "  const m = await import('/scripts/deck-builder.js');"
             "  const fn = new Function('m', 'return (' + fnBody + ')(m);');"
             "  return await fn(m);"
             "}",
@@ -107,6 +126,36 @@ def test_suggest_stays_silent_when_nothing_is_close(assets):
     assert result == ""
 
 
+# ── deck-builder: shape:/icon: tegen het manifest ────────────────────────────
+
+
+def test_asset_issues_accepts_a_known_shape(builder):
+    result = builder(
+        "(m) => m.assetIssues(m.slideConfig(['shape:ring']), {shapes: ['ring'], icons: []})"
+    )
+    assert result == []
+
+
+def test_asset_issues_reports_a_typo_with_a_suggestion(builder):
+    result = builder(
+        "(m) => m.assetIssues(m.slideConfig(['shape:rng']), {shapes: ['ring'], icons: []})"
+    )
+    assert result == [{"kind": "shape", "value": "rng", "suggestion": "ring"}]
+
+
+def test_asset_issues_reports_an_unknown_icon_without_a_suggestion(builder):
+    result = builder(
+        "(m) => m.assetIssues(m.slideConfig(['icon:Eenhoorn']), {shapes: [], icons: ['Zon']})"
+    )
+    assert result == [{"kind": "icon", "value": "Eenhoorn", "suggestion": ""}]
+
+
+def test_asset_issues_stays_quiet_without_a_manifest(builder):
+    """Zonder namenlijst slaat de controle over, hij slaat niet aan."""
+    result = builder("(m) => m.assetIssues(m.slideConfig(['shape:rng', 'icon:Zn']), {})")
+    assert result == []
+
+
 # ── de galerijen ─────────────────────────────────────────────────────────────
 
 
@@ -126,3 +175,29 @@ def test_gallery_renders_every_asset_from_the_manifest(
     page.wait_for_selector(card_class)
     assert page.locator(card_class).count() == expected
     assert page.locator(total_id).inner_text() == str(expected)
+
+
+# ── de deck-tool waarschuwt ──────────────────────────────────────────────────
+
+
+def test_deck_tool_warns_about_a_shape_that_is_not_in_the_manifest(page, server_url, tmp_path):
+    deck = tmp_path / "typefout.md"
+    deck.write_text("<!-- w4: green statement shape:rng -->\n\n# Test\n", encoding="utf-8")
+
+    page.goto(f"{server_url}/deck.html", wait_until="networkidle")
+    page.set_input_files("#deck-file", str(deck))
+
+    warning = page.locator("#deck-warning")
+    warning.wait_for(state="visible")
+    assert 'Bedoelde je "ring"?' in warning.inner_text()
+
+
+def test_deck_tool_stays_quiet_on_a_deck_without_typos(page, server_url, tmp_path):
+    deck = tmp_path / "goed.md"
+    deck.write_text("<!-- w4: green statement shape:ring icon:Zon -->\n\n# Test\n", encoding="utf-8")
+
+    page.goto(f"{server_url}/deck.html", wait_until="networkidle")
+    page.set_input_files("#deck-file", str(deck))
+    page.wait_for_timeout(300)
+
+    assert page.locator("#deck-warning").is_hidden()
