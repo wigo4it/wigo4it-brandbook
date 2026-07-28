@@ -37,7 +37,7 @@
     { key: 'shapes',        label: 'Vormen',        href: 'shapes.html' },
     { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
     { key: 'voorbeelden',   label: 'Voorbeelden',   href: 'examples.html' },
-    // PDF en Deck wonen samen onder Tools, met een eigen zijbalk (tool-nav.js).
+    // PDF en Deck wonen samen onder Tools, met een eigen tabrij (tool-nav.js).
     { key: 'tools',         label: 'Tools',         href: 'deck.html' },
   ];
 

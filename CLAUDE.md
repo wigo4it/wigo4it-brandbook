@@ -29,7 +29,7 @@ Elke pagina is zelfstandig en laadt dezelfde brand-laag plus Tailwind via CDN. E
 3. `styles/tool.css` — het gedeelde skelet van de toolpagina's (tabrij, instellingenpaneel, velden, dropzone, knoppen) plus de `w4-doc-*`-opmaak van de naslagpagina's. Gebruikt door `pdf.html`, `deck.html` en hun naslagpagina's. **Chrome van een tool aanpassen doe je hier, niet in `pdf.css` of `deck.css`.** `pdf-syntax.html` en `deck-syntax.html` hebben hierdoor genoeg aan `w4.css` + `tool.css`; alleen `deck.html` en `deck-templates.html` laden ook `deck.css`, want die renderen echte slides.
 4. Pagina-specifieke CSS: `styles/pdf.css` (voorblad, A4-preview, printregels), `styles/deck.css` (het reveal-thema plus de template-galerij), `examples/dashboard.css` en `examples/slide-deck.css`.
 
-`style.css` (root) is legacy en wordt alleen door `index_oud.html` gebruikt. Niet aanraken voor nieuw werk; nieuwe pagina's gebruiken `styles/w4.css`.
+Er staat geen CSS meer los in de root; `style.css` en `index_oud.html` zijn weg (commit `5091724`). Nieuwe pagina's beginnen bij `styles/w4.css`.
 
 **Pagina's:**
 - `index.html` — hoofd-merkgids (scroll-pagina met animaties)

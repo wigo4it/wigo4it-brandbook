@@ -1,9 +1,13 @@
 /* ============================================================
-   Zijbalk voor de tool-pagina's.
+   Tabrij voor de tool-pagina's.
 
    Rendert de navigatie in <div id="w4-tool-nav"></div> en markeert het
    actieve item. Eén bron van waarheid, net als scripts/nav.js, zodat een
    nieuwe tool een regel in ITEMS is en verder niets.
+
+   Het is bewust een horizontale tabrij en geen zijbalk. Die zijbalk heeft
+   er gestaan en is eruit gehaald: naast het instellingenpaneel stonden er
+   twee verticale lijsten met hetzelfde gewicht naast elkaar.
 
    De basis-URL komt uit de src van dit script zelf, zodat een pagina in een
    submap dezelfde absolute root krijgt als een pagina in de root.
