@@ -69,7 +69,9 @@ wigo4it-brandbook/
 │   ├── deck-voorbeeld.md      het deck dat de tool standaard toont
 │   └── deck-test.md           elke layout plus de randgevallen
 ├── docs/                      merkgidsen als PDF
-├── fonts/                     niet in git, zie .gitignore
+├── fonts/
+│   ├── pp-neue-machina/       headings en display
+│   └── raleway/               body en UI
 └── img/
     ├── icons/
     ├── logo/
@@ -152,8 +154,13 @@ python scripts/generate-assets.py
 
 ## Typografie
 
-- PP Neue Machina: heading/display
-- Raleway: body/UI-tekst
+- PP Neue Machina: heading/display, in `fonts/pp-neue-machina/`
+- Raleway: body/UI-tekst, in `fonts/raleway/`
+
+Beide gaan mee in git; er is een licentie voor. De `@font-face`-regels staan in
+`styles/w4.css`, en nog een keer in `design-system.html`, want die pagina laadt `w4.css` niet.
+Houd de paden in kleine letters zonder spaties: GitHub Pages draait op Linux en is
+hoofdlettergevoelig, dus een pad met een hoofdletter werkt lokaal wel en daar niet.
 
 ## Notities
 

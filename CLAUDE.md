@@ -16,7 +16,8 @@ Statisch brandbook voor Wigo4it: losse HTML-pagina's met gedeelde assets. Geen b
 
 - De gate staat in `.github/workflows/ci.yml` (draait op elke PR naar `main` én wordt vóór deploy aangeroepen door `static.yml`).
 - Wat het checkt: elke `.html`-pagina serveren via `http.server` en met Playwright/Chromium valideren dat de pagina 200 geeft, geen JS-crash of `console.error` heeft, geen kapotte eigen assets laadt (404 op shape/icon/foto) en echt tekst rendert. Plus: `generate-assets.py` opnieuw draaien en falen als `assets.json` niet meer klopt met `img/`.
-- Bewust buiten de gate: externe CDN's (Tailwind, GSAP) en `fonts/` (staat in `.gitignore`, degradeert gracieus). Nieuwe pagina's worden automatisch meegetest; de test globt alle `.html` onder de repo-root.
+- Bewust buiten de gate: alleen externe CDN's (Tailwind, GSAP). Al het andere dat een pagina van onze eigen origin ophaalt, moet er zijn. Nieuwe pagina's worden automatisch meegetest; de test globt alle `.html` onder de repo-root.
+- Aparte controle: `test_url_references_match_the_filesystem_exactly` loopt elke `url()` in de HTML en CSS na tegen het bestandssysteem, **inclusief hoofdlettergebruik**. De browsertest ziet dat niet: die serveert via Windows, en dat is hoofdletterongevoelig. GitHub Pages draait op Linux en is dat niet.
 - Lokaal draaien: `pip install -r requirements-dev.txt && python -m playwright install chromium && pytest`.
 
 ## Architectuur
@@ -66,7 +67,7 @@ Het auteursformaat van een deck staat in de kop van `deck-builder.js` en op `dec
 ## Merk
 
 - Kleuren: light-grey `#cfd6cc`, dark-green `#005351`, dark-blue `#434d8e`, soft-yellow `#e9eb86`, light-green `#63cf92`, aubergine `#362c46`, bright-red `#f56e6d`, bright-pink `#bb55a9` (canoniek in `brandColors.md` en `styles/w4.css`).
-- Fonts: **PP Neue Machina** voor headings/display, **Raleway** voor body/UI. Lokaal in `fonts/`, geladen via `@font-face` in `w4.css`.
+- Fonts: **PP Neue Machina** voor headings/display, **Raleway** voor body/UI. Ze staan in `fonts/pp-neue-machina/` en `fonts/raleway/` en gaan mee in git; er is een licentie voor. Geladen via `@font-face` in `w4.css`, plus een eigen kopie van die regels in `design-system.html`, want die pagina laadt `w4.css` niet. **Paden in kleine letters zonder spaties houden**, anders werkt het lokaal wel en op Pages niet.
 
 ## Werkafspraken
 

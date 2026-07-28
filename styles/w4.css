@@ -15,20 +15,24 @@
   --bright-pink: #bb55a9;
 }
 
-/* ── Brand fonts ── */
+/* ── Brand fonts ──
+   Paden zijn kleine letters zonder spaties. Ze stonden ooit in een map met
+   hoofdletter en een spatie, en dat brak op GitHub Pages: Linux is
+   hoofdlettergevoelig, dus de site viel daar terug op systeemfonts terwijl
+   het lokaal op Windows gewoon leek te werken. */
 @font-face {
   font-family: 'PP Neue Machina';
-  src: url('../fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainRegular.ttf') format('truetype');
+  src: url('../fonts/pp-neue-machina/PPNeueMachina-PlainRegular.ttf') format('truetype');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'PP Neue Machina';
-  src: url('../fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainSemibold.ttf') format('truetype');
+  src: url('../fonts/pp-neue-machina/PPNeueMachina-PlainSemibold.ttf') format('truetype');
   font-weight: 600; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'PP Neue Machina';
-  src: url('../fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainBold.ttf') format('truetype');
+  src: url('../fonts/pp-neue-machina/PPNeueMachina-PlainBold.ttf') format('truetype');
   font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
