@@ -15,6 +15,20 @@
     'font-body text-sm whitespace-nowrap text-aubergine/70 hover:text-dark-green px-2.5 py-1.5 ' +
     'rounded-md hover:bg-light-grey/60 transition-colors';
 
+  // De rij schuift als hij niet past. In een balk van 56px hoog leest een
+  // zichtbare scrollbar als een fout, dus die verbergen we. Dit staat hier en
+  // niet in w4.css: design-system.html laadt die stylesheet niet, en de navbar
+  // hoort overal hetzelfde te doen.
+  function injectStyle() {
+    if (document.getElementById('w4-nav-style')) return;
+    var style = document.createElement('style');
+    style.id = 'w4-nav-style';
+    style.textContent =
+      '.w4-nav-scroll{scrollbar-width:none;-ms-overflow-style:none}' +
+      '.w4-nav-scroll::-webkit-scrollbar{display:none}';
+    document.head.appendChild(style);
+  }
+
   var items = [
     { key: 'merkboek',      label: 'Merkboek',      href: 'index.html#merkboek' },
     { key: 'design-system', label: 'Design system', href: 'design-system.html' },
@@ -42,6 +56,8 @@
   function render() {
     var mount = document.getElementById('w4-nav');
     if (!mount) return;
+
+    injectStyle();
 
     var active = activeKey();
     var onHome = active === 'merkboek';

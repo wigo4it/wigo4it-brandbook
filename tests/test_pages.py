@@ -93,24 +93,33 @@ def test_page_loads_cleanly(page, server_url, page_path):
     assert len(body_text.strip()) > 100, f"{page_path}: pagina rendert nauwelijks tekst"
 
 
+# design-system.html laadt als enige pagina styles/w4.css niet. De topnav moet
+# er toch hetzelfde uitzien, dus die staat hier expliciet in de lijst.
+NAV_PAGES = ["index.html", "design-system.html", "logos.html", "deck.html"]
+
+
+@pytest.mark.parametrize("page_path", NAV_PAGES)
 @pytest.mark.parametrize("width", [1280, 1024])
-def test_navbar_fits_on_a_normal_screen(page, server_url, width):
+def test_navbar_fits_on_a_normal_screen(page, server_url, page_path, width):
     """De topnav mag op een gewoon scherm niet hoeven schuiven.
 
     Er komt af en toe een item bij (Logo's was de achtste). Deze test valt om
     zodra de rij breder wordt dan de balk, in plaats van dat het laatste item
-    stilletjes onder de rand verdwijnt.
+    stilletjes onder de rand verdwijnt. En als de rij wél schuift, mag daar
+    geen scrollbar in de balk van verschijnen.
     """
     page.set_viewport_size({"width": width, "height": 800})
-    page.goto(f"{server_url}/index.html", wait_until="domcontentloaded")
+    page.goto(f"{server_url}/{page_path}", wait_until="domcontentloaded")
     page.wait_for_selector("#w4-nav nav ul li a")
 
     fit = page.evaluate(
         "() => {"
         "  const nav = document.querySelector('#w4-nav nav');"
         "  return {over: nav.scrollWidth - nav.clientWidth,"
-        "          items: nav.querySelectorAll('li').length};"
+        "          items: nav.querySelectorAll('li').length,"
+        "          scrollbar: getComputedStyle(nav).scrollbarWidth};"
         "}"
     )
     assert fit["items"] >= 8
-    assert fit["over"] <= 0, f"topnav schuift op {width}px: {fit['over']}px te breed"
+    assert fit["over"] <= 0, f"{page_path}: topnav schuift op {width}px: {fit['over']}px te breed"
+    assert fit["scrollbar"] == "none", f"{page_path}: zichtbare scrollbar in de topnav"

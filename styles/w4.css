@@ -51,16 +51,6 @@
 body            { font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
 h1, h2, h3, h4  { font-family: 'PP Neue Machina', 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
 
-/* ── Topnav ── */
-/* De rij uit scripts/nav.js schuift horizontaal als hij niet past. De balk zelf
-   is smal; een zichtbare scrollbar erin oogt als een fout, dus die verbergen we. */
-.w4-nav-scroll {
-  scrollbar-width: none;
-}
-.w4-nav-scroll::-webkit-scrollbar {
-  display: none;
-}
-
 /* ── Cover composition helpers ── */
 .w4-cover {
   position: relative;
