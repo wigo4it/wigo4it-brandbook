@@ -124,7 +124,7 @@ body.w4-tool-body {
 
 /* ── Kop ──
    Op een tool-pagina zegt de actieve tab al waar je bent; daar staat de titel
-   alleen voor schermlezers (.w4-sr-only). De naslagpagina's zijn documenten en
+   alleen voor schermlezers (.w4-sr-only). De readme-pagina's zijn documenten en
    houden een zichtbare kop. */
 .w4-tool-main {
   display: grid;
@@ -414,7 +414,7 @@ body.w4-tool-body {
   border-radius: 0.6rem;
 }
 
-/* ── Naslagpagina's ──
+/* ── Readme-pagina's ──
    pdf-syntax.html en deck-syntax.html zijn documenten, geen gereedschap:
    kaarten met tekst, code en definitielijsten. Ze horen bij het skelet van
    de tools, niet bij een van de twee tools, dus staan ze hier. */

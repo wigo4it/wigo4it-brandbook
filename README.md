@@ -17,9 +17,9 @@ De site is opgebouwd als losse pagina's met gedeelde assets (fonts, logo's, icon
 - `icons.html`: iconenoverzicht met download per icoon
 - `shapes.html`: vormenoverzicht met download per vorm
 - `photos.html`: fotogalerij met download per foto
-- `pdf.html`: markdown naar een A4-document in de huisstijl, met `pdf-syntax.html` als naslag
+- `pdf.html`: markdown naar een A4-document in de huisstijl, met `pdf-syntax.html` als readme
 - `deck.html`: markdown naar een slide-deck met reveal.js, met `deck-templates.html` (alle layouts) en
-  `deck-syntax.html` (het auteursformaat) als naslag
+  `deck-syntax.html` (het auteursformaat) als readme
 - `assets.json`: machine-leesbaar manifest van alle downloadbare assets, en de bestandslijst waar de overzichtspagina's en de deck-tool op draaien
 
 ## Mappenstructuur

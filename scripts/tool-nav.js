@@ -16,15 +16,15 @@
   var script = document.currentScript;
   var base = script ? script.src.replace(/scripts\/tool-nav\.js(?:\?.*)?$/, '') : '';
 
-  // Eén groep per tool: eerst waar je 'm mee maakt, daarna zijn eigen naslag.
-  // Zo is meteen duidelijk welke naslag bij welke tool hoort; de twee tools
+  // Eén groep per tool: eerst waar je 'm mee maakt, daarna zijn eigen readme.
+  // Zo is meteen duidelijk welke readme bij welke tool hoort; de twee tools
   // delen namelijk niets behalve dat ze allebei markdown lezen.
   var GROUPS = [
     {
       title: 'PDF-document',
       items: [
         { key: 'pdf', label: 'Maken', href: 'pdf.html' },
-        { key: 'pdf-syntax', label: 'Naslag', href: 'pdf-syntax.html' },
+        { key: 'pdf-syntax', label: 'Readme', href: 'pdf-syntax.html' },
       ],
     },
     {
