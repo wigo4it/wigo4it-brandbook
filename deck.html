@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Markdown naar slide-deck</title>
+  <meta name="description" content="Zet markdown om naar een presentatie in de huisstijl van Wigo4it: kies een layout per slide, bekijk de preview en presenteer in de browser." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <link rel="stylesheet" href="styles/deck.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <h1 class="w4-sr-only">Slide-deck</h1>
+
+      <div class="w4-tool-shell">
+        <form class="w4-tool-panel" aria-label="Deck-instellingen">
+          <div class="w4-tool-panel-head">
+            <p class="w4-tool-panel-title">Instellingen</p>
+            <p class="w4-tool-panel-sub">Bestand, footer en overgang</p>
+          </div>
+          <div class="w4-tool-panel-body">
+            <div class="w4-tool-field">
+              <span class="w4-tool-field-label" id="deck-upload-label">Markdown-bestand</span>
+              <label class="w4-tool-dropzone" id="deck-dropzone" aria-describedby="deck-upload-label">
+                <input type="file" id="deck-file"
+                  accept=".md,.markdown,.txt,text/markdown,text/plain" />
+                <span class="w4-tool-dropzone-icon" aria-hidden="true">⬆</span>
+                <span class="w4-tool-dropzone-text" id="deck-dropzone-text">
+                  Sleep een .md-bestand hierheen of klik om te kiezen
+                </span>
+              </label>
+            </div>
+
+            <div class="w4-tool-field">
+              <label for="deck-footer">Footer linksonder</label>
+              <input type="text" id="deck-footer" placeholder="bijv. Wigo4it - intern" />
+            </div>
+
+            <div class="w4-tool-field">
+              <label for="deck-transition">Overgang</label>
+              <select id="deck-transition">
+                <option value="slide">Schuiven</option>
+                <option value="fade">Vervagen</option>
+                <option value="convex">Convex</option>
+                <option value="none">Geen</option>
+              </select>
+            </div>
+
+            <p class="w4-tool-warning" id="deck-warning" hidden></p>
+
+            <div class="w4-tool-actions">
+              <button type="button" class="w4-tool-btn" id="deck-present">Presenteer</button>
+              <button type="button" class="w4-tool-btn is-secondary" id="deck-download">
+                Deck downloaden als HTML
+              </button>
+              <p class="w4-tool-hint">
+                Zonder eigen bestand zie je het voorbeelddeck. "Presenteer" opent de presentatie
+                in een nieuw tabblad: pijltjestoetsen om te navigeren, F voor volledig scherm,
+                S voor de sprekersweergave met notities.
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <section class="w4-tool-canvas" aria-labelledby="deck-canvas-title">
+          <div class="w4-tool-canvas-head">
+            <p class="w4-tool-canvas-title" id="deck-canvas-title">Voorbeeld slide-deck</p>
+            <p class="w4-tool-canvas-sub" id="deck-canvas-sub">16:9, zoals het op de beamer komt</p>
+          </div>
+          <iframe class="deck-tool-frame" id="deck-frame" src="deck-view.html?preview=1"
+            title="Voorbeeld van de presentatie"></iframe>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/deck-app.js"></script>
+</body>
+</html>

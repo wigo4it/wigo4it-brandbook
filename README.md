@@ -13,37 +13,65 @@ De site is opgebouwd als losse pagina's met gedeelde assets (fonts, logo's, icon
 - `examples.html`: overzicht met voorbeeldtoepassingen
 - `examples/dashboard.html`: dashboardvoorbeeld met KPI's, charts, tabellen en datavis-richtlijnen
 - `examples/slide-deck.html`: uitgebreid presentatievoorbeeld met meerdere slidepatronen
+- `logos.html`: logo-overzicht met download per logo, diapositieve varianten op een donkere tegel
 - `icons.html`: iconenoverzicht met download per icoon
 - `shapes.html`: vormenoverzicht met download per vorm
 - `photos.html`: fotogalerij met download per foto
-- `assets.json`: machine-leesbaar manifest van alle downloadbare assets
+- `pdf.html`: markdown naar een A4-document in de huisstijl, met `pdf-syntax.html` als readme
+- `deck.html`: markdown naar een slide-deck met reveal.js, met `deck-templates.html` (alle layouts) en
+  `deck-syntax.html` (het auteursformaat) als readme
+- `assets.json`: machine-leesbaar manifest van alle downloadbare assets, en de bestandslijst waar de overzichtspagina's en de deck-tool op draaien
 
 ## Mappenstructuur
 
 ```text
 wigo4it-brandbook/
 ├── README.md
+├── CLAUDE.md                  werkafspraken en architectuur
 ├── brandColors.md
-├── index.html
+├── assets.json                manifest van img/, gegenereerd
+├── index.html                 merkgids
 ├── design-system.html
 ├── examples.html
-├── icons.html
-├── shapes.html
-├── style.css
+├── logos.html                 ┐
+├── icons.html                 │ overzichten, gevuld uit assets.json
+├── shapes.html                │
+├── photos.html                ┘
+├── pdf.html                   ┐
+├── pdf-syntax.html            │ markdown naar A4-document
+├── deck.html                  │
+├── deck-view.html             │ markdown naar slide-deck
+├── deck-templates.html        │
+├── deck-syntax.html           ┘
 ├── styles/
-│   └── w4.css
+│   ├── w4.css                 het merk: kleuren, fonts, helpers
+│   ├── tool.css               skelet van de toolpagina's
+│   ├── pdf.css                A4-preview en printregels
+│   └── deck.css               reveal-thema en template-galerij
 ├── scripts/
-│   └── animations.js
-├── docs/
-│   └── screenshots/
+│   ├── nav.js                 topnav op elke pagina
+│   ├── tool-nav.js            tabrij binnen de tools
+│   ├── tailwind-config.js     Tailwind-tokens, gedeeld
+│   ├── assets.js              ingang naar assets.json
+│   ├── generate-assets.py     schrijft assets.json uit img/
+│   ├── animations.js          alleen index.html
+│   ├── zip-download.js        "download alles" op de overzichten
+│   ├── pdf-builder.js         ┐ logica en UI, per tool gescheiden
+│   ├── pdf-app.js             │
+│   ├── deck-builder.js        │
+│   ├── deck-app.js            │
+│   ├── deck-view.js           │
+│   └── deck-templates.js      ┘ de templates als markdown
+├── tests/                     Playwright-smoke tests, zie CI
 ├── examples/
-│   ├── dashboard.css
-│   ├── dashboard.html
-│   ├── slide-deck.css
-│   └── slide-deck.html
+│   ├── dashboard.html + .css
+│   ├── slide-deck.html + .css
+│   ├── deck-voorbeeld.md      het deck dat de tool standaard toont
+│   └── deck-test.md           elke layout plus de randgevallen
+├── docs/                      merkgidsen als PDF
 ├── fonts/
-│   ├── PP Neue Machina/
-│   └── raleway/
+│   ├── pp-neue-machina/       headings en display
+│   └── raleway/               body en UI
 └── img/
     ├── icons/
     ├── logo/
@@ -53,10 +81,30 @@ wigo4it-brandbook/
 
 ## Ontwikkelworkflow
 
-1. Open een pagina direct in de browser, of start een lokale static server in de repository-root.
-2. Pas gedeelde stijlen aan in `styles/w4.css`.
-3. Pas pagina-specifieke stijlen aan in de bijbehorende CSS-bestanden (bijvoorbeeld `examples/slide-deck.css` of `examples/dashboard.css`).
+1. Start een lokale static server in de repository-root (`python -m http.server`). De
+   overzichtspagina's en de tools halen `assets.json` op en werken dus niet via `file://`.
+2. Pas gedeelde stijlen aan in `styles/w4.css`, en het skelet van de tools in `styles/tool.css`.
+3. Pas pagina-specifieke stijlen aan in de bijbehorende CSS-bestanden (bijvoorbeeld `styles/deck.css`
+   of `examples/dashboard.css`).
 4. Houd documentatie in `design-system.html` synchroon met de daadwerkelijke implementaties in de voorbeelden.
+5. Ververs hard (Ctrl+Shift+R) na een wijziging in `scripts/` of `styles/`; browsers houden
+   ES-modules vast en je debugt anders de vorige versie.
+6. Draai `pytest` voordat je pusht. Zie [Tests](#tests).
+
+## Tests
+
+Er is geen build-stap, wel een CI-gate. `tests/` serveert de repo als static site en laat
+Playwright elke `.html` openen: geeft de pagina 200, crasht er geen JavaScript, laden alle
+eigen assets, rendert er tekst. Plus een drift-check die `assets.json` opnieuw genereert en
+faalt als het niet meer klopt met `img/`.
+
+```bash
+pip install -r requirements-dev.txt
+python -m playwright install chromium
+pytest
+```
+
+Nieuwe pagina's worden vanzelf meegetest; de test globt alle `.html` onder de root.
 
 ## Voorbeelden
 
@@ -74,9 +122,9 @@ wigo4it-brandbook/
 
 ## Assets downloaden
 
-Iconen, vormen en foto's zijn vrij te gebruiken binnen de merkrichtlijnen.
+Iconen, vormen, foto's en logo's zijn vrij te gebruiken binnen de merkrichtlijnen.
 
-**Voor mensen:** open `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
+**Voor mensen:** open `logos.html`, `icons.html`, `shapes.html` of `photos.html`. Elke asset heeft een
 **Download**-knop en een **Kopieer pad**-knop, en boven de lijst zit een
 **Download alles (ZIP)**-knop die de hele categorie in één keer inpakt (client-side, via JSZip).
 
@@ -89,7 +137,12 @@ https://wigo4it.github.io/wigo4it-brandbook/assets.json
 ```
 
 Elke asset heeft `name`, `file`, `path`, `url`, `format` en `bytes`. Gebruik de `url`
-direct, of plak een `path` achter `baseUrl`.
+direct, of plak een `path` achter `baseUrl`. De categorieën zijn `icons`, `shapes`, `photos`
+en `logos`.
+
+Het manifest is ook de bron voor de site zelf: de vier overzichtspagina's vullen er hun
+galerij mee en de deck-tool controleert er `shape:`/`icon:` tegen. Eén lijst, geen kopieën
+die uit de pas kunnen lopen.
 
 Het manifest wordt door `scripts/generate-assets.py` uit `img/` gegenereerd. De Pages-workflow
 draait dat script bij elke deploy, dus de live `assets.json` blijft vanzelf actueel. Handmatig
@@ -101,8 +154,13 @@ python scripts/generate-assets.py
 
 ## Typografie
 
-- PP Neue Machina: heading/display
-- Raleway: body/UI-tekst
+- PP Neue Machina: heading/display, in `fonts/pp-neue-machina/`
+- Raleway: body/UI-tekst, in `fonts/raleway/`
+
+Beide gaan mee in git; er is een licentie voor. De `@font-face`-regels staan in
+`styles/w4.css`, en nog een keer in `design-system.html`, want die pagina laadt `w4.css` niet.
+Houd de paden in kleine letters zonder spaties: GitHub Pages draait op Linux en is
+hoofdlettergevoelig, dus een pad met een hoofdletter werkt lokaal wel en daar niet.
 
 ## Notities
 

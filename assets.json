@@ -2,8 +2,8 @@
   "brand": "Wigo4it",
   "version": "1.1",
   "baseUrl": "https://wigo4it.github.io/wigo4it-brandbook/",
-  "generated": "2026-07-14",
-  "usage": "Wigo4it brand assets, free to reuse within brand guidelines. Each asset has a ready-to-use \"url\"; alternatively append its \"path\" to \"baseUrl\". Icons and shapes are SVG, photos are JPG.",
+  "generated": "2026-07-28",
+  "usage": "Wigo4it brand assets, free to reuse within brand guidelines. Each asset has a ready-to-use \"url\"; alternatively append its \"path\" to \"baseUrl\". Icons are SVG, shapes and logos are SVG or PNG, photos are JPG.",
   "categories": [
     {
       "id": "icons",
@@ -586,6 +586,70 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/woman-sticking-note-to-wall.jpg",
           "format": "jpg",
           "bytes": 310383
+        }
+      ]
+    },
+    {
+      "id": "logos",
+      "label": "Logo's",
+      "dir": "img/logo",
+      "count": 7,
+      "assets": [
+        {
+          "name": "4 Diap",
+          "file": "4 Diap.svg",
+          "path": "img/logo/4 Diap.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/4%20Diap.svg",
+          "format": "svg",
+          "bytes": 3448
+        },
+        {
+          "name": "4",
+          "file": "4.svg",
+          "path": "img/logo/4.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/4.svg",
+          "format": "svg",
+          "bytes": 3380
+        },
+        {
+          "name": "logo darkmode pill",
+          "file": "logo darkmode pill.png",
+          "path": "img/logo/logo darkmode pill.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/logo%20darkmode%20pill.png",
+          "format": "png",
+          "bytes": 344725
+        },
+        {
+          "name": "Logo Diap",
+          "file": "Logo Diap.svg",
+          "path": "img/logo/Logo Diap.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Logo%20Diap.svg",
+          "format": "svg",
+          "bytes": 5580
+        },
+        {
+          "name": "Logo",
+          "file": "Logo.svg",
+          "path": "img/logo/Logo.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Logo.svg",
+          "format": "svg",
+          "bytes": 5556
+        },
+        {
+          "name": "W4 logo M365",
+          "file": "W4_logo_M365.png",
+          "path": "img/logo/W4_logo_M365.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/W4_logo_M365.png",
+          "format": "png",
+          "bytes": 12019
+        },
+        {
+          "name": "W4 logo M365 Darkmode",
+          "file": "W4_logo_M365_Darkmode.png",
+          "path": "img/logo/W4_logo_M365_Darkmode.png",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/W4_logo_M365_Darkmode.png",
+          "format": "png",
+          "bytes": 12095
         }
       ]
     }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wigo4it | Vormen</title>
-  <meta name="description" content="Doorzoekbaar overzicht van de vormentaal van Wigo4it." />
+  <title>Wigo4it | Logo's</title>
+  <meta name="description" content="Downloadbare logo's van Wigo4it, inclusief de diapositieve varianten." />
   <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
   <link rel="stylesheet" href="styles/w4.css" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +16,7 @@
       --card-border: #d7ddd3;
       --card-shadow: 0 10px 26px rgba(54, 44, 70, 0.09);
       --text-muted: rgba(54, 44, 70, 0.7);
-      --focus: #434d8e;
+      --focus: #005351;
     }
 
     * {
@@ -34,57 +34,6 @@
       width: min(1200px, calc(100% - 3rem));
       margin: 5.5rem auto 0;
       padding-bottom: 4rem;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(8px);
-      background: rgba(245, 248, 244, 0.88);
-      border-bottom: 1px solid rgba(54, 44, 70, 0.09);
-    }
-
-    .topbar-inner {
-      width: min(1200px, calc(100% - 3rem));
-      margin: 0 auto;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
-      text-decoration: none;
-      color: inherit;
-      font-family: 'PP Neue Machina', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .brand img {
-      width: 34px;
-      height: 34px;
-    }
-
-    .back-link {
-      text-decoration: none;
-      color: var(--dark-blue);
-      font-weight: 700;
-      border: 1px solid rgba(67, 77, 142, 0.33);
-      border-radius: 999px;
-      padding: 0.45rem 0.95rem;
-      font-size: 0.92rem;
-      transition: all 0.15s ease;
-    }
-
-    .back-link:hover {
-      background: rgba(67, 77, 142, 0.08);
-      border-color: rgba(67, 77, 142, 0.52);
     }
 
     .hero {
@@ -144,6 +93,10 @@
       cursor: default;
     }
 
+    .search-wrap {
+      position: relative;
+    }
+
     .search-wrap input {
       width: 100%;
       border: 1px solid var(--card-border);
@@ -180,11 +133,11 @@
     .grid {
       margin-top: 1.2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 0.95rem;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.1rem;
     }
 
-    .shape-card {
+    .logo-card {
       border: 1px solid var(--card-border);
       border-radius: 16px;
       background: var(--card-bg);
@@ -195,43 +148,69 @@
       box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     }
 
-    .shape-card:hover {
+    .logo-card:hover {
       transform: translateY(-2px);
-      border-color: rgba(67, 77, 142, 0.48);
+      border-color: rgba(0, 83, 81, 0.48);
       box-shadow: var(--card-shadow);
     }
 
-    .shape-preview {
-      height: 98px;
+    .logo-preview {
+      height: 120px;
       border-radius: 12px;
       border: 1px solid rgba(54, 44, 70, 0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(207, 214, 204, 0.18);
-      position: relative;
-      overflow: hidden;
+      padding: 1.1rem;
+      background: #ffffff;
+      /* Ruitjes maken zichtbaar dat een logo een transparante achtergrond heeft. */
+      background-image:
+        linear-gradient(45deg, rgba(54, 44, 70, 0.055) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(54, 44, 70, 0.055) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(54, 44, 70, 0.055) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(54, 44, 70, 0.055) 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
     }
 
-    .shape-preview img {
-      width: 90px;
-      height: 72px;
+    /* Diapositieve en darkmode-varianten zijn licht; op wit zie je ze niet. */
+    .logo-preview--dark {
+      background: var(--aubergine, #362c46);
+      background-image: none;
+      border-color: rgba(54, 44, 70, 0.25);
+    }
+
+    .logo-preview img {
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 2px 3px rgba(54, 44, 70, 0.14));
     }
 
-    .shape-label {
-      font-size: 0.88rem;
+    .logo-label {
+      font-size: 0.92rem;
       font-weight: 700;
       line-height: 1.25;
       word-break: break-word;
-      min-height: 2.2em;
     }
 
-    .shape-file {
+    .logo-file {
       font-size: 0.75rem;
       color: var(--text-muted);
       word-break: break-word;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--dark-green, #005351);
+      background: rgba(0, 83, 81, 0.1);
+      vertical-align: 0.1em;
     }
 
     .card-actions {
@@ -305,8 +284,7 @@
     }
 
     @media (max-width: 840px) {
-      .page-shell,
-      .topbar-inner {
+      .page-shell {
         width: min(1200px, calc(100% - 1.25rem));
       }
 
@@ -324,30 +302,33 @@
   <div id="w4-nav"></div>
   <script src="scripts/nav.js"></script>
 
-  <main class="page-shell" id="vormen">
+  <main class="page-shell" id="logos">
     <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">Vormenoverzicht</h1>
+      <h1 id="page-title">Logo's</h1>
       <p>
-        Overzicht van alle vormen uit de set. Zoek op naam, download een vorm of kopieer het pad.
-        Alle assets ook als <a href="assets.json" style="color: var(--dark-green, #005351); font-weight: 700; text-decoration: underline;">manifest (assets.json)</a> voor bulk- of programmatisch gebruik.
+        Het logo in al zijn varianten. Op een donkere achtergrond gebruik je de diapositieve
+        versie; die staat hier op aubergine afgebeeld, de rest op wit. Zoek op naam, download
+        een logo of kopieer het pad. Alle assets ook als
+        <a href="assets.json" style="color: var(--dark-green, #005351); font-weight: 700; text-decoration: underline;">manifest (assets.json)</a>
+        voor bulk- of programmatisch gebruik.
       </p>
     </section>
 
-    <section aria-label="Vormen catalogus">
+    <section aria-label="Logocatalogus">
       <div class="toolbar">
-        <label class="search-wrap" for="shape-search">
-          <input id="shape-search" type="search" placeholder="Zoek vormen, bijvoorbeeld: ring, quarter, triangle" autocomplete="off" />
+        <label class="search-wrap" for="logo-search">
+          <input id="logo-search" type="search" placeholder="Zoek logo's, bijvoorbeeld: diap, M365, pill" autocomplete="off" />
         </label>
         <div class="meta">
-          <strong id="shape-count">0</strong>
+          <strong id="logo-count">0</strong>
           <span>zichtbaar</span>
-          <span>| totaal <span id="shape-total">0</span></span>
+          <span>| totaal <span id="logo-total">0</span></span>
         </div>
         <button type="button" id="download-all" class="zip-button">Download alles (ZIP)</button>
       </div>
 
-      <div id="shape-grid" class="grid"></div>
-      <p id="empty-state" class="empty">Geen vormen gevonden voor deze zoekterm.</p>
+      <div id="logo-grid" class="grid"></div>
+      <p id="empty-state" class="empty">Geen logo's gevonden voor deze zoekterm.</p>
     </section>
   </main>
 
@@ -357,24 +338,34 @@
   <script src="scripts/zip-download.js"></script>
   <script type="module">
     // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
-    // img/shapes uit de pas kan lopen. Zie scripts/assets.js.
+    // img/logo uit de pas kan lopen. Zie scripts/assets.js. Het .ai-bronbestand
+    // in die map staat niet in het manifest en hoort hier dus ook niet.
     import { loadGallery } from './scripts/assets.js';
 
-    let shapeFiles = [];
+    let logoFiles = [];
 
-    const searchInput = document.getElementById('shape-search');
-    const grid = document.getElementById('shape-grid');
+    const searchInput = document.getElementById('logo-search');
+    const grid = document.getElementById('logo-grid');
     const emptyState = document.getElementById('empty-state');
-    const countNode = document.getElementById('shape-count');
-    const totalNode = document.getElementById('shape-total');
+    const countNode = document.getElementById('logo-count');
+    const totalNode = document.getElementById('logo-total');
     const toast = document.getElementById('toast');
 
     function toSrc(fileName) {
-      return 'img/shapes/' + encodeURIComponent(fileName);
+      return 'img/logo/' + encodeURIComponent(fileName);
     }
 
     function toLabel(fileName) {
-      return fileName.replace(/\.(svg|png)$/i, '');
+      return fileName.replace(/\.(svg|png)$/i, '').replace(/[_]+/g, ' ').trim();
+    }
+
+    function toFormat(fileName) {
+      return fileName.split('.').pop().toUpperCase();
+    }
+
+    /** Diapositief en darkmode zijn lichte logo's; die vragen om een donkere tegel. */
+    function isDiapositive(fileName) {
+      return /diap|darkmode/i.test(fileName);
     }
 
     function showToast(text) {
@@ -385,10 +376,10 @@
 
     function buildCard(fileName) {
       const card = document.createElement('div');
-      card.className = 'shape-card';
+      card.className = 'logo-card';
 
       const preview = document.createElement('div');
-      preview.className = 'shape-preview';
+      preview.className = 'logo-preview' + (isDiapositive(fileName) ? ' logo-preview--dark' : '');
 
       const img = document.createElement('img');
       img.loading = 'lazy';
@@ -397,11 +388,16 @@
       preview.appendChild(img);
 
       const label = document.createElement('div');
-      label.className = 'shape-label';
+      label.className = 'logo-label';
       label.textContent = toLabel(fileName);
 
+      const badge = document.createElement('span');
+      badge.className = 'logo-badge';
+      badge.textContent = toFormat(fileName);
+      label.appendChild(badge);
+
       const file = document.createElement('div');
-      file.className = 'shape-file';
+      file.className = 'logo-file';
       file.textContent = fileName;
 
       const actions = document.createElement('div');
@@ -420,10 +416,10 @@
       copy.textContent = 'Kopieer pad';
       copy.setAttribute('aria-label', 'Kopieer pad van ' + fileName);
       copy.addEventListener('click', async () => {
-        const shapePath = 'img/shapes/' + fileName;
+        const logoPath = 'img/logo/' + fileName;
         try {
-          await navigator.clipboard.writeText(shapePath);
-          showToast('Pad gekopieerd: ' + shapePath);
+          await navigator.clipboard.writeText(logoPath);
+          showToast('Pad gekopieerd: ' + logoPath);
         } catch {
           showToast('Kopieren niet toegestaan in deze browsercontext');
         }
@@ -437,7 +433,7 @@
 
     function render() {
       const query = searchInput.value.trim().toLowerCase();
-      const filtered = shapeFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
+      const filtered = logoFiles.filter((fileName) => toLabel(fileName).toLowerCase().includes(query));
 
       grid.innerHTML = '';
       for (const fileName of filtered) {
@@ -451,19 +447,18 @@
     searchInput.addEventListener('input', render);
 
     document.getElementById('download-all').addEventListener('click', function () {
-      window.w4DownloadZip({ files: shapeFiles, dir: 'img/shapes', zipName: 'wigo4it-vormen.zip', button: this });
+      window.w4DownloadZip({ files: logoFiles, dir: 'img/logo', zipName: 'wigo4it-logos.zip', button: this });
     });
 
     loadGallery(
-      'shapes',
+      'logos',
       (list) => {
-        shapeFiles = list;
+        logoFiles = list;
         totalNode.textContent = String(list.length);
         render();
       },
       emptyState
     );
   </script>
-  
 </body>
 </html>
