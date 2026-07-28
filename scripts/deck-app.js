@@ -6,6 +6,11 @@
    scripts/deck-builder.js.
    ============================================================ */
 import {
+  EXAMPLE_DECK,
+  MARKDOWN_OPTIONS,
+  REVEAL_BASE,
+  STORAGE_OPTIONS,
+  STORAGE_SOURCE,
   assetIssues,
   buildDeck,
   extractDirectives,
@@ -15,10 +20,6 @@ import {
   parseFrontMatter,
 } from './deck-builder.js';
 import { loadAssets, names } from './assets.js';
-
-const STORAGE_SOURCE = 'w4-deck-source';
-const STORAGE_OPTIONS = 'w4-deck-options';
-const EXAMPLE = 'examples/deck-voorbeeld.md';
 
 const els = {
   file: document.getElementById('deck-file'),
@@ -166,8 +167,8 @@ ${slides}
 <script>
 ${fitDecoration.toString()}
 Reveal.initialize({
-  width: 1600, height: 900, margin: 0, center: false,
-  hash: false, transition: ${JSON.stringify(transition)},
+  ...${JSON.stringify(REVEAL_BASE)},
+  transition: ${JSON.stringify(transition)},
   plugins: window.RevealNotes ? [RevealNotes] : []
 }).then(() => fitDecoration(Reveal));
 <\/script>
@@ -204,7 +205,7 @@ function escapeHtml(text) {
 /** markdown -> HTML. Alleen nodig voor de export; de preview rendert zelf. */
 function renderMarkdown(source) {
   if (!window.markdownit) return `<p>${escapeHtml(source)}</p>`;
-  return window.markdownit({ html: true, linkify: true, typographer: true }).render(source);
+  return window.markdownit(MARKDOWN_OPTIONS).render(source);
 }
 
 /** Lees een gekozen of gesleept bestand in. Niets gaat naar een server. */
@@ -263,7 +264,7 @@ loadAssets()
 
 // Zonder eigen bestand draait de tool op het voorbeelddeck, zodat de preview
 // meteen laat zien wat de syntax oplevert.
-fetch(EXAMPLE)
+fetch(EXAMPLE_DECK)
   .then((response) => (response.ok ? response.text() : ''))
   .then((text) => {
     if (!text || markdownSource) return;

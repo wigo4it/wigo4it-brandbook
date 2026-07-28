@@ -14,6 +14,38 @@
    ============================================================ */
 import { suggest } from './assets.js';
 
+/* ── Wat de tool, de presentatieweergave en de export delen ──
+   Deze drie draaien hetzelfde deck en moeten het dus eens zijn over waar de
+   markdown staat en hoe reveal wordt opgestart. Stonden ze per bestand, dan
+   loopt de export op den duur uit de pas met de preview en zie je dat pas op
+   de beamer. Zelfde reden als bij fitDecoration, die de export via toString()
+   meeschrijft in plaats van een tweede kopie te zijn. */
+
+/** localStorage-sleutel met de markdown van het laatste deck. */
+export const STORAGE_SOURCE = 'w4-deck-source';
+
+/** localStorage-sleutel met de opties uit het instellingenpaneel. */
+export const STORAGE_OPTIONS = 'w4-deck-options';
+
+/** Het deck dat de tool laat zien zolang je zelf niets hebt geladen. */
+export const EXAMPLE_DECK = 'examples/deck-voorbeeld.md';
+
+/** markdown-it-opties. `html` staat aan omdat de tokens comments zijn. */
+export const MARKDOWN_OPTIONS = { html: true, linkify: true, typographer: true };
+
+/**
+ * De reveal-instellingen die niet van een keuze afhangen. 1600x900 is de
+ * slide-maat waar styles/deck.css op is ontworpen; `center: false` omdat elke
+ * slide de volle hoogte vult. Transitie en plugins komen er per aanroep bij.
+ */
+export const REVEAL_BASE = {
+  width: 1600,
+  height: 900,
+  margin: 0,
+  center: false,
+  hash: false,
+};
+
 /**
  * Kleurtokens -> huisstijlkleur. De waarde is bewust een CSS-variabele en
  * geen hex: de bron van waarheid blijft styles/w4.css, zodat een kleurwijziging

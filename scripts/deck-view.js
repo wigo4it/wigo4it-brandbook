@@ -4,18 +4,20 @@
    anders het meegeleverde voorbeeld), laat deck-builder.js er slides
    van maken en start reveal.js. Alles client-side.
    ============================================================ */
-import { buildDeck, fitDecoration } from './deck-builder.js';
-
-const STORAGE_SOURCE = 'w4-deck-source';
-const STORAGE_OPTIONS = 'w4-deck-options';
-const EXAMPLE = 'examples/deck-voorbeeld.md';
+import {
+  EXAMPLE_DECK,
+  MARKDOWN_OPTIONS,
+  REVEAL_BASE,
+  STORAGE_OPTIONS,
+  STORAGE_SOURCE,
+  buildDeck,
+  fitDecoration,
+} from './deck-builder.js';
 
 const slidesEl = document.getElementById('deck-slides');
 const emptyEl = document.getElementById('deck-empty');
 
-const md = window.markdownit
-  ? window.markdownit({ html: true, linkify: true, typographer: true })
-  : null;
+const md = window.markdownit ? window.markdownit(MARKDOWN_OPTIONS) : null;
 
 /** markdown -> HTML. Zonder markdown-it (CDN weg) tonen we platte tekst. */
 function renderMarkdown(source) {
@@ -58,11 +60,7 @@ async function render(source, options = {}) {
 
   deck = window.Reveal;
   await deck.initialize({
-    width: 1600,
-    height: 900,
-    margin: 0,
-    center: false, // elke slide vult de volle hoogte; zie styles/deck.css
-    hash: false,
+    ...REVEAL_BASE,
     controls: true,
     progress: true,
     slideNumber: false,
@@ -105,7 +103,7 @@ async function boot() {
   }
 
   try {
-    const response = await fetch(EXAMPLE);
+    const response = await fetch(EXAMPLE_DECK);
     if (response.ok) render(await response.text(), {});
   } catch {
     // Offline of via file://: de lege staat blijft staan en legt uit wat te doen.
