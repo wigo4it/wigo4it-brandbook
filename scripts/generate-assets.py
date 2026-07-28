@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
 Generate assets.json: a machine-readable manifest of all downloadable brand
-assets (icons, shapes, photos).
+assets (icons, shapes, photos, logos).
 
 Purpose: point a human or an automated agent at the deployed site and let them
 discover every asset with a ready-to-use download URL. Append an asset's "path"
 (or use its pre-built "url") to grab the file directly.
+
+Het manifest is ook de bron voor de site zelf: logos.html, icons.html,
+shapes.html en photos.html vullen hun galerij ermee en de deck-tool controleert er de
+`shape:`/`icon:`-tokens tegen. Draai dit dus na elke wijziging in img/.
 
 Run from the repo root:  python scripts/generate-assets.py
 The GitHub Pages workflow runs this before deploy, so the live manifest stays
@@ -23,10 +27,13 @@ BASE_URL = "https://wigo4it.github.io/wigo4it-brandbook/"
 OUTPUT = os.path.join(REPO_ROOT, "assets.json")
 
 # category id -> (label, directory, allowed extensions)
+# De extensies filteren meteen de bronbestanden weg die niemand hoort te
+# downloaden, zoals de .ai in img/logo.
 CATEGORIES = [
     ("icons",  "Iconen", "img/icons",  (".svg",)),
     ("shapes", "Vormen", "img/shapes", (".svg", ".png")),
     ("photos", "Foto's", "img/photos", (".jpg", ".jpeg", ".png")),
+    ("logos",  "Logo's", "img/logo",   (".svg", ".png")),
 ]
 
 
@@ -92,7 +99,8 @@ def main():
         "usage": (
             "Wigo4it brand assets, free to reuse within brand guidelines. "
             "Each asset has a ready-to-use \"url\"; alternatively append its "
-            "\"path\" to \"baseUrl\". Icons and shapes are SVG, photos are JPG."
+            "\"path\" to \"baseUrl\". Icons are SVG, shapes and logos are SVG "
+            "or PNG, photos are JPG."
         ),
         "categories": categories,
     }

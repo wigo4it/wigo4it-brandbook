@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Deck-readme</title>
+  <meta name="description" content="De volledige markdown-syntax voor slide-decks in de huisstijl van Wigo4it: scheidingstekens, layouts, kleuren en decoratie." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>Deck-readme</h1>
+        <p>
+          De tokens en scheidingstekens waarmee je een markdown-bestand tot een presentatie
+          maakt. Wil je zien hoe de layouts eruitzien, kijk dan bij
+          <a href="deck-templates.html">de templates</a>. Voor documenten geldt een heel ander
+          (en veel korter) verhaal: zie <a href="pdf-syntax.html">PDF-readme</a>.
+        </p>
+      </header>
+
+      <div class="w4-doc-page">
+        <section class="w4-doc-card">
+          <h2>Zo ziet een slide eruit</h2>
+          <pre><code>&lt;!-- w4: green statement icon:Rocket --&gt;
+
+## Een statement krijgt de ruimte
+
+Note: dit ziet alleen de spreker.</code></pre>
+          <p>
+            De eerste regel is optioneel en bepaalt kleur, layout en decoratie van die ene slide.
+            In andere markdown-viewers is het een comment, dus je bestand blijft leesbaar buiten
+            deze tool om.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Eén regel om te onthouden</h2>
+          <p class="w4-doc-callout">
+            Een <code>###</code>-kop start een item. Of daar kaarten, een tijdlijn, een agenda of
+            een rij cijfers van worden, bepaalt alleen het layout-token. Alles wat vóór de eerste
+            <code>###</code> staat blijft er als titel boven staan.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Scheidingstekens</h2>
+          <dl class="w4-doc-list">
+            <dt>---</dt><dd>volgende slide</dd>
+            <dt>--</dt><dd>verticale slide eronder, voor verdieping die je alleen toont als iemand ernaar vraagt</dd>
+            <dt>***</dt><dd>scheiding tussen twee helften, bij <code>split</code>, <code>before-after</code> en <code>stacked</code></dd>
+            <dt>###</dt><dd>start een item</dd>
+            <dt>Note:</dt><dd>alles daarna is sprekersnotitie, zichtbaar met toets S</dd>
+          </dl>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Frontmatter</h2>
+          <pre><code>---
+title: Van output naar outcome
+footer: Wigo4it · Jaarplan
+---</code></pre>
+          <p>
+            Optioneel, bovenaan het bestand. <code>footer</code> komt linksonder op elke slide;
+            zonder <code>footer</code> wordt <code>title</code> gebruikt. Het veld in de tool wint
+            van allebei.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Kleur</h2>
+          <p>Acht merkkleuren. Zonder token is een slide wit.</p>
+          <ul class="w4-doc-swatches">
+            <li><span class="w4-doc-swatch" style="background: var(--dark-green)"></span>green</li>
+            <li><span class="w4-doc-swatch" style="background: var(--aubergine)"></span>aubergine</li>
+            <li><span class="w4-doc-swatch" style="background: var(--dark-blue)"></span>blue</li>
+            <li><span class="w4-doc-swatch" style="background: var(--bright-pink)"></span>pink</li>
+            <li><span class="w4-doc-swatch" style="background: var(--bright-red)"></span>red</li>
+            <li><span class="w4-doc-swatch" style="background: var(--soft-yellow)"></span>yellow</li>
+            <li><span class="w4-doc-swatch" style="background: var(--light-grey)"></span>grey</li>
+            <li><span class="w4-doc-swatch" style="background: #fff; border-color: rgba(54,44,70,.25)"></span>white</li>
+          </ul>
+          <p>
+            Op een donkere kleur wordt de tekst wit en wisselt het logo naar de diapositieve
+            versie. Dat gaat vanzelf, daar hoef je niets voor te zetten.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Layouts</h2>
+          <dl class="w4-doc-list">
+            <dt>cover</dt><dd>openingsslide, standaard groen, zonder footer</dd>
+            <dt>statement</dt><dd>grote kop, weinig tekst</dd>
+            <dt>section</dt><dd>tussenschot met een streep in de accentkleur</dd>
+            <dt>quote</dt><dd>citaat met bronvermelding eronder</dd>
+            <dt>end</dt><dd>afsluiter, gecentreerd, zonder footer</dd>
+            <dt>split</dt><dd>twee kolommen, gescheiden door <code>***</code></dd>
+            <dt>columns</dt><dd>items als kaarten naast elkaar</dd>
+            <dt>list</dt><dd>items onder elkaar, kop wordt een label ervoor</dd>
+            <dt>agenda</dt><dd>items onder elkaar met doorlopende nummers</dd>
+            <dt>timeline</dt><dd>items op een doorlopende lijn</dd>
+            <dt>kpi</dt><dd>kop wordt het grote cijfer, tekst het bijschrift</dd>
+            <dt>contrast</dt><dd>kaarten met een label; het eerste item is de kant die je verlaat</dd>
+            <dt>before-after</dt><dd>twee kaarten met een pijl ertussen</dd>
+            <dt>stacked</dt><dd>hetzelfde, maar verticaal</dd>
+            <dt>table</dt><dd>tabel over de volle breedte</dd>
+            <dt>photo</dt><dd>foto vult de slide, tekst onderaan</dd>
+          </dl>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Decoratie</h2>
+          <dl class="w4-doc-list">
+            <dt>accent:kleur</dt>
+            <dd>
+              kleur van badges, cijfers en lijnen, los van de achtergrond. Zonder token kiest de
+              achtergrondkleur er zelf een die leesbaar is.
+            </dd>
+            <dt>eyebrow:"tekst"</dt><dd>klein label boven de titel</dd>
+            <dt>ghost:tekst</dt><dd>groot, vaag nummer of woord op de achtergrond</dd>
+            <dt>shape:naam</dt>
+            <dd>
+              vorm uit <a href="shapes.html">img/shapes</a>, met
+              <code>@topleft</code>, <code>@topright</code>, <code>@bottomleft</code> of
+              <code>@bottomright</code>
+            </dd>
+            <dt>icon:Naam</dt><dd>icoon uit <a href="icons.html">img/icons</a></dd>
+            <dt>steps</dt><dd>lijstitems verschijnen een voor een</dd>
+            <dt>transition:naam</dt><dd>slide, fade, convex of none, alleen voor deze slide</dd>
+          </dl>
+          <p class="w4-doc-callout">
+            Zit er een spatie in een waarde, zet 'm dan tussen dubbele quotes:
+            <code>icon:"Game Boy"</code>. Zonder quotes knipt de tokenregel op de spatie en zoekt
+            de builder een icoon dat <code>Game</code> heet.
+          </p>
+          <p class="w4-doc-callout">
+            De namen achter <code>shape:</code> en <code>icon:</code> worden gecontroleerd tegen
+            <a href="assets.json">assets.json</a>, het manifest van alles in <code>img/</code>.
+            Staat een naam er niet in, dan zegt de tool dat meteen, met de dichtstbijzijnde naam
+            erbij. Anders merk je een typefout pas op de beamer, aan een vorm die er niet is.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Presenteren</h2>
+          <p>
+            In de presentatieweergave navigeer je met de pijltjestoetsen. <kbd>F</kbd> is volledig
+            scherm, <kbd>S</kbd> opent de sprekersweergave met je notities, <kbd>Esc</kbd> geeft een
+            overzicht van alle slides.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

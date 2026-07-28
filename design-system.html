@@ -10,7 +10,7 @@
   <style>
     @font-face {
       font-family: 'PP Neue Machina';
-      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainRegular.ttf') format('truetype');
+      src: url('fonts/pp-neue-machina/PPNeueMachina-PlainRegular.ttf') format('truetype');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -18,7 +18,7 @@
 
     @font-face {
       font-family: 'PP Neue Machina';
-      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainSemibold.ttf') format('truetype');
+      src: url('fonts/pp-neue-machina/PPNeueMachina-PlainSemibold.ttf') format('truetype');
       font-weight: 600;
       font-style: normal;
       font-display: swap;
@@ -26,7 +26,7 @@
 
     @font-face {
       font-family: 'PP Neue Machina';
-      src: url('fonts/PP Neue Machina/PP Neue Machina/PPNeueMachina-PlainBold.ttf') format('truetype');
+      src: url('fonts/pp-neue-machina/PPNeueMachina-PlainBold.ttf') format('truetype');
       font-weight: 700;
       font-style: normal;
       font-display: swap;
@@ -437,36 +437,37 @@ const palette = {
       <section id="presentation" class="rounded-4xl border border-brand-aubergine/10 bg-white/95 p-6 shadow-panel sm:p-8">
         <h2 class="font-heading text-3xl leading-tight sm:text-4xl">Presentatie patronen</h2>
         <p class="mt-3 max-w-3xl text-brand-aubergine/75">Voor decks geldt hetzelfde principe: ritme, afwisseling en focus per slide. Gebruik maximaal een kernboodschap per sheet.</p>
+        <p class="mt-3 max-w-3xl text-brand-aubergine/75">Een deck schrijf je als markdown en laat je door de <a class="text-brand-dark-green underline" href="deck.html">deck-tool</a> opmaken. De layouts hieronder zijn de tokens die je daarin gebruikt; op <a class="text-brand-dark-green underline" href="deck-templates.html">de templatepagina</a> staat elke layout live gerenderd naast de markdown die 'm maakt.</p>
         <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Cover</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">Statement + merkaccent + minimale metadata.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Begin en eind</p>
+            <h3 class="font-heading text-xl mt-1">cover, section, end</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Opening zonder footer, tussenschot met accentstreep, afsluiter met gecentreerd logo.</p>
           </article>
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Agenda</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">3 tot 5 blokken met duidelijke doorlooptijd of volgorde.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Eén gedachte</p>
+            <h3 class="font-heading text-xl mt-1">statement, quote, photo</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Grote kop met weinig tekst, een citaat met bron, of een foto over de volle slide.</p>
           </article>
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Timeline</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">Kolommen met vaste structuur: periode, label, visuele marker, korte toelichting.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Twee helften</p>
+            <h3 class="font-heading text-xl mt-1">split, before-after, stacked</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Gescheiden met <code>***</code>. Met een pijl ertussen wordt het een verandering in plaats van een vergelijking.</p>
           </article>
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Content split</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">Links inhoudelijke blokken, rechts highlight/actie of beslisregel.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Meerdere items</p>
+            <h3 class="font-heading text-xl mt-1">columns, list, agenda</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Kaarten naast elkaar, of items onder elkaar met een label of een doorlopend nummer ervoor.</p>
           </article>
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Library slide</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">Vormen/iconen/foto's als visuele uitleg van het systeem.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Meerdere items</p>
+            <h3 class="font-heading text-xl mt-1">timeline, kpi, contrast, table</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Stappen op een lijn, grote cijfers met bijschrift, gelabelde tegenstelling, of een tabel.</p>
           </article>
           <article class="rounded-2xl border border-brand-aubergine/10 p-4">
-            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Template</p>
-            <h3 class="font-heading text-xl mt-1">Closing</h3>
-            <p class="mt-2 text-sm text-brand-aubergine/75">Einde met korte call-to-action, hoge rust en duidelijke merktoon.</p>
+            <p class="text-xs uppercase tracking-wide text-brand-aubergine/60">Eén regel om te onthouden</p>
+            <h3 class="font-heading text-xl mt-1">### start een item</h3>
+            <p class="mt-2 text-sm text-brand-aubergine/75">Dezelfde markdown wordt kaarten, een tijdlijn, een agenda of een rij cijfers. Alleen het layout-token verschilt.</p>
           </article>
         </div>
       </section>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Slide-templates</title>
+  <meta name="description" content="Alle slide-layouts voor presentaties in de huisstijl van Wigo4it, live gerenderd naast de markdown die ze maakt." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <link rel="stylesheet" href="styles/deck.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>Slide-templates</h1>
+        <p>
+          Elke layout, echt gerenderd door dezelfde builder als de tool zelf, naast de markdown
+          die 'm maakt. Kopieer het blok en plak het in je eigen bestand.
+        </p>
+      </header>
+
+      <div class="w4-tpl-toolbar">
+        <label class="w4-tool-field-label" for="tpl-search">Zoek een layout</label>
+        <input type="search" id="tpl-search" placeholder="bijv. tijdlijn, cijfers, citaat" />
+        <span class="w4-tpl-count" id="tpl-count"></span>
+      </div>
+
+      <div class="w4-tpl-grid" id="tpl-grid"></div>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/deck-templates.js"></script>
+</body>
+</html>

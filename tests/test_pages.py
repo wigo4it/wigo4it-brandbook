@@ -8,10 +8,16 @@ brandbook echt voorkomt:
 * geen kapotte eigen assets (404 op een shape, icon of foto);
 * de pagina rendert daadwerkelijk tekst.
 
-Externe CDN's (Tailwind, GSAP) en de bewust niet-gecommitte `fonts/` vallen
-buiten de gate: die horen niet bij onze code en degraden gracieus.
+Externe CDN's (Tailwind, GSAP) vallen buiten de gate: die horen niet bij onze
+code en degraden gracieus. `fonts/` valt er wel binnen. Die stond ooit niet in
+git en werd daarom overgeslagen; nu hij er wel in staat is een verkeerd
+fontpad precies het soort fout dat je lokaal op Windows niet ziet en op
+GitHub Pages wel.
 """
 
+import os
+import posixpath
+import re
 from pathlib import Path
 
 import pytest
@@ -19,9 +25,9 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # Requests naar deze pad-prefixes mogen falen zonder de test te breken.
-# fonts/ staat bewust in .gitignore (PP Neue Machina is commercieel); de
-# @font-face-regels vallen netjes terug op een systeem-stack.
-ALLOWED_FAILING_PREFIXES = ("fonts/",)
+# Op dit moment is dat niets: alles wat een pagina van onze eigen origin
+# ophaalt, hoort er ook te zijn.
+ALLOWED_FAILING_PREFIXES = ()
 
 
 def discover_pages():
@@ -91,3 +97,93 @@ def test_page_loads_cleanly(page, server_url, page_path):
 
     body_text = page.locator("body").inner_text()
     assert len(body_text.strip()) > 100, f"{page_path}: pagina rendert nauwelijks tekst"
+
+
+# design-system.html laadt als enige pagina styles/w4.css niet. De topnav moet
+# er toch hetzelfde uitzien, dus die staat hier expliciet in de lijst.
+NAV_PAGES = ["index.html", "design-system.html", "logos.html", "deck.html"]
+
+
+@pytest.mark.parametrize("page_path", NAV_PAGES)
+@pytest.mark.parametrize("width", [1280, 1024])
+def test_navbar_fits_on_a_normal_screen(page, server_url, page_path, width):
+    """De topnav mag op een gewoon scherm niet hoeven schuiven.
+
+    Er komt af en toe een item bij (Logo's was de achtste). Deze test valt om
+    zodra de rij breder wordt dan de balk, in plaats van dat het laatste item
+    stilletjes onder de rand verdwijnt. En als de rij wél schuift, mag daar
+    geen scrollbar in de balk van verschijnen.
+    """
+    page.set_viewport_size({"width": width, "height": 800})
+    page.goto(f"{server_url}/{page_path}", wait_until="domcontentloaded")
+    page.wait_for_selector("#w4-nav nav ul li a")
+
+    fit = page.evaluate(
+        "() => {"
+        "  const nav = document.querySelector('#w4-nav nav');"
+        "  return {over: nav.scrollWidth - nav.clientWidth,"
+        "          items: nav.querySelectorAll('li').length,"
+        "          scrollbar: getComputedStyle(nav).scrollbarWidth};"
+        "}"
+    )
+    assert fit["items"] >= 8
+    assert fit["over"] <= 0, f"{page_path}: topnav schuift op {width}px: {fit['over']}px te breed"
+    assert fit["scrollbar"] == "none", f"{page_path}: zichtbare scrollbar in de topnav"
+
+
+# ── url()-verwijzingen, letter voor letter ──────────────────────────────────
+
+URL_REF = re.compile(r"""url\(\s*['"]?([^'")]+)['"]?\s*\)""")
+
+# Bestanden waar een url() naar iets van onszelf kan wijzen.
+REF_SOURCES = sorted(
+    p.relative_to(REPO_ROOT).as_posix()
+    for p in [*REPO_ROOT.glob("*.html"), *REPO_ROOT.glob("**/*.css")]
+    if "node_modules" not in p.parts
+)
+
+
+def exists_with_exact_case(relative_path):
+    """Bestaat dit pad precies zo, hoofdletters en al?
+
+    `Path.exists()` is hier niet genoeg: Windows en macOS zijn
+    hoofdletterongevoelig, dus daar bestaat fonts/Raleway ook als de map
+    Raleway heet en de CSS raleway vraagt. Linux, waar GitHub Pages op draait,
+    is dat niet. Daarom lopen we de mapnamen zelf na.
+    """
+    current = REPO_ROOT
+    for part in relative_path.split("/"):
+        if part in ("", "."):
+            continue
+        try:
+            entries = os.listdir(current)
+        except (NotADirectoryError, FileNotFoundError):
+            return False
+        if part not in entries:
+            return False
+        current = current / part
+    return True
+
+
+@pytest.mark.parametrize("source", REF_SOURCES)
+def test_url_references_match_the_filesystem_exactly(source):
+    """Elke url() naar een eigen bestand moet exact kloppen, hoofdletters incluis.
+
+    Dit staat los van de browser-smoke test hierboven: die serveert via
+    http.server op het lokale bestandssysteem, en dat is op Windows
+    hoofdletterongevoelig. Een pad met de verkeerde hoofdletter geeft daar dus
+    gewoon 200 en valt pas op GitHub Pages om. Zo is het een keer gebeurd met
+    de fonts, die als Fonts/ in git stonden terwijl de CSS fonts/ vroeg.
+    """
+    text = (REPO_ROOT / source).read_text(encoding="utf-8")
+    base = Path(source).parent.as_posix()
+
+    missing = []
+    for ref in URL_REF.findall(text):
+        if ref.startswith(("http://", "https://", "data:", "#", "//")):
+            continue
+        candidate = posixpath.normpath(posixpath.join(base, ref) if base != "." else ref)
+        if not exists_with_exact_case(candidate):
+            missing.append(f"{ref} -> {candidate}")
+
+    assert not missing, f"{source}: url() wijst naar iets dat er zo niet is: {missing}"

@@ -40,11 +40,6 @@ build/
 # Mac specific
 __MACOSX/
 
-# Fonts are not committed. Raleway is OFL, but PP Neue Machina is a
-# commercial font (Pangram Pangram) that may not be redistributed via a
-# public repo. The @font-face rules degrade gracefully to a system stack.
-fonts/
-
 # Logs
 logs/
 *.log

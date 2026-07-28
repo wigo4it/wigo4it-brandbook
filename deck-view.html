@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Presentatie</title>
+  <meta name="description" content="De presentatieweergave van de Wigo4it deck-builder: markdown als slide-deck in de huisstijl." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/deck.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+</head>
+<body class="deck-view-body">
+  <div class="reveal">
+    <div class="slides" id="deck-slides">
+      <!-- deck-view.js vult dit met de slides uit de markdown -->
+    </div>
+  </div>
+
+  <!-- Zichtbaar zolang er niets geladen is; verdwijnt zodra het deck er staat. -->
+  <div class="deck-empty" id="deck-empty">
+    <h1>Nog geen deck geladen</h1>
+    <p>
+      Deze pagina toont een presentatie die je in de deck-tool samenstelt. Ga naar
+      <a href="deck.html">deck.html</a>, kies een markdown-bestand en klik op
+      "Presenteer". Navigeer daarna met de pijltjestoetsen, F voor volledig scherm
+      en S voor de sprekersweergave met notities.
+    </p>
+  </div>
+
+  <script type="module" src="scripts/deck-view.js"></script>
+</body>
+</html>
