@@ -32,7 +32,7 @@
       items: [
         { key: 'deck', label: 'Maken', href: 'deck.html' },
         { key: 'templates', label: 'Templates', href: 'deck-templates.html' },
-        { key: 'deck-syntax', label: 'Syntax', href: 'deck-syntax.html' },
+        { key: 'deck-syntax', label: 'Readme', href: 'deck-syntax.html' },
       ],
     },
   ];
