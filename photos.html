@@ -302,17 +302,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="scripts/zip-download.js"></script>
-  <script>
-    const photoFiles = [
-      'colleages-discussing.jpg',
-      'group-looking-at-laptop.jpg',
-      'man-working-on-laptop.jpg',
-      'man-writing-code.jpg',
-      'team-meeting.jpg',
-      'woman-sticking-note-to-wall.jpg'
-    ];
+  <script type="module">
+    // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
+    // img/photos uit de pas kan lopen. Zie scripts/assets.js.
+    import { loadAssets, files } from './scripts/assets.js';
 
-    photoFiles.sort((a, b) => a.localeCompare(b, 'nl'));
+    let photoFiles = [];
 
     const searchInput = document.getElementById('photo-search');
     const grid = document.getElementById('photo-grid');
@@ -320,8 +315,6 @@
     const countNode = document.getElementById('photo-count');
     const totalNode = document.getElementById('photo-total');
     const toast = document.getElementById('toast');
-
-    totalNode.textContent = String(photoFiles.length);
 
     function toSrc(fileName) {
       return 'img/photos/' + encodeURIComponent(fileName);
@@ -409,7 +402,17 @@
       window.w4DownloadZip({ files: photoFiles, dir: 'img/photos', zipName: 'wigo4it-fotos.zip', button: this });
     });
 
-    render();
+    loadAssets()
+      .then((manifest) => {
+        photoFiles = files(manifest, 'photos').sort((a, b) => a.localeCompare(b, 'nl'));
+        totalNode.textContent = String(photoFiles.length);
+        render();
+      })
+      .catch(() => {
+        emptyState.textContent =
+          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
+        emptyState.style.display = 'block';
+      });
   </script>
 </body>
 </html>

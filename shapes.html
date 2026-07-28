@@ -355,37 +355,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="scripts/zip-download.js"></script>
-  <script>
-    const shapeFiles = [
-      'arch-open-bottom.png',
-      'arch-open-bottom.svg',
-      'circle.svg',
-      'diamond.png',
-      'diamond.svg',
-      'pill-extra-wide.svg',
-      'pill-medium.svg',
-      'pill-narrow.svg',
-      'pill-wide.svg',
-      'quarter-circle-bottom-right.png',
-      'quarter-circle-bottom-right.svg',
-      'quarter-ring-bottom-left.svg',
-      'quarter-ring-bottom-right.svg',
-      'quarter-ring-top-left.png',
-      'quarter-ring-top-left.svg',
-      'quarter-ring-top-right.svg',
-      'rectangle-round-right-narrow.svg',
-      'rectangle-round-right-wide.svg',
-      'rectangle-tall.png',
-      'rectangle-tall.svg',
-      'ring.svg',
-      'semicircle-right.svg',
-      'square.png',
-      'square.svg',
-      'triangle-diagonal.svg',
-      'triangle-right.svg'
-    ];
+  <script type="module">
+    // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
+    // img/shapes uit de pas kan lopen. Zie scripts/assets.js.
+    import { loadAssets, files } from './scripts/assets.js';
 
-    shapeFiles.sort((a, b) => a.localeCompare(b, 'nl'));
+    let shapeFiles = [];
 
     const searchInput = document.getElementById('shape-search');
     const grid = document.getElementById('shape-grid');
@@ -393,8 +368,6 @@
     const countNode = document.getElementById('shape-count');
     const totalNode = document.getElementById('shape-total');
     const toast = document.getElementById('toast');
-
-    totalNode.textContent = String(shapeFiles.length);
 
     function toSrc(fileName) {
       return 'img/shapes/' + encodeURIComponent(fileName);
@@ -481,7 +454,17 @@
       window.w4DownloadZip({ files: shapeFiles, dir: 'img/shapes', zipName: 'wigo4it-vormen.zip', button: this });
     });
 
-    render();
+    loadAssets()
+      .then((manifest) => {
+        shapeFiles = files(manifest, 'shapes').sort((a, b) => a.localeCompare(b, 'nl'));
+        totalNode.textContent = String(shapeFiles.length);
+        render();
+      })
+      .catch(() => {
+        emptyState.textContent =
+          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
+        emptyState.style.display = 'block';
+      });
   </script>
   
 </body>

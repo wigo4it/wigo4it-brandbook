@@ -359,49 +359,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="scripts/zip-download.js"></script>
-  <script>
-    const iconFiles = [
-      'Aarde.svg',
-      'Alarm.svg',
-      'Auto.svg',
-      'Bier.svg',
-      'Bliksem.svg',
-      'Bom.svg',
-      'Boot.svg',
-      'Diamant.svg',
-      'Drop.svg',
-      'Duckie.svg',
-      'Eek.svg',
-      'Elixir.svg',
-      'Fiets Px.svg',
-      'Formidabel.svg',
-      'Game Boy.svg',
-      'Game Over.svg',
-      'Hart.svg',
-      'Hi5.svg',
-      'Ijsje.svg',
-      'Invasion.svg',
-      'Kaars.svg',
-      'Koffie.svg',
-      'Laptop.svg',
-      'Pacman.svg',
-      'Paraplu.svg',
-      'Pilon.svg',
-      'Pin.svg',
-      'Potlood.svg',
-      'Prullenbak.svg',
-      'Regen.svg',
-      'Rex 2.svg',
-      'Rex.svg',
-      'Rocket.svg',
-      'Snelle auto.svg',
-      'Vuur.svg',
-      'Zandloper.svg',
-      'Zon.svg',
-      'Zwaard.svg'
-    ];
+  <script type="module">
+    // De bestandslijst komt uit assets.json, zodat dit overzicht niet naast
+    // img/icons uit de pas kan lopen. Zie scripts/assets.js.
+    import { loadAssets, files } from './scripts/assets.js';
 
-    iconFiles.sort((a, b) => a.localeCompare(b, 'nl'));
+    let iconFiles = [];
 
     const searchInput = document.getElementById('icon-search');
     const grid = document.getElementById('icon-grid');
@@ -409,8 +372,6 @@
     const countNode = document.getElementById('icon-count');
     const totalNode = document.getElementById('icon-total');
     const toast = document.getElementById('toast');
-
-    totalNode.textContent = String(iconFiles.length);
 
     function toSrc(fileName) {
       return 'img/icons/' + encodeURIComponent(fileName);
@@ -497,7 +458,17 @@
       window.w4DownloadZip({ files: iconFiles, dir: 'img/icons', zipName: 'wigo4it-iconen.zip', button: this });
     });
 
-    render();
+    loadAssets()
+      .then((manifest) => {
+        iconFiles = files(manifest, 'icons').sort((a, b) => a.localeCompare(b, 'nl'));
+        totalNode.textContent = String(iconFiles.length);
+        render();
+      })
+      .catch(() => {
+        emptyState.textContent =
+          'Kon assets.json niet laden. Open deze pagina via een webserver, niet als los bestand.';
+        emptyState.style.display = 'block';
+      });
   </script>
   
 </body>
