@@ -51,12 +51,24 @@ body.w4-tool-body {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.9rem;
+  border: 1px solid transparent;
 }
 
-/* De scheiding tussen Maken en Naslag; niet vóór de eerste groep. */
+/* Ruimte tussen de twee tools. De scheidingslijn die hier stond kan weg: het
+   vlak om de actieve groep zet de twee al uit elkaar, en dan is een streepje
+   erbij alleen maar drukker. */
 .w4-tool-tabs-group + .w4-tool-tabs-group {
-  padding-left: 1.5rem;
-  border-left: 1px solid rgba(54, 44, 70, 0.14);
+  margin-left: 1rem;
+}
+
+/* De groep waar je in zit. Beide tools hebben een item dat "Maken" heet, dus
+   het item alleen oplichten zegt te weinig; het vlak eromheen maakt duidelijk
+   over welke van de twee tools de hele rij gaat. */
+.w4-tool-tabs-group.is-active {
+  background: rgba(0, 83, 81, 0.05);
+  border-color: rgba(0, 83, 81, 0.16);
 }
 
 .w4-tool-tabs-title {
@@ -67,6 +79,10 @@ body.w4-tool-body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(54, 44, 70, 0.42);
+}
+
+.w4-tool-tabs-group.is-active .w4-tool-tabs-title {
+  color: var(--dark-green);
 }
 
 .w4-tool-tabs ul {
@@ -102,8 +118,7 @@ body.w4-tool-body {
 
 @media (max-width: 720px) {
   .w4-tool-tabs-group + .w4-tool-tabs-group {
-    padding-left: 0;
-    border-left: 0;
+    margin-left: 0;
   }
 }
 

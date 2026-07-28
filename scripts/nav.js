@@ -38,7 +38,11 @@
     { key: 'fotos',         label: "Foto's",        href: 'photos.html' },
     { key: 'voorbeelden',   label: 'Voorbeelden',   href: 'examples.html' },
     // PDF en Deck wonen samen onder Tools, met een eigen tabrij (tool-nav.js).
-    { key: 'tools',         label: 'Tools',         href: 'deck.html' },
+    // Het item wijst naar de eerste groep in die tabrij, niet naar de tweede,
+    // zodat menu en tabrij dezelfde volgorde hebben. Een tussenpagina met twee
+    // links erop zou een klik zijn die niets toevoegt; de tabrij toont beide
+    // tools meteen.
+    { key: 'tools',         label: 'Tools',         href: 'pdf.html' },
   ];
 
   function activeKey() {

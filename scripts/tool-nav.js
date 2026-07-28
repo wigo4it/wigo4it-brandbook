@@ -55,7 +55,15 @@
     if (!mount) return;
 
     var active = activeKey();
-    var html = GROUPS.map(function (group) {
+    var html = GROUPS.map(function (group, index) {
+      // Beide groepen hebben een item dat "Maken" heet. Alleen dat ene item
+      // oplichten is te weinig verschil; de hele groep waar je in zit krijgt
+      // daarom een eigen vlak, zodat je in één oogopslag ziet welke tool dit is.
+      var inGroup = group.items.some(function (item) {
+        return item.key === active;
+      });
+      var titleId = 'w4-tool-tabs-title-' + index;
+
       var links = group.items
         .map(function (item) {
           var current = item.key === active ? ' aria-current="page"' : '';
@@ -64,10 +72,11 @@
           );
         })
         .join('');
+
       return (
-        '<div class="w4-tool-tabs-group">' +
-        '<p class="w4-tool-tabs-title">' + group.title + '</p>' +
-        '<ul>' + links + '</ul>' +
+        '<div class="w4-tool-tabs-group' + (inGroup ? ' is-active' : '') + '">' +
+        '<p class="w4-tool-tabs-title" id="' + titleId + '">' + group.title + '</p>' +
+        '<ul aria-labelledby="' + titleId + '">' + links + '</ul>' +
         '</div>'
       );
     }).join('');
