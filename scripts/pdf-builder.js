@@ -175,6 +175,24 @@ export function renderToc(headings) {
 }
 
 /**
+ * Strip de YAML-frontmatter (optioneel, bovenaan, tussen twee `---`-regels) uit
+ * de markdown, zodat die niet als inhoud in het document belandt. Zonder
+ * frontmatter blijft de tekst ongemoeid.
+ * @param {string} source
+ * @returns {string}
+ */
+export function stripFrontMatter(source) {
+  const text = String(source).replace(/\r\n?/g, '\n');
+  const lines = text.split('\n');
+  if (lines[0].trim() !== '---') return text;
+
+  const end = lines.indexOf('---', 1);
+  if (end === -1) return text;
+
+  return lines.slice(end + 1).join('\n').replace(/^\n+/, '');
+}
+
+/**
  * Leid een nette voorblad-titel af van een bestandsnaam. Haalt een bekende
  * markdown/tekst-extensie eraf, maakt van koppeltekens en underscores spaties
  * en zet de eerste letter groot. Valt terug op "Document".
