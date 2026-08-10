@@ -4,7 +4,7 @@
    (scripts/pdf-builder.js), rendert de live preview en start de
    browser-print. markdown-it (CDN) doet de markdown -> HTML stap.
    ============================================================ */
-import { assembleDocument, filenameToTitle, formatDateNL } from './pdf-builder.js';
+import { assembleDocument, filenameToTitle, formatDateNL, stripFrontMatter } from './pdf-builder.js';
 
 const md = window.markdownit
   ? window.markdownit({ html: false, linkify: true, typographer: true })
@@ -35,7 +35,8 @@ function selectedCover() {
 
 /** Stel het document samen uit de huidige instellingen. */
 function buildDoc() {
-  const contentHtml = md ? md.render(markdownSource) : escapeHtml(markdownSource);
+  const body = stripFrontMatter(markdownSource);
+  const contentHtml = md ? md.render(body) : escapeHtml(body);
 
   const doc = assembleDocument({
     contentHtml,
