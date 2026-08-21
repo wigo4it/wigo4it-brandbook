@@ -427,6 +427,21 @@ def test_filename_to_title(builder, filename, expected):
 
 
 @pytest.mark.parametrize(
+    "source, expected",
+    [
+        ("---\ntitle: Jaarplan\nauthor: W4\n---\n# Kop\n\ntekst", "# Kop\n\ntekst"),
+        ("---\r\ntitle: Jaarplan\r\n---\r\n# Kop", "# Kop"),  # CRLF-regeleindes
+        ("# Kop\n\ntekst", "# Kop\n\ntekst"),  # geen frontmatter -> ongemoeid
+        ("---\ntitle: Jaarplan\n# Kop", "---\ntitle: Jaarplan\n# Kop"),  # niet afgesloten
+        ("tekst\n---\nmeer", "tekst\n---\nmeer"),  # --- niet bovenaan
+    ],
+)
+def test_strip_front_matter(builder, source, expected):
+    result = builder(f"(m) => m.stripFrontMatter({source!r})")
+    assert result == expected
+
+
+@pytest.mark.parametrize(
     "iso, expected",
     [
         ("2026-07-14", "14 juli 2026"),
