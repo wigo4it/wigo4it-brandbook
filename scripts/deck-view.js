@@ -16,6 +16,8 @@ import {
 
 const slidesEl = document.getElementById('deck-slides');
 const emptyEl = document.getElementById('deck-empty');
+const params = new URLSearchParams(window.location.search);
+const pdfExport = params.has('print-pdf');
 
 const md = window.markdownit ? window.markdownit(MARKDOWN_OPTIONS) : null;
 
@@ -61,13 +63,39 @@ async function render(source, options = {}) {
   deck = window.Reveal;
   await deck.initialize({
     ...REVEAL_BASE,
-    controls: true,
-    progress: true,
+    controls: !pdfExport,
+    progress: !pdfExport,
     slideNumber: false,
-    transition: options.transition || 'slide',
+    transition: pdfExport ? 'none' : options.transition || 'slide',
+    pdfMaxPagesPerSlide: 1,
+    pdfSeparateFragments: false,
     plugins: window.RevealNotes ? [window.RevealNotes] : [],
   });
-  fitDecoration(deck);
+
+  if (pdfExport) {
+    await printPdfWhenReady();
+  } else {
+    fitDecoration(deck);
+  }
+}
+
+/**
+ * Geef fonts en afbeeldingen tijd om scherp in de PDF te landen. Twee frames
+ * extra zijn nodig omdat Reveal zijn printpagina's pas na initialisatie meet.
+ */
+async function printPdfWhenReady() {
+  if (document.fonts && document.fonts.ready) await document.fonts.ready;
+  await Promise.all(
+    [...document.images].map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', resolve, { once: true });
+      });
+    })
+  );
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  if (params.get('auto-print') === '1') window.print();
 }
 
 /** Opties uit localStorage, met een lege set als er niets (geldigs) staat. */
@@ -93,7 +121,6 @@ window.addEventListener('message', (event) => {
  * zodat deze pagina ook los iets laat zien.
  */
 async function boot() {
-  const params = new URLSearchParams(window.location.search);
   if (params.get('preview') === '1') return;
 
   const stored = localStorage.getItem(STORAGE_SOURCE);
