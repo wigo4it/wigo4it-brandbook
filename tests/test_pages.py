@@ -131,6 +131,23 @@ def test_navbar_fits_on_a_normal_screen(page, server_url, page_path, width):
     assert fit["scrollbar"] == "none", f"{page_path}: zichtbare scrollbar in de topnav"
 
 
+def test_deck_pdf_button_opens_reveal_print_view(page, server_url):
+    """De PDF-knop bewaart het deck en opent Reveal in 16:9-printmodus."""
+    page.goto(f"{server_url}/deck.html", wait_until="networkidle")
+    page.evaluate(
+        """() => {
+          window.__openedDeck = null;
+          window.open = (url) => { window.__openedDeck = url; };
+        }"""
+    )
+
+    page.locator("#deck-pdf").click()
+
+    assert page.evaluate("window.__openedDeck") == "deck-view.html?print-pdf=1&auto-print=1"
+    assert page.evaluate("localStorage.getItem('w4-deck-source')").strip()
+    assert page.evaluate("JSON.parse(localStorage.getItem('w4-deck-options')).transition") == "slide"
+
+
 # ── url()-verwijzingen, letter voor letter ──────────────────────────────────
 
 URL_REF = re.compile(r"""url\(\s*['"]?([^'")]+)['"]?\s*\)""")

@@ -31,6 +31,7 @@ const els = {
   frame: document.getElementById('deck-frame'),
   sub: document.getElementById('deck-canvas-sub'),
   present: document.getElementById('deck-present'),
+  pdf: document.getElementById('deck-pdf'),
   download: document.getElementById('deck-download'),
 };
 
@@ -104,9 +105,21 @@ function update() {
 /** Zet het deck klaar en open de presentatieweergave in een nieuw tabblad. */
 function present() {
   if (!markdownSource) return;
+  storeDeck();
+  window.open('deck-view.html', '_blank', 'noopener');
+}
+
+/** Bewaar de bron en instellingen voor een zelfstandige deck-weergave. */
+function storeDeck() {
   localStorage.setItem(STORAGE_SOURCE, markdownSource);
   localStorage.setItem(STORAGE_OPTIONS, JSON.stringify(options()));
-  window.open('deck-view.html', '_blank', 'noopener');
+}
+
+/** Open RevealJS in zijn PDF-printmodus en laat die pagina de printdialoog starten. */
+function downloadPdf() {
+  if (!markdownSource) return;
+  storeDeck();
+  window.open('deck-view.html?print-pdf=1&auto-print=1', '_blank', 'noopener');
 }
 
 /**
@@ -244,6 +257,7 @@ els.dropzone.addEventListener('drop', (event) => {
 els.footer.addEventListener('input', update);
 els.transition.addEventListener('change', update);
 els.present.addEventListener('click', present);
+els.pdf.addEventListener('click', downloadPdf);
 els.download.addEventListener('click', downloadHtml);
 
 els.frame.addEventListener('load', () => {
