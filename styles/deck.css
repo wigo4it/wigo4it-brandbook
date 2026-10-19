@@ -255,6 +255,11 @@
   align-items: center;
 }
 
+/* Twee kolommen met elk een ###-kop: bovenaan uitlijnen, dan staan de koppen gelijk. */
+.w4-slide-split.is-labeled {
+  align-items: start;
+}
+
 .w4-slide-panel > :first-child {
   margin-top: 0;
 }
@@ -431,6 +436,7 @@
 .w4-slide-timeline[data-count='2'] { --cols: 2; }
 .w4-slide-timeline[data-count='4'] { --cols: 4; }
 .w4-slide-timeline[data-count='5'] { --cols: 5; }
+.w4-slide-timeline[data-count='6'] { --cols: 6; }
 
 .w4-slide-timeline::before {
   content: '';
