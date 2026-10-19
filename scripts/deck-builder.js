@@ -420,17 +420,25 @@ function itemGrid(className, count) {
 /**
  * Split-layout: alles voor de eerste `<hr>` wordt de linkerkolom, de rest de
  * rechter. Zonder `<hr>` (in markdown: `***`) blijft de slide zoals hij was.
+ *
+ * Begint de linkerhelft na de titel met een `###`, dan zijn het twee
+ * gelijkwaardige kolommen: de titel gaat erboven en de kolommen lijnen boven
+ * uit, zodat de twee `###`-koppen op dezelfde hoogte staan.
  * @param {Element} body
  */
 function applySplit(body) {
   const halves = splitHalves(body);
   if (!halves) return;
 
+  const labeled = halves.left.some((n) => n.nodeName === 'H3');
+  const { intro, rest } = labeled ? takeIntro(halves.left) : { intro: [], rest: halves.left };
+
   body.replaceChildren(
+    ...intro,
     el(
       'div',
-      'w4-slide-split',
-      el('div', 'w4-slide-panel', ...halves.left),
+      `w4-slide-split${labeled ? ' is-labeled' : ''}`,
+      el('div', 'w4-slide-panel', ...rest),
       el('div', 'w4-slide-panel', ...halves.right)
     )
   );
