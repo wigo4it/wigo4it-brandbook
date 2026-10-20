@@ -37,12 +37,19 @@ let deck = null; // de reveal-instantie, zodra er slides zijn
  * @param {{footerText?: string, transition?: string}} options
  */
 async function render(source, options = {}) {
+  const position = deck ? deck.getIndices() : null;
   const built = buildDeck({
     source,
     renderMarkdown,
     footerText: options.footerText,
   });
-  if (!built.count) return;
+  if (!built.count) {
+    slidesEl.replaceChildren();
+    emptyEl.hidden = false;
+    document.title = 'Wigo4it | Presentatie';
+    if (deck) deck.sync();
+    return;
+  }
 
   slidesEl.replaceChildren(...built.slides.childNodes);
   emptyEl.hidden = true;
@@ -56,7 +63,10 @@ async function render(source, options = {}) {
     // Zelfde instantie hergebruiken; sync() leest de nieuwe slides in.
     deck.configure({ transition: options.transition || 'slide' });
     deck.sync();
-    deck.slide(0);
+    const h = Math.min(position.h, slidesEl.children.length - 1);
+    const verticalSlides = slidesEl.children[h].querySelectorAll(':scope > section').length;
+    const v = Math.min(position.v, Math.max(0, verticalSlides - 1));
+    deck.slide(h, v);
     return;
   }
 

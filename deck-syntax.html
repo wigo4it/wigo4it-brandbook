@@ -32,6 +32,33 @@
 
       <div class="w4-doc-page">
         <section class="w4-doc-card">
+          <h2>Live-update tijdens het schrijven</h2>
+          <p>
+            Start lokaal met <code>python -m http.server</code> en open
+            <code>http://localhost:8000/deck.html</code> in Chrome of Edge. Kies je markdown
+            via de bestandskiezer, ook buiten de servermap. Na opslaan in je editor volgt
+            de preview ongeveer elke seconde; footer en overgang blijven behouden.
+            De preview blijft op dezelfde slide, ook bij verticale slides. Bestaat die
+            positie niet meer, dan wordt de dichtstbijzijnde beschikbare slide getoond.
+            Alles wordt lokaal gelezen, zonder upload.
+          </p>
+          <p>
+            Slepen volgt het bestand ook als de browser blijvende leestoegang geeft.
+            Controleer de melding onder de kiezer en open het bestand zo nodig via de
+            kiezer voor live-update. In Safari is live-update niet beschikbaar: kies het
+            bestand opnieuw na wijzigingen. Na een paginaverversing kies je het bestand
+            eveneens opnieuw.
+          </p>
+          <p>
+            Bij een leesfout blijft de laatste preview staan en krijg je een herstelmelding.
+            Kies het bestand opnieuw als het is vervangen, verwijderd of niet meer
+            toegankelijk is. Achtergrondtabbladen kunnen trager verversen.
+            Alleen de preview volgt mee: een al geopend presentatietabblad en PDF- of
+            HTML-exports blijven momentopnamen. Open of exporteer opnieuw voor de laatste versie.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
           <h2>Zo ziet een slide eruit</h2>
           <pre><code>&lt;!-- w4: green statement icon:Rocket --&gt;
 

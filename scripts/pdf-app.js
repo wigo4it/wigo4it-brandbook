@@ -5,6 +5,7 @@
    browser-print. markdown-it (CDN) doet de markdown -> HTML stap.
    ============================================================ */
 import { assembleDocument, filenameToTitle, formatDateNL, stripFrontMatter } from './pdf-builder.js';
+import { bindMarkdownFile } from './markdown-file.js';
 
 const md = window.markdownit
   ? window.markdownit({ html: false, linkify: true, typographer: true })
@@ -14,6 +15,7 @@ const els = {
   file: document.getElementById('pdf-file'),
   dropzone: document.getElementById('pdf-dropzone'),
   dropzoneText: document.getElementById('pdf-dropzone-text'),
+  fileStatus: document.getElementById('pdf-file-status'),
   title: document.getElementById('pdf-title'),
   subtitle: document.getElementById('pdf-subtitle'),
   dateToggle: document.getElementById('pdf-date-toggle'),
@@ -27,6 +29,7 @@ const els = {
 
 // De markdown komt uitsluitend uit een geupload bestand; hier bewaard.
 let markdownSource = '';
+let exporting = false;
 
 function selectedCover() {
   const checked = document.querySelector('input[name="pdf-cover"]:checked');
@@ -54,7 +57,7 @@ function buildDoc() {
 
 function render() {
   // Elke wijziging maakt de vorige paginering ongeldig.
-  els.paged.replaceChildren();
+  if (!exporting) els.paged.replaceChildren();
   if (!markdownSource) {
     els.preview.replaceChildren(emptyState());
     return;
@@ -164,6 +167,7 @@ async function exportPdf() {
 
   els.print.disabled = true;
   els.print.textContent = 'Pagineren...';
+  exporting = true;
   try {
     const doc = buildDoc();
     els.paged.replaceChildren();
@@ -183,49 +187,22 @@ async function exportPdf() {
     fillTocPageNumbers(els.paged);
     window.print();
   } finally {
+    exporting = false;
     els.print.disabled = false;
     els.print.textContent = 'Exporteer naar PDF';
   }
 }
 
-/**
- * Lees een gekozen/gesleept bestand in. Volledig client-side via FileReader;
- * er gaat niets naar een server. De bestandsnaam vult meteen de voorblad-titel
- * en verschijnt in de dropzone.
- * @param {File} file
- */
-function loadFile(file) {
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    markdownSource = String(reader.result);
-    els.title.value = filenameToTitle(file.name);
-    els.dropzoneText.textContent = file.name;
-    els.dropzone.classList.add('has-file');
+bindMarkdownFile({
+  input: els.file,
+  dropzone: els.dropzone,
+  label: els.dropzoneText,
+  status: els.fileStatus,
+  onChange(source, { name, initial }) {
+    markdownSource = source;
+    if (initial) els.title.value = filenameToTitle(name);
     render();
-  };
-  reader.readAsText(file);
-}
-
-els.file.addEventListener('change', (e) => {
-  loadFile(e.target.files[0]);
-  e.target.value = ''; // zelfde bestand nogmaals kunnen kiezen
-});
-
-// Sleep een bestand op de dropzone.
-els.dropzone.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  els.dropzone.classList.add('is-dragover');
-});
-for (const evt of ['dragleave', 'dragend', 'drop']) {
-  els.dropzone.addEventListener(evt, () => els.dropzone.classList.remove('is-dragover'));
-}
-els.dropzone.addEventListener('drop', (e) => {
-  const file = e.dataTransfer && e.dataTransfer.files[0];
-  if (file) {
-    e.preventDefault();
-    loadFile(file);
-  }
+  },
 });
 
 /** Lokale datum van vandaag als YYYY-MM-DD (zonder tijdzone-verschuiving). */

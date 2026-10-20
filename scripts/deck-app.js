@@ -20,11 +20,13 @@ import {
   parseFrontMatter,
 } from './deck-builder.js';
 import { loadAssets, names } from './assets.js';
+import { bindMarkdownFile } from './markdown-file.js';
 
 const els = {
   file: document.getElementById('deck-file'),
   dropzone: document.getElementById('deck-dropzone'),
   dropzoneText: document.getElementById('deck-dropzone-text'),
+  fileStatus: document.getElementById('deck-file-status'),
   footer: document.getElementById('deck-footer'),
   transition: document.getElementById('deck-transition'),
   warning: document.getElementById('deck-warning'),
@@ -36,6 +38,7 @@ const els = {
 };
 
 let markdownSource = '';
+let hasFile = false;
 let frameReady = false;
 // Namen uit assets.json, om shape:/icon:-tokens tegen te controleren. Blijft
 // leeg tot het manifest binnen is; dan slaat de controle over, niet aan.
@@ -50,7 +53,7 @@ function options() {
 
 /** Stuur de huidige markdown naar de preview-iframe. */
 function pushToPreview() {
-  if (!frameReady || !markdownSource) return;
+  if (!frameReady) return;
   els.frame.contentWindow.postMessage(
     { type: 'w4-deck', source: markdownSource, options: options() },
     window.location.origin
@@ -130,6 +133,8 @@ function downloadPdf() {
 async function downloadHtml() {
   if (!markdownSource) return;
 
+  const source = markdownSource;
+  const exportOptions = options();
   const base = new URL('.', window.location.href).href;
   els.download.disabled = true;
   try {
@@ -143,14 +148,14 @@ async function downloadHtml() {
     );
 
     const { slides, meta } = buildDeck({
-      source: markdownSource,
+      source,
       renderMarkdown: (source) => renderMarkdown(source),
-      footerText: options().footerText,
+      footerText: exportOptions.footerText,
       assetBase: base,
     });
 
     const title = meta.title || 'Wigo4it presentatie';
-    const html = deckDocument({ title, slides: slides.innerHTML, css: sheets.join('\n'), transition: options().transition });
+    const html = deckDocument({ title, slides: slides.innerHTML, css: sheets.join('\n'), transition: exportOptions.transition });
     saveFile(`${slugFilename(title)}.html`, html);
   } finally {
     els.download.disabled = false;
@@ -221,37 +226,16 @@ function renderMarkdown(source) {
   return window.markdownit(MARKDOWN_OPTIONS).render(source);
 }
 
-/** Lees een gekozen of gesleept bestand in. Niets gaat naar een server. */
-function loadFile(file) {
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    markdownSource = String(reader.result);
-    els.dropzoneText.textContent = file.name;
-    els.dropzone.classList.add('has-file');
+bindMarkdownFile({
+  input: els.file,
+  dropzone: els.dropzone,
+  label: els.dropzoneText,
+  status: els.fileStatus,
+  onChange(source) {
+    hasFile = true;
+    markdownSource = source;
     update();
-  };
-  reader.readAsText(file);
-}
-
-els.file.addEventListener('change', (event) => {
-  loadFile(event.target.files[0]);
-  event.target.value = ''; // zelfde bestand nogmaals kunnen kiezen
-});
-
-els.dropzone.addEventListener('dragover', (event) => {
-  event.preventDefault();
-  els.dropzone.classList.add('is-dragover');
-});
-for (const type of ['dragleave', 'dragend', 'drop']) {
-  els.dropzone.addEventListener(type, () => els.dropzone.classList.remove('is-dragover'));
-}
-els.dropzone.addEventListener('drop', (event) => {
-  const file = event.dataTransfer && event.dataTransfer.files[0];
-  if (file) {
-    event.preventDefault();
-    loadFile(file);
-  }
+  },
 });
 
 els.footer.addEventListener('input', update);
@@ -281,7 +265,7 @@ loadAssets()
 fetch(EXAMPLE_DECK)
   .then((response) => (response.ok ? response.text() : ''))
   .then((text) => {
-    if (!text || markdownSource) return;
+    if (!text || hasFile) return;
     markdownSource = text;
     update();
   })
