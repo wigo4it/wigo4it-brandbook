@@ -31,6 +31,31 @@
 
       <div class="w4-doc-page">
         <section class="w4-doc-card">
+          <h2>Live-update tijdens het schrijven</h2>
+          <p>
+            Start lokaal met <code>python -m http.server</code> en open de tool via
+            <code>http://localhost:8000/pdf.html</code> in Chrome of Edge. Klik op de
+            bestandskiezer en kies je markdown, ook buiten de servermap. Na opslaan in je
+            editor wordt de preview ongeveer elke seconde bijgewerkt, zonder je instellingen
+            te wijzigen. Het bestand blijft op je computer; er wordt niets geüpload.
+          </p>
+          <p>
+            Bij slepen werkt live-update als de browser blijvende leestoegang geeft; de
+            melding onder de bestandskiezer laat zien of live-update actief is. Kies het
+            bestand anders via de kiezer. Safari ondersteunt deze toegang niet: kies daar
+            het bestand opnieuw na iedere wijziging. Ook na een paginaverversing moet je
+            het bestand opnieuw kiezen.
+          </p>
+          <p>
+            Bij een leesfout blijft de laatste preview staan en verschijnt een melding.
+            Kies het bestand opnieuw, bijvoorbeeld als je editor het bestand vervangt of
+            als toegang is ingetrokken. Achtergrondtabbladen kunnen trager verversen.
+            Een PDF-export is een momentopname; wijzigingen tijdens het pagineren veranderen
+            die export niet.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
           <h2>Gewone markdown, geen tokens</h2>
           <p class="w4-doc-callout">
             Anders dan bij een slide-deck staat er niets van de huisstijl in je bestand. Koppen,
