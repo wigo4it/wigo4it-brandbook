@@ -487,10 +487,20 @@
 }
 
 .w4-doc-content pre,
-.w4-doc-content table,
 .w4-doc-content blockquote,
 .w4-doc-content img {
   break-inside: avoid;
+}
+
+/* Een tabel mag tussen rijen over een pagina breken. Een hele tabel
+   doorschuiven laat bij een lange tabel een halve pagina leeg. Een rij
+   blijft wel heel, en de kopregel blijft bij de eerste rij. */
+.w4-doc-content tr {
+  break-inside: avoid;
+}
+
+.w4-doc-content thead {
+  break-after: avoid;
 }
 
 @media print {
