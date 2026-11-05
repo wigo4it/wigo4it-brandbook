@@ -11,6 +11,51 @@
    1. Slide-thema
    ============================================================ */
 
+/* Vrije composities voor bestaande presentaties. Posities en maten zijn
+   pixels op het Reveal-canvas; Reveal schaalt de complete slide mee. */
+.w4-slide--canvas .w4-slide-body {
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+.w4-slide--canvas > .w4-slide-logo,
+.w4-slide--canvas > .w4-slide-footer { display: none; }
+.w4-slide--canvas .w4-canvas {
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  font-family: 'PP Neue Machina', sans-serif;
+}
+.w4-slide--canvas .w4-canvas > * {
+  position: absolute;
+  left: var(--x, 0px);
+  top: var(--y, 0px);
+  width: var(--w, auto);
+  height: var(--h, auto);
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  box-sizing: border-box;
+}
+.w4-slide--canvas .w4-canvas-text {
+  font-size: var(--size, 40px);
+  line-height: var(--leading, 1.08);
+  font-weight: var(--weight, 400);
+  letter-spacing: -0.015em;
+}
+.w4-slide--canvas .w4-canvas-art {
+  background: currentColor;
+  mask: var(--canvas-art) center / 100% 100% no-repeat;
+  -webkit-mask: var(--canvas-art) center / 100% 100% no-repeat;
+}
+.w4-slide--canvas img { object-fit: contain; }
+.w4-slide--canvas .w4-canvas-inline {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  vertical-align: -0.1em;
+}
+
 /* Reveal hangt zijn eigen typografie aan custom properties. Daarmee zetten
    we het merk in een handvol regels neer in plaats van met !important-oorlog. */
 .reveal {

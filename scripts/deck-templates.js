@@ -19,6 +19,17 @@ const SLIDE_W = 1600;
  */
 export const TEMPLATES = [
   {
+    name: 'canvas',
+    group: 'Vrije compositie',
+    about: 'Bestaande slides nabouwen met bewerkbare tekst en vrij geplaatste assets.',
+    md: `<!-- w4: yellow canvas -->
+
+<div class="w4-canvas">
+<span class="w4-canvas-art" aria-hidden="true" data-asset="img/shapes/ring.svg" style="--x:1000px;--y:100px;--w:480px;--h:480px;color:var(--dark-green)"></span>
+<h2 class="w4-canvas-text" style="--x:120px;--y:300px;--w:800px;--size:96px">Vrije compositie</h2>
+</div>`,
+  },
+  {
     name: 'cover',
     group: 'Begin en eind',
     about: 'Openingsslide. Standaard groen, zonder footer, met het logo linksonder.',
