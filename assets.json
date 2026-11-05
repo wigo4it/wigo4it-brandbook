@@ -617,7 +617,7 @@
       "id": "photos",
       "label": "Foto's",
       "dir": "img/photos",
-      "count": 6,
+      "count": 8,
       "assets": [
         {
           "name": "colleages discussing",
@@ -626,6 +626,14 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/colleages-discussing.jpg",
           "format": "jpg",
           "bytes": 392888
+        },
+        {
+          "name": "colleagues in meeting with laptop",
+          "file": "colleagues-in-meeting-with-laptop.jpg",
+          "path": "img/photos/colleagues-in-meeting-with-laptop.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/colleagues-in-meeting-with-laptop.jpg",
+          "format": "jpg",
+          "bytes": 66478
         },
         {
           "name": "group looking at laptop",
@@ -666,6 +674,14 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/woman-sticking-note-to-wall.jpg",
           "format": "jpg",
           "bytes": 310383
+        },
+        {
+          "name": "woman viewing tech radar on monitor",
+          "file": "woman-viewing-tech-radar-on-monitor.jpg",
+          "path": "img/photos/woman-viewing-tech-radar-on-monitor.jpg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/photos/woman-viewing-tech-radar-on-monitor.jpg",
+          "format": "jpg",
+          "bytes": 83400
         }
       ]
     },
