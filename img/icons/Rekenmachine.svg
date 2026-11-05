@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="6.6316 6.6316 154.7368 214.7368" width="154.7368" height="214.7368" xmlns="http://www.w3.org/2000/svg">
+  <rect x="6.6316" y="14.6316" width="10.7368" height="198.7368" style="fill: #322846;"/>
+  <rect x="150.6316" y="14.6316" width="10.7368" height="198.7368" style="fill: #322846;"/>
+  <rect x="14.6316" y="6.6316" width="138.7368" height="10.7368" style="fill: #322846;"/>
+  <rect x="14.6316" y="94.6316" width="138.7368" height="10.7368" style="fill: #322846;"/>
+  <rect x="14.6316" y="210.6316" width="138.7368" height="10.7368" style="fill: #322846;"/>
+  <g>
+    <rect x="22.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="54.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="86.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="118.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 32)">
+    <rect x="22.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="54.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="86.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="118.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 64)">
+    <rect x="22.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="54.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="86.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+    <rect x="118.6316" y="110.6316" width="26.7368" height="26.7368" style="fill: #322846;"/>
+  </g>
+</svg>
