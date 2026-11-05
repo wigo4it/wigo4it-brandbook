@@ -73,7 +73,7 @@
           "path": "img/icons/Database.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Database.svg",
           "format": "svg",
-          "bytes": 4387
+          "bytes": 5419
         },
         {
           "name": "Diamant",
@@ -89,7 +89,7 @@
           "path": "img/icons/Documenten.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Documenten.svg",
           "format": "svg",
-          "bytes": 1812
+          "bytes": 2287
         },
         {
           "name": "Drop",
@@ -185,7 +185,7 @@
           "path": "img/icons/Innovatie.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Innovatie.svg",
           "format": "svg",
-          "bytes": 4726
+          "bytes": 4846
         },
         {
           "name": "Invasion",
@@ -212,12 +212,12 @@
           "bytes": 718
         },
         {
-          "name": "Laptop 2",
-          "file": "Laptop 2.svg",
-          "path": "img/icons/Laptop 2.svg",
-          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Laptop%202.svg",
+          "name": "Laptop met hart",
+          "file": "Laptop met hart.svg",
+          "path": "img/icons/Laptop met hart.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Laptop%20met%20hart.svg",
           "format": "svg",
-          "bytes": 4088
+          "bytes": 2283
         },
         {
           "name": "Laptop",
@@ -273,7 +273,7 @@
           "path": "img/icons/Profiel.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Profiel.svg",
           "format": "svg",
-          "bytes": 5272
+          "bytes": 6092
         },
         {
           "name": "Prullenbak",
@@ -297,7 +297,7 @@
           "path": "img/icons/Rekenmachine.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Rekenmachine.svg",
           "format": "svg",
-          "bytes": 1477
+          "bytes": 1852
         },
         {
           "name": "Rex 2",
@@ -329,7 +329,7 @@
           "path": "img/icons/Server.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Server.svg",
           "format": "svg",
-          "bytes": 2432
+          "bytes": 3047
         },
         {
           "name": "Snelle auto",
@@ -361,7 +361,7 @@
           "path": "img/icons/Wolk.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Wolk.svg",
           "format": "svg",
-          "bytes": 4422
+          "bytes": 5186
         },
         {
           "name": "Wolken",
@@ -369,7 +369,7 @@
           "path": "img/icons/Wolken.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Wolken.svg",
           "format": "svg",
-          "bytes": 4679
+          "bytes": 5511
         },
         {
           "name": "Zandloper",
