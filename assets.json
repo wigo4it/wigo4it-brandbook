@@ -673,7 +673,7 @@
       "id": "logos",
       "label": "Logo's",
       "dir": "img/logo",
-      "count": 7,
+      "count": 13,
       "assets": [
         {
           "name": "4 Diap",
@@ -714,6 +714,54 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Logo.svg",
           "format": "svg",
           "bytes": 5556
+        },
+        {
+          "name": "Socrates beeldmerk zwart transparant voor lichte achtergrond",
+          "file": "Socrates beeldmerk zwart transparant voor lichte achtergrond.svg",
+          "path": "img/logo/Socrates beeldmerk zwart transparant voor lichte achtergrond.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20beeldmerk%20zwart%20transparant%20voor%20lichte%20achtergrond.svg",
+          "format": "svg",
+          "bytes": 1107
+        },
+        {
+          "name": "Socrates favicon browsertab 32x32 zwart op lichtblauw verloop",
+          "file": "Socrates favicon browsertab 32x32 zwart op lichtblauw verloop.svg",
+          "path": "img/logo/Socrates favicon browsertab 32x32 zwart op lichtblauw verloop.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20favicon%20browsertab%2032x32%20zwart%20op%20lichtblauw%20verloop.svg",
+          "format": "svg",
+          "bytes": 1475
+        },
+        {
+          "name": "Socrates logo horizontaal beeldmerk en woordmerk zwart transparant",
+          "file": "Socrates logo horizontaal beeldmerk en woordmerk zwart transparant.svg",
+          "path": "img/logo/Socrates logo horizontaal beeldmerk en woordmerk zwart transparant.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20logo%20horizontaal%20beeldmerk%20en%20woordmerk%20zwart%20transparant.svg",
+          "format": "svg",
+          "bytes": 5520
+        },
+        {
+          "name": "Socrates logo verticaal beeldmerk en woordmerk zwart transparant",
+          "file": "Socrates logo verticaal beeldmerk en woordmerk zwart transparant.svg",
+          "path": "img/logo/Socrates logo verticaal beeldmerk en woordmerk zwart transparant.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20logo%20verticaal%20beeldmerk%20en%20woordmerk%20zwart%20transparant.svg",
+          "format": "svg",
+          "bytes": 5976
+        },
+        {
+          "name": "Socrates webclip startscherm 256x256 wit op zwart",
+          "file": "Socrates webclip startscherm 256x256 wit op zwart.svg",
+          "path": "img/logo/Socrates webclip startscherm 256x256 wit op zwart.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20webclip%20startscherm%20256x256%20wit%20op%20zwart.svg",
+          "format": "svg",
+          "bytes": 1181
+        },
+        {
+          "name": "Socrates webclip startscherm 256x256 zwart op lichtblauw verloop",
+          "file": "Socrates webclip startscherm 256x256 zwart op lichtblauw verloop.svg",
+          "path": "img/logo/Socrates webclip startscherm 256x256 zwart op lichtblauw verloop.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/logo/Socrates%20webclip%20startscherm%20256x256%20zwart%20op%20lichtblauw%20verloop.svg",
+          "format": "svg",
+          "bytes": 1537
         },
         {
           "name": "W4 logo M365",
