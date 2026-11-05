@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="8 8 152 212" width="152" height="212" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="16" width="8" height="196" style="fill: #322846;"/>
+  <rect x="152" y="16" width="8" height="196" style="fill: #322846;"/>
+  <rect x="16" y="8" width="136" height="8" style="fill: #322846;"/>
+  <rect x="16" y="96" width="136" height="8" style="fill: #322846;"/>
+  <rect x="16" y="212" width="136" height="8" style="fill: #322846;"/>
+  <g>
+    <rect x="24" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="56" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="88" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="120" y="112" width="24" height="24" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 32)">
+    <rect x="24" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="56" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="88" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="120" y="112" width="24" height="24" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 64)">
+    <rect x="24" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="56" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="88" y="112" width="24" height="24" style="fill: #322846;"/>
+    <rect x="120" y="112" width="24" height="24" style="fill: #322846;"/>
+  </g>
+</svg>

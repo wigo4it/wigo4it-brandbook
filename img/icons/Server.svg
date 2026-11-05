@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="7.1255 8.2373 208 160" width="208" height="160" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1, 0, 0, 1, -114.87451934814453, -83.7626724243164)">
+    <rect x="122" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="92" width="192" height="8" style="fill: #322846;"/>
+    <rect x="322" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="132" width="192" height="8" style="fill: #322846;"/>
+    <rect x="140" y="140" width="8" height="8" style="fill: #322846;"/>
+    <rect x="306" y="140" width="8" height="8" style="fill: #322846;"/>
+    <rect x="306" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="290" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="274" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="154" y="112" height="8" style="fill: #322846;" width="64"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, -114.87451934814453, -27.762670516967773)">
+    <rect x="122" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="92" width="192" height="8" style="fill: #322846;"/>
+    <rect x="322" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="132" width="192" height="8" style="fill: #322846;"/>
+    <rect x="140" y="140" width="8" height="8" style="fill: #322846;"/>
+    <rect x="306" y="140" width="8" height="8" style="fill: #322846;"/>
+    <rect x="306" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="290" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="274" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="154" y="112" height="8" style="fill: #322846;" width="64"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, -114.87451934814453, 28.237329483032227)">
+    <rect x="122" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="92" width="192" height="8" style="fill: #322846;"/>
+    <rect x="322" y="100" width="8" height="32" style="fill: #322846;"/>
+    <rect x="130" y="132" width="192" height="8" style="fill: #322846;"/>
+    <rect x="306" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="290" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="274" y="112" width="8" height="8" style="fill: #322846;"/>
+    <rect x="154" y="112" height="8" style="fill: #322846;" width="64"/>
+  </g>
+</svg>

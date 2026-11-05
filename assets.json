@@ -2,14 +2,14 @@
   "brand": "Wigo4it",
   "version": "1.1",
   "baseUrl": "https://wigo4it.github.io/wigo4it-brandbook/",
-  "generated": "2026-07-28",
+  "generated": "2026-11-05",
   "usage": "Wigo4it brand assets, free to reuse within brand guidelines. Each asset has a ready-to-use \"url\"; alternatively append its \"path\" to \"baseUrl\". Icons are SVG, shapes and logos are SVG or PNG, photos are JPG.",
   "categories": [
     {
       "id": "icons",
       "label": "Iconen",
       "dir": "img/icons",
-      "count": 38,
+      "count": 48,
       "assets": [
         {
           "name": "Aarde",
@@ -68,12 +68,28 @@
           "bytes": 1305
         },
         {
+          "name": "Database",
+          "file": "Database.svg",
+          "path": "img/icons/Database.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Database.svg",
+          "format": "svg",
+          "bytes": 4387
+        },
+        {
           "name": "Diamant",
           "file": "Diamant.svg",
           "path": "img/icons/Diamant.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Diamant.svg",
           "format": "svg",
           "bytes": 2181
+        },
+        {
+          "name": "Documenten",
+          "file": "Documenten.svg",
+          "path": "img/icons/Documenten.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Documenten.svg",
+          "format": "svg",
+          "bytes": 1812
         },
         {
           "name": "Drop",
@@ -164,6 +180,14 @@
           "bytes": 724
         },
         {
+          "name": "Innovatie",
+          "file": "Innovatie.svg",
+          "path": "img/icons/Innovatie.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Innovatie.svg",
+          "format": "svg",
+          "bytes": 4726
+        },
+        {
           "name": "Invasion",
           "file": "Invasion.svg",
           "path": "img/icons/Invasion.svg",
@@ -186,6 +210,14 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Koffie.svg",
           "format": "svg",
           "bytes": 718
+        },
+        {
+          "name": "Laptop 2",
+          "file": "Laptop 2.svg",
+          "path": "img/icons/Laptop 2.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Laptop%202.svg",
+          "format": "svg",
+          "bytes": 4088
         },
         {
           "name": "Laptop",
@@ -236,6 +268,14 @@
           "bytes": 880
         },
         {
+          "name": "Profiel",
+          "file": "Profiel.svg",
+          "path": "img/icons/Profiel.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Profiel.svg",
+          "format": "svg",
+          "bytes": 5272
+        },
+        {
           "name": "Prullenbak",
           "file": "Prullenbak.svg",
           "path": "img/icons/Prullenbak.svg",
@@ -250,6 +290,14 @@
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Regen.svg",
           "format": "svg",
           "bytes": 1837
+        },
+        {
+          "name": "Rekenmachine",
+          "file": "Rekenmachine.svg",
+          "path": "img/icons/Rekenmachine.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Rekenmachine.svg",
+          "format": "svg",
+          "bytes": 1477
         },
         {
           "name": "Rex 2",
@@ -276,6 +324,14 @@
           "bytes": 359
         },
         {
+          "name": "Server",
+          "file": "Server.svg",
+          "path": "img/icons/Server.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Server.svg",
+          "format": "svg",
+          "bytes": 2432
+        },
+        {
           "name": "Snelle auto",
           "file": "Snelle auto.svg",
           "path": "img/icons/Snelle auto.svg",
@@ -284,12 +340,36 @@
           "bytes": 810
         },
         {
+          "name": "Spaarvarken",
+          "file": "Spaarvarken.svg",
+          "path": "img/icons/Spaarvarken.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Spaarvarken.svg",
+          "format": "svg",
+          "bytes": 3995
+        },
+        {
           "name": "Vuur",
           "file": "Vuur.svg",
           "path": "img/icons/Vuur.svg",
           "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Vuur.svg",
           "format": "svg",
           "bytes": 2905
+        },
+        {
+          "name": "Wolk",
+          "file": "Wolk.svg",
+          "path": "img/icons/Wolk.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Wolk.svg",
+          "format": "svg",
+          "bytes": 4422
+        },
+        {
+          "name": "Wolken",
+          "file": "Wolken.svg",
+          "path": "img/icons/Wolken.svg",
+          "url": "https://wigo4it.github.io/wigo4it-brandbook/img/icons/Wolken.svg",
+          "format": "svg",
+          "bytes": 4679
         },
         {
           "name": "Zandloper",
