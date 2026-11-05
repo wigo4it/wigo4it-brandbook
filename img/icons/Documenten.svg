@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="4.2105 4.2105 235.5789 311.5789" width="235.5789" height="311.5789" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect x="4.2105" y="12.2105" width="15.5789" height="263.5789" style="fill: #322846;"/>
+    <rect x="192.2105" y="12.2105" width="15.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="4.2105" width="187.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="268.2105" width="15.5789" height="15.5789" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 16, 16)">
+    <rect x="4.2105" y="12.2105" width="15.5789" height="263.5789" style="fill: #322846;"/>
+    <rect x="192.2105" y="12.2105" width="15.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="4.2105" width="187.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="268.2105" width="15.5789" height="15.5789" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 32, 32)">
+    <rect x="4.2105" y="12.2105" width="15.5789" height="263.5789" style="fill: #322846;"/>
+    <rect x="192.2105" y="12.2105" width="15.5789" height="263.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="4.2105" width="187.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="12.2105" y="268.2105" width="187.5789" height="15.5789" style="fill: #322846;"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 8, 0)">
+    <rect x="60.2105" y="76.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="100.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="124.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="148.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="172.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="196.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="220.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="244.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+    <rect x="60.2105" y="268.2105" width="135.5789" height="15.5789" style="fill: #322846;"/>
+  </g>
+</svg>
