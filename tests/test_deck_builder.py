@@ -40,6 +40,28 @@ def builder(page, server_url):
 # ── frontmatter ──────────────────────────────────────────────────────────────
 
 
+def test_canvas_assets_keep_their_base_in_preview_and_export(builder):
+    result = builder("""(m) => {
+      const section = m.buildSlide({
+        markdown: '<!-- w4: yellow canvas -->\\nContent', number: 1,
+        assetBase: 'https://example.org/brand/',
+        renderMarkdown: () => '<div class="w4-canvas"><span class="w4-canvas-art" data-asset="img/icons/Game Boy.svg"></span><img src="examples/map.png" alt="Kaart"><h2 class="w4-canvas-text">2024</h2></div>',
+      });
+      return {unknown: section.dataset.unknownTokens,
+        mask: section.querySelector('[data-asset]').style.getPropertyValue('--canvas-art'),
+        image: section.querySelector('.w4-canvas img').src,
+        text: section.querySelector('h2').textContent,
+        canvas: section.classList.contains('w4-slide--canvas')};
+    }""")
+    assert result == {
+        "unknown": "",
+        "mask": 'url("https://example.org/brand/img/icons/Game%20Boy.svg")',
+        "image": "https://example.org/brand/examples/map.png",
+        "text": "2024",
+        "canvas": True,
+    }
+
+
 def test_front_matter_reads_key_values(builder):
     source = "---\ntitle: Good code\nfooter: Wigo4it\n---\n\n# Slide"
     result = builder(f"(m) => m.parseFrontMatter({source!r})")

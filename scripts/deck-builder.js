@@ -28,7 +28,7 @@ export const STORAGE_SOURCE = 'w4-deck-source';
 export const STORAGE_OPTIONS = 'w4-deck-options';
 
 /** Het deck dat de tool laat zien zolang je zelf niets hebt geladen. */
-export const EXAMPLE_DECK = 'examples/deck-voorbeeld.md';
+export const EXAMPLE_DECK = 'examples/cijfers-resultaten-2024.md';
 
 /** markdown-it-opties. `html` staat aan omdat de tokens comments zijn. */
 export const MARKDOWN_OPTIONS = { html: true, linkify: true, typographer: true };
@@ -111,6 +111,7 @@ export const SLIDE_LAYOUTS = [
   'table',
   'section',
   'photo',
+  'canvas',
 ];
 
 /** Posities voor een decoratieve shape. */
@@ -752,6 +753,21 @@ export function buildSlide({ markdown, renderMarkdown, number, footerText = '', 
   const body = document.createElement('div');
   body.className = 'w4-slide-body';
   body.append(...htmlToNodes(renderMarkdown(content)));
+
+  // Vrije compositie op het vaste 1600 x 900 canvas. Assetpaden blijven
+  // relatief in de bron, ook de HTML-export krijgt hier de juiste basis.
+  if (config.layout === 'canvas') {
+    for (const image of body.querySelectorAll('img[src]')) {
+      const src = image.getAttribute('src');
+      if (!/^(?:[a-z]+:|\/|#)/i.test(src)) image.src = assetBase + src;
+    }
+    for (const art of body.querySelectorAll('[data-asset]')) {
+      const path = art.dataset.asset;
+      // Masker-URL's moeten absoluut zijn: CSS resolveert ze tegen de stylesheet.
+      const url = new URL(assetUrl(assetBase, path), document.baseURI).href;
+      art.style.setProperty('--canvas-art', 'url("' + url + '")');
+    }
+  }
 
   const photo = config.layout === 'photo' ? extractPhoto(body) : null;
 

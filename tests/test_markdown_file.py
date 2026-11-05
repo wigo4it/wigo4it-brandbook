@@ -246,13 +246,13 @@ def test_drop_live_or_one_time_status(page, server_url, handle_available):
 
 
 def test_empty_upload_wins_over_late_example(page, server_url):
-    page.route("**/examples/deck-voorbeeld.md", lambda route: route.fulfill(body="# Laat voorbeeld"))
+    page.route("**/examples/cijfers-resultaten-2024.md", lambda route: route.fulfill(body="# Laat voorbeeld"))
     # Een lege eigen bron moet ook na een nieuwe voorbeeld-response leeg blijven.
     page.add_init_script(MOCK_PICKER + """
       testFile.source = '';
       const originalFetch = window.fetch;
       window.fetch = async (...args) => {
-        if (String(args[0]).includes('deck-voorbeeld.md')) {
+        if (String(args[0]).includes('cijfers-resultaten-2024.md')) {
           await new Promise(resolve => window.releaseExample = resolve);
         }
         return originalFetch(...args);

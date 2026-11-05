@@ -66,7 +66,9 @@ wigo4it-brandbook/
 ├── examples/
 │   ├── dashboard.html + .css
 │   ├── slide-deck.html + .css
-│   ├── deck-voorbeeld.md      het deck dat de tool standaard toont
+│   ├── cijfers-resultaten-2024.md   het deck dat de tool standaard toont
+│   ├── cijfers-resultaten-2024.html de presentatie met ingebedde merkassets
+│   ├── deck-voorbeeld.md      algemeen voorbeeld van het auteursformaat
 │   └── deck-test.md           elke layout plus de randgevallen
 ├── docs/                      merkgidsen als PDF
 ├── fonts/
