@@ -21,6 +21,9 @@ import {
 } from './deck-builder.js';
 import { loadAssets, names } from './assets.js';
 import { bindMarkdownFile } from './markdown-file.js';
+import {
+  createPresentation, getPresentation, loginHref, me, updatePresentation,
+} from './brandbook-api.js';
 
 const els = {
   file: document.getElementById('deck-file'),
@@ -225,6 +228,100 @@ function renderMarkdown(source) {
   if (!window.markdownit) return `<p>${escapeHtml(source)}</p>`;
   return window.markdownit(MARKDOWN_OPTIONS).render(source);
 }
+
+/* ---------- Publiceren ----------------------------------------------
+   Met ?id=<id> in de URL bewerk je een bestaande presentatie: Publiceer
+   wordt dan Vervang en houdt de permalink gelijk. */
+const pub = {
+  box: document.getElementById('deck-publish'),
+  loginHint: document.getElementById('deck-publish-login'),
+  form: document.getElementById('deck-publish-form'),
+  button: document.getElementById('deck-publish-btn'),
+  asNew: document.getElementById('deck-publish-new'),
+  status: document.getElementById('deck-publish-status'),
+};
+let editingId = null;
+
+const visibility = () => document.querySelector('input[name="deck-visibility"]:checked').value;
+const setVisibility = (value) => {
+  document.querySelector(`input[name="deck-visibility"][value="${value}"]`).checked = true;
+};
+
+function showLink(url, verb) {
+  pub.status.replaceChildren(`${verb}: `);
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.textContent = url;
+  pub.status.append(link);
+}
+
+function setEditing(id) {
+  editingId = id;
+  pub.button.textContent = id ? 'Vervang' : 'Publiceer';
+  pub.asNew.hidden = !id;
+}
+
+async function publish({ asNew = false } = {}) {
+  if (!markdownSource) return;
+  const data = {
+    markdown: markdownSource,
+    options: options(),
+    visibility: visibility(),
+    title: parseFrontMatter(markdownSource).meta.title || '',
+  };
+  pub.button.disabled = pub.asNew.disabled = true;
+  pub.status.textContent = 'Bezig met opslaan…';
+  try {
+    const saved = editingId && !asNew
+      ? await updatePresentation(editingId, data)
+      : await createPresentation(data);
+    const verb = editingId && !asNew ? 'Vervangen' : 'Gepubliceerd';
+    setEditing(saved.id);
+    history.replaceState(null, '', `?id=${saved.id}`);
+    showLink(saved.url, verb);
+  } catch (error) {
+    pub.status.textContent = error.status === 401
+      ? 'Je sessie is verlopen. Log opnieuw in.'
+      : `Opslaan mislukt: ${error.message}`;
+  } finally {
+    pub.button.disabled = pub.asNew.disabled = false;
+  }
+}
+
+async function initPublish() {
+  const session = await me();
+  if (!session.available) return; // geen server: de tool werkt zoals altijd
+  pub.box.hidden = false;
+  if (!session.loggedIn) {
+    pub.loginHint.querySelector('a').href = loginHref();
+    pub.loginHint.hidden = false;
+    return;
+  }
+  pub.form.hidden = false;
+  pub.button.addEventListener('click', () => publish());
+  pub.asNew.addEventListener('click', () => publish({ asNew: true }));
+
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) return;
+  try {
+    const presentation = await getPresentation(id);
+    hasFile = true;
+    markdownSource = presentation.markdown;
+    els.footer.value = presentation.options?.footerText || '';
+    if (presentation.options?.transition) els.transition.value = presentation.options.transition;
+    setVisibility(presentation.visibility);
+    setEditing(presentation.id);
+    els.fileStatus.textContent = `Geladen: ${presentation.title || presentation.id}. Kies een bestand om de inhoud te vervangen.`;
+    showLink(presentation.url, 'Permalink');
+    update();
+  } catch {
+    pub.status.textContent = `Presentatie ${id} niet gevonden.`;
+  }
+}
+
+initPublish();
 
 bindMarkdownFile({
   input: els.file,
