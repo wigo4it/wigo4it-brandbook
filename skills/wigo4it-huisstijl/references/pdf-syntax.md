@@ -44,6 +44,25 @@ gewoon tekst.
 Zet er een voor elk `##`-hoofdstuk zodra het document langer is dan een pagina of vijf. Bij een
 memo van twee kantjes doe je dat niet.
 
+## Diagrammen met mermaid
+
+Een codeblok met `mermaid` als taal wordt een diagram in de huisstijl. Tekst achter `mermaid` op
+de openingsregel wordt het onderschrift.
+
+````markdown
+```mermaid Figuur: hoe een aanvraag door de keten loopt
+flowchart LR
+  A[Aanvraag] --> B{Compleet?}
+  B -->|ja| C[Beoordeling]
+  B -->|nee| D[Terug naar aanvrager]
+```
+````
+
+Getest zijn flowchart, sequence, state, ER, class, gantt en pie. Kleuren en fonts komen uit het
+thema; laat `%%{init}%%`- en `style`-regels weg, die werken het thema tegen. Een te hoog diagram schaalt naar de
+paginahoogte, dus houd het compact. Gebruik een diagram waar het een proces of structuur
+verduidelijkt, niet als decoratie.
+
 ## De rest zet de gebruiker in de tool
 
 Dit hoort niet in je markdown, maar noem het wel bij de oplevering:
