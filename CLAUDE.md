@@ -45,7 +45,7 @@ Er staat geen CSS meer los in de root; `style.css` en `index_oud.html` zijn weg 
 
 Twee client-side tools die markdown omzetten naar iets in de huisstijl. Ze delen `tool.css` en de tabrij, verder niets.
 
-**`pdf.html`** → markdown naar een A4-document. `scripts/pdf-builder.js` (pure logica) plus `scripts/pdf-app.js` (UI). Paged.js pagineert bij export; de browser print naar PDF. In de markdown is alleen `<!-- pagebreak -->` betekenisvol, de rest zet je in het paneel.
+**`pdf.html`** → markdown naar een A4-document. `scripts/pdf-builder.js` (pure logica) plus `scripts/pdf-app.js` (UI). Paged.js pagineert bij export; de browser print naar PDF. In de markdown zijn alleen `<!-- pagebreak -->` en ```` ```mermaid ````-blokken betekenisvol, de rest zet je in het paneel. Die blokken worden diagrammen via `scripts/mermaid-render.js` (mermaid van de CDN, alleen geladen als er een diagram staat); tekst achter `mermaid` op de fence-regel is het onderschrift. Het testdocument is `examples/pdf-test.md`.
 
 **`deck.html`** → markdown naar een reveal.js-presentatie. `scripts/deck-builder.js` (pure logica) plus `scripts/deck-app.js` (UI); `deck-view.html` is de presentatie zelf, in een iframe als preview en in een eigen tab bij "Presenteer".
 
