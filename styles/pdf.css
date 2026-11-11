@@ -9,6 +9,11 @@
 :root {
   --pdf-page-w: 210mm;
   --pdf-margin: 18mm;
+  /* Hoogte die een diagram op een pagina mag innemen. Binnen de marges is
+     261mm beschikbaar; de rest is ruimte voor het onderschrift en wat lucht.
+     scripts/pdf-builder.js rekent hiermee de breedte van de SVG uit en houdt
+     dezelfde waarde als terugval aan. */
+  --w4-diagram-max-h: 235mm;
 }
 
 /* ── Voorbladkeuze ── */
@@ -254,6 +259,72 @@
   color: rgba(54, 44, 70, 0.45);
 }
 
+/* ── Mermaid-diagrammen ──
+   Een ```mermaid-blok wordt een figure met de SVG erin. De breedte staat
+   inline op de SVG: scripts/pdf-builder.js rekent 'm uit de viewBox, zodat het
+   diagram nooit breder is dan de kolom en nooit hoger dan --w4-diagram-max-h.
+   Alleen max-height in CSS is niet genoeg, want een inline SVG schaalt daarmee
+   niet betrouwbaar mee in de breedte. */
+.w4-doc-content .w4-diagram {
+  margin: 1.2rem 0;
+  padding: 0;
+  break-inside: avoid;
+}
+
+.w4-diagram-body {
+  display: flex;
+  justify-content: center;
+}
+
+.w4-diagram-svg {
+  display: block;
+  max-width: 100%;
+}
+
+.w4-diagram-caption {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 9pt;
+  line-height: 1.4;
+  color: rgba(54, 44, 70, 0.7);
+}
+
+/* Zolang het diagram getekend wordt: een rustig vlak in plaats van de
+   mermaid-broncode, die verder niemand hoeft te zien. */
+.w4-diagram.is-pending .w4-diagram-src {
+  display: none;
+}
+
+.w4-diagram.is-pending .w4-diagram-body::before {
+  content: 'Diagram wordt getekend...';
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 7rem;
+  font-size: 9pt;
+  color: rgba(54, 44, 70, 0.45);
+  background: #f3f5f1;
+  border-radius: 0.5rem;
+}
+
+/* Ging het mis, dan blijft de broncode staan: zonder de code kan de auteur
+   niet zien wat er te repareren valt. Hij erft de pre-opmaak van de content. */
+.w4-diagram.is-error .w4-diagram-body,
+.w4-diagram.is-fallback .w4-diagram-body {
+  display: block;
+}
+
+.w4-diagram-note {
+  margin: 0.4rem 0 0;
+  font-size: 9pt;
+  line-height: 1.4;
+  color: rgba(54, 44, 70, 0.7);
+}
+
+.w4-diagram.is-error .w4-diagram-note {
+  color: var(--bright-red);
+}
+
 /* Voorwerk (versiebeheer, changelog): zelfde opmaak als de content, maar het
    staat voor de inhoudsopgave en krijgt bij het printen een eigen pagina. In de
    preview markeert een streep waar die pagina-overgang komt. */
@@ -488,7 +559,8 @@
 
 .w4-doc-content pre,
 .w4-doc-content blockquote,
-.w4-doc-content img {
+.w4-doc-content img,
+.w4-doc-content .w4-diagram {
   break-inside: avoid;
 }
 
