@@ -518,3 +518,362 @@ def test_assemble_without_front_matter_has_no_front_block(builder):
         ".querySelectorAll('.w4-doc-front').length"
     )
     assert count == 0
+
+
+# ── mermaidFence: de fence-hook voor markdown-it ──
+#
+# markdown-it gebruikt het resultaat letterlijk zodra het met `<pre` begint, en
+# valt terug op de standaard-renderer bij een lege string. Beide takken tellen.
+
+
+def test_mermaid_fence_returns_placeholder_for_mermaid(builder):
+    html = builder("(m) => m.mermaidFence('flowchart LR\\n A --> B', 'mermaid', '')")
+    assert html.startswith('<pre class="w4-diagram-src"')
+    assert "flowchart LR" in html
+
+
+def test_mermaid_fence_is_case_insensitive(builder):
+    html = builder("(m) => m.mermaidFence('graph TD', 'Mermaid', '')")
+    assert html.startswith('<pre class="w4-diagram-src"')
+
+
+@pytest.mark.parametrize("lang", ["js", "python", "markdown", "", "mermaidjs"])
+def test_mermaid_fence_leaves_other_languages_to_markdown_it(builder, lang):
+    # Lege string = markdown-it doet zijn eigen ding. Gewone codeblokken
+    # mogen door deze change niet veranderen.
+    assert builder(f"(m) => m.mermaidFence('x = 1', {lang!r}, '')") == ""
+
+
+def test_mermaid_fence_takes_caption_from_the_fence_line(builder):
+    html = builder(
+        "(m) => m.mermaidFence('graph TD', 'mermaid', 'Figuur: hoe het loopt')"
+    )
+    assert 'data-caption="Figuur: hoe het loopt"' in html
+
+
+def test_mermaid_fence_without_caption_has_no_attribute(builder):
+    html = builder("(m) => m.mermaidFence('graph TD', 'mermaid', '   ')")
+    assert "data-caption" not in html
+
+
+def test_mermaid_fence_escapes_the_code(builder):
+    # Mermaid-broncode zit vol < en >; die mogen geen HTML worden.
+    html = builder("(m) => m.mermaidFence('A --> B & C', 'mermaid', '')")
+    assert "--&gt; B &amp; C" in html
+    assert "--> B & C" not in html
+
+
+def test_mermaid_fence_escapes_the_caption(builder):
+    html = builder("""(m) => m.mermaidFence('graph TD', 'mermaid', 'Een "citaat" & meer')""")
+    assert "&quot;citaat&quot;" in html
+    assert "&amp; meer" in html
+
+
+# ── collectDiagrams: placeholder-figures neerzetten ──
+
+DIAGRAM_HTML = (
+    "'<p>Voor</p>'"
+    " + '<pre class=\"w4-diagram-src\" data-caption=\"Figuur: de keten\">flowchart LR</pre>'"
+    " + '<p>Na</p>'"
+)
+
+
+def test_collect_diagrams_wraps_source_in_a_figure(builder):
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {DIAGRAM_HTML};
+            const count = m.collectDiagrams(c);
+            const fig = c.querySelector('figure.w4-diagram');
+            return {{
+                count,
+                children: Array.from(c.children).map(el => el.tagName),
+                pending: fig.classList.contains('is-pending'),
+                index: fig.getAttribute('data-diagram-index'),
+                hasBody: !!fig.querySelector('.w4-diagram-body'),
+            }};
+        }}"""
+    )
+    assert result == {
+        "count": 1,
+        "children": ["P", "FIGURE", "P"],
+        "pending": True,
+        "index": "0",
+        "hasBody": True,
+    }
+
+
+def test_collect_diagrams_keeps_the_source_code_verbatim(builder):
+    # De renderer leest de bron hier uit, en zonder mermaid is dit de terugval.
+    code = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<pre class="w4-diagram-src">flowchart LR\\n  A --&gt; B</pre>';
+            m.collectDiagrams(c);
+            return c.querySelector('.w4-diagram-body .w4-diagram-src').textContent;
+        }"""
+    )
+    assert code == "flowchart LR\n  A --> B"
+
+
+def test_collect_diagrams_renders_the_caption(builder):
+    caption = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {DIAGRAM_HTML};
+            m.collectDiagrams(c);
+            return c.querySelector('.w4-diagram-caption').textContent;
+        }}"""
+    )
+    assert caption == "Figuur: de keten"
+
+
+def test_collect_diagrams_without_caption_has_no_figcaption(builder):
+    count = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<pre class="w4-diagram-src">graph TD</pre>';
+            m.collectDiagrams(c);
+            return c.querySelectorAll('figcaption').length;
+        }"""
+    )
+    assert count == 0
+
+
+def test_collect_diagrams_numbers_each_diagram(builder):
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<pre class="w4-diagram-src">a</pre>' +
+                          '<pre class="w4-diagram-src">b</pre>';
+            const count = m.collectDiagrams(c);
+            return { count, indexes: Array.from(c.querySelectorAll('.w4-diagram'))
+                .map(f => f.getAttribute('data-diagram-index')) };
+        }"""
+    )
+    assert result == {"count": 2, "indexes": ["0", "1"]}
+
+
+def test_collect_diagrams_leaves_normal_code_blocks_alone(builder):
+    result = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<pre><code class="language-js">const x = 1;</code></pre>';
+            const count = m.collectDiagrams(c);
+            return { count, html: c.innerHTML };
+        }"""
+    )
+    assert result == {
+        "count": 0,
+        "html": '<pre><code class="language-js">const x = 1;</code></pre>',
+    }
+
+
+def test_assemble_turns_mermaid_blocks_into_figures(builder):
+    result = builder(
+        """(m) => {
+            const doc = m.assembleDocument({
+                contentHtml: '<h1>Titel</h1>' +
+                    '<pre class="w4-diagram-src">flowchart LR</pre><p>Body.</p>',
+            });
+            return {
+                figures: doc.querySelectorAll('.w4-doc-content .w4-diagram').length,
+                loose: doc.querySelectorAll('.w4-doc-content > .w4-diagram-src').length,
+            };
+        }"""
+    )
+    assert result == {"figures": 1, "loose": 0}
+
+
+def test_assemble_diagram_in_front_matter_moves_along(builder):
+    # Voorwerk wordt vóór de eerste h1 uitgeknipt; een diagram dat daar staat
+    # hoort mee te verhuizen en niet in de body achter te blijven.
+    result = builder(
+        """(m) => {
+            const doc = m.assembleDocument({
+                contentHtml: '<h2>Versiebeheer</h2>' +
+                    '<pre class="w4-diagram-src">graph TD</pre>' +
+                    '<h1>Titel</h1><p>Body.</p>',
+            });
+            return {
+                inFront: doc.querySelectorAll('.w4-doc-front .w4-diagram').length,
+                inBody: doc.querySelectorAll('.w4-doc-content:not(.w4-doc-front) .w4-diagram').length,
+            };
+        }"""
+    )
+    assert result == {"inFront": 1, "inBody": 0}
+
+
+# ── normalizeDiagramSvg: mermaids maten vervangen door onze eigen ──
+
+SVG_HTML = (
+    "'<svg viewBox=\"0 0 800 400\" width=\"800\" height=\"400\" "
+    "style=\"max-width: 800px;\"><g></g></svg>'"
+)
+
+
+def test_normalize_svg_bounds_the_width_three_ways(builder):
+    # Kolombreedte, de eigen maat uit de viewBox, en de paginahoogte maal de
+    # verhouding (800 / 400 = 2). De kleinste wint.
+    width = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {SVG_HTML};
+            return m.normalizeDiagramSvg(c.querySelector('svg')).style.width;
+        }}"""
+    )
+    assert width == "min(100%, 800px, calc(var(--w4-diagram-max-h, 235mm) * 2))"
+
+
+def test_normalize_svg_does_not_blow_up_a_small_diagram(builder):
+    # Zonder de eigen maat als grens wordt een schema van twee vakjes over de
+    # volle kolom uitgerekt en groeit de tekst mee tot naast de bodytekst uit.
+    width = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<svg viewBox="0 0 180 90"></svg>';
+            return m.normalizeDiagramSvg(c.querySelector('svg')).style.width;
+        }"""
+    )
+    assert "180px" in width
+
+
+def test_normalize_svg_strips_mermaids_own_sizing(builder):
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {SVG_HTML};
+            const svg = m.normalizeDiagramSvg(c.querySelector('svg'));
+            return {{
+                width: svg.getAttribute('width'),
+                height: svg.getAttribute('height'),
+                maxWidth: svg.style.maxWidth,
+                cssHeight: svg.style.height,
+                ratio: svg.getAttribute('preserveAspectRatio'),
+                klass: svg.classList.contains('w4-diagram-svg'),
+            }};
+        }}"""
+    )
+    assert result == {
+        "width": None,
+        "height": None,
+        "maxWidth": "",
+        "cssHeight": "auto",
+        "ratio": "xMidYMid meet",
+        "klass": True,
+    }
+
+
+@pytest.mark.parametrize(
+    "view_box",
+    ["", 'viewBox="0 0 800"', 'viewBox="0 0 800 0"', 'viewBox="a b c d"'],
+)
+def test_normalize_svg_falls_back_to_full_width_without_usable_viewbox(builder, view_box):
+    width = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = '<svg {view_box}></svg>';
+            return m.normalizeDiagramSvg(c.querySelector('svg')).style.width;
+        }}"""
+    )
+    assert width == "100%"
+
+
+def test_normalize_svg_labels_the_diagram_for_screen_readers(builder):
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {SVG_HTML};
+            const svg = m.normalizeDiagramSvg(c.querySelector('svg'), {{ label: 'De keten' }});
+            return [svg.getAttribute('role'), svg.getAttribute('aria-label')];
+        }}"""
+    )
+    assert result == ["img", "De keten"]
+
+
+# ── reidSvg: unieke id's zodat de pijlpunten de PDF halen ──
+
+MARKER_SVG = (
+    "'<svg id=\"mermaid-1\">'"
+    " + '<style>#mermaid-1 .node rect { fill: #fff; }</style>'"
+    " + '<defs><marker id=\"arrow\"></marker></defs>'"
+    " + '<path marker-end=\"url(#arrow)\" fill=\"#fff\"></path>'"
+    " + '<use href=\"#arrow\"></use>'"
+    " + '</svg>'"
+)
+
+
+def test_reid_svg_prefixes_every_id(builder):
+    ids = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {MARKER_SVG};
+            const svg = m.reidSvg(c.querySelector('svg'), 'p1');
+            return [svg.getAttribute('id'), svg.querySelector('marker').getAttribute('id')];
+        }}"""
+    )
+    assert ids == ["p1-mermaid-1", "p1-arrow"]
+
+
+def test_reid_svg_rewrites_references(builder):
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {MARKER_SVG};
+            const svg = m.reidSvg(c.querySelector('svg'), 'p1');
+            return {{
+                marker: svg.querySelector('path').getAttribute('marker-end'),
+                href: svg.querySelector('use').getAttribute('href'),
+                style: svg.querySelector('style').textContent,
+            }};
+        }}"""
+    )
+    assert result == {
+        "marker": "url(#p1-arrow)",
+        "href": "#p1-arrow",
+        "style": "#p1-mermaid-1 .node rect { fill: #fff; }",
+    }
+
+
+def test_reid_svg_leaves_colour_codes_alone(builder):
+    # #fff lijkt op een id-verwijzing maar staat niet in de map; afblijven dus.
+    result = builder(
+        f"""(m) => {{
+            const c = document.createElement('div');
+            c.innerHTML = {MARKER_SVG};
+            const svg = m.reidSvg(c.querySelector('svg'), 'p1');
+            return svg.querySelector('path').getAttribute('fill');
+        }}"""
+    )
+    assert result == "#fff"
+
+
+def test_reid_svg_without_ids_changes_nothing(builder):
+    html = builder(
+        """(m) => {
+            const c = document.createElement('div');
+            c.innerHTML = '<svg><g fill="#fff"></g></svg>';
+            m.reidSvg(c.querySelector('svg'), 'p1');
+            return c.innerHTML;
+        }"""
+    )
+    assert html == '<svg><g fill="#fff"></g></svg>'
+
+
+def test_reid_svg_twice_gives_two_independent_copies(builder):
+    # Dit is de kern: preview en Paged-output mogen elkaars marker niet pakken.
+    result = builder(
+        f"""(m) => {{
+            const a = document.createElement('div');
+            a.innerHTML = {MARKER_SVG};
+            const b = document.createElement('div');
+            b.innerHTML = {MARKER_SVG};
+            m.reidSvg(a.querySelector('svg'), 'p1');
+            m.reidSvg(b.querySelector('svg'), 'p2');
+            return [
+                a.querySelector('path').getAttribute('marker-end'),
+                b.querySelector('path').getAttribute('marker-end'),
+            ];
+        }}"""
+    )
+    assert result == ["url(#p1-arrow)", "url(#p2-arrow)"]

@@ -84,6 +84,26 @@
         </section>
 
         <section class="w4-doc-card">
+          <h2>Diagrammen met mermaid</h2>
+          <p>
+            Een codeblok met <code>mermaid</code> als taal wordt een diagram in de huisstijl.
+            Tekst achter het woord <code>mermaid</code> wordt het onderschrift.
+          </p>
+          <pre><code>```mermaid Figuur: hoe een aanvraag door de keten loopt
+flowchart LR
+  A[Aanvraag] --&gt; B{Compleet?}
+  B --&gt;|ja| C[Beoordeling]
+  B --&gt;|nee| D[Terug naar aanvrager]
+```</code></pre>
+          <p>
+            Getest zijn flowchart, sequence, state, ER, class, gantt en pie; andere types krijgen
+            hetzelfde thema. Een diagram dat hoger is dan een pagina schaalt mee en wordt nooit
+            afgesneden. Klopt de code niet, dan zie je de bron met een foutmelding eronder. Is
+            mermaid niet te laden, dan blijft het een gewoon codeblok.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
           <h2>Wat je koppen bepalen</h2>
           <dl class="w4-doc-list">
             <dt># Kop</dt>

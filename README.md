@@ -58,6 +58,7 @@ wigo4it-brandbook/
 │   ├── zip-download.js        "download alles" op de overzichten
 │   ├── pdf-builder.js         ┐ logica en UI, per tool gescheiden
 │   ├── pdf-app.js             │
+│   ├── mermaid-render.js      │ diagrammen in de pdf-tool
 │   ├── deck-builder.js        │
 │   ├── deck-app.js            │
 │   ├── deck-view.js           │

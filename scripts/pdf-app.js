@@ -3,12 +3,26 @@
    Koppelt het instellingen-paneel aan de geteste builder-logica
    (scripts/pdf-builder.js), rendert de live preview en start de
    browser-print. markdown-it (CDN) doet de markdown -> HTML stap.
+
+   Mermaid-diagrammen zijn het enige asynchrone stuk. Ze worden hier in
+   twee tellen gedaan: assembleDocument zet synchroon lege figures neer,
+   die meteen in beeld komen, en renderDiagrams vult ze daarna in datzelfde
+   element. Elke render bouwt zijn eigen document, dus een trage render van
+   drie toetsaanslagen geleden vult een element dat allang uit de preview
+   gehaald is. Die kan het beeld niet meer overschrijven.
    ============================================================ */
-import { assembleDocument, filenameToTitle, formatDateNL, stripFrontMatter } from './pdf-builder.js';
+import { assembleDocument, filenameToTitle, formatDateNL, mermaidFence, stripFrontMatter } from './pdf-builder.js';
+import { renderDiagrams, hasPendingDiagrams } from './mermaid-render.js';
 import { bindMarkdownFile } from './markdown-file.js';
 
 const md = window.markdownit
-  ? window.markdownit({ html: false, linkify: true, typographer: true })
+  ? window.markdownit({
+      html: false,
+      linkify: true,
+      typographer: true,
+      // Vangt ```mermaid af; andere codeblokken laat het aan markdown-it.
+      highlight: mermaidFence,
+    })
   : null;
 
 const els = {
@@ -55,14 +69,18 @@ function buildDoc() {
   return doc;
 }
 
-function render() {
+async function render() {
   // Elke wijziging maakt de vorige paginering ongeldig.
   if (!exporting) els.paged.replaceChildren();
   if (!markdownSource) {
     els.preview.replaceChildren(emptyState());
     return;
   }
-  els.preview.replaceChildren(buildDoc());
+  // Eerst het document met lege figures in beeld, dan pas de diagrammen. Zo
+  // zie je de opbouw meteen en niet pas als mermaid binnen is.
+  const doc = buildDoc();
+  els.preview.replaceChildren(doc);
+  await renderDiagrams(doc);
 }
 
 /** Placeholder in de preview zolang er nog geen bestand geladen is. */
@@ -166,10 +184,18 @@ async function exportPdf() {
   }
 
   els.print.disabled = true;
-  els.print.textContent = 'Pagineren...';
   exporting = true;
   try {
     const doc = buildDoc();
+
+    // Paged.js krijgt het document als string mee, dus alles wat in de PDF
+    // moet staan moet nu al in de DOM staan. De diagrammen dus eerst.
+    if (hasPendingDiagrams(doc)) {
+      els.print.textContent = 'Diagrammen tekenen...';
+      await renderDiagrams(doc);
+    }
+
+    els.print.textContent = 'Pagineren...';
     els.paged.replaceChildren();
 
     if (pageCssUrl) URL.revokeObjectURL(pageCssUrl);

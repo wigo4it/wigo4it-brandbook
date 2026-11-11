@@ -121,6 +121,211 @@ export function applyPageBreaks(container) {
   return count;
 }
 
+/* ============================================================
+   Mermaid-diagrammen
+   Een ```mermaid-blok in de markdown wordt een diagram in het document.
+   Hier staat alleen de synchrone, pure kant: het blok herkennen, er een
+   lege figure van maken en de SVG die er later in komt fatsoeneren.
+   Het tekenen zelf zit in scripts/mermaid-render.js, want dat kent een
+   CDN en is asynchroon.
+   ============================================================ */
+
+/** Escape voor tekst binnen een HTML-element. */
+function escapeText(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/** Escape voor een waarde binnen dubbele aanhalingstekens in een attribuut. */
+function escapeAttr(str) {
+  return escapeText(str).replace(/"/g, '&quot;');
+}
+
+/**
+ * Fence-hook voor markdown-it: vangt ```mermaid-blokken af.
+ *
+ * markdown-it roept `highlight(code, lang, attrs)` aan voor elk fenced blok en
+ * gebruikt het resultaat letterlijk zodra het met `<pre` begint. Geven we een
+ * lege string terug, dan doet de standaard-renderer zijn werk. Zo raken gewone
+ * codeblokken niet aan.
+ *
+ * De rest van de fence-regel komt binnen als `attrs` en is het onderschrift:
+ *
+ *     ```mermaid Figuur: hoe een aanvraag loopt
+ *
+ * De standaard-renderer gooit dat weg (alleen het eerste woord wordt een
+ * language-class), vandaar dat we hier zelf de HTML schrijven.
+ *
+ * @param {string} code   De inhoud van het blok.
+ * @param {string} lang   Het eerste woord van de fence-regel.
+ * @param {string} attrs  De rest van de fence-regel.
+ * @returns {string} HTML-string, of '' om markdown-it zijn gang te laten gaan.
+ */
+export function mermaidFence(code, lang, attrs) {
+  if (String(lang || '').trim().toLowerCase() !== 'mermaid') return '';
+  const caption = String(attrs || '').trim();
+  const captionAttr = caption ? ` data-caption="${escapeAttr(caption)}"` : '';
+  return `<pre class="w4-diagram-src"${captionAttr}>${escapeText(code)}</pre>`;
+}
+
+/**
+ * Zet de mermaid-blokken in de content om in lege figures.
+ *
+ * De broncode blijft als `pre.w4-diagram-src` in de figure staan. Twee redenen:
+ * de renderer leest 'm daar uit, en is mermaid niet te laden, dan hoeft de
+ * terugval alleen de pending-klasse weg te halen en staat er weer een gewoon
+ * codeblok. De renderer haalt de bron pas weg als het diagram er staat.
+ *
+ * @param {Element} container
+ * @returns {number} Aantal gevonden diagrammen.
+ */
+export function collectDiagrams(container) {
+  const sources = Array.from(container.querySelectorAll('pre.w4-diagram-src'));
+  sources.forEach((src, index) => {
+    const figure = document.createElement('figure');
+    figure.className = 'w4-diagram is-pending';
+    figure.setAttribute('data-diagram-index', String(index));
+
+    const body = document.createElement('div');
+    body.className = 'w4-diagram-body';
+
+    src.replaceWith(figure);
+    body.appendChild(src);
+    figure.appendChild(body);
+
+    const caption = src.getAttribute('data-caption');
+    if (caption) {
+      const cap = document.createElement('figcaption');
+      cap.className = 'w4-diagram-caption';
+      cap.textContent = caption;
+      figure.appendChild(cap);
+    }
+  });
+  return sources.length;
+}
+
+/* Hoeveel hoogte een diagram op een A4 mag innemen. De pagina biedt binnen de
+   marges 261mm; de rest is ruimte voor het onderschrift en wat lucht. Staat ook
+   als --w4-diagram-max-h in styles/pdf.css, en die is leidend; dit is de
+   terugval voor als de variabele niet doorkomt. */
+const DIAGRAM_MAX_HEIGHT = '235mm';
+
+/**
+ * Maak een gerenderde mermaid-SVG geschikt voor een A4-pagina.
+ *
+ * Mermaid levert een SVG met een eigen breedte en een inline `max-width`. Die
+ * halen we eraf en rekenen we opnieuw uit, want alleen `max-height` in CSS is
+ * niet genoeg: een inline SVG schaalt daarmee niet betrouwbaar mee in de
+ * breedte. We zetten er een `width` met drie grenzen voor terug:
+ *
+ * 1. `100%`, zodat het diagram nooit buiten de tekstkolom valt;
+ * 2. de eigen breedte uit de viewBox, zodat een schema van twee vakjes niet
+ *    over de volle kolom uitgerekt wordt. Zonder deze grens groeit de tekst in
+ *    het diagram mee en staat er ineens een label van 30px naast bodytekst
+ *    van 11pt;
+ * 3. de paginahoogte maal de verhouding, zodat een hoog schema past en niet
+ *    door Paged.js afgesneden wordt.
+ *
+ * De kleinste wint, en dezelfde regel geldt in de preview en op papier.
+ *
+ * @param {SVGElement} svg
+ * @param {Object} [opts]
+ * @param {string} [opts.label]  Tekst voor aria-label (het onderschrift).
+ * @returns {SVGElement} Dezelfde svg, aangepast.
+ */
+export function normalizeDiagramSvg(svg, opts) {
+  const { label = '' } = opts || {};
+  const box = viewBoxSize(svg);
+
+  svg.removeAttribute('width');
+  svg.removeAttribute('height');
+  svg.removeAttribute('style');
+
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+  svg.classList.add('w4-diagram-svg');
+  svg.setAttribute('role', 'img');
+  if (label) svg.setAttribute('aria-label', label);
+
+  // Zonder bruikbare viewBox weten we de eigen maat niet; dan maar de
+  // kolombreedte, nog altijd beter dan mermaids eigen pixelmaat.
+  // De variabele krijgt een terugval mee: Paged.js hangt de output in een
+  // eigen boom, en een calc() met een onbekende variabele is ongeldig. Dan
+  // zou de hele breedte wegvallen, precies in de export.
+  svg.style.width = box
+    ? `min(100%, ${box.width}px, calc(var(--w4-diagram-max-h, ${DIAGRAM_MAX_HEIGHT}) * ${box.ratio}))`
+    : '100%';
+  svg.style.height = 'auto';
+  return svg;
+}
+
+/** Eigen maat en verhouding uit de viewBox, of null als die er niet bruikbaar is. */
+function viewBoxSize(svg) {
+  const box = svg.getAttribute('viewBox');
+  if (!box) return null;
+  const parts = box.trim().split(/[\s,]+/).map(Number);
+  if (parts.length !== 4 || parts.some((n) => !Number.isFinite(n))) return null;
+  const [, , width, height] = parts;
+  if (!(width > 0) || !(height > 0)) return null;
+  return {
+    width: Math.round(width),
+    ratio: Math.round((width / height) * 10000) / 10000,
+  };
+}
+
+/* Verwijzingen naar een id: `url(#x)`, `href="#x"` en `#x` als CSS-selector.
+   We vervangen alleen namen die in de map staan, zodat een kleurcode als
+   #fff met rust gelaten wordt. */
+const ID_REFERENCE = /#([A-Za-z_][\w:.-]*)/g;
+
+/**
+ * Geef elk id in een SVG een eigen prefix, inclusief de verwijzingen ernaartoe.
+ *
+ * Nodig omdat bij het exporteren twee kopieën van hetzelfde document in de
+ * pagina staan: de preview en de Paged.js-output. Mermaid hangt zijn pijlpunten
+ * op aan `marker-end="url(#…)"` en scopet zijn stijlen op een id. Met dubbele
+ * id's pakt de browser de eerste in documentvolgorde, en dat is de preview, die
+ * bij het printen op `display: none` staat. Of een marker onder een verborgen
+ * voorouder dan nog oplost, verschilt per browser; dan verdwijnen de pijlpunten
+ * precies in de PDF. Met een uniek prefix per plaatsing speelt dat niet.
+ *
+ * @param {SVGElement} svg
+ * @param {string} prefix
+ * @returns {SVGElement} Dezelfde svg, aangepast.
+ */
+export function reidSvg(svg, prefix) {
+  const elements = [svg, ...svg.querySelectorAll('*')];
+
+  const ids = new Map();
+  for (const el of elements) {
+    const old = el.getAttribute('id');
+    if (old && !ids.has(old)) ids.set(old, `${prefix}-${old}`);
+  }
+  if (!ids.size) return svg;
+
+  const rewrite = (text) =>
+    String(text).replace(ID_REFERENCE, (match, name) =>
+      ids.has(name) ? `#${ids.get(name)}` : match
+    );
+
+  for (const el of elements) {
+    for (const attr of Array.from(el.attributes)) {
+      if (attr.name === 'id') continue;
+      const next = rewrite(attr.value);
+      if (next !== attr.value) el.setAttribute(attr.name, next);
+    }
+    const old = el.getAttribute('id');
+    if (old && ids.has(old)) el.setAttribute('id', ids.get(old));
+  }
+
+  // Mermaid scopet zijn stijlen op het id van de svg; die selectors moeten mee.
+  for (const style of svg.querySelectorAll('style')) {
+    style.textContent = rewrite(style.textContent);
+  }
+  return svg;
+}
+
 /**
  * Bouw een inhoudsopgave-element uit de verzamelde koppen. Nesting laten we
  * zien via data-level op de li (h1 = 1, h2 = 2), zodat de opmaak in CSS zit.
@@ -240,6 +445,9 @@ export function formatDateNL(iso) {
  *
  * Volgorde in het document: voorblad, voorwerk, inhoudsopgave, content.
  *
+ * Blijft synchroon. Mermaid-blokken worden hier lege figures; die vult
+ * scripts/mermaid-render.js daarna.
+ *
  * @param {Object} opts
  * @param {string} opts.contentHtml   Gerenderde markdown (HTML-string).
  * @param {string} [opts.cover]       'green' | 'aubergine' | 'white' | 'none'.
@@ -271,6 +479,9 @@ export function assembleDocument(opts) {
   // Markers eerst omzetten, dan pas knippen: een pagina-einde in het voorwerk
   // hoort net zo goed te werken.
   applyPageBreaks(content);
+  // Lege figures voor de mermaid-blokken. Ze worden hier alleen neergezet; het
+  // vullen is asynchroon en gebeurt in de app-laag, na het samenstellen.
+  collectDiagrams(content);
   // Voorwerk er eerst uit, anders komen die koppen alsnog in de TOC terecht.
   const front = extractFrontMatter(content);
   const headings = collectHeadings(content);
