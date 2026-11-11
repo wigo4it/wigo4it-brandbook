@@ -3,7 +3,7 @@
 Kort verhaal: gewone markdown, één marker, en verder niets te leren. De opmaak valt er in de tool
 overheen. Je bestand blijft leesbaar in elke andere markdown-viewer.
 
-De officiële versie staat op https://wigo4it.github.io/wigo4it-brandbook/pdf-syntax.html
+De officiële versie staat op https://wigo4it-brandbook.azurewebsites.net/pdf-syntax.html
 
 ## Geen tokens
 

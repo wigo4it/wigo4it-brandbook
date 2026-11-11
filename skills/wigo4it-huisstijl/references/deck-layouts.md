@@ -4,7 +4,7 @@ Zeventien layouts. Kies op wat de inhoud is, niet op afwisseling. De markdown-bl
 letterlijk over te nemen; alleen de tekst vervang je.
 
 Wil je zien hoe ze eruitzien:
-https://wigo4it.github.io/wigo4it-brandbook/deck-templates.html
+https://wigo4it-brandbook.azurewebsites.net/deck-templates.html
 
 ## Snelkeuze
 
