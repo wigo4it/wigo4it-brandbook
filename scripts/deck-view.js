@@ -13,6 +13,7 @@ import {
   buildDeck,
   fitDecoration,
 } from './deck-builder.js';
+import { getPresentation, loginHref, me, presentationIdFromPath } from './brandbook-api.js';
 
 const slidesEl = document.getElementById('deck-slides');
 const emptyEl = document.getElementById('deck-empty');
@@ -133,6 +134,19 @@ window.addEventListener('message', (event) => {
 async function boot() {
   if (params.get('preview') === '1') return;
 
+  // Gepubliceerde presentatie: /present/<id>. Bestaat hij niet, of is hij
+  // privé en ben je niet ingelogd, dan zegt de API allebei 404.
+  const id = presentationIdFromPath();
+  if (id) {
+    try {
+      const presentation = await getPresentation(id);
+      render(presentation.markdown, presentation.options || {});
+    } catch (error) {
+      showMissing(error.status === 404);
+    }
+    return;
+  }
+
   const stored = localStorage.getItem(STORAGE_SOURCE);
   if (stored) {
     render(stored, storedOptions());
@@ -145,6 +159,26 @@ async function boot() {
   } catch {
     // Offline of via file://: de lege staat blijft staan en legt uit wat te doen.
   }
+}
+
+/** Lege staat voor een permalink die we niet (mogen) tonen. */
+async function showMissing(notFound) {
+  const { loggedIn } = await me();
+  const heading = emptyEl.querySelector('h1');
+  const text = emptyEl.querySelector('p');
+  heading.textContent = notFound ? 'Presentatie niet gevonden' : 'Presentatie kon niet laden';
+  text.textContent = notFound
+    ? loggedIn
+      ? 'Deze link bestaat niet (meer), of de presentatie is van iemand anders.'
+      : 'Deze link bestaat niet (meer), of de presentatie is privé. '
+    : 'Probeer het over een moment opnieuw.';
+  if (notFound && !loggedIn) {
+    const link = document.createElement('a');
+    link.href = loginHref();
+    link.textContent = 'Log in om privé presentaties te bekijken.';
+    text.append(link);
+  }
+  emptyEl.hidden = false;
 }
 
 boot();

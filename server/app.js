@@ -1,6 +1,7 @@
 // De brandbook-app: statische site, /present/<id>, inloggen en de API.
 import express from 'express';
 import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
 import { normalizeId } from './ids.js';
 import { isVisibility } from './store.js';
 import {
@@ -132,11 +133,15 @@ export function createApp({ root, store, passwordHash, sessionSecret, baseUrl = 
   app.use('/api', (req, res) => res.status(404).json({ error: 'Onbekend endpoint' }));
 
   // --- Site -------------------------------------------------------------
+  // deck-view.html gebruikt relatieve paden (styles/…, scripts/…). Onder
+  // /present/<id> zouden die naar /present/styles/… wijzen; een <base> zet ze
+  // terug op de root. Of de presentatie bestaat, beslist de viewer via de API.
+  const viewer = () => readFileSync(join(root, 'deck-view.html'), 'utf8')
+    .replace('<head>', '<head>\n  <base href="/" />');
   app.get('/present/:id', (req, res) => {
     const id = normalizeId(req.params.id);
-    if (!id) return res.status(404).sendFile(join(root, 'deck-view.html'));
-    if (id !== req.params.id) return res.redirect(301, `/present/${id}`);
-    res.sendFile(join(root, 'deck-view.html'));
+    if (id && id !== req.params.id) return res.redirect(301, `/present/${id}`);
+    res.status(id ? 200 : 404).type('html').send(viewer());
   });
 
   app.use((req, res, next) => (PRIVATE_PATHS.test(req.path) ? res.status(404).end() : next()));
