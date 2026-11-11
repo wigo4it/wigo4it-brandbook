@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Mijn presentaties</title>
+  <meta name="description" content="Gepubliceerde presentaties beheren: link kopiëren, bewerken, zichtbaarheid wijzigen en verwijderen." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>Mijn presentaties</h1>
+        <p>
+          Gepubliceerde decks, met hun vaste link. Publiceren doe je in
+          <a href="deck.html">de deck-tool</a>; via "Bewerk" laad je een presentatie daar terug
+          en vervang je hem zonder dat de link verandert.
+        </p>
+      </header>
+
+      <div class="w4-doc-page">
+        <section class="w4-doc-card">
+          <p id="pres-status" role="status" aria-live="polite">Laden…</p>
+          <div class="w4-pres-table-wrap">
+            <table class="w4-pres-table" id="pres-table" hidden>
+              <thead>
+                <tr><th scope="col">Titel</th><th scope="col">Link</th><th scope="col">Zichtbaar</th><th scope="col">Bijgewerkt</th><th scope="col"><span class="w4-sr-only">Acties</span></th></tr>
+              </thead>
+              <tbody id="pres-rows"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/presentaties-app.js"></script>
+</body>
+</html>

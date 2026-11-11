@@ -527,3 +527,56 @@ body.w4-tool-body {
   border-radius: 0.3rem;
   border: 1px solid transparent;
 }
+
+/* ---------- Mijn presentaties en API-sleutels --------------------------
+   Een eenvoudige tabel in een doc-card. Op smalle schermen schuift de
+   tabel binnen zijn kaart, niet de hele pagina. */
+.w4-pres-table-wrap {
+  overflow-x: auto;
+}
+
+.w4-pres-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.w4-pres-table th {
+  text-align: left;
+  font-family: 'PP Neue Machina', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: rgba(54, 44, 70, 0.65);
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(54, 44, 70, 0.12);
+}
+
+.w4-pres-table td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid rgba(54, 44, 70, 0.08);
+  vertical-align: middle;
+}
+
+.w4-pres-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+.w4-pres-actions .w4-tool-btn {
+  width: auto;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.w4-key-secret {
+  display: block;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  background: var(--soft-yellow);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}

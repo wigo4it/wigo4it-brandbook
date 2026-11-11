@@ -33,6 +33,8 @@
         { key: 'deck', label: 'Maken', href: 'deck.html' },
         { key: 'templates', label: 'Templates', href: 'deck-templates.html' },
         { key: 'deck-syntax', label: 'Readme', href: 'deck-syntax.html' },
+        { key: 'presentaties', label: 'Mijn presentaties', href: 'presentaties.html' },
+        { key: 'api', label: 'API', href: 'api.html' },
       ],
     },
   ];
