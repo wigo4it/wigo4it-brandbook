@@ -119,7 +119,7 @@ test('/present/<id> serveert de viewer en normaliseert hoofdletters', async () =
 });
 
 test('repo-interne mappen worden niet geserveerd', async () => {
-  for (const path of ['/server/app.js', '/tests/conftest.py', '/.git/config', '/docs/adr/0001-app-service-met-sqlite.md']) {
+  for (const path of ['/server/app.js', '/tests/conftest.py', '/.git/config', '/docs/adr/0001-app-service-met-sqlite.md', '/docs/plan-v2.md']) {
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   }
   assert.equal((await fetch(`${base}/index.html`)).status, 200);

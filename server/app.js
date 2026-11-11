@@ -9,7 +9,7 @@ import {
 } from './auth.js';
 
 // Mappen in de repo die geen onderdeel van de site zijn.
-const PRIVATE_PATHS = /^\/(server|tests|infra|tmp|node_modules|docs\/adr)(\/|$)|^\/\./;
+const PRIVATE_PATHS = /^\/(server|tests|infra|tmp|node_modules|docs\/adr)(\/|$)|^\/docs\/.*\.md$|^\/\./;
 const MAX_MARKDOWN = 1_000_000;
 
 export function createApp({ root, store, passwordHash, sessionSecret, baseUrl = '', secureCookies = false }) {
