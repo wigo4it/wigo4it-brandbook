@@ -1,0 +1,44 @@
+# Tijdelijk: test of de runners bij de Terraform-state in st099rd kunnen. Wordt weer verwijderd.
+name: tfstate-test
+
+on:
+  push:
+    branches: [test/tfstate-access]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - { name: cee-runners-prod, runs-on: { group: cee-runners-prod } }
+          - { name: self-hosted, runs-on: self-hosted }
+    name: probe (${{ matrix.runner.name }})
+    runs-on: ${{ matrix.runner.runs-on }}
+    timeout-minutes: 10
+    steps:
+      - name: Azure login
+        uses: wigo4itnl-tooling/azure-login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
+        with:
+          client-id: ${{ secrets.AZURE_FEDERATED_CREDENTIAL_CLIENT_ID_099 }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_099 }}
+
+      - name: Rollen van de identiteit
+        continue-on-error: true
+        run: az role assignment list --assignee c6a44aa3-8f5e-47bc-8e58-18756bb2bc90 --all --query "[].{role:roleDefinitionName,scope:scope}" -o table
+
+      - name: Lees, schrijf en verwijder een blob in st099rd/cont099tfstate
+        run: |
+          set -x
+          echo "probe $GITHUB_RUN_ID" > probe.txt
+          az storage blob list --account-name st099rd --container-name cont099tfstate --auth-mode login --query "[].name" -o tsv
+          az storage blob upload --account-name st099rd --container-name cont099tfstate --auth-mode login --name brandbook-probe.txt --file probe.txt --overwrite
+          az storage blob delete --account-name st099rd --container-name cont099tfstate --auth-mode login --name brandbook-probe.txt
+
+      - name: Rechten op rg-brandbook
+        run: az webapp show -g rg-brandbook -n wigo4it-brandbook --query state -o tsv
