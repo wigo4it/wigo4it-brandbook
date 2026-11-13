@@ -61,6 +61,31 @@
 
             <p class="w4-tool-warning" id="deck-warning" hidden></p>
 
+            <!-- Publiceren: alleen zichtbaar als de brandbook-server bereikbaar is. -->
+            <fieldset class="w4-tool-fieldset" id="deck-publish" hidden>
+              <legend>Publiceren</legend>
+              <p class="w4-tool-hint" id="deck-publish-login" hidden>
+                <a href="login.html">Log in</a> om dit deck op te slaan met een vaste link.
+              </p>
+              <div id="deck-publish-form" hidden>
+                <label class="w4-tool-check">
+                  <input type="radio" name="deck-visibility" value="private" checked />
+                  Privé: alleen na inloggen
+                </label>
+                <label class="w4-tool-check">
+                  <input type="radio" name="deck-visibility" value="public" />
+                  Publiek: iedereen met de link
+                </label>
+                <div class="w4-tool-actions">
+                  <button type="button" class="w4-tool-btn" id="deck-publish-btn">Publiceer</button>
+                  <button type="button" class="w4-tool-btn is-secondary" id="deck-publish-new" hidden>
+                    Publiceer als nieuwe presentatie
+                  </button>
+                </div>
+                <p class="w4-tool-hint" id="deck-publish-status" role="status" aria-live="polite"></p>
+              </div>
+            </fieldset>
+
             <div class="w4-tool-actions">
               <button type="button" class="w4-tool-btn" id="deck-present">Presenteer</button>
               <button type="button" class="w4-tool-btn is-secondary" id="deck-pdf">

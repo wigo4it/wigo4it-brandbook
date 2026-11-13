@@ -3,13 +3,13 @@
 Alles wat in `img/` van het brandbook staat. Gebruik uitsluitend deze namen; een naam die er niet
 in staat levert een lege plek op de slide op. De machineleesbare versie staat in `assets.json`
 naast dit bestand, het origineel op
-https://wigo4it.github.io/wigo4it-brandbook/assets.json
+https://wigo4it-brandbook.azurewebsites.net/assets.json
 
 Overzichtspagina's met plaatjes erbij:
-[iconen](https://wigo4it.github.io/wigo4it-brandbook/icons.html) ·
-[vormen](https://wigo4it.github.io/wigo4it-brandbook/shapes.html) ·
-[foto's](https://wigo4it.github.io/wigo4it-brandbook/photos.html) ·
-[logo's](https://wigo4it.github.io/wigo4it-brandbook/logos.html)
+[iconen](https://wigo4it-brandbook.azurewebsites.net/icons.html) ·
+[vormen](https://wigo4it-brandbook.azurewebsites.net/shapes.html) ·
+[foto's](https://wigo4it-brandbook.azurewebsites.net/photos.html) ·
+[logo's](https://wigo4it-brandbook.azurewebsites.net/logos.html)
 
 ## Iconen
 
@@ -82,4 +82,4 @@ zoals een Teams-achtergrond of een sjabloon.
 | `img/logo/W4_logo_M365_Darkmode.png` | voor Microsoft 365, donkere modus |
 
 Alle assets zijn ook per stuk te downloaden via de overzichtspagina's, of via de URL
-`https://wigo4it.github.io/wigo4it-brandbook/` plus het pad hierboven.
+`https://wigo4it-brandbook.azurewebsites.net/` plus het pad hierboven.

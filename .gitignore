@@ -76,3 +76,6 @@ docs/screenshots/page24.png
 docs/screenshots/page25.png
 docs/screenshots/page26.png
 docs/screenshots/page27.png
+
+# Skill-zip wordt bij deploy gegenereerd uit skills/wigo4it-huisstijl/
+skills/*.zip

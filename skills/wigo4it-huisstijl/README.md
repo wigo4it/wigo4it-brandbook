@@ -13,6 +13,7 @@ SKILL.md                       instructies voor Claude, plus de workflow
 references/deck-syntax.md      het auteursformaat van een deck
 references/deck-layouts.md     alle 17 layouts met voorbeelden
 references/pdf-syntax.md       de markdown-regels voor een document
+references/api.md              publiceren via de deck-API (vanaf v2.0.0)
 references/huisstijl.md        kleuren, fonts, kleurgebruik, toon
 references/assets.md           alle iconen, vormen, foto's en logo's
 references/assets.json         dezelfde namen, machineleesbaar, voor het script
@@ -22,6 +23,12 @@ scripts/check_deck.py          controleert een deck voordat het opgeleverd wordt
 ```
 
 ## Uitrollen
+
+De actuele zip staat op https://wigo4it-brandbook.azurewebsites.net/skills/wigo4it-huisstijl.zip
+(gebouwd bij elke deploy van het brandbook). De bron is de repo `wigo4it-claude-skills`.
+
+Voor publiceren vanuit Claude Code zet de gebruiker `W4_BRANDBOOK_KEY` in de eigen omgeving; de
+sleutel maak je op `/api.html`.
 
 **Claude.ai (org-breed).** Zip de map `wigo4it-huisstijl` en upload 'm bij Settings > Capabilities >
 Skills. De beheerder kan de skill daar voor de hele organisatie aanzetten.
@@ -45,6 +52,7 @@ achteraan aan:
 | Merkkleuren in `styles/w4.css` | `references/huisstijl.md` |
 | Bestanden in `img/` | `references/assets.md` en `references/assets.json` |
 | De instellingen in `pdf.html` | `references/pdf-syntax.md` |
+| De API in `server/app.js` | `references/api.md` |
 
 `references/assets.json` regenereren vanuit de repo-root:
 
@@ -63,7 +71,7 @@ open('skills/wigo4it-huisstijl/references/assets.json', 'w', encoding='utf-8').w
 ```
 
 Het controlescript haalt de namenlijst bij voorkeur live van
-https://wigo4it.github.io/wigo4it-brandbook/assets.json en valt terug op de kopie hierboven. Die
+https://wigo4it-brandbook.azurewebsites.net/assets.json en valt terug op de kopie hierboven. Die
 kopie hoeft dus alleen bij te blijven voor omgevingen zonder internettoegang.
 
 ## Testen

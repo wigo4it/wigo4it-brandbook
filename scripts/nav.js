@@ -53,7 +53,7 @@
     if (p.endsWith('/shapes.html')) return 'shapes';
     if (p.endsWith('/photos.html')) return 'fotos';
     if (p.endsWith('/examples.html') || p.indexOf('/examples/') !== -1) return 'voorbeelden';
-    if (/\/(pdf|pdf-syntax|deck|deck-view|deck-syntax|deck-templates)\.html$/.test(p)) return 'tools';
+    if (/\/(pdf|pdf-syntax|deck|deck-view|deck-syntax|deck-templates|presentaties|api|login)\.html$/.test(p)) return 'tools';
     return 'merkboek';
   }
 
@@ -92,10 +92,45 @@
           '<nav aria-label="Hoofdnavigatie" class="min-w-0 overflow-x-auto w4-nav-scroll">' +
             '<ul class="flex items-center gap-0.5">' + lis + '</ul>' +
           '</nav>' +
+          '<div id="w4-nav-account" class="shrink-0"></div>' +
         '</div>' +
       '</header>';
+    renderAccount();
+  }
+
+  // Inloggen/uitloggen rechts in de balk. Alleen als de brandbook-server er
+  // is: op een kale static host (of file://) blijft dit vak leeg.
+  var session = null;
+  function renderAccount() {
+    var slot = document.getElementById('w4-nav-account');
+    if (!slot || !session || !session.available) return;
+    var cls = 'font-body text-xs whitespace-nowrap text-aubergine/60 hover:text-dark-green ' +
+      'px-2 py-1 rounded-md hover:bg-light-grey/60 transition-colors';
+    if (session.loggedIn) {
+      slot.innerHTML = '<button type="button" class="' + cls + '">Uitloggen</button>';
+      slot.firstChild.addEventListener('click', function () {
+        fetch('/logout', { method: 'POST', credentials: 'same-origin' }).then(function () {
+          window.location.reload();
+        });
+      });
+    } else {
+      var next = encodeURIComponent(window.location.pathname + window.location.search);
+      slot.innerHTML = '<a class="' + cls + '" href="/login.html?next=' + next + '">Inloggen</a>';
+    }
+  }
+
+  function loadSession() {
+    if (window.location.protocol === 'file:') return;
+    fetch('/api/me', { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        session = data ? { available: true, loggedIn: !!data.loggedIn } : { available: false };
+        renderAccount();
+      })
+      .catch(function () { /* geen server: geen inlogknop */ });
   }
 
   render();
+  loadSession();
   window.addEventListener('hashchange', render);
 })();

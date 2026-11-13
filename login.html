@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Inloggen</title>
+  <meta name="description" content="Log in op het Wigo4it-brandbook om presentaties op te slaan en te publiceren." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>Inloggen</h1>
+        <p>
+          Ingelogd kun je presentaties opslaan met een vaste link, ze vervangen of verwijderen,
+          en API-sleutels maken voor AI-tools. Alles daarbuiten werkt ook zonder inloggen.
+        </p>
+      </header>
+
+      <div class="w4-doc-page">
+        <section class="w4-doc-card">
+          <form id="login-form" class="w4-tool-fieldset" style="max-width: 22rem">
+            <div class="w4-tool-field">
+              <label for="login-password">Wachtwoord</label>
+              <input type="password" id="login-password" autocomplete="current-password" required />
+            </div>
+            <div class="w4-tool-actions">
+              <button type="submit" class="w4-tool-btn">Inloggen</button>
+            </div>
+            <p class="w4-tool-hint" id="login-status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { login, me } from './scripts/brandbook-api.js';
+
+    // Alleen terugsturen naar een pad op deze site, nooit naar een ander domein.
+    const raw = new URLSearchParams(location.search).get('next') || '/presentaties.html';
+    const next = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/presentaties.html';
+
+    const status = document.getElementById('login-status');
+    const form = document.getElementById('login-form');
+
+    me().then((session) => {
+      if (session.loggedIn) status.textContent = 'Je bent al ingelogd.';
+      if (!session.available) status.textContent = 'Inloggen werkt alleen op de brandbook-server, niet op deze kopie.';
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = 'Bezig…';
+      try {
+        await login(document.getElementById('login-password').value);
+        location.href = next;
+      } catch (error) {
+        status.textContent = error.status === 401 ? 'Onjuist wachtwoord.' : `Inloggen mislukt: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>

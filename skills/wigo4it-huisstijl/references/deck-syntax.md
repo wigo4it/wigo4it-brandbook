@@ -4,7 +4,7 @@ Het auteursformaat van de slide-tool. Een deck is één markdown-bestand. In and
 het leesbaar, want alle opmaak zit in HTML-comments.
 
 De officiële versie van deze pagina staat op
-https://wigo4it.github.io/wigo4it-brandbook/deck-syntax.html
+https://wigo4it-brandbook.azurewebsites.net/deck-syntax.html
 
 ## Frontmatter
 

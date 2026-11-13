@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wigo4it | Deck-API</title>
+  <meta name="description" content="Presentaties publiceren vanuit een AI-tool of script: API-sleutels en curl-voorbeelden voor de Wigo4it deck-API." />
+  <link rel="icon" type="image/svg+xml" href="img/logo/4.svg" />
+  <link rel="stylesheet" href="styles/w4.css" />
+  <link rel="stylesheet" href="styles/tool.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="scripts/tailwind-config.js"></script>
+</head>
+<body class="font-body text-aubergine antialiased w4-tool-body">
+  <div id="w4-nav"></div>
+  <script src="scripts/nav.js"></script>
+
+  <div class="w4-tool-layout">
+    <div id="w4-tool-nav"></div>
+    <script src="scripts/tool-nav.js"></script>
+
+    <main class="w4-tool-main">
+      <header class="w4-tool-head">
+        <h1>Deck-API</h1>
+        <p>
+          Laat een AI-assistent of script presentaties publiceren, zonder browser. Je maakt
+          hieronder een API-sleutel; de tool stuurt de markdown op en krijgt een vaste link terug.
+          Het formaat van de markdown staat in de <a href="deck-syntax.html">deck-readme</a>.
+        </p>
+      </header>
+
+      <div class="w4-doc-page">
+        <section class="w4-doc-card" aria-labelledby="keys-title">
+          <h2 id="keys-title">API-sleutels</h2>
+          <p id="keys-status" role="status" aria-live="polite">Laden…</p>
+          <div id="keys-manage" hidden>
+            <form id="keys-form" class="w4-tool-fieldset" style="max-width: 26rem">
+              <div class="w4-tool-field">
+                <label for="keys-name">Naam van de nieuwe sleutel</label>
+                <input type="text" id="keys-name" placeholder="bijv. Claude Code op mijn laptop" required maxlength="100" />
+              </div>
+              <div class="w4-tool-actions">
+                <button type="submit" class="w4-tool-btn">Maak sleutel</button>
+              </div>
+            </form>
+            <div id="keys-new" hidden>
+              <p>
+                <strong>Kopieer deze sleutel nu.</strong> Hij wordt maar één keer getoond; daarna
+                bewaren we alleen een vingerafdruk.
+              </p>
+              <code class="w4-key-secret" id="keys-secret"></code>
+            </div>
+            <div class="w4-pres-table-wrap">
+              <table class="w4-pres-table" id="keys-table" hidden>
+                <thead>
+                  <tr><th scope="col">Naam</th><th scope="col">Gemaakt</th><th scope="col">Laatst gebruikt</th><th scope="col"><span class="w4-sr-only">Acties</span></th></tr>
+                </thead>
+                <tbody id="keys-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Instellen</h2>
+          <p>Zet de sleutel en het adres in je omgeving, niet in een script of prompt:</p>
+<pre><code>export W4_BRANDBOOK_URL=<span class="js-base">https://brandbook.example</span>
+export W4_BRANDBOOK_KEY=w4_…</code></pre>
+          <p>
+            Een sleutel mag precies wat jij mag: presentaties maken, vervangen en verwijderen.
+            Sleutels beheren kan alleen hier in de browser. Kwijt of gelekt? Trek hem hierboven in.
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Publiceren</h2>
+          <p>
+            Stuur de markdown als JSON. <code>visibility</code> is <code>private</code> (standaard,
+            alleen na inloggen te zien) of <code>public</code> (iedereen met de link).
+            <code>jq</code> zet een bestand veilig om naar een JSON-string:
+          </p>
+<pre><code>jq -n --rawfile md deck.md '{markdown: $md, visibility: "private"}' \
+  | curl -sS -X POST "$W4_BRANDBOOK_URL/api/presentations" \
+      -H "Authorization: Bearer $W4_BRANDBOOK_KEY" \
+      -H "Content-Type: application/json" \
+      --data @-</code></pre>
+          <p>Antwoord (<code>201</code>):</p>
+<pre><code>{
+  "id": "k7m2q",
+  "title": "Kwartaalupdate",
+  "visibility": "private",
+  "url": "<span class="js-base">https://brandbook.example</span>/present/k7m2q",
+  …
+}</code></pre>
+          <p>
+            Optioneel: <code>title</code> (anders leeg; de deck-tool vult hem uit de
+            <code>title:</code> in de front matter) en <code>options</code> met
+            <code>footerText</code> en <code>transition</code> (<code>slide</code>,
+            <code>fade</code>, <code>convex</code>, <code>none</code>).
+          </p>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Vervangen, ophalen, verwijderen</h2>
+          <p>Vervangen houdt de link gelijk. Stuur alleen wat verandert:</p>
+<pre><code>jq -n --rawfile md deck.md '{markdown: $md}' \
+  | curl -sS -X PUT "$W4_BRANDBOOK_URL/api/presentations/k7m2q" \
+      -H "Authorization: Bearer $W4_BRANDBOOK_KEY" \
+      -H "Content-Type: application/json" --data @-
+
+# zichtbaarheid wisselen
+curl -sS -X PUT "$W4_BRANDBOOK_URL/api/presentations/k7m2q" \
+  -H "Authorization: Bearer $W4_BRANDBOOK_KEY" \
+  -H "Content-Type: application/json" -d '{"visibility":"public"}'
+
+# lijst, één ophalen (met markdown), verwijderen
+curl -sS "$W4_BRANDBOOK_URL/api/presentations" -H "Authorization: Bearer $W4_BRANDBOOK_KEY"
+curl -sS "$W4_BRANDBOOK_URL/api/presentations/k7m2q" -H "Authorization: Bearer $W4_BRANDBOOK_KEY"
+curl -sS -X DELETE "$W4_BRANDBOOK_URL/api/presentations/k7m2q" -H "Authorization: Bearer $W4_BRANDBOOK_KEY"</code></pre>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Statuscodes</h2>
+          <ul class="w4-doc-list">
+            <li><code>201</code> aangemaakt, <code>200</code> gelukt, <code>204</code> verwijderd.</li>
+            <li><code>400</code> ongeldige invoer; de reden staat in <code>error</code>.</li>
+            <li><code>401</code> geen of een ingetrokken sleutel.</li>
+            <li>
+              <code>404</code> bestaat niet, of je mag hem niet zien. Die twee onderscheiden we
+              bewust niet, zodat niemand kan raden welke privé links bestaan.
+            </li>
+          </ul>
+        </section>
+
+        <section class="w4-doc-card">
+          <h2>Permalinks</h2>
+          <p>
+            Een link is <code>/present/</code> plus vijf tekens: kleine letters en cijfers, zonder
+            <code>0</code>, <code>1</code>, <code>o</code>, <code>i</code> en <code>l</code>, zodat je hem
+            ook kunt voorlezen. Hoofdletters worden kleine letters.
+          </p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/api-app.js"></script>
+</body>
+</html>

@@ -24,7 +24,7 @@ from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
-ASSETS_URL = "https://wigo4it.github.io/wigo4it-brandbook/assets.json"
+ASSETS_URL = "https://wigo4it-brandbook.azurewebsites.net/assets.json"
 LOCAL_ASSETS = Path(__file__).resolve().parent.parent / "references" / "assets.json"
 
 COLORS = {"green", "aubergine", "blue", "pink", "red", "yellow", "grey", "white"}

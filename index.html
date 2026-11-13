@@ -858,6 +858,67 @@
       </div>
     </section>
 
+    <!-- Werk met AI: de huisstijl-skill -->
+    <section id="werk-met-ai" class="w-full min-h-screen relative bg-dark-green overflow-hidden flex">
+      <div class="w-[42%] min-h-screen flex flex-col justify-start px-[7%] py-[7%]">
+        <h2 class="font-heading font-bold text-white leading-[0.94] text-[clamp(1.8rem,3.2vw,3.4rem)] tracking-tight mb-8">
+          Werk met AI
+        </h2>
+        <div class="max-w-[420px] space-y-5 font-body text-white/90 text-[clamp(0.75rem,1.05vw,1.08rem)] leading-relaxed">
+          <p>
+            De skill <strong>wigo4it-huisstijl</strong> leert Claude onze huisstijl. Vraag om een
+            presentatie of een memo en je krijgt markdown die in de brandbook-tools meteen goed
+            staat.
+          </p>
+          <p>
+            Met een API-sleutel publiceert de skill de presentatie ook zelf, en krijg je de
+            vaste link terug.
+          </p>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="skills/wigo4it-huisstijl.zip" download
+            class="font-heading text-aubergine bg-soft-yellow hover:bg-white rounded-xl px-5 py-3 transition-colors">
+            Download de skill (v2.0.0)
+          </a>
+          <a href="api.html"
+            class="font-heading text-white border border-white/40 hover:bg-white/10 rounded-xl px-5 py-3 transition-colors">
+            API-sleutel maken
+          </a>
+        </div>
+        <p class="mt-4 font-body text-white/70 text-sm max-w-[420px]">
+          Pak de zip uit in <code>~/.claude/skills/</code> (Claude Code) of upload hem bij
+          Instellingen &rarr; Skills (Claude.ai).
+        </p>
+      </div>
+
+      <div class="w-[58%] min-h-screen px-[5%] py-[7%] grid grid-cols-2 gap-5 content-start font-body text-white">
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">Presentaties</p>
+          <p class="text-sm leading-relaxed text-white/85">Bouwt een deck met de juiste layout per slide: cover, agenda, kolommen, tijdlijn, KPI's, contrast en meer.</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">Documenten</p>
+          <p class="text-sm leading-relaxed text-white/85">Memo's, notities, rapporten en handleidingen voor de PDF-tool, met diagrammen in de huisstijl.</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">Direct publiceren</p>
+          <p class="text-sm leading-relaxed text-white/85">Met een API-sleutel zet de skill het deck online, standaard privé, en geeft de link <code>/present/…</code> terug.</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">Vervangen en opruimen</p>
+          <p class="text-sm leading-relaxed text-white/85">Werkt een gepubliceerde presentatie bij zonder dat de link verandert, of haalt hem weg.</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">Kent de assets</p>
+          <p class="text-sm leading-relaxed text-white/85">Gebruikt alleen kleuren, iconen, vormen en foto's die echt in het brandbook staan.</p>
+        </div>
+        <div class="rounded-2xl bg-white/10 p-6">
+          <p class="font-heading text-soft-yellow text-lg mb-2">In het Nederlands</p>
+          <p class="text-sm leading-relaxed text-white/85">Schrijft in onze toon, zonder AI-clichés, en verzint geen cijfers of citaten.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Finale -->
     <section class="w-full h-screen relative bg-light-grey overflow-hidden">
       <!-- Top-right overlapping circles -->

@@ -8,7 +8,11 @@ description: >
   handleiding of ander document voor Wigo4it, of het in de huisstijl wil hebben, of vraagt om iets
   "in ons format", "in de brandbook-stijl" of "met onze sjablonen". Trigger ook bij vragen over
   de deck-syntax, de w4-tokens, welke layout of welke merkkleur je moet gebruiken, en bij vragen
-  naar de beschikbare iconen, vormen en foto's uit de brandbook-assets.
+  naar de beschikbare iconen, vormen en foto's uit de brandbook-assets. Ook bij vragen om een
+  presentatie te publiceren, online te zetten, een link of permalink te maken, of een gepubliceerde
+  presentatie te vervangen of te verwijderen.
+metadata:
+  version: "2.0.0"
 ---
 
 # Wigo4it-huisstijl
@@ -17,14 +21,17 @@ Je maakt hier één ding: een markdown-bestand dat de gebruiker in een brandbook
 De opmaak zit in de tool, niet in het bestand. Jij levert de inhoud plus, bij een presentatie,
 een paar tokens die kleur en layout bepalen.
 
-De tools staan op https://wigo4it.github.io/wigo4it-brandbook/
+De tools staan op https://wigo4it-brandbook.azurewebsites.net/
 
 | Wat de gebruiker wil | Tool | Wat jij maakt |
 | --- | --- | --- |
-| Presentatie, deck, slides, praatplaat | [deck.html](https://wigo4it.github.io/wigo4it-brandbook/deck.html) | markdown met `<!-- w4: ... -->`-tokens |
-| Document, memo, rapport, notitie, plan, handleiding | [pdf.html](https://wigo4it.github.io/wigo4it-brandbook/pdf.html) | gewone markdown, zonder tokens |
+| Presentatie, deck, slides, praatplaat | [deck.html](https://wigo4it-brandbook.azurewebsites.net/deck.html) | markdown met `<!-- w4: ... -->`-tokens |
+| Document, memo, rapport, notitie, plan, handleiding | [pdf.html](https://wigo4it-brandbook.azurewebsites.net/pdf.html) | gewone markdown, zonder tokens |
 
 Twijfel je? Vraag het in één zin. "Wordt dit iets om te presenteren of om te lezen?"
+
+Een presentatie kan de gebruiker ook **online zetten met een vaste link** (`/present/<id>`). Staat
+`W4_BRANDBOOK_KEY` in de omgeving en heb je een shell, dan doe jij dat. Zie "Publiceren" hieronder.
 
 ## Vaste regels
 
@@ -127,6 +134,38 @@ Begin bij `templates/document-start.md` en gooi eruit wat niet nodig is.
 Schrijfstijl in documenten: korte alinea's van drie tot vijf zinnen, een kop boven elk onderwerp,
 en een tabel zodra je meer dan drie dingen naast elkaar zet. Daarna langs `anti-slop-nl`.
 
+## Publiceren
+
+Alleen voor presentaties, en alleen als je een shell hebt (Claude Code) en `W4_BRANDBOOK_KEY` gezet
+is. Controleer dat zonder de sleutel te tonen:
+
+```bash
+test -n "$W4_BRANDBOOK_KEY" && echo "sleutel aanwezig" || echo "geen sleutel"
+```
+
+Geen sleutel? Lever het bestand op zoals onder "Oplevering" staat, en noem in één zin dat publiceren
+ook kan: een sleutel maak je op https://wigo4it-brandbook.azurewebsites.net/api.html. Vraag nooit
+om de sleutel in de chat te plakken.
+
+Wel een sleutel:
+1. **Controleer eerst** met `scripts/check_deck.py`. Publiceer nooit een deck met fouten.
+2. **Standaard privé.** Alleen publiek als de gebruiker dat expliciet vraagt ("voor klanten",
+   "iedereen moet hem kunnen zien", "publiek"). Twijfel je, dan privé en zeg je hoe het om kan.
+3. **Publiceer** met de curl-aanroep uit `references/api.md`. Bewaar het `id` uit het antwoord.
+4. **Bijwerken** van een presentatie die je in dit gesprek al publiceerde: vervang hem (`PUT`) in
+   plaats van een nieuwe te maken. Dan blijft de link gelijk. Gaat het om een presentatie van
+   eerder, vraag dan het id of de link.
+5. **Verwijderen** alleen op uitdrukkelijk verzoek, en noem vooraf welke presentatie (titel en link).
+
+Lever daarna de link op, met de zichtbaarheid erbij:
+
+> Je presentatie staat online: https://wigo4it-brandbook.azurewebsites.net/present/k7m2q
+> Hij is **privé**: alleen collega's die ingelogd zijn kunnen hem zien. Zeg het als hij publiek moet.
+>
+> Bewerken kan hier in het gesprek, of in de tool via "Mijn presentaties" → Bewerk.
+
+Het markdown-bestand schrijf je ook weg, zodat de gebruiker een eigen kopie heeft.
+
 ## Oplevering
 
 Sluit altijd af met een instructie die iemand zonder technische kennis kan volgen. Pas de naam
@@ -134,7 +173,7 @@ van het bestand aan, verder is dit de tekst:
 
 > Het bestand staat klaar als `jaarplan-2026.md`.
 >
-> 1. Ga naar https://wigo4it.github.io/wigo4it-brandbook/deck.html
+> 1. Ga naar https://wigo4it-brandbook.azurewebsites.net/deck.html
 > 2. Sleep het bestand op het grijze vlak links.
 > 3. Je ziet meteen de preview. Klik "Presenteer" voor de volledige presentatie, of
 >    "Deck downloaden als HTML" als je 'm wilt mailen of ergens neerzetten.
@@ -142,7 +181,7 @@ van het bestand aan, verder is dit de tekst:
 > Wil je iets veranderen: zeg het hier, dan pas ik het bestand aan. Zelf sleutelen kan ook,
 > het is gewone tekst.
 
-Voor een document is stap 1 https://wigo4it.github.io/wigo4it-brandbook/pdf.html en stap 3:
+Voor een document is stap 1 https://wigo4it-brandbook.azurewebsites.net/pdf.html en stap 3:
 kies voorblad, titel en footer in het paneel, klik "Exporteer naar PDF", kies in het printvenster
 "Opslaan als PDF" en zet **Achtergrondafbeeldingen** aan. Zonder dat vinkje print het voorblad wit.
 
@@ -158,3 +197,4 @@ kies voorblad, titel en footer in het paneel, klik "Exporteer naar PDF", kies in
 | `templates/deck-start.md` | Werkend skelet voor een presentatie |
 | `templates/document-start.md` | Werkend skelet voor een document |
 | `scripts/check_deck.py` | Controleert een deck-bestand voor je 'm oplevert |
+| `references/api.md` | Publiceren, vervangen en verwijderen via de deck-API |

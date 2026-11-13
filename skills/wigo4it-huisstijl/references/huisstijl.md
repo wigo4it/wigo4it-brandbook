@@ -1,6 +1,6 @@
 # Huisstijl
 
-Het volledige brandbook staat op https://wigo4it.github.io/wigo4it-brandbook/
+Het volledige brandbook staat op https://wigo4it-brandbook.azurewebsites.net/
 
 ## Kleuren
 
@@ -85,4 +85,4 @@ voordat je iets oplevert. Dat is geen optie, dat hoort bij het werk.
 
 Staat een grafiek in een deck of document, dan gaat die als afbeelding naar binnen; de tools maken
 zelf geen grafieken. Houd je aan de merkkleuren en gebruik er niet meer dan vier in één grafiek.
-De patronen staan op https://wigo4it.github.io/wigo4it-brandbook/design-system.html
+De patronen staan op https://wigo4it-brandbook.azurewebsites.net/design-system.html

@@ -1,0 +1,52 @@
+# Deploy naar Azure App Service (zie infra/main.bicep en docs/adr/0001).
+# Vereist de secrets AZURE_CLIENT_ID, AZURE_TENANT_ID en AZURE_SUBSCRIPTION_ID
+# van een app-registratie met een federated credential voor deze repo
+# (branch main) en de rol Website Contributor op rg-brandbook.
+name: Deploy naar Azure
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: "azure"
+  cancel-in-progress: false
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: azure
+      url: https://wigo4it-brandbook.azurewebsites.net
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Build package
+        run: scripts/package-app.sh app.zip
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy
+        run: >
+          az webapp deploy -g rg-brandbook -n wigo4it-brandbook
+          --src-path app.zip --type zip --restart true

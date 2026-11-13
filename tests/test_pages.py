@@ -30,12 +30,20 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 ALLOWED_FAILING_PREFIXES = ()
 
 
+# Mappen die server/app.js niet serveert (PRIVATE_PATHS): geen pagina's.
+PRIVATE_DIRS = {"server", "tests", "infra", "tmp", "node_modules"}
+
+
+def _is_private(parts):
+    return parts[0] in PRIVATE_DIRS or any(part.startswith(".") for part in parts)
+
+
 def discover_pages():
     """Alle .html-pagina's onder de repo-root, relatief en met / als scheider."""
     return sorted(
         p.relative_to(REPO_ROOT).as_posix()
         for p in REPO_ROOT.glob("**/*.html")
-        if "node_modules" not in p.parts
+        if not _is_private(p.relative_to(REPO_ROOT).parts)
     )
 
 
@@ -117,6 +125,8 @@ def test_navbar_fits_on_a_normal_screen(page, server_url, page_path, width):
     page.set_viewport_size({"width": width, "height": 800})
     page.goto(f"{server_url}/{page_path}", wait_until="domcontentloaded")
     page.wait_for_selector("#w4-nav nav ul li a")
+    # Het inlog-element rechts komt pas na /api/me; meet mét dat element erbij.
+    page.wait_for_selector("#w4-nav-account a, #w4-nav-account button")
 
     fit = page.evaluate(
         "() => {"

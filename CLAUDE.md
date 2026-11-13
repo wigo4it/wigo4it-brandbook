@@ -4,21 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Wat dit is
 
-Statisch brandbook voor Wigo4it: losse HTML-pagina's met gedeelde assets. Geen build-stap, geen bundler, geen package.json. Je opent de HTML direct of serveert de repo-root als static site.
+Brandbook voor Wigo4it: losse HTML-pagina's met gedeelde assets, geserveerd door een kleine Node-server (`server/`) die ook presentaties opslaat. De pagina's zelf hebben geen build-stap of bundler; alleen `server/` heeft een `package.json`. Termen staan in `CONTEXT.md`, de hostingkeuze in `docs/adr/0001-app-service-met-sqlite.md`, het v2-plan in `docs/plan-v2.md`.
 
 ## Draaien en deployen
 
-- Lokaal: open een pagina in de browser, of start een static server in de root (`python -m http.server` o.i.d.).
-- Deploy: push naar `main` → GitHub Actions (`.github/workflows/static.yml`) publiceert de **hele repo** naar GitHub Pages. Alles wat je commit gaat mee, ook losse `.md`-bestanden. Deploy draait pas als de CI-gate groen is (`static.yml` roept `ci.yml` aan via `needs: test`).
-- Geen build-stap. Wel een CI-gate: browser-smoke tests met Playwright (`tests/`) plus een `assets.json`-drift-check. Zie hieronder.
+- Lokaal: `cd server && npm install && SESSION_SECRET=x APP_PASSWORD_HASH=$(npm run -s hash-password -- test) npm start` → http://localhost:8080. Een kale static server werkt nog voor alles behalve inloggen en publiceren.
+- Deploy: push naar `main` → `.github/workflows/azure.yml` bouwt een zip (`scripts/package-app.sh`: getrackte bestanden zonder `tests/`, `infra/`, `.github/`, plus productie-`node_modules` en de skill-zip) en zet die op App Service `wigo4it-brandbook` in `rg-brandbook`. Pas na de CI-gate. `static.yml` (GitHub Pages) draait tijdelijk nog mee en gaat uit zodra Azure de enige plek is.
+- Infra: `infra/main.bicep`. Secrets (`SESSION_SECRET`, `APP_PASSWORD_HASH`) geef je mee bij `az deployment group create`; opnieuw uitrollen zonder die parameters overschrijft ze.
+- De server serveert niets uit `server/`, `tests/`, `infra/`, `tmp/`, `docs/adr/` en punt-mappen (`PRIVATE_PATHS` in `server/app.js`).
 
 ## Tests / CI
 
 - De gate staat in `.github/workflows/ci.yml` (draait op elke PR naar `main` én wordt vóór deploy aangeroepen door `static.yml`).
-- Wat het checkt: elke `.html`-pagina serveren via `http.server` en met Playwright/Chromium valideren dat de pagina 200 geeft, geen JS-crash of `console.error` heeft, geen kapotte eigen assets laadt (404 op shape/icon/foto) en echt tekst rendert. Plus: `generate-assets.py` opnieuw draaien en falen als `assets.json` niet meer klopt met `img/`.
+- Servertests: `cd server && npm test` (node:test, API en auth).
+- Wat de browsergate checkt: elke `.html`-pagina serveren via de echte Node-server (`tests/conftest.py` start hem met een lege database en testwachtwoord) en met Playwright/Chromium valideren dat de pagina 200 geeft, geen JS-crash of `console.error` heeft, geen kapotte eigen assets laadt (404 op shape/icon/foto) en echt tekst rendert. Plus: `generate-assets.py` opnieuw draaien en falen als `assets.json` niet meer klopt met `img/`.
 - Bewust buiten de gate: alleen externe CDN's (Tailwind, GSAP). Al het andere dat een pagina van onze eigen origin ophaalt, moet er zijn. Nieuwe pagina's worden automatisch meegetest; de test globt alle `.html` onder de repo-root.
 - Aparte controle: `test_url_references_match_the_filesystem_exactly` loopt elke `url()` in de HTML en CSS na tegen het bestandssysteem, **inclusief hoofdlettergebruik**. De browsertest ziet dat niet: die serveert via Windows, en dat is hoofdletterongevoelig. GitHub Pages draait op Linux en is dat niet.
-- Lokaal draaien: `pip install -r requirements-dev.txt && python -m playwright install chromium && pytest`.
+- `tests/test_present.py`: publiceren in de tool, permalink als buitenstaander, privé achter login.
+- Lokaal draaien: `pip install -r requirements-dev.txt && python -m playwright install chromium && pytest` (Node 24 nodig).
 
 ## Architectuur
 
@@ -63,6 +66,14 @@ Het auteursformaat van een deck staat in de kop van `deck-builder.js` en op `dec
 **Assets** in `img/`: `shapes/` (SVG masks, aangestuurd via `mask`/`-webkit-mask` in de `w4-shape-*` classes), `icons/`, `logo/`, `photos/`. Shapes bestaan vaak als SVG én PNG. Voor donkere achtergronden: gebruik het diapositief-logo `img/logo/Logo Diap.svg`.
 
 `assets.json` is het manifest van die map: vier categorieën (`icons`, `shapes`, `photos`, `logos`), gegenereerd door `scripts/generate-assets.py`. Het is niet alleen een download-manifest voor buiten, het is ook de bestandslijst die de site zelf gebruikt: `logos.html`, `icons.html`, `shapes.html` en `photos.html` vullen er hun galerij mee, en de deck-tool controleert er `shape:`/`icon:` tegen met een suggestie bij een typefout. Die toegang loopt via `scripts/assets.js` (`loadAssets`, `files`, `names`, `suggest`). **Voeg je iets toe aan `img/`, draai dan `python scripts/generate-assets.py`**, anders zie je het nergens terug en faalt de CI-drift-check. Gevolg van deze keuze: die vier pagina's halen een bestand op en werken dus niet meer via `file://`; serveren dus.
+
+## Presentaties opslaan (v2)
+
+- `server/app.js` (routes), `store.js` (SQLite via `node:sqlite`, in `DATA_DIR`, op Azure `/home/data`), `auth.js` (wachtwoord, sessiecookie, API-sleutels), `ids.js` (permalink-ids).
+- Identiteit loopt via één functie: `currentOwner()` in `auth.js`. Fase 1 is één wachtwoord met eigenaar `gedeeld`; voor Entra (Easy Auth) lees je daar `x-ms-client-principal-id`.
+- `/present/<id>` serveert `deck-view.html` met een ingevoegde `<base href="/">`; de viewer haalt de bron uit `/api/presentations/<id>`. Privé zonder recht geeft 404, nooit 403.
+- Frontend: `scripts/brandbook-api.js` is de enige plek met fetch-calls naar de API. `deck.html` (Publiceer/Vervang, `?id=` laadt een bestaande), `presentaties.html`, `api.html` (curl-docs + sleutelbeheer), `login.html`. `nav.js` toont rechts Inloggen/Uitloggen als `/api/me` bereikbaar is.
+- Skill: bron is de repo `wigo4it-claude-skills`; `skills/wigo4it-huisstijl/` hier is een kopie. De zip wordt bij deploy gebouwd en is niet ingecheckt.
 
 ## Merk
 

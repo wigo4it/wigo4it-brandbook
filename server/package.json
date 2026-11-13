@@ -1,0 +1,14 @@
+{
+  "name": "wigo4it-brandbook-server",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "hash-password": "node hash-password.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
