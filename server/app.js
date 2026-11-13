@@ -136,12 +136,36 @@ export function createApp({ root, store, passwordHash, sessionSecret, baseUrl = 
   // deck-view.html gebruikt relatieve paden (styles/…, scripts/…). Onder
   // /present/<id> zouden die naar /present/styles/… wijzen; een <base> zet ze
   // terug op de root. Of de presentatie bestaat, beslist de viewer via de API.
-  const viewer = () => readFileSync(join(root, 'deck-view.html'), 'utf8')
-    .replace('<head>', '<head>\n  <base href="/" />');
+  //
+  // Linkpreviews (Teams, Slack, …) draaien geen JS, dus titel en og-tags gaan
+  // er hier al in. Alleen bij publieke presentaties: een privétitel lekt niet.
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+  const viewer = (req, p) => {
+    let html = readFileSync(join(root, 'deck-view.html'), 'utf8');
+    const head = ['<base href="/" />'];
+    if (p?.visibility === 'public') {
+      const title = `${p.title?.trim() || 'Presentatie'} | Wigo4it`;
+      const description = 'Presentatie in de Wigo4it-huisstijl.';
+      const origin = baseUrl || `${req.protocol}://${req.get('host')}`;
+      html = html
+        .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
+        .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(description)}" />`);
+      head.push(
+        `<meta property="og:type" content="website" />`,
+        `<meta property="og:site_name" content="Wigo4it" />`,
+        `<meta property="og:title" content="${esc(title)}" />`,
+        `<meta property="og:description" content="${esc(description)}" />`,
+        `<meta property="og:url" content="${esc(permalink(req, p.id))}" />`,
+        `<meta property="og:image" content="${esc(`${origin}/img/logo/W4_logo_M365.png`)}" />`,
+        `<meta name="twitter:card" content="summary" />`,
+      );
+    }
+    return html.replace('<head>', `<head>\n  ${head.join('\n  ')}`);
+  };
   app.get('/present/:id', (req, res) => {
     const id = normalizeId(req.params.id);
     if (id && id !== req.params.id) return res.redirect(301, `/present/${id}`);
-    res.status(id ? 200 : 404).type('html').send(viewer());
+    res.status(id ? 200 : 404).type('html').send(viewer(req, id && store.get(id)));
   });
 
   app.use((req, res, next) => (PRIVATE_PATHS.test(req.path) ? res.status(404).end() : next()));

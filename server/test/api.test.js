@@ -118,6 +118,17 @@ test('/present/<id> serveert de viewer en normaliseert hoofdletters', async () =
   assert.equal(upper.headers.get('location'), '/present/ab3k9');
 });
 
+test('/present/<id> zet titel en og-tags voor linkpreviews, alleen bij publiek', async () => {
+  const pub = await (await call('/api/presentations', { method: 'POST', body: { markdown: '# p', title: 'Bouwen & <blokken>', visibility: 'public' } })).json();
+  const priv = await (await call('/api/presentations', { method: 'POST', body: { markdown: '# p', title: 'Geheim plan' } })).json();
+  const pubHtml = await (await fetch(`${base}/present/${pub.id}`)).text();
+  assert.match(pubHtml, /<title>Bouwen &#38; &#60;blokken&#62; \| Wigo4it<\/title>/);
+  assert.match(pubHtml, /property="og:title" content="Bouwen &#38; &#60;blokken&#62; \| Wigo4it"/);
+  assert.match(pubHtml, /property="og:image" content="[^"]+\/img\/logo\/W4_logo_M365\.png"/);
+  const privHtml = await (await fetch(`${base}/present/${priv.id}`)).text();
+  assert.doesNotMatch(privHtml, /Geheim plan|og:title/);
+});
+
 test('repo-interne mappen worden niet geserveerd', async () => {
   for (const path of ['/server/app.js', '/tests/conftest.py', '/.git/config', '/docs/adr/0001-app-service-met-sqlite.md', '/docs/plan-v2.md']) {
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
